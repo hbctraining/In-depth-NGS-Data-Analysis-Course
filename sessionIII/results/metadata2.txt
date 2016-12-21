@@ -1,0 +1,13 @@
+age	litter	Rpos
+sample4	e8	1	yes
+sample2	e8	2	no
+sample8	e10	3	yes
+sample7	e8	2	yes
+sample5	e10	3	no
+sample9	e8	1	no
+sample10	e8	1	yes
+sample1	e8	2	no
+sample6	e10	3	yes
+sample12	e8	2	yes
+sample3	e10	3	yes
+sample11	e8	1	no

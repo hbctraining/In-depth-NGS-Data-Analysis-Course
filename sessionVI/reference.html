@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Software Carpentry: Version Control with Git</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://software-carpentry.org" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Version Control with Git</h1></a>
+          <h2 class="subtitle">Reference</h2>
+          <h2 id="setting-up-git"><a href="02-setup.html">Setting Up Git</a></h2>
+<ul>
+<li>Use <code>git config</code> to configure a user name, email address, editor, and other preferences once per machine.</li>
+</ul>
+<h2 id="creating-a-repository"><a href="03-create.html">Creating a Repository</a></h2>
+<ul>
+<li><code>git init</code> initializes a repository.</li>
+</ul>
+<h2 id="tracking-changes"><a href="04-changes.html">Tracking Changes</a></h2>
+<ul>
+<li><code>git status</code> shows the status of a repository.</li>
+<li>Files can be stored in a project’s working directory (which users see), the staging area (where the next commit is being built up) and the local repository (where revisions are permanently recorded).</li>
+<li><code>git add</code> puts files in the staging area.</li>
+<li><code>git commit</code> saves the revisions in the staging area to the local repository.</li>
+<li>Always write a log message when committing changes.</li>
+</ul>
+<h2 id="exploring-history"><a href="05-history.html">Exploring History</a></h2>
+<ul>
+<li><code>git diff</code> displays differences between revisions.</li>
+<li><code>git checkout</code> recovers old versions of files.</li>
+</ul>
+<h2 id="ignoring-things"><a href="06-ignore.html">Ignoring Things</a></h2>
+<ul>
+<li>The <code>.gitignore</code> file tells Git what files to ignore.</li>
+</ul>
+<h2 id="remotes-in-github"><a href="07-github.html">Remotes in GitHub</a></h2>
+<ul>
+<li>A local Git repository can be connected to one or more remote repositories.</li>
+<li>Use the HTTPS protocol to connect to remote repositories until you have learned how to set up SSH.</li>
+<li><code>git push</code> copies changes from a local repository to a remote repository.</li>
+<li><code>git pull</code> copies changes from a remote repository to a local repository.</li>
+</ul>
+<h2 id="collaborating"><a href="08-collab.html">Collaborating</a></h2>
+<ul>
+<li><code>git clone</code> copies a remote repository to create a local repository with a remote called <code>origin</code> automatically set up.</li>
+</ul>
+<h2 id="conflicts"><a href="09-conflict.html">Conflicts</a></h2>
+<ul>
+<li>Conflicts occur when two or more people change the same file(s) at the same time.</li>
+<li>The version control system does not allow people to blindly overwrite each other’s changes. Instead, it highlights conflicts so that they can be resolved.</li>
+</ul>
+<h2 id="open-science"><a href="10-open.html">Open Science</a></h2>
+<ul>
+<li>Open scientific work is more useful and more highly cited than closed.</li>
+</ul>
+<h2 id="licensing"><a href="11-licensing.html">Licensing</a></h2>
+<ul>
+<li>People who incorporate GPL’d software into their own software must make their software also open under the GPL license; most other open licenses do not require this.</li>
+<li>The Creative Commons family of licenses allow people to mix and match requirements and restrictions on attribution, creation of derivative works, further sharing, and commercialization.</li>
+<li>People who are not lawyers should not try to write licenses from scratch.</li>
+</ul>
+<h2 id="hosting"><a href="12-hosting.html">Hosting</a></h2>
+<ul>
+<li>Projects can be hosted on university servers, on personal domains, or on public forges.</li>
+<li>Rules regarding intellectual property and storage of sensitive information apply no matter where code and data are hosted.</li>
+</ul>
+<h2 id="glossary">Glossary</h2>
+<dl>
+<dt><span id="change-set">change set</span></dt>
+<dd>A group of changes to one or more files that are or will be added to a single <a href="#commit">commit</a> in a <a href="#version-control">version control</a> <a href="#repository">repository</a>.
+</dd>
+<dt><span id="commit">commit</span></dt>
+<dd>To record the current state of a set of files (a <a href="#changeset">change set</a>) in a <a href="#version-control">version control</a> <a href="#repository">repository</a>. As a noun, the result of commiting, i.e. a recorded change set in a repository. If a commit contains changes to multiple files, all of the changes are recorded together.
+</dd>
+<dt><span id="conflict">conflict</span></dt>
+<dd>A change made by one user of a <a href="#version-control">version control system</a> that is incompatible with changes made by other users. Helping users <a href="#resolve">resolve</a> conflicts is one of version control’s major tasks.
+</dd>
+<dt><span id="http">HTTP</span></dt>
+<dd>The Hypertext Transfer <a href="#protocol">Protocol</a> used for sharing web pages and other data on the World Wide Web.
+</dd>
+<dt><span id="infective-license">infective license</span></dt>
+<dd>A license, such as the <a href="http://opensource.org/licenses/GPL-3.0">GPL</a>, that legally requires people who incorporate material under the infective license into their own work to also release under the same infective license (eg. under the GPL license).
+</dd>
+<dt><span id="merge">merge</span></dt>
+<dd>(a repository): To reconcile two sets of changes to a <a href="#repository">repository</a>.
+</dd>
+<dt><span id="protocol">protocol</span></dt>
+<dd>A set of rules that define how one computer communicates with another. Common protocols on the Internet include <a href="#http">HTTP</a> and <a href="#ssh">SSH</a>.
+</dd>
+<dt><span id="remote">remote</span></dt>
+<dd>(of a repository) A version control <a href="#repository">repository</a> connected to another, in such way that both can be kept in sync exchanging <a href="#commit">commits</a>.
+</dd>
+<dt><span id="repository">repository</span></dt>
+<dd>A storage area where a <a href="#version-control">version control</a> system stores the full history of <a href="#commit">commits</a> of a project and information about who changed what, when.
+</dd>
+<dt><span id="resolve">resolve</span></dt>
+<dd>To eliminate the <a href="#conflict">conflicts</a> between two or more incompatible changes to a file or set of files being managed by a <a href="#version-control">version control</a> system.
+</dd>
+<dt><span id="revision">revision</span></dt>
+<dd>A recorded <a href="#change-set">change set</a> of a <a href="#version-control">version control</a> <a href="#repository">repository</a>. The same as a <a href="#commit">commit</a>.
+</dd>
+<dt><span id="ssh">SSH</span></dt>
+<dd>The Secure Shell <a href="#protocol">protocol</a> used for secure communication between computers.
+</dd>
+<dt><span id="timestamp">timestamp</span></dt>
+<dd>A record of when a particular event occurred.
+</dd>
+<dt><span id="version-control">version control</span></dt>
+<dd>A tool for managing changes to a set of files. Each set of changes creates a new <a href="#commit">commit</a> of the files; the version control system allows users to recover old commits reliably, and helps manage conflicting changes made by different users.
+</dd>
+</dl>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/git-novice">Source</a>
+        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>

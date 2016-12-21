@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+#BSUB -q priority       # Partition to submit to (comma separated)
+#BSUB -n 6                  # Number of cores
+#BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
+#BSUB -R "rusage[mem=4000]"    # Memory in MB
+#BSUB -J rnaseq_mov10         # Job name
+#BSUB -o %J.out       # File to which standard out will be written
+#BSUB -e %J.err       # File to which standard err will be written
+
+
+for fq in data/trimmed_fastq/*.fq
+do
+  sh rnaseq_analysis_on_allfiles.sh $fq
+done
+
+countmatrix=results/counts/Mov10_rnaseq_counts.txt
+
+# Concatenate all count files into a single count matrix
+paste results/counts/Mov10_oe_1.counts results/counts/Mov10_oe_2.counts results/counts/Mov10_oe_3.counts results/counts/Irrel_kd_1.counts results/counts/Irrel_kd_2.counts results/counts/Irrel_kd_3.counts | awk '{print$1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12}' | grep -v "^__" > $countmatrix
+
+

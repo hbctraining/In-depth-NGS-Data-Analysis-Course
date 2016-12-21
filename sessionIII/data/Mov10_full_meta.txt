@@ -1,0 +1,9 @@
+	sampletype	MOVexpr
+Mov10_kd_2	MOV10_knockdown	low
+Mov10_kd_3	MOV10_knockdown	low
+Mov10_oe_1	MOV10_overexpression	high
+Mov10_oe_2	MOV10_overexpression	high
+Mov10_oe_3	MOV10_overexpression	high
+Irrel_kd_1	control	normal
+Irrel_kd_2	control	normal
+Irrel_kd_3	control	normal

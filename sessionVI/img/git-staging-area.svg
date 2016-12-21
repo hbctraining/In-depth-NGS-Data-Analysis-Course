@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="622px"
+	 height="218px" viewBox="0 0 622 218" enable-background="new 0 0 622 218" xml:space="preserve">
+<g id="Layer_5">
+	<path fill="#B5B5B5" stroke="#FFFFFF" stroke-miterlimit="10" d="M598,23c0-8.284-6.716-15-15-15H198c-8.284,0-15,6.716-15,15v167
+		c0,8.284,6.716,15,15,15h385c8.284,0,15-6.716,15-15V23z"/>
+	<rect x="197" y="19" fill="none" width="70" height="28"/>
+	<text transform="matrix(1 0 0 1 197 31.4199)" font-family="'Consolas'" font-size="18">.git</text>
+</g>
+<g id="Layer_3">
+	<g>
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="303.499" y1="83.9863" x2="303.499" y2="139.2339">
+			<stop  offset="0.0982" style="stop-color:#C4C4C4"/>
+			<stop  offset="0.5326" style="stop-color:#686868"/>
+			<stop  offset="1" style="stop-color:#000000"/>
+		</linearGradient>
+		<path fill="url(#SVGID_1_)" stroke="#231F20" stroke-miterlimit="10" d="M253.453,138.206c0-9.264,22.404-16.778,50.047-16.778
+			s50.045,7.514,50.045,16.778v1.028c0,0,0-2.115,0-3.117c0-1.006,0-35.744,0-35.744v0.394c0-9.27-22.402-16.78-50.045-16.78
+			s-50.047,7.51-50.047,16.78v-0.394c0,0,0,34.519,0,35.733c0,1.205,0,3.128,0,3.128V138.206z"/>
+		<g>
+			<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M353.545,100.373c0,0,0,34.738,0,35.744
+				c0,1.002,0.355,3.117,0.355,3.117c0,9.271-22.758,16.78-50.4,16.78s-50.4-7.509-50.4-16.78c0,0,0.354-1.923,0.354-3.128
+				c0-1.214,0-35.733,0-35.733c0,9.274,22.404,16.785,50.047,16.785S353.545,109.647,353.545,100.373z"/>
+		</g>
+	</g>
+	<g>
+		<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="341.719,94.965 282.411,94.965 269.235,109.459 
+			328.542,109.459 		"/>
+		<line fill="none" stroke="#70BF41" stroke-width="2" x1="282.411" y1="100.894" x2="331.165" y2="100.894"/>
+	</g>
+</g>
+<g id="Layer_4">
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="537.1768" y1="17.6602" x2="537.1768" y2="72.9126">
+		<stop  offset="0.0982" style="stop-color:#C4C4C4"/>
+		<stop  offset="0.5326" style="stop-color:#686868"/>
+		<stop  offset="1" style="stop-color:#000000"/>
+	</linearGradient>
+	<path fill="url(#SVGID_2_)" stroke="#231F20" stroke-miterlimit="10" d="M487.13,71.882c0-9.268,22.407-16.781,50.047-16.781
+		c27.641,0,50.047,7.513,50.047,16.781v1.03c0,0,0-2.118,0-3.121s0-35.739,0-35.739v0.388c0-9.268-22.406-16.781-50.047-16.781
+		c-27.64,0-50.047,7.513-50.047,16.781v-0.388c0,0,0,34.519,0,35.728s0,3.132,0,3.132V71.882z"/>
+	<g>
+		<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M587.021,111.284c0,0,0,34.737,0,35.739
+			c0,1.003,0.354,3.122,0.354,3.122c0,9.268-22.76,16.779-50.4,16.779c-27.64,0-50.399-7.512-50.399-16.779
+			c0,0,0.353-1.923,0.353-3.132s0-35.729,0-35.729c0,9.268,22.407,16.78,50.047,16.78
+			C564.614,128.064,587.021,120.551,587.021,111.284z"/>
+	</g>
+	<g>
+		<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M587.021,72.601c0,0,0,34.736,0,35.739
+			c0,1.002,0.354,3.12,0.354,3.12c0,9.268-22.76,16.78-50.4,16.78c-27.64,0-50.399-7.513-50.399-16.78c0,0,0.353-1.923,0.353-3.132
+			s0-35.728,0-35.728c0,9.268,22.407,16.78,50.047,16.78C564.614,89.381,587.021,81.869,587.021,72.601z"/>
+	</g>
+	<g>
+		<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M587.021,33.628c0,0,0,34.737,0,35.739s0.354,3.12,0.354,3.12
+			c0,9.269-22.76,16.781-50.4,16.781c-27.64,0-50.399-7.513-50.399-16.781c0,0,0.353-1.922,0.353-3.131s0-35.728,0-35.728
+			c0,9.268,22.407,16.78,50.047,16.78C564.614,50.409,587.021,42.896,587.021,33.628z"/>
+	</g>
+	<g>
+		<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="573.216,26.381 513.908,26.381 500.732,40.875 
+			560.039,40.875 		"/>
+		<line fill="none" stroke="#70BF41" stroke-width="2" x1="513.908" y1="32.311" x2="562.662" y2="32.311"/>
+	</g>
+</g>
+<g id="Layer_1">
+	<g>
+		<rect x="24" y="45" fill="#DCDEE0" width="100" height="128"/>
+		<rect x="24" y="45" fill="none" stroke="#85888D" stroke-width="2" width="100" height="128"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="37" y1="65" x2="111" y2="65"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="37" y1="71" x2="111" y2="71"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="37" y1="77" x2="111" y2="77"/>
+		<line fill="none" stroke="#70BF41" stroke-width="2" x1="37" y1="89" x2="111" y2="89"/>
+	</g>
+</g>
+<g id="Layer_2">
+	<g>
+		<rect x="150.871" y="96.768" fill="#45BEEE" width="45.956" height="30.604"/>
+		<polygon fill="#45BEEE" points="193.467,81.571 193.467,141.696 234.02,111.163 		"/>
+	</g>
+	<rect x="164" y="106.069" fill="none" width="52.743" height="14"/>
+	<text transform="matrix(1 0 0 1 164 114.3496)" font-family="'Consolas'" font-size="12">git add</text>
+	<g>
+		<rect x="381.251" y="96.768" fill="#45BEEE" width="45.956" height="30.604"/>
+		<polygon fill="#45BEEE" points="423.847,81.571 423.847,141.696 464.399,111.163 		"/>
+	</g>
+	<rect x="376.98" y="106.069" fill="none" width="85.542" height="14"/>
+	<text transform="matrix(1 0 0 1 386.7637 114.3496)" font-family="'Consolas'" font-size="12">git commit</text>
+	<rect x="229" y="166" fill="none" width="147" height="17"/>
+	<text transform="matrix(1 0 0 1 269.4766 174.6279)" font-family="'Helvetica'" font-size="12">staging area</text>
+	<rect x="464.785" y="179" fill="none" width="147" height="17"/>
+	<text transform="matrix(1 0 0 1 511.9414 187.6279)" font-family="'Helvetica'" font-size="12">repository</text>
+</g>
+</svg>

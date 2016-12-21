@@ -1,0 +1,13 @@
+genotype,celltype,replicate
+sample1,Wt,typeA,1
+sample2,Wt,typeA,2
+sample3,Wt,typeA,3
+sample4,KO,typeA,1
+sample5,KO,typeA,2
+sample6,KO,typeA,3
+sample7,Wt,typeB,1
+sample8,Wt,typeB,2
+sample9,Wt,typeB,3
+sample10,KO,typeB,1
+sample11,KO,typeB,2
+sample12,KO,typeB,3

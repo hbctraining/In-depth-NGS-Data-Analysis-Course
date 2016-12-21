@@ -1,0 +1,13 @@
+samplename,genotype,celltype,replicate,samplemeans,age_in_days
+sample2,Wt,typeA,2,10.849759056832,40
+sample5,KO,typeA,2,15.590184400502,32
+sample7,Wt,typeB,1,15.5222187876232,38
+sample8,Wt,typeB,2,13.8082805694713,35
+sample9,Wt,typeB,3,14.1083992182043,41
+sample4,KO,typeA,1,15.8338719035141,32
+sample6,KO,typeA,3,15.5515290724971,34
+sample12,KO,typeB,3,9.75473298246438,26
+sample3,Wt,typeA,3,9.45251675773249,28
+sample11,KO,typeB,2,10.7783183243052,28
+sample10,KO,typeB,1,10.7432920099742,30
+sample1,Wt,typeA,1,10.2661021012543,32

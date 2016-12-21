@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="622px"
+	 height="355px" viewBox="0 0 622 355" enable-background="new 0 0 622 355" xml:space="preserve">
+<g id="Layer_5">
+	<path fill="#B5B5B5" stroke="#FFFFFF" stroke-miterlimit="10" d="M290,43c0-8.284-6.716-15-15-15H60c-8.284,0-15,6.716-15,15v257
+		c0,8.284,6.716,15,15,15h215c8.284,0,15-6.716,15-15V43z"/>
+	<rect x="60" y="41" fill="none" width="70" height="28"/>
+	<text transform="matrix(1 0 0 1 60 53.4199)" font-family="'Consolas'" font-size="18">.git</text>
+</g>
+<g id="Layer_3">
+</g>
+<g id="Layer_4">
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="167.3911" y1="84.6602" x2="167.3911" y2="139.9126">
+		<stop  offset="0.0982" style="stop-color:#C4C4C4"/>
+		<stop  offset="0.5326" style="stop-color:#686868"/>
+		<stop  offset="1" style="stop-color:#000000"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" stroke="#231F20" stroke-miterlimit="10" d="M117.345,138.883c0-9.268,22.407-16.781,50.047-16.781
+		c27.641,0,50.047,7.514,50.047,16.781v1.029c0,0,0-2.117,0-3.12s0-35.739,0-35.739v0.389c0-9.268-22.406-16.781-50.047-16.781
+		c-27.64,0-50.047,7.514-50.047,16.781v-0.389c0,0,0,34.52,0,35.729s0,3.131,0,3.131V138.883z"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="167.3911" y1="154.6602" x2="167.3911" y2="209.9121">
+		<stop  offset="0.0982" style="stop-color:#C4C4C4"/>
+		<stop  offset="0.5326" style="stop-color:#686868"/>
+		<stop  offset="1" style="stop-color:#000000"/>
+	</linearGradient>
+	<path fill="url(#SVGID_2_)" stroke="#231F20" stroke-miterlimit="10" d="M117.345,208.883c0-9.268,22.407-16.781,50.047-16.781
+		c27.641,0,50.047,7.514,50.047,16.781v1.029c0,0,0-2.117,0-3.12s0-35.739,0-35.739v0.389c0-9.268-22.406-16.781-50.047-16.781
+		c-27.64,0-50.047,7.514-50.047,16.781v-0.389c0,0,0,34.52,0,35.729s0,3.131,0,3.131V208.883z"/>
+	<g>
+		<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M217.235,208.283c0,0,0,34.738,0,35.74s0.354,3.121,0.354,3.121
+			c0,9.268-22.76,16.779-50.4,16.779c-27.64,0-50.399-7.512-50.399-16.779c0,0,0.353-1.924,0.353-3.133s0-35.729,0-35.729
+			c0,9.268,22.407,16.781,50.047,16.781C194.829,225.064,217.235,217.551,217.235,208.283z"/>
+	</g>
+	<g>
+		<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M217.235,169.602c0,0,0,34.736,0,35.738s0.354,3.121,0.354,3.121
+			c0,9.268-22.76,16.779-50.4,16.779c-27.64,0-50.399-7.512-50.399-16.779c0,0,0.353-1.924,0.353-3.133s0-35.727,0-35.727
+			c0,9.268,22.407,16.779,50.047,16.779C194.829,186.381,217.235,178.869,217.235,169.602z"/>
+	</g>
+	<g>
+		<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="204.086,165.774 144.778,165.774 131.603,180.269 
+			190.909,180.269 		"/>
+		<line fill="none" stroke="#B285BC" stroke-width="2" x1="145.778" y1="169.704" x2="194.532" y2="169.704"/>
+		<line fill="none" stroke="#B285BC" stroke-width="2" x1="141.778" y1="174.704" x2="190.532" y2="174.704"/>
+	</g>
+	<g>
+		<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="202.775,156 143.468,156 130.292,170.494 
+			189.599,170.494 		"/>
+		<line fill="none" stroke="#70BF41" stroke-width="2" x1="143.468" y1="161.93" x2="192.222" y2="161.93"/>
+	</g>
+	<g>
+		<path fill="#FFFFFF" stroke="#231F20" stroke-miterlimit="10" d="M217.235,100.629c0,0,0,34.736,0,35.738
+			c0,1.003,0.354,3.121,0.354,3.121c0,9.268-22.76,16.781-50.4,16.781c-27.64,0-50.399-7.514-50.399-16.781
+			c0,0,0.353-1.923,0.353-3.132s0-35.728,0-35.728c0,9.268,22.407,16.779,50.047,16.779
+			C194.829,117.408,217.235,109.896,217.235,100.629z"/>
+	</g>
+</g>
+<g id="Layer_1">
+	<g>
+		<g>
+			<rect x="462" y="35" fill="#DCDEE0" width="100" height="128"/>
+			<rect x="462" y="35" fill="none" stroke="#85888D" stroke-width="2" width="100" height="128"/>
+			<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="55" x2="549" y2="55"/>
+			<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="61" x2="549" y2="61"/>
+			<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="67" x2="549" y2="67"/>
+			<line fill="none" stroke="#70BF41" stroke-width="2" x1="475" y1="79" x2="549" y2="79"/>
+		</g>
+		<rect x="465.629" y="149" fill="none" width="92.742" height="14"/>
+		<text transform="matrix(1 0 0 1 482.3105 157.2803)" font-family="'Consolas'" font-size="12">FILE1.txt</text>
+	</g>
+	<g>
+		<rect x="462" y="176" fill="#DCDEE0" width="100" height="128"/>
+		<rect x="462" y="176" fill="none" stroke="#85888D" stroke-width="2" width="100" height="128"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="196" x2="549" y2="196"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="202" x2="549" y2="202"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="208" x2="549" y2="208"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="237.514" x2="549" y2="237.514"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="243.514" x2="549" y2="243.514"/>
+		<line fill="none" stroke="#000000" stroke-width="2" x1="475" y1="249.514" x2="549" y2="249.514"/>
+		<line fill="none" stroke="#B285BC" stroke-width="2" x1="475" y1="220" x2="549" y2="220"/>
+		<line fill="none" stroke="#B285BC" stroke-width="2" x1="475" y1="226" x2="549" y2="226"/>
+		<rect x="465.629" y="290" fill="none" width="92.742" height="14"/>
+		<text transform="matrix(1 0 0 1 482.3105 298.2803)" font-family="'Consolas'" font-size="12">FILE2.txt</text>
+	</g>
+	<rect x="54" y="106.804" fill="none" width="54.512" height="18.362"/>
+	<text transform="matrix(1 0 0 1 66.1143 116.3052)" fill="#231F20" font-family="'Consolas'" font-size="13.7699">HEAD</text>
+	<rect x="54" y="183.696" fill="none" width="54.512" height="18.362"/>
+	<text transform="matrix(1 0 0 1 58.5435 193.1973)" fill="#231F20" font-family="'Consolas'" font-size="13.7699">HEAD~1</text>
+	<rect x="54" y="230.833" fill="none" width="54.512" height="18.362"/>
+	<text transform="matrix(1 0 0 1 58.5435 240.334)" fill="#231F20" font-family="'Consolas'" font-size="13.7699">HEAD~2</text>
+	<rect x="144.799" y="241.939" fill="none" width="42.712" height="10.2"/>
+	<text transform="matrix(1 0 0 1 149.5942 247.8779)" fill="#231F20" font-family="'Consolas'" font-size="8.6062">892134f</text>
+	<rect x="144.799" y="200.056" fill="none" width="42.712" height="10.2"/>
+	<text transform="matrix(1 0 0 1 149.5942 205.9941)" fill="#231F20" font-family="'Consolas'" font-size="8.6062">f22b25e</text>
+	<rect x="144.799" y="127.859" fill="none" width="42.712" height="10.2"/>
+	<text transform="matrix(1 0 0 1 149.5942 133.7979)" fill="#231F20" font-family="'Consolas'" font-size="8.6062">3a54f76</text>
+</g>
+<g id="Layer_2">
+	<g>
+		<g>
+			<rect x="265.466" y="173.768" fill="#45BEEE" width="135.956" height="30.604"/>
+			<polygon fill="#45BEEE" points="398.062,158.571 398.062,218.695 438.614,188.163 			"/>
+		</g>
+		<rect x="265.661" y="175.882" fill="none" width="168.076" height="39.375"/>
+		<text transform="matrix(1 0 0 1 287.0215 184.1621)"><tspan x="0" y="0" font-family="'Consolas'" font-size="12">git checkout HEAD~1</tspan><tspan x="56.08" y="9" font-family="'Consolas'" font-size="12">or </tspan><tspan x="-3.299" y="18" font-family="'Consolas'" font-size="12">git checkout f22b25e</tspan></text>
+	</g>
+	<rect x="92" y="286" fill="none" width="147" height="17"/>
+	<text transform="matrix(1 0 0 1 139.1562 294.6279)" font-family="'Helvetica'" font-size="12">repository</text>
+</g>
+</svg>
