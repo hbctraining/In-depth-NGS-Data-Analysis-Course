@@ -4,5 +4,5 @@ git pull origin newest_branch
 git checkout newest_branch
 git merge -s ours master
 git checkout master
-git merge newest branch
+git merge newest_branch
 ```
