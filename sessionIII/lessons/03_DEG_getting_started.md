@@ -154,7 +154,7 @@ Remember, that there are other factors that are proportional to the read counts 
 dds <- estimateSizeFactors(dds)
 ```
 
-By assiging the results back to the `dds` object we are filling in the slots of the `DESeqDataSet` object with the appropriate information. We can take a look at the normalization factor applied to each sample using:
+By assigning the results back to the `dds` object we are filling in the slots of the `DESeqDataSet` object with the appropriate information. We can take a look at the normalization factor applied to each sample using:
 
 ```r
 sizeFactors(dds)
