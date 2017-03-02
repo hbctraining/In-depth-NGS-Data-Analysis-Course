@@ -145,11 +145,7 @@ Let's explore our `chr1-hg19_genes.gtf` file a bit. What information does it con
 
 > The GTF file is a tab-delimited gene annotation file often used in NGS analyses. For more information on this file format, check out the [Ensembl site](http://useast.ensembl.org/info/website/upload/gff.html). 
 
-The columns in the **GTF file contain the genomic coordinates of gene features (exon, start_codon, stop_codon, CDS) and the gene_names, transcript_ids and protein_ids (p_id) associated with these features**. Note that sometimes an exon can be associated with multiple different genes and/or transcripts. For example, 
-
-`$ grep FAM138* chr1-hg19_genes.gtf | head -n 5`
-
-This search returns two different genes, FAM138A and FAM138F, that contain the same exon.
+The columns in the **GTF file contain the genomic coordinates of gene features (exon, start_codon, stop_codon, CDS) and the gene_names, transcript_ids and protein_ids (p_id) associated with these features**. Note that sometimes an exon can be associated with multiple different transcripts or gene isoforms. For example, 
 
 `$ grep PLEKHN1 chr1-hg19_genes.gtf | head -n 5`
 
@@ -193,7 +189,7 @@ We only want the exons (not CDS or start_codon features), so let's use `grep` to
 `$ grep exon chr1-hg19genes_cut > chr1_exons`
 
 #### Removing duplicate exons
-Now, we need to remove those exons that show up multiple times for different genes or transcripts.    
+Now, we need to remove those exons that show up multiple times for different transcripts.    
 
 We can use a new tool, `sort`, to remove exons that show up more than once.  We can use the `sort` command with the `-u` option to return only unique lines.
 
