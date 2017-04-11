@@ -389,13 +389,13 @@ Look at the expression levels of Mov10 for three different isoforms using the `a
 >
 >```
 >ggplot(boot_mov10_443, aes(sample, est_counts + 1, fill = sampletype)) + 
-        geom_boxplot() + 
-        facet_wrap(~target_id, ncol = 1) + 
-        theme_bw() + 
-        scale_y_log10() + 
-        theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-        ylab("estimated counts") + 
-        xlab("")
+>        geom_boxplot() + 
+>        facet_wrap(~target_id, ncol = 1) + 
+>        theme_bw() + 
+>        scale_y_log10() + 
+>        theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+>        ylab("estimated counts") + 
+>        xlab("")
 >```
 >
 >The technical variation associated with the transcript abundance estimates for each sample is represented by the box plots. The biological variation is observed by viewing across biological replicates. This isoform of Mov10 shows the expected pattern of expression, with high expression in the Mov10 over-expressed samples and lower expression in the Mov10 knockdown samples.
