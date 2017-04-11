@@ -50,11 +50,11 @@ In addition to performing differential expression analysis of transcripts, the s
 
 ## Set-up for Running Sleuth on Orchestra
 
-While Sailfish and Sleuth are lightweight algorithms that can be quickly run on a laptop computer [[2](https://rawgit.com/pachterlab/sleuth/master/inst/doc/intro.html)], it is more efficient to run Sleuth on Orchestra. 
+While Salmon and Sleuth are lightweight algorithms that can be quickly run on a laptop computer [[2](https://rawgit.com/pachterlab/sleuth/master/inst/doc/intro.html)], it is more efficient to run Sleuth on Orchestra. 
 
 ### Setting up the filesystem
 
-Let's get started by setting up our directory. First let's copy over our metadata and the full sailfish output files. 
+Let's get started by setting up our directory. First let's copy over our metadata and the full Salmon output files. 
 
 ```bash
 $ bsub -Is -R "rusage[mem=16000]" -q interactive bash
@@ -63,7 +63,7 @@ $ cd ~/ngs_course/rnaseq
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/snapshots/meta/Mov10_full_meta.txt meta/
 
-$ cp -r /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/snapshots/sailfish/* sailfish/
+$ cp -r /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/snapshots/salmon/* salmon/
 ```
 
 Now let's make a folder for our sleuth results and load the R module to run it.
@@ -120,16 +120,16 @@ library(biomaRt)
 library(dplyr)
 ```
 
-## Using Wasabi to convert Sailfish output for Sleuth
+## Using Wasabi to convert Salmon output for Sleuth
 
-Sleuth was built to use the bootstrapped estimates of transcript abundance from Kallisto; however, abundance estimates from Sailfish (or Salmon) work just as well, as long as bootstrapping is performed. To use our Sailfish output estimates, we need to convert them to a Sleuth-compatible format using the Wasabi package.
+Sleuth was built to use the bootstrapped estimates of transcript abundance from Kallisto; however, abundance estimates from Salmon (or Sailfish) work just as well, as long as bootstrapping is performed. To use our Salmon output estimates, we need to convert them to a Sleuth-compatible format using the Wasabi package.
 
 First, we create a simple vector containing the paths to the directories containing the transcript abundance estimates for each sample (folders containing the .quant files). We can use the `file.path()` function to give the paths to each of the directories. 
 
 Now, let's use this function to create our list of the paths to our transcript abundance files:
 
 ```R
-sf_dirs <- file.path("sailfish", c("Mov10_kd_2.sailfish", "Mov10_kd_3.sailfish", "Mov10_oe_1.sailfish", "Mov10_oe_2.sailfish", "Mov10_oe_3.sailfish","Irrel_kd_1.sailfish", "Irrel_kd_2.sailfish", "Irrel_kd_3.sailfish"))
+sf_dirs <- file.path("salmon", c("Mov10_kd_2.salmon", "Mov10_kd_3.salmon", "Mov10_oe_1.salmon", "Mov10_oe_2.salmon", "Mov10_oe_3.salmon","Irrel_kd_1.salmon", "Irrel_kd_2.salmon", "Irrel_kd_3.salmon"))
 
 sf_dirs
 ```
@@ -283,6 +283,7 @@ models(so)
 > **NOTE:** Sleuth will automatically use the first level (alphabetically) in the factor variable being tested to compare all other conditions against (in our metadata, this is 'control'). If you want to use a different condition to be the base level, then you would need to use the relevel() function to change the base level of the variable in step 1 above. For example, if we wanted the base level of `sampletype` to be "MOV10_knockdown", we could use the following code:
 >
 >```R
+> # DO NOT RUN!
 > summarydata$sampletype <- relevel(summarydata$sampletype, ref = "MOV10_knockdown")
 >```
 >***An ordered factor will not give interpretable output, so do not order the factor using the factor() function, use relevel() >instead.***
