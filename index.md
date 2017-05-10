@@ -17,12 +17,12 @@ At the end of this course, participants can expect to have the expertise to inde
 
 # Sessions
 
-1. [Introduction to Unix / Orchestra and NGS Data Analysis](sessions/1)
-2. [RNA-Seq Part 1](sessions/2)
-3. [RNA-Seq Part 2](sessions/3)
-4. [RNA-Seq Part 3 / Related Technologies and Tools](sessions/4)
-5. [ChIP-Seq](sessions/5)
-6. [Variant Calling](sessions/6)
+1. [Introduction to Unix / Orchestra and NGS Data Analysis](sessionI)
+2. [RNA-Seq Part 1](sessionII)
+3. [RNA-Seq Part 2](sessionIII)
+4. [RNA-Seq Part 3 / Related Technologies and Tools](sessionIV)
+5. [ChIP-Seq](sessionV)
+6. [Variant Calling](sessionVI)
 
 
 

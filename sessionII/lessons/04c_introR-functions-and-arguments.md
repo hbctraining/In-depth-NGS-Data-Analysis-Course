@@ -1,10 +1,9 @@
 ---
-layout: topic
 title: Functions in R
 author: Data Carpentry contributors
-date: "Wednesday, September 28, 2016"
+date: 2017-06-08
+duration: 50
 ---
-Approximate time: 50 min
 
 ## Learning Objectives
 

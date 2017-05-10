@@ -1,9 +1,9 @@
 ---
-title: "Data manipulation"
+title: Data manipulation
 authors: Meeta Mistry, Mary Piper, Radhika Khetani
-date: "Wednesday, September 28, 2016"
+date: 2017-06-08
+duration: 60
 ---
-Approximate time: 60 min
 
 ## Learning Objectives
 * Reading data into R

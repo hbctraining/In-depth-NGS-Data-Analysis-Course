@@ -1,15 +1,15 @@
 ---
-layout: page
 title: Version Control with Git
 subtitle: Open Science
-minutes: 20
+duration: 20
 ---
+
 ## Learning Objectives {.objectives}
 
-*  Explain how a version control system can be leveraged as an electronic lab notebook for computational work.
-*  Explain different options for hosting scientific work.
-*  Explain why adding licensing and citation information to a repository is important.
-*  Learn how to choose a proper license.
+* Explain how a version control system can be leveraged as an electronic lab notebook for computational work.
+* Explain different options for hosting scientific work.
+* Explain why adding licensing and citation information to a repository is important.
+* Learn how to choose a proper license.
 
 ## Using Git for open science
 

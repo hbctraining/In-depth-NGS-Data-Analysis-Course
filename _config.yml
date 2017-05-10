@@ -1,2 +1,10 @@
 layout: default
 timezone: America/New_York
+# https://kramdown.gettalong.org/rdoc/Kramdown/Options.html
+markdown: kramdown
+kramdown:
+    input: GFM
+    hard_wrap: false
+    header_offset: 0
+    parse_block_html: true
+    parse_span_html: true

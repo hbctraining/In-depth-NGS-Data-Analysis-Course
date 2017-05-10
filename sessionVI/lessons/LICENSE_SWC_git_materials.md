@@ -1,7 +1,7 @@
 ---
-layout: page
 title: Licenses
 ---
+
 ## Instructional Material
 
 All Software Carpentry instructional material is made available under

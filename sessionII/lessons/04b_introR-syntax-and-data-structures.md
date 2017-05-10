@@ -1,10 +1,9 @@
 ---
-layout: topic
 title: R Syntax and Data Structures
 authors: Meeta Mistry, Mary Piper
-date: "Wednesday, September 28, 2016"
+date: 2017-06-08
+duration: 70
 ---
-Approximate time: 70 min
 
 ## Learning Objectives
 

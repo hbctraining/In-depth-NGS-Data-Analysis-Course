@@ -3,6 +3,7 @@
 <head>
 <title>{{ page.title | strip_html }}</title>
 <link rel="stylesheet" type="text/css" href="http://steinbaugh.com/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 </head>
@@ -13,22 +14,19 @@
 {% if page.author != nil %}
 <div id="author">{{ page.author }}</div>
 {% endif %}
-{% if page.date != nil %}
-<div id="date"><time datetime="{{ page.date | date: '%F' }}">{{ page.date | date: '%B %-d, %Y' }}</time></div>
-{% endif %}
 {% if page.duration != nil %}
 <div id="duration">Duration: {{ page.duration }} minutes</div>
 {% endif %}
-{% if page.excerpt != nil %}{{ page.excerpt }}{% endif %}
+{% if page.date != nil %}
+<div id="date"><time datetime="{{ page.date | date: '%F' }}">{{ page.date | date: '%B %-d, %Y' }}</time></div>
+{% endif %}
+{% if page.excerpt != nil %}
+{{ page.excerpt }}
+{% endif %}
 </header>
 <article>
 {{ content }}
 </article>
-<footer>
-<div id="copyright">
-<p>These lessons has been developed by members of the teaching team at the <a href="http://bioinformatics.sph.harvard.edu/">Harvard Chan Bioinformatics Core (HBC)</a>. They are open access materials distributed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited. Some materials used in these lessons were derived from work that is Copyright &copy; <a href="http://datacarpentry.org/">Data Carpentry</a>. All Data Carpentry instructional material is made available under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (CC BY 4.0).</p>
-</div>
-</footer>
 </body>
 </html>
 

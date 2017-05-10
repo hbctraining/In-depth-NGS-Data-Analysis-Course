@@ -1,9 +1,9 @@
 ---
-layout: page
 title: Version Control with Git
-subtitle: Git basics
-minutes: 90
+date: 2017-07-07
+duration: 90
 ---
+
 ## Learning Objectives
 
 *  Configure `git` the first time is used on a computer.

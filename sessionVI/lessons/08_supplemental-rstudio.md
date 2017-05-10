@@ -1,8 +1,7 @@
 ---
-layout: page
 title: Version Control with Git
 subtitle: Using Git from RStudio
-minutes: 10
+duration: 10
 ---
 
 ## Learning Objectives

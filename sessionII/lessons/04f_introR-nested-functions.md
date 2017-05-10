@@ -1,11 +1,12 @@
 ---
 title: "Nested Functions"
 authors: Meeta Mistry, Mary Piper
-date: "Wednesday, September 28, 2016"
+date: 2017-06-08
+duration: 30
 ---
-Approximate time: 30 min
 
 ## Learning Objectives
+
 * Understand and implement functions nested within other functions
 
 
