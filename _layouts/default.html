@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>{{ page.title | strip_html }}</title>
+<title>{{ page.title | markdownify | strip_html }}</title>
 <link rel="stylesheet" type="text/css" href="http://steinbaugh.com/css/base.css" />
 <link rel="stylesheet" type="text/css" href="/css/default.css" />
 <meta charset="UTF-8" />
@@ -21,7 +21,7 @@
 <div id="date"><time datetime="{{ page.date | date: '%F' }}">{{ page.date | date: '%B %-d, %Y' }}</time></div>
 {% endif %}
 {% if page.excerpt != nil %}
-{{ page.excerpt }}
+<div id="excerpt">{{ page.excerpt | markdownify | remove: "<p>" | remove: "</p>" }}</div>
 {% endif %}
 </header>
 <article>
