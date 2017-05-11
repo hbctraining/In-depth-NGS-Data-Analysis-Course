@@ -62,9 +62,7 @@ rnaseq
   └── scripts
 ```
 
-<div class="note">
-This is a generic structure and can be tweaked based on personal preference.
-</div>
+*This is a generic structure and can be tweaked based on personal preference.*
 
 - `logs`: It is important to keep track of the commands run and the specific parameters used, but also to have a record of any standard output that is generated while running the command. 
 - `meta`: This folder contains any information that describes the samples you are using, which we often refer to as metadata. 
