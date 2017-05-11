@@ -93,7 +93,7 @@ drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 results
 drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 scripts
 ```
 
-Let's populate the `rnaseq` project with our example RNA-seq FASTQ data.
+Let's populate the `rnaseq/` project with our example RNA-seq FASTQ data.
 
 The FASTQ files are located inside `~/ngs_course/unix_lesson/raw_fastq/`, and we need to copy them to `raw_data/`. We can match them by file extension with `*.fq`.
 
@@ -101,13 +101,13 @@ The FASTQ files are located inside `~/ngs_course/unix_lesson/raw_fastq/`, and we
 cp ~/ngs_course/unix_lesson/raw_fastq/*.fq raw_data/
 ```
 
-Later in the workflow when we perform alignment, we will require genome reference files (.fa, .gtf) to map against. These files are also in the `unix_lesson` directory inside `reference_data`. You can use `.` as a placeholder for the current working directory as the destination.
+Later in the workflow when we perform alignment, we will require genome reference files (.fa, .gtf) to map against. These files are also in the `unix_lesson/` directory inside `reference_data/`. You can use `.` as a placeholder for the current working directory as the destination.
 
 ```bash
 cp -r ~/ngs_course/unix_lesson/reference_data/ .
 ```
 
-Perfect, now the structure of `rnaseq` should look like this:
+Perfect, now the structure of `rnaseq/` should look like this:
 
 ```
 rnaseq
