@@ -670,10 +670,6 @@ rm
 
 
 
-* * *
-
-
-
 {% include copyright.md %}
 
 Adapted from the lesson by Tracy Teal. Original contributors: Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for [Software Carpentry](http://software-carpentry.org/).
