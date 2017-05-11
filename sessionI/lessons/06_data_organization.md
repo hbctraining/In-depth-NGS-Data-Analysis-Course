@@ -75,7 +75,7 @@ Create a directory for the project by changing into `rnaseq/` and then using `mk
 
 ```bash
 cd ~/ngs_course/rnaseq/
-mkdir data/ meta/ raw_data/ reference_data results/ scripts/ logs/
+mkdir data/ meta/ raw_data/ reference_data/ results/ scripts/ logs/
 ``` 
 
 Verify that the subdirectories now exist.
