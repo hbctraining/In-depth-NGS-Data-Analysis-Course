@@ -34,7 +34,7 @@ By default, there is no terminal for the bash shell available in the Windows OS,
 **Let's log in.** Type in the following command with your eCommons username.
 
 ```bash
-ssh <USER>@orchestra.med.harvard.edu
+ssh $USER@orchestra.med.harvard.edu
 ```
 
 You will receive a prompt for your password, and you should type in your eCommons password; note that the cursor will *not move* as you type in your password.
@@ -45,7 +45,7 @@ A warning might pop up the first time you try to connect to a remote machine. If
 
 Once logged in, you should see the Orchestra news and the command prompt (`$`).
 
-The command prompt will have some characters before it, something like `-bash-4.1` or `<USER>@loge`. This is telling you what the name of the computer you are working on is.
+The command prompt will have some characters before it, something like `-bash-4.1` or `$USER@loge`. This is telling you what the name of the computer you are working on is.
 
 The first command we will type on the command prompt will be to start a so-called "interactive session" on Orchestra.
 
@@ -172,7 +172,7 @@ Like on any computer you have used before, the file structure within unix is hie
 
 That root (/) is often also called the 'top' level.
 
-When you log in to a remote computer you are on one of the branches of that tree, your home directory (e.g. `/home/<USER>`)
+When you log in to a remote computer you are on one of the branches of that tree, your home directory (e.g. `/home/$USER`)
 
 <div class="note">
 On macOS, which is UNIX-based, the root level is also "/". On Windows, it is drive specific; generally "C:\" is considered root, but it changes to "D:\", if you are on that drive.
@@ -288,15 +288,15 @@ pwd
 ```
 
 ```
-/home/<USER>
+/home/$USER
 ```
 
-which is the full path for your home directory. This tells you that you are in a directory called `<USER>`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy, the *root directory*. So, to summarize: `<USER>` is a directory in `home` which is a directory in the top level root `/` directory.
+which is the full path for your home directory. This tells you that you are in a directory called `$USER`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy, the *root directory*. So, to summarize: `$USER` is a directory in `home` which is a directory in the top level root `/` directory.
 
 Now enter the following command:
 
 ```bash
-cd /home/<USER>/ngs_course/unix_lesson/raw_fastq/
+cd /home/$USER/ngs_course/unix_lesson/raw_fastq/
 ```
 
 This jumps to `raw_fastq`. Now go back to the home directory (`cd`). We saw
@@ -306,7 +306,7 @@ earlier that the command:
 cd ngs_course/unix_lesson/raw_fastq/
 ```
 
-had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/<USER>/ngs_course/unix_lesson/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
+had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/$USER/ngs_course/unix_lesson/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
 
 A full path always starts with `/`, a relative path does not.
 
@@ -318,7 +318,7 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 ## Exercise
 
-- Change directories to `/home/<USER>/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data` without changing directories again.
+- Change directories to `/home/$USER/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data` without changing directories again.
 - List the contents of the `/bin` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
 
 
@@ -396,13 +396,13 @@ There are several more shortcuts which you should know about, but today we are t
 
 The home directory is often listed in commands, so a shortcut for it seems like a good idea. In the shell the tilde character, `~`, is a shortcut for your home directory. 
 
-Make sure your working directory is still `/home/<USER>/ngs_course/unix_lesson/raw_fastq/`, and then enter the command:
+Make sure your working directory is still `/home/$USER/ngs_course/unix_lesson/raw_fastq/`, and then enter the command:
 
 ```bash
 ls ~
 ```
 
-This prints the contents of your home directory, without you having to type the full path because the tilde `~` is equivalent to `/home/<USER>`.
+This prints the contents of your home directory, without you having to type the full path because the tilde `~` is equivalent to `/home/$USER`.
 
 You can use the `~` in paths too:
 
@@ -425,7 +425,7 @@ ls ../reference_data
 Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but it is needed to specify a destination, e.g. `cp ../data/counts.txt .` or `mv ~/james-scripts/parse-fasta.sh .`.
 
 
-To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, and `ls /home/<USER>` all do exactly the same thing. These shortcuts are not necessary, but they are really convenient!
+To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, and `ls /home/$USER` all do exactly the same thing. These shortcuts are not necessary, but they are really convenient!
 
 ## Command History
 
