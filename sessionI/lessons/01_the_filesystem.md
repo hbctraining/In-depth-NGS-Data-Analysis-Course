@@ -215,6 +215,7 @@ There is a command that will show us something similar. What do you think the co
 ```bash
 tree
 ```
+
 Now let's learn more about moving between directories at the command line.
 
 ```bash
@@ -632,29 +633,31 @@ rm -ri backup_ref_data/ backup_fastq/
 
 # Commands, options, and keystrokes covered
 
-    bash
-    cd
-    ls
-    man
-    pwd
-    ~           # home dir
-    .           # current dir
-    ..          # parent dir
-    *           # wildcard
-    echo
-    ctrl + c    # cancel current command
-    ctrl + a    # start of line
-    ctrl + e    # end of line
-    history
-    !           # repeat cmd
-    cat
-    less
-    head
-    tail
-    cp
-    mdkir
-    mv
-    rm
+```
+bash
+cd
+ls
+man
+pwd
+~           # home dir
+.           # current dir
+..          # parent dir
+*           # wildcard
+echo
+ctrl + c    # cancel current command
+ctrl + a    # start of line
+ctrl + e    # end of line
+history
+!           # repeat cmd
+cat
+less
+head
+tail
+cp
+mdkir
+mv
+rm
+```
 
 
 
