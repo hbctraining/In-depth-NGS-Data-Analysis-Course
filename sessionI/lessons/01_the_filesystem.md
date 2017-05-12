@@ -498,18 +498,18 @@ The `less` command opens the file, and lets you navigate through it. The keys us
 
 <span class="caption">Shortcuts for `less`</span>
 
-| key     | action                 |
-| ------- | ---------------------- |
-| `space` | to go forward          |
-| `b`     | to go backwards        |
-| `g`     | to go to the beginning |
-| `G`     | to go to the end       |
-| `q`     | to quit                |
+| key              | action                 |
+| ---------------- | ---------------------- |
+| <kbd>SPACE</kbd> | to go forward          |
+| <kbd>b</kbd>     | to go backwards        |
+| <kbd>g</kbd>     | to go to the beginning |
+| <kbd>G</kbd>     | to go to the end       |
+| <kbd>q</kbd>     | to quit                |
 
 
-`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the string of characters you would like to search for and hit enter. It will jump to the next location where that string is found. If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
+`less` also gives you a way of searching through files. Just hit the <kbd>/</kbd> key to begin a search. Enter the name of the string of characters you would like to search for and hit enter. It will jump to the next location where that string is found. If you hit <kbd>/</kbd> then <kbd>ENTER</kbd>, `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `GAGACCC` in our file. You can see that we go right to that sequence and can see what it looks like. To exit hit "q".
+For instance, let's search for the sequence `GAGACCC` in our file. You can see that we go right to that sequence and can see what it looks like. To exit hit <kbd>q</kbd>.
 
 The `man` command (program) actually uses `less` internally and therefore uses the same keys and methods, so you can search manuals using `/` as well!
 
