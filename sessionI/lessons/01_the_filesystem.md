@@ -424,7 +424,7 @@ To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.
 
 ## Command History
 
-You can easily access previous commands.  Hit the up arrow. Hit it again.  You can step backwards through your command history. The down arrow takes your forwards in the command history. `Ctrl + R` will do a reverse-search through your command history. This is very useful.
+You can easily access previous commands.  Hit the up arrow. Hit it again.  You can step backwards through your command history. The down arrow takes your forwards in the command history. <kbd>Ctrl + R</kbd> will do a reverse-search through your command history. This is very useful.
 
 You can also review your recent commands with the `history` command.
 
@@ -456,9 +456,9 @@ Only a certain number of commands are stored and displayed with `history`, there
 
 ## Other handy keyboard shortcuts
 
-- `Ctrl + C` will cancel the command you are writing, and give you a fresh prompt.
-- `Ctrl + A` will bring you to the start of the command you are writing.
-- `Ctrl + E` will bring you to the end of the command.
+- <kbd>Ctrl + C</kbd> will cancel the command you are writing, and give you a fresh prompt.
+- <kbd>Ctrl + A</kbd> will bring you to the start of the command you are writing.
+- <kbd>Ctrl + E</kbd> will bring you to the end of the command.
 
 ## Exercise
 
