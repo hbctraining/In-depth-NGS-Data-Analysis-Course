@@ -63,7 +63,7 @@ Let's make a a directory (folder) in your user home for everything we do in this
 mkdir ngs_course/
 ```
 
-Copy the data directory `unix_lesson` from our shared `hbctraining` group on Orchestra into your newly created `ngs_course` directory.
+Copy the data directory `unix_lesson/` from our shared `hbctraining` group on Orchestra into your newly created `ngs_course/` directory.
 
 `cp` is the command for copy, and requires you to specify (1) source (`/groups/hbctraining/ngs-data-analysis2016/unix_lesson/`) and (2) destination (`ngs_course/`) directories, *separated by a space*. Note that spaces in a command line environment are important, and must be escaped in file paths, which we will discuss further later. The `-r` flag (or `-R`, `--recursive`) here means "recursive", and will prompt bash to copy all files inside the requested source directory to the destination.
 
@@ -75,14 +75,14 @@ cp -r /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/ ngs_course/
 
 # Starting with the shell
 
-Now that we've copied the `unix_lesson` data to our local user home, let's navigate inside using the `cd` command. `cd` stands for "change directory".
+Now that we've copied the `unix_lesson/` data to our local user home, let's navigate inside using the `cd` command. `cd` stands for "change directory".
 
 ```bash
 cd ngs_course
 cd unix_lesson
 ```
 
-Let's list what's inside `unix_lesson` with the `ls` command. `ls` stands for "list" and it lists the directory contents.
+Let's list what's inside `unix_lesson/` with the `ls` command. `ls` stands for "list" and it lists the directory contents.
 
 ```bash
 ls
@@ -115,7 +115,7 @@ drwxrwsr-x 2 rsk27 hbctraining 228 Jan 26 10:44 raw_fastq
 drwxrwsr-x 2 rsk27 hbctraining  62 Jan 26 10:44 reference_data
 ```
 
-Let's go into the `raw_fastq` directory and see what is in there.
+Let's go into the `raw_fastq/` directory and see what is in there.
 
 ```bash
 cd raw_fastq/
@@ -139,7 +139,7 @@ How do we know what the available arguments that go with a particular command ar
 man ls
 ```
 
-This will open the manual page for `ls`. Use the `space key` to go forward and `b` to go backwards. When you are done reading, just hit `q` to quit.
+This will open the manual page for `ls`. Use <kbd>SPACE</kbd> to go forward and <kbd>b</kbd> to go backwards. When you are done reading, just hit <kbd>q</kbd> to quit.
 
 Commands that are run from the shell can get extremely complicated. To see an example, open up the manual page for the `find` command. No one can possibly learn all of these arguments, of course. So you will probably find yourself referring to the manual page frequently.
 
@@ -157,9 +157,9 @@ As you've already just seen, you can move around between different directories o
 
 Let's practice moving around a bit.
 
-We're going to work in that `unix_lesson` directory.
+We're going to work in that `unix_lesson/` directory.
 
-First we did something like go to the folder of our username. Then we changed directories to `ngs_course`, then `unix_lesson` and then `raw_fastq`
+First we did something like go to the folder of our username. Then we changed directories to `ngs_course/`, then `unix_lesson/` and then `raw_fastq/`
 
 Like on any computer you have used before, the file structure within unix is hierarchical. It's like an upside down tree with root (`/`) as the starting point of the tree-like structure:
 
