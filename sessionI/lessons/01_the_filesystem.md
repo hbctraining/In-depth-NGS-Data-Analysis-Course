@@ -39,7 +39,7 @@ ssh $USER@orchestra.med.harvard.edu
 
 You will receive a prompt for your password, and you should type in your eCommons password; note that the cursor will *not move* as you type in your password.
 
-A warning might pop up the first time you try to connect to a remote machine. If necessary, enter <kbd>yes</kbd> or <kbd>y</kbd>. 
+A warning might pop up the first time you try to connect to a remote machine. If necessary, enter `yes` or `y`. 
 
 ## Copy example data folder
 
