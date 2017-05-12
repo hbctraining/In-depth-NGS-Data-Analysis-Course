@@ -19,7 +19,7 @@ duration: 120
 
 Today we're going to go through how to access Unix/Linux and some of the basic shell commands. We will be doing this by manipulating an example dataset from a small RNA-seq experiment.
 
-Since we are going to be working with this data on our remote server, **HMS Orchestra**, we first need to log onto the server. After we're logged on, we will each make our own copy of the example data folder.
+Since we are going to be working with this data on our remote server, [HMS Orchestra](https://rc.hms.harvard.edu/#orchestra), we first need to log onto the server. After we're logged on, we will each make our own copy of the example data folder.
 
 ## Logging in
 
