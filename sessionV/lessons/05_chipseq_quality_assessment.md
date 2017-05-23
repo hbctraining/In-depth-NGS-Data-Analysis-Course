@@ -1,5 +1,5 @@
 ---
-title: "ChIP-Seq alignment quality assessment"
+title: "ChIP-Seq Quality Assessment"
 author: "Mary Piper"
 date: "Wednesday, July 20, 2016"
 ---
@@ -10,24 +10,33 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
-* generate enrichment and quality measures for ChIP-Seq data
-* assess the quality of alignments using coverage metrics and visualizations
+* Generate enrichment and quality measures for ChIP-Seq data
+* Assess the quality of alignments using visualization tools
 
 # ChIP-Seq quality assessment
 
-Prior to performing any analyses, it is best practice to assess the quality of your ChIP-Seq data for peak signal and alignment metrics. 
+Prior to performing any downstream analyses with the resulting peak calls, it is best practice to assess the quality of your ChIP-Seq data. After running the peak caller you may have noticed that the replicates within group generated a different number of peaks. The quality assessment we introduce in this lesson can help to troubleshoot any discrepancies observed with our peak calls, but also is generally good practice to evaluate your data and help differentiate signal from noise.
 
-We will explore the *quality of the peaks* to determine the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. 
 
-For the *alignment quality*, we will investigate the read coverages for each sample and determine the variability in coverage per sample group. Replicate samples that vary greatly in where the reads stack up is indicative of a weak ChIP-Seq experiment. In addition, we can identify outlier samples or batch effects.
+## Quality metrics for ChIP-seq data
 
-## Obtaining quality metrics using *phantompeakqualtools*
+The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this sections we will provide descriptions of what some of these metrics are, and what they appear to measure. Then we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
 
-The *[phantompeakqualtools](https://code.google.com/archive/p/phantompeakqualtools/)* package allows for the generation of enrichment and quality measures for ChIP-Seq data [[1](http://www.g3journal.org/content/4/2/209.full)]. We will be using the package to compute the predominant insert-size (fragment length) based on strand cross-correlation peak and data quality measures based on relative phantom peak.
+Three important quality metrics to observe are the NSC, RSC and QualityTag values and are based on the cross-correlation plot [previously described](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/03_peak_calling_macs.md#macs2-output-files-1). These metrics are useful in determining the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. They are described in more detail below:
 
-### Set up
+**Normalized strand cross-correlation coefficent (NSC)**: is the ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment). Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type OR it could be due to poor quality).
 
-The *phantompeakqualtools* package is written as an R script, `run_spp.R` that uses `samtools` as a dependency. The package has various options that can be specified when running from the command line. To get set up, we will need to start an interactive session, load the necessary modules and set up the directory structure:
+**Relative strand cross-correlation coefficient (RSC)**: is the ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality. RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which is biologically justifiable also show low RSC scores.
+
+**QualityTag:** A thresholded version of the RSC, with negative values indicating poor signal to noise.
+
+### `phantompeakqualtools` 
+
+The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualtools/) package is a tool used to compute enrichment and quality measures for ChIP-Seq data [[1](http://www.g3journal.org/content/4/2/209.full)]. We will be using the package to compute the predominant insert-size (fragment length) based on strand cross-correlation peak and data quality measures based on relative phantom peak.
+
+#### Set up
+
+The `phantompeakqualtools` package is written as an R script, that uses `samtools` as a dependency. The package has various options that need to be specified when running from the command line. To get set up, we will need to start an interactive session, load the necessary modules and set up the directory structure:
 
 ```
 $ bsub -Is -n 6 -q interactive bash
@@ -40,13 +49,13 @@ $ mkdir chip_qc
 
 $ cd chip_qc
 ```
-### Downloading *phantompeakqualtools*
+#### Downloading `phantompeakqualtools`
 
-To use this *phantompeakqualtools* package, we need to download it from the project website. On the [project website](https://code.google.com/archive/p/phantompeakqualtools/), click on the *Downloads* option on the left-hand side of the page. The *Downloads* page has all updates for the package, with the most recent being from 2013. 
+To use this `phantompeakqualtools` package, we need to download it from the project website. On the [project website](https://code.google.com/archive/p/phantompeakqualtools/), click on the *Downloads* option on the left-hand side of the page. The *Downloads* page has all updates for the package, with the most recent being from 2013. 
 
 Right-click on the link for the most recent update, and copy the link.
 
-Download the *phantompeakqualtools* to your directory using `wget`:
+Download the `phantompeakqualtools` to your directory using `wget`:
 
 ```
 $ wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/phantompeakqualtools/ccQualityControl.v.1.1.tar.gz
@@ -54,7 +63,7 @@ $ wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.goog
 $ ls
 ```
 
-> ***NOTE:*** *You may be asked to choose a mirror. If so, just choose a location nearest to where you are located (i.e. in the northeast). Some mirrors can be slower than others for downloads depending on the server speed and distance to the server.*
+> **NOTE:** *You may be asked to choose a mirror. If so, just choose a location nearest to where you are located (i.e. in the northeast). Some mirrors can be slower than others for downloads depending on the server speed and distance to the server.*
 
 You should see `ccQualityControl.v.1.1.tar.gz` appear in the folder. This is a compressed folder, to extract the contents we use the `tar -xzf` command:
 
@@ -71,7 +80,7 @@ The options included are:
 
 `-f`: file name of archive file (needs to precede the file name)
 
-> ***NOTE:*** *To compress a directory, you would issue the same command, but replace -x with -c, which specifies to create a new tar archive (or tarball) file, and after the name of the tar file you would name the directory to be compressed*
+> **NOTE:** *To compress a directory, you would issue the same command, but replace -x with -c, which specifies to create a new tar archive (or tarball) file, and after the name of the tar file you would name the directory to be compressed*
 
 You should now see a `phantompeakqualtools` folder. Let's explore the contents a bit:
 
@@ -80,22 +89,22 @@ $ cd phantompeakqualtools
 
 $ ls -l
 ```
-
-Note the script for generating the quality metrics, `run_spp.R`. There should also be a `README.txt` which contains all the commands, options, and output descriptions. Let's check out the `README.txt`:
+There should also be a `README.txt` which contains all the commands, options, and output descriptions. Let's check out the `README.txt`:
 
 ```
 $ less README.txt
 ```
+Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). This is the script we will be using.
 
-### Installing R libraries
+#### Installing R libraries
 
-We will need to install the R package, `caTools`, into our personal R library to run the script:
+In the README you will have noticed an *INSTALLATION* section. We will need to install the R package, `caTools`, into our personal R library to run the script. To do this, first open up R:
 
 ```
 $ R
 ```
 
-In R, use the install.packages() function to install `caTools`:
+Use the install.packages() function to install `caTools`:
 
 ```
 > install.packages("caTools", lib="~/R/library")
@@ -105,11 +114,11 @@ In R, use the install.packages() function to install `caTools`:
 > quit()
 
 ```
+ > **NOTE:** We do not need to install `spp` because the R module we have loaded has the package pre-installed.
 
+#### Running *phantompeakqualtools*
 
-### Running *phantompeakqualtools*
-
-To obtain quality measures based on cross-correlation plots, we will be running the `run_spp.R` script from the command line which is a package built on SPP. This modified SPP package allows for determination of the cross-correlation peak and predominant fragment length without having to perform peak calling. We will be using this package solely for obtaining these quality measures. 
+To obtain quality measures based on cross-correlation plots, we will be running the `run_spp_nodups.R` script from the command line which is a package built on SPP. This modified SPP package allows for determination of the cross-correlation peak and predominant fragment length in addition to peak calling. We will be using this package solely for obtaining these quality measures (no peak calling). 
 
 The options that we will be using include:
 
@@ -119,11 +128,12 @@ The options that we will be using include:
 
 ```
 ## DO NOT RUN THIS
+## THIS SCRIPT IS FOR COMUTING METRICS ON A SINGLE FILE
 $ Rscript run_spp.R -c=<tagAlign/BAMfile> -savp -out=<outFile>
 ```
->_**NOTE:** Even though the script is called `run_spp.R`, we aren't actually performing peak calling with SPP. In addition, we could have run `run_spp_nodups.R` since we have already removed duplicates from our data and it would run slightly faster._
+>_**NOTE:** Even though the script is called `run_spp.R`, we aren't actually performing peak calling with SPP. 
 
-From the `phantompeakqualtools` directory, create output directories and run a 'for loop' to run the script on every Nanog and Pouf51 BAM file:
+From within the `phantompeakqualtools` directory, we will create output directories and use a 'for loop' to **run the script on every Nanog and Pouf51 BAM file**:
 
 ```
 $ mkdir -p logs qual
@@ -131,26 +141,25 @@ $ mkdir -p logs qual
 $ for bam in ../../bowtie2/*Nanog*aln.bam ../../bowtie2/*Pou5f1*aln.bam
 do 
 bam2=`basename $bam _aln.bam`
-Rscript run_spp.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rout
+Rscript run_spp_nodups.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rout
 done
 ```
 
-Now that we have our files created, we will move up a directory and organize our logs and quality output folders:
+The for loop generates three output files. The quality metrics are written in a tab-delimited text file, and the log file contains the standard output text. A third file is created in the same directory as the BAM files. These are pdf files that contain the cross-correlation plot for the sample. Let's move those files into the appropriate output directory:
 
 ```
 $ mv ../../bowtie2/*pdf qual  
 
-# the pdf file gets created in the same directory as the input bam file, so we need to move it over.
 ```
 
-To visualize the quality results (.qual) files more easily, we will concatenate the files together to create a single summary file that you can move over locally and open up with Excel.
+To visualize the quality metrics (.qual) files more easily, we will concatenate the files together to create a single summary file that you can move over locally and open up with Excel.
 
 ```
 $ cat qual/*qual > qual/phantompeaks_summary.qual
 ```
 Let's use Filezilla or `scp` move the summary file over to our local machine for viewing.
 
-#### Description of the quality information
+#### Quality metrics output
 
 The qual files are tab-delimited with the columns containing the following information:
 
@@ -166,13 +175,7 @@ The qual files are tab-delimited with the columns containing the following infor
 - COL10: Relative strand cross-correlation coefficient (RSC) = (COL4 - COL8) / (COL6 - COL8) 
 - COL11: QualityTag: Quality tag based on thresholded RSC (codes: -2:veryLow,-1:Low,0:Medium,1:High,2:veryHigh)
 
-Three of the more important values to observe are the NSC, RSC and QualityTag values:
-
-**NSC:** values range from a minimum of 1 to larger positive numbers. 1.1 is the critical threshold. Datasets with NSC values much less than 1.1 (< 1.05) tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type OR it could be due to poor quality)
-
-**RSC:** values range from 0 to larger positive values. 1 is the critical threshold. RSC values significantly lower than 1 (< 0.8) tend to have low signal to noise. The low scores can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth (significantly below saturation) or a combination of these. Like the NSC, datasets with few binding sites (< 200) which is biologically justifiable also show low RSC scores.
-
-**QualityTag:** A quick check of RSC, with negative values indicating poor signal to noise.
+> **NOTE:** The most important metrics we are interested in are the values in columns 9 through 12, however these numbers are computed from values in the other columns so they are important nonetheless.
 
 #### Cross-correlation plots
 
@@ -180,9 +183,12 @@ The cross-correlation plots show the best estimate for strand shift and the cros
 
 ![phantom_peak](../img/H1hesc_Nanog_Rep1_chr12_aln.png)
 
-The cross correlation peak shows the highest cross-correlation at fragment length 105, similar to what we found running spp. The Nanog rep1 has a high NSC value (greater than 1.1), indicating that Nanog rep1 exhibits good signal to noise and a fair number of peaks. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag (>2). Based on these metrics, Nanog rep1 looks good for further analysis.
+**MAYBE TAKE THIS OUT?** The cross correlation peak shows the highest cross-correlation at fragment length 105, similar to what we found running spp. The Nanog rep1 has a high NSC value (greater than 1.1), indicating that Nanog rep1 exhibits good signal to noise and a fair number of peaks. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag (>2). Based on these metrics, Nanog rep1 looks good for further analysis.
 
 ## Quality assessment using *deepTools*
+
+For the *alignment quality*, we will investigate the read coverages for each sample and determine the variability in coverage per sample group. Replicate samples that vary greatly in where the reads stack up is indicative of a weak ChIP-Seq experiment. In addition, we can identify outlier samples or batch effects.
+Obtaining quality metrics using *phantompeakqualtools*
 
 Using the *[deepTools](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html)* suite of tools, we can assess the quality of our alignments for each of our samples by using several metrics to explore sample signal strength and read coverage similarity within and between experimental conditions.
 
