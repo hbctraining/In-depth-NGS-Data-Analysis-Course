@@ -69,7 +69,7 @@ Now change directories to the `results` folder:
 
 	$ cd ~/ngs_course/chipseq/results/
 	
-We only have the BAM file for our Input-rep1, but will need alignment information for all 6 files. We have generated the remaining BAM files for you, so you will need to copy them over:
+We only have the BAM file for our Input-rep1, but will need alignment information for **all 6 files**. We have generated the remaining BAM files for you, so **you will need to copy them over**:
 
 	$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2/* bowtie2/
 
