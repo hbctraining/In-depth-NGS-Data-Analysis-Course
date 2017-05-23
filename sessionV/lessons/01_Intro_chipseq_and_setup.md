@@ -111,7 +111,7 @@ $ cd data
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq untrimmed_fastq/
 
-$ cp /groups/hbctraining/ngs-data-analysis-longcoursechipseq/reference_data/chr12* reference_data/
+$ cp cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/reference_data/chr12* reference_data/
 ```
 
 We will be using tools within the bcbio pipeline, so please make sure bcbio is in your PATH:
