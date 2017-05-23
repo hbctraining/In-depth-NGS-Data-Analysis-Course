@@ -4,7 +4,7 @@ author: "Mary Piper"
 date: "Wednesday, July 20, 2016"
 ---
 
-Contributors: Mary Piper
+Contributors: Mary Piper and Meeta Mistry
 
 Approximate time: 1.5 hours
 
@@ -15,16 +15,16 @@ Approximate time: 1.5 hours
 
 # ChIP-Seq quality assessment
 
-Prior to performing any downstream analyses with the resulting peak calls, it is best practice to assess the quality of your ChIP-Seq data. After running the peak caller you may have noticed that the replicates within group generated a different number of peaks. The quality assessment we introduce in this lesson can help to troubleshoot any discrepancies observed with our peak calls, but also is generally good practice to evaluate your data and help differentiate signal from noise.
+Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. After running the peak caller on our data, you may have noticed that the replicates generated a different number of peaks. The quality assessment we introduce in this lesson can help to troubleshoot any discrepancies observed with peak calls, but also is generally a good practice to evaluate your data and help differentiate signal from noise.
 
 
 ## Quality metrics for ChIP-seq data
 
-The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this sections we will provide descriptions of what some of these metrics are, and what they appear to measure. Then we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
+The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they appear to measure. Then we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
 
 Three important quality metrics to observe are the NSC, RSC and QualityTag values and are based on the cross-correlation plot [previously described](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/03_peak_calling_macs.md#macs2-output-files-1). These metrics are useful in determining the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. They are described in more detail below:
 
-**Normalized strand cross-correlation coefficent (NSC)**: is the ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment). Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type OR it could be due to poor quality).
+**Normalized strand cross-correlation coefficent (NSC)**: is the ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment). Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
 
 **Relative strand cross-correlation coefficient (RSC)**: is the ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality. RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which is biologically justifiable also show low RSC scores.
 
@@ -116,7 +116,7 @@ Use the install.packages() function to install `caTools`:
 ```
  > **NOTE:** We do not need to install `spp` because the R module we have loaded has the package pre-installed.
 
-#### Running *phantompeakqualtools*
+#### Running `phantompeakqualtools`
 
 To obtain quality measures based on cross-correlation plots, we will be running the `run_spp_nodups.R` script from the command line which is a package built on SPP. This modified SPP package allows for determination of the cross-correlation peak and predominant fragment length in addition to peak calling. We will be using this package solely for obtaining these quality measures (no peak calling). 
 
@@ -145,7 +145,7 @@ Rscript run_spp_nodups.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rou
 done
 ```
 
-The for loop generates three output files. The quality metrics are written in a tab-delimited text file, and the log file contains the standard output text. A third file is created in the same directory as the BAM files. These are pdf files that contain the cross-correlation plot for the sample. Let's move those files into the appropriate output directory:
+The for loop generates **three output files**. The **quality metrics** are written in a tab-delimited text file, and the **log files** contains the standard output text. A third file is created in the same directory as the BAM files. These are pdf files that contain the **cross-correlation** plot for each sample. Let's move those files into the appropriate output directory:
 
 ```
 $ mv ../../bowtie2/*pdf qual  
@@ -155,7 +155,7 @@ $ mv ../../bowtie2/*pdf qual
 To visualize the quality metrics (.qual) files more easily, we will concatenate the files together to create a single summary file that you can move over locally and open up with Excel.
 
 ```
-$ cat qual/*qual > qual/phantompeaks_summary.qual
+$ cat qual/*qual > qual/phantompeaks_summary.xls
 ```
 Let's use Filezilla or `scp` move the summary file over to our local machine for viewing.
 
@@ -175,7 +175,7 @@ The qual files are tab-delimited with the columns containing the following infor
 - COL10: Relative strand cross-correlation coefficient (RSC) = (COL4 - COL8) / (COL6 - COL8) 
 - COL11: QualityTag: Quality tag based on thresholded RSC (codes: -2:veryLow,-1:Low,0:Medium,1:High,2:veryHigh)
 
-> **NOTE:** The most important metrics we are interested in are the values in columns 9 through 12, however these numbers are computed from values in the other columns so they are important nonetheless.
+> **NOTE:** The most important metrics we are interested in are the values in columns 9 through 12, however these numbers are computed from values in the other columns.
 
 #### Cross-correlation plots
 
@@ -183,7 +183,7 @@ The cross-correlation plots show the best estimate for strand shift and the cros
 
 ![phantom_peak](../img/H1hesc_Nanog_Rep1_chr12_aln.png)
 
-**MAYBE TAKE THIS OUT?** The cross correlation peak shows the highest cross-correlation at fragment length 105, similar to what we found running spp. The Nanog rep1 has a high NSC value (greater than 1.1), indicating that Nanog rep1 exhibits good signal to noise and a fair number of peaks. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag (>2). Based on these metrics, Nanog rep1 looks good for further analysis.
+The cross correlation peak shows the highest cross-correlation at fragment length 105, **How does this compare to the one we generated using MACS?**. The Nanog rep1 has a high NSC value (greater than 1.1), indicating that Nanog rep1 exhibits good signal to noise and a fair number of peaks. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag (>2). Based on these metrics, Nanog rep1 looks good for further analysis.
 
 ## Quality assessment using *deepTools*
 
