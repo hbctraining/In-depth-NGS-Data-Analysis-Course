@@ -183,8 +183,7 @@ All samples have quite high NSC values indicating more enrichment, a good signal
 
 The cross-correlation plots show the best estimate for strand shift and the cross-correlation values. This file can be viewed by transferring it to your local machine using FileZilla. Copy `H1hesc_Nanog_Rep1_chr12_aln.pdf` to your machine to view the strand shift. The cross correlation peak shows the highest cross-correlation at fragment length 105, **How does this compare to the one we generated using MACS?**.
 
-![phantom_peak](../img/H1hesc_Nanog_Rep1_chr12_aln.png)
-
+<img src="../img/H1hesc_Nanog_Rep1_chr12_aln.png" width=400>
 
 ## Quality assessment using `deepTools`
 
@@ -221,7 +220,7 @@ $ module load seq/deeptools/2.2.0
 
 ### Calculation of the read coverage scores using the `multiBamSummary` tool
 
-The `multiBamSummary` tool will calculate the read coverage scores for specific genomic regions between samples and provide the output as a binary compressed numpy array (.npz) file; however, the analysis can be performed on the entire genome by changing the mode of this tool to `bins`. It will also output a `readCounts.tab` file that contains a list read counts per sample for every 10,000bp region in the genome. 
+The `multiBamSummary` tool will calculate the read coverage scores for specific genomic regions between samples and provide the output as a binary compressed numpy array (.npz) file; however, the analysis can be performed on the entire genome by changing the mode of this tool to `bins`. If you prefer, it can also output a `readCounts.tab` file that contains a list read counts per sample for every 10,000bp region in the genome from which you can use to create your own images. 
 
 ```
 $ multiBamSummary bins --ignoreDuplicates -p 6 \
@@ -232,13 +231,15 @@ $ multiBamSummary bins --ignoreDuplicates -p 6 \
 
 ### Visualizing read coverage quality metrics
 
-Now that we have the read coverage scores calculated for all samples, we can now analyze the coverage between samples using a variety of the *deepTools* tools:
+Now that we have the read coverage scores calculated for all samples, we can now analyze the coverage between samples using a variety of the `deepTools` tools:
 
 #### 1. Sample correlation - `plotCorrelation` tool
 
-The `plotCorrelation` tool allows us to visualize the similarity between samples based on their read coverage of regions of the genome. For example, we can compare two samples to determine whether they have similar coverage profiles with either a heatmap or a scatterplot:
+The `plotCorrelation` tool allows us to visualize the similarity between samples based on their read coverage of regions of the genome. 
 
 ![correlate](../img/QC_bamCorrelate_deeptools.png)
+
+We can visualize correlations using a scatterplot:
 
 ```
 $ plotCorrelation --corData deeptools_multiBAM.out.npz \
@@ -247,7 +248,7 @@ $ plotCorrelation --corData deeptools_multiBAM.out.npz \
 --whatToPlot scatterplot \
 --labels Input_Rep1 Input_Rep2 Nanog_Rep1 Nanog_Rep2 Pou5f1_Rep1 Pou5f1_Rep2
 ```
-<img src="../img/deepTools_scatterplot.png" width="600">
+<img src="../img/deepTools_scatterplot.png" width="500">
 
 We expect high correlations between replicates, and lower correlations between samplegroups. However, we do not observe this when looking at read coverage on chromosome 12. Specifically, we see that Input-Rep1 does not correlate well with any of the other samples. If this were for the entire genome, we might be concerned that we would not have reporducibility between replicates for many of the peaks, and that Input-Rep1 is a potential outlier.
 
@@ -261,18 +262,16 @@ $ plotCorrelation --corData deeptools_multiBAM.out.npz \
 --labels Input_Rep1 Input_Rep2 Nanog_Rep1 Nanog_Rep2 Pou5f1_Rep1 Pou5f1_Rep2 \
 --plotNumbers
 ```
-<img src="../img/deeptools_heatmap.png" width="600">
+<img src="../img/deeptools_heatmap.png" width="400">
 
 #### 2. Sample variability - `plotPCA` tool
 
 The next quality metric we will explore is the principal component analysis (PCA) of our read coverage calculations. PCA can be used to determine whether samples display greater variability between experimental conditions than between replicates of the same treatment based on information (read coverage values) from thousands of regions. PCA is also useful to identify unexpected patterns, such as those caused by batch effects or outliers. 
 
-You will use the tool `plotPCA` to sort the principal components according to the amount of variability of the data that they explain and generate two plots:
+We will use the tool `plotPCA` to sort the principal components according to the amount of variability of the data that they explain and generate two plots:
 
 - the PCA plot for the top two principal components eigenvalues 
 - the Scree plot for the top five principal components where the bars represent the amount of variability explained by the individual factors and the red line traces the amount of variability is explained by the individual components in a cumulative manner [[1]](http://deeptools.readthedocs.org/en/latest/content/tools/plotPCA.html)
-
-![PCA](../img/PCA_deeptools.png)
 
 ```
 $ plotPCA --corData deeptools_multiBAM.out.npz \
@@ -282,7 +281,7 @@ $ plotPCA --corData deeptools_multiBAM.out.npz \
 --labels Input_Rep1 Input_Rep2 Nanog_Rep1 Nanog_Rep2 Pou5f1_Rep1 Pou5f1_Rep2
 ```
 
-![pca_mov10](../img/deepTools_pcaplot.png)
+<img src="../img/deepTools_pcaplot.png" width=400>
 
 Similar to the correlation plots, we see little clustering of the replicates. The variation between samplegroups does not account for the major sources of variation in the data. If this dataset were for the entire genome, I would be concerned that I would return few peaks that would be agreed upon by both replicates.
 
