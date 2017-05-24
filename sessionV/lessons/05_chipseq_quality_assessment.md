@@ -10,8 +10,9 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
-* Generate enrichment and quality measures for ChIP-Seq data
-* Assess the quality of alignments using visualization tools
+* Generate enrichment and quality metrics for evaluating ChIP-Seq data
+* Assess the quality of alignments between samples using visualization tools
+* Creating bigWig files for visualization of peaks in a genome browser
 
 # ChIP-Seq quality assessment
 
