@@ -283,13 +283,13 @@ $ plotPCA --corData deeptools_multiBAM.out.npz \
 
 <img src="../img/deepTools_pcaplot.png" width=400>
 
-Similar to the correlation plots, we see little clustering of the replicates. The variation between samplegroups does not account for the major sources of variation in the data. If this dataset were for the entire genome, I would be concerned that I would return few peaks that would be agreed upon by both replicates.
+Similar to the correlation plots, we see little clustering of the replicates. The variation between sample groups does not account for the major sources of variation in the data. Keep in mind that these plots are generated for a small subset of data. It is likely that using the whole dataset will change the outcome of these plots and perhaps more similar to what we would expect.
+
+
+### Creating bigWig files for visualization of peaks
 
 
 
-### Summary of ChIP-QC metrics
-
-In summary, the dataset seems to have good signal-to-noise (based on phantompeakqualtools, though we would need to check values for all samples), indicating that we should be able to accurately call peaks in our dataset. That being said, the dataset exhibits extremely low coverage, indicating that if we had higher coverage, we would probably be able to call more peaks. In addition, the replicates do not cluster very well, so reproducibility between replicates may be an issue, which could result in few agreed upon peak calls.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
