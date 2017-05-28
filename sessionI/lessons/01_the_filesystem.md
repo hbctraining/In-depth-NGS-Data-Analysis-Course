@@ -399,7 +399,7 @@ Another shortcut is `..`, which we encountered earlier:
 $ ls ..
 ```
 
-The shortcut `..` always refers to the directory above your current directory and is a very important when using relative paths. So, it prints the contents of the `unix_lesson/`. You can chain this together with another directory in `unix_lesson/`, so:
+The shortcut `..` always refers to the directory above your current directory and is very important when using relative paths. So, it prints the contents of the `unix_lesson/`. You can chain this together with another directory in `unix_lesson/`, so:
 
 ```bash
 $ ls ../reference_data/
