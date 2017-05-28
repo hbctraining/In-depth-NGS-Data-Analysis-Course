@@ -161,7 +161,7 @@ First we did something like go to the folder of our username. Then we changed di
 
 Like on any computer you have used before, the file structure within unix is hierarchical. It's like an upside down tree with root (`/`) as the starting point of the tree-like structure:
 
-![Tree structure example](../img/Slide1.jpg)
+<img src="../img/Slide1.jpg" width="500" align="center">
 
 That root (`/`) is often also called the 'top' level.
 
