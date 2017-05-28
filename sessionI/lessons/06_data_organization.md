@@ -38,8 +38,8 @@ We will start by creating a directory that we can use for the rest of the RNA-se
 First, make sure that you are in your home directory.
 
 ```bash
-cd ~
-pwd
+$ cd ~
+$ pwd
 ```
 
 This should return `/home/$USER`.
@@ -47,7 +47,7 @@ This should return `/home/$USER`.
 Now make a directory for the RNA-seq analysis within the `ngs_course/` folder using the `mkdir` command. You can use the parents flag (`-p` or `--parents`) to complete the file path if any parents (e.g. `ngs_course/`) don't already exist. This isn't the case here, since we already made `ngs_course/`, but can be very useful when scripting workflows. 
 
 ```bash
-mkdir -p ~/ngs_course/rnaseq/
+$ mkdir -p ~/ngs_course/rnaseq/
 ```
 
 Next, set up the following structure within your project directory to keep files organized.
@@ -74,8 +74,8 @@ rnaseq
 Create a directory for the project by changing into `rnaseq/` and then using `mkdir` to create the subdirectories.
 
 ```bash
-cd ~/ngs_course/rnaseq/
-mkdir logs/ meta/ raw_data/ reference_data/ results/ scripts/
+$ cd ~/ngs_course/rnaseq/
+$ mkdir -p logs/ meta/ raw_data/ reference_data/ results/ scripts/
 ``` 
 
 Verify that the subdirectories now exist.
@@ -98,13 +98,13 @@ Let's populate the `rnaseq/` project with our example RNA-seq FASTQ data.
 The FASTQ files are located inside `~/ngs_course/unix_lesson/raw_fastq/`, and we need to copy them to `raw_data/`. We can match them by file extension with `*.fq`.
 
 ```bash
-cp ~/ngs_course/unix_lesson/raw_fastq/*.fq raw_data/
+$ cp ~/ngs_course/unix_lesson/raw_fastq/*.fq raw_data/
 ```
 
 Later in the workflow when we perform alignment, we will require genome reference files (.fa, .gtf) to map against. These files are also in the `unix_lesson/` directory inside `reference_data/`. You can use `.` as a placeholder for the current working directory as the destination.
 
 ```bash
-cp -r ~/ngs_course/unix_lesson/reference_data/ .
+$ cp -r ~/ngs_course/unix_lesson/reference_data/ .
 ```
 
 Perfect, now the structure of `rnaseq/` should look like this:
