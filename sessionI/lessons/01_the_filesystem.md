@@ -147,9 +147,7 @@ Commands that are run from the shell can get extremely complicated. To see an ex
 If the manual page within the terminal is hard to read and traverse, the manual exists online, use your web searching powers to get it! In addition to the arguments, you can also find good usage examples online; Google is your friend.
 </div>
 
-
-
-# The Unix directory file structure (a.k.a. where am I?)
+## The Unix directory file structure (a.k.a. where am I?)
  
 As you've already just seen, you can move around between different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way using a GUI (GUI = Graphical User Interface, pronounced *gooey*).
 
@@ -267,7 +265,7 @@ If you are aware of the directory structure, you can string together as long a l
 </div>
 
 ***
-## Exercise
+### Exercise
 
 - List the `Mov10_oe_1.subset.fq` file from your home directory without changing directories
 ***
@@ -312,7 +310,7 @@ You can usually use either a full path or a relative path depending on what is m
 Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them using relative paths.
 
 ***
-## Exercise
+### Exercise
 
 - Change directories to `/home/$USER/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data/` without changing directories again.
 - List the contents of the `/bin/` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
@@ -375,7 +373,7 @@ An asterisk/star is only one of the many wildcards in UNIX, but this is the most
 </div>
 
 ***
-## Exercise
+### Exercise
 
 Do each of the following using a single `ls` command without
 navigating to a different directory.
@@ -463,7 +461,7 @@ Only a certain number of commands are stored and displayed with `history`, there
 - <kbd>Ctrl + E</kbd> will bring you to the end of the command.
 
 ***
-## Exercise
+### Exercise
 
 - Find the line number in your history for the last exercise (listing
 files in `/bin/`) and reissue that command.
@@ -606,7 +604,7 @@ rm Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 ```
 
 ***
-## Exercise
+### Exercise
 
 1. Create a new directory called `backup_ref_data/` in `~/ngs_course/unix_lesson/` (bonus points for creating this when you are in the `backup/` directory!)
 2. Copy over the contents of the `~/ngs_course/unix_lesson/reference_data/` into `backup_ref_data/` after changing directories to `~/ngs_course/unix_lesson/` (if you are not already there).
