@@ -230,10 +230,10 @@ We will go over the remaining plots in class. Remember, our report only represen
 > **_NOTE:_** 
 >The other output of FastQC is a .zip file. These .zip files need to be unpacked with the `unzip` program. If we try to `unzip` them all at once:
 >
->```
->$ cd ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/    
->$ unzip *.zip
->```
+```
+$ cd ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/    
+$ unzip *.zip
+```
 >
 >Did it work? 
 
@@ -248,45 +248,58 @@ We will go over the remaining plots in class. Remember, our report only represen
 >
 >This loop is basically a simple program. When it runs
 >
->```
->$ for zip in *.zip
->> do
->> unzip $zip
->> done
->```
->it will run unzip once for each file (whose name is stored in the $zip variable). The contents of each file will be unpacked into a separate directory by the unzip program.
+```
+$ for zip in *.zip
+> do
+> unzip $zip
+> done
+```
+>This will run unzip once for each file (whose name is stored in the $zip variable). The contents of each file will be unpacked into a separate directory by the unzip program.
 >
 >The 'for loop' is interpreted as a multipart command.  If you press the up arrow on your keyboard to recall the command, it will be shown like so:
 >
->    for zip in *.zip; do unzip $zip; done
+```bash
+for zip in *.zip; do unzip $zip; done
+```
 >
 >When you check your history later, it will help you remember what you did!
 >
 >What information is contained in the unzipped folder?
 >
->```
->$ ls -lh Mov10_oe_1.subset_fastqc
->$ head Mov10_oe_1.subset_fastqc/summary.txt
->```
+```
+$ ls -lh Mov10_oe_1.subset_fastqc
+$ head Mov10_oe_1.subset_fastqc/summary.txt
+```
 >
 >To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/ngs_course/rnaseq/docs`. 
 >You can use wildcards in paths as well as file names.  Do you remember how we said `cat` is really meant for concatenating text files?
 >    
->`$ cat */summary.txt > ~/ngs_course/rnaseq/logs/fastqc_summaries.txt`
+```bash
+$ cat */summary.txt > ~/ngs_course/rnaseq/logs/fastqc_summaries.txt
+```
 
+## Quality Control (*Optional*) - Trimming 
 
-## Best practices for NGS Analysis 
+We want to make sure that as many reads as possible map or align accurately to the genome. To ensure accuracy, only a small number of mismatches between the read sequence and the genome sequence are allowed, and any read with more than a few mismatches will be marked as being unaligned. 
 
-Ok so now you are all set up and have begun your analysis. You have set up your space in a way such that someone unfamiliar with your project should be able to look at your computer files and understand in detail what you did and why. Now before we move on, we have a few words of wisdom to impart upon you:
+Therefore, to make sure that all the reads in the dataset have a chance to map/align to the genome, unwanted information can be trimmed off from every read, one read at a time. The types of unwanted information can include one or more of the following:
+- leftover adapter sequences
+- known contaminants (strings of As/Ts, other sequences)
+- poor quality bases at read ends
 
-1. **Make sure to use the appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
+**We will not be performing this step** because:
+* our data does not have an appreciable amount of leftover adapter sequences or other contaminating sequences based on FastQC.
+* the alignment tool we have picked (STAR) is able to account for low-quality bases at the ends of reads when matching them to the genome.
 
-2. **Keep up with the literature.** Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. This will help you determine what is appropriate and what is not.  
+If you need to perform trimming on your fastq data to remove unwanted sequences/bases, the recommended tool is [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html). 
 
-3. **Do not re-invent the wheel.** If you run into problems, more often than not someone has already encountered that same problem. A solution is either already available or someone is working on it -- so find it!
+Example of cutadapt usage:
 
-4. **Testing is essential.** If you are using a tool for the first time, test it out on a single sample or a subset of the data before running your entire dataset through. This will allow you to debug quicker and give you a chance to also get a feel for the tool and the different parameters.
+```bash
+$ cutadapt --adapter=AGATCGGAAGAG --minimum-length=25  -o myfile_trimmed.fastq.gz myfile.fastq.gz 
+```
 
+After trimming, cutadapt can remove any reads that are too short to ensure that you do not get spurious mapping of very short sequences to multiple locations on the genome. In addition to adapter trimming, cutadapt can trim off any low-quality bases too, but **please note that quality-based trimming is not considered best practice, since majority of recommended alignment tools can account for this.**
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
