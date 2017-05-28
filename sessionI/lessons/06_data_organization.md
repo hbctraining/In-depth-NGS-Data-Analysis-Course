@@ -185,7 +185,7 @@ From this study we are using the [RNA-seq](http://www.ncbi.nlm.nih.gov/geo/query
 
 For any bioinformatics experiment you will have to go through a series of steps in order to obtain your final desired output. The execution of these steps in a sequential manner is what we often refer to as a **workflow or pipeline**. A simplified version of the workflow we will be using in this course is provided below. We have some of the steps briefly outlined here, but plan to cover each in more detail over the duration of this course.
 
-![RNA-seq workflow](../img/rnaseq_workflow.png)
+<img src="../img/rnaseq_workflow.png" width="500" align="center">
 
 1. Library preparation of biological samples (pre-sequencing)
 2. Quality control - Assessing quality of sequence reads using FastQC
