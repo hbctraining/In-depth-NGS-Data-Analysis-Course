@@ -15,7 +15,7 @@ duration: 35
 
 
 
-# Data Management
+## Data Management
 
 Project organization is one of the most important parts of a sequencing project, but is often overlooked in the excitement to get a first look at new data. While it's best to get yourself organized before you begin analysis, it's never too late to start.
 
@@ -24,12 +24,12 @@ Importantly, the methods and approaches needed for bioinformatics are the same r
 Download the [data management slides][].
 
 
-## Planning
+### Planning
 
 You should approach your sequencing project in a very similar way to how you do a biological experiment, and ideally, begins with **experimental design**. We're going to assume that you've already designed a beautiful sequencing experiment to address your biological question, collected appropriate samples, and that you have enough statistical power.
 
 
-## Organization
+### Organization
 
 Every computational analysis you do is going to spawn many files, and inevitability, you'll want to run some of those analyses again. Genomics projects can quickly accumulate hundreds of files across tens of folders. Before you start any analysis it is best to first get organized and **create a planned storage space for your workflow**.
 
@@ -127,12 +127,11 @@ rnaseq
 └── scripts
 ```
 
-
-## Documentation
+### Documentation
 
 For all of those steps, collecting specimens, extracting DNA, prepping your samples, you've likely kept a lab notebook that details how and why you did each step, but **documentation doesn't stop at the sequencer**! 
 
-### Log files
+#### Log files
 
 In your lab notebook, you likely keep track of the different reagents and kits used for a specific protocol. Similarly, recording information about the tools and parameters is important for documenting your computational experiments. 
 
@@ -141,7 +140,7 @@ In your lab notebook, you likely keep track of the different reagents and kits u
 - Save log files and console output.
     - Different tools have different ways of reporting log messages and you might have to experiment a bit to figure out what output to capture. You can redirect standard output with the `>` symbol which is equivalent to `1> (standard out)`; other tools might require you to use `2>` to re-direct the `standard error` instead.
  
-### README file
+#### README file
 
 Keeping notes on what happened in what order, and what was done, is essential for reproducible research. If you don’t keep good notes, then you will forget what you did pretty quickly, and if you don’t know what you did, no one else has a chance. After setting up the filesystem and running a workflow it is useful to have a **README file within your project** directory. This file will usually contain a quick one line summary about the project and any other lines that follow will describe the files/directories found within it. An example README is shown below. Within each sub-directory you can also include README files to describe the analysis and the files that were generated.
 
@@ -158,14 +157,13 @@ results:
 logs:
 ```
 
-
-## Exercise
+*** 
+### Exercise
 
 - Take a moment to create a README for the `rnaseq/` folder (hint: use `vim` to create the file). Give a short description of the project and brief descriptions of the types of files you will be storing within each of the sub-directories. 
+***
 
-
-
-# Understanding the dataset
+## Understanding the dataset
 
 The dataset we are using is part of a larger study described in [Kenny PJ et al., *Cell Rep* 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease of aberrant protein production, which results in cognitive impairment and autistic-like features. **The authors sought to show that RNA helicase MOV10 regulates the translation of RNAs involved in Fragile X syndrome.**
 
@@ -179,7 +177,7 @@ From this study we are using the [RNA-seq](http://www.ncbi.nlm.nih.gov/geo/query
 
 ![Automation](../img/exp_design.png)
 
-# Understanding the workflow
+## Understanding the workflow
 
 For any bioinformatics experiment you will have to go through a series of steps in order to obtain your final desired output. The execution of these steps in a sequential manner is what we often refer to as a **workflow or pipeline**. A simplified version of the workflow we will be using in this course is provided below. We have some of the steps briefly outlined here, but plan to cover each in more detail over the duration of this course.
 
@@ -191,6 +189,18 @@ For any bioinformatics experiment you will have to go through a series of steps 
 4. Align reads to reference genome using STAR (splice-aware aligner)
 5. Quantifying expression/Counting the number of reads mapping to each gene
 6. Statistical analysis to identify differentially expressed genes (count normalization, linear modeling using R-based tools)
+
+## Best practices for NGS Analysis 
+
+Ok so now you are all set up and have begun your analysis. You have set up your space in a way such that someone unfamiliar with your project should be able to look at your files/folders and understand what you did and why. Before we move on, here are a few additional pointers:
+
+1. **Make sure to use the appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
+
+2. **Keep up with the literature.** Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. This will help you determine what is appropriate and what is not.  
+
+3. **Do not re-invent the wheel.** If you run into problems, more often than not someone has already encountered that same problem. A solution is either already available or someone is working on it -- so find it!
+
+4. **Testing is essential.** If you are using a tool for the first time, test it out on a single sample or a subset of the data before running your entire dataset through. This will allow you to debug quicker and give you a chance to also get a feel for the tool and the different parameters.
 
 ---
 
