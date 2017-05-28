@@ -225,7 +225,7 @@ This stands for "print working directory", i.e. the directory you're currently w
 
 What if we want to move back up and out of the `raw_fastq/` directory? Can we just type `cd unix_lesson/`? Try it and see what happens.
 
-To go "back up a level", we can use `..`.
+To go "back up a level", we can use `..`
 
 ```bash
 cd ..
