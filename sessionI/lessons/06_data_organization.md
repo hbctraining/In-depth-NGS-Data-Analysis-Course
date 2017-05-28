@@ -187,7 +187,7 @@ For any bioinformatics experiment you will have to go through a series of steps 
 
 1. Library preparation of biological samples (pre-sequencing)
 2. Quality control - Assessing quality of sequence reads using FastQC
-3. Quality control [Optional] - Adapter Trimming
+3. Quality control *(Optional)* - Adapter Trimming
 4. Align reads to reference genome using STAR (splice-aware aligner)
 5. Quantifying expression/Counting the number of reads mapping to each gene
 6. Statistical analysis to identify differentially expressed genes (count normalization, linear modeling using R-based tools)
