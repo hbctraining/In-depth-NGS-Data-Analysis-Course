@@ -179,21 +179,24 @@ From this study we are using the [RNA-seq](http://www.ncbi.nlm.nih.gov/geo/query
 
 ![Automation](../img/exp_design.png)
 
-
-
 # Understanding the workflow
 
 For any bioinformatics experiment you will have to go through a series of steps in order to obtain your final desired output. The execution of these steps in a sequential manner is what we often refer to as a **workflow or pipeline**. A simplified version of the workflow we will be using in this course is provided below. We have some of the steps briefly outlined here, but plan to cover each in more detail over the duration of this course.
 
-<img src="../img/rnaseq_workflow.png" width="500" align="center">
+<img src="../img/RNAseqWorkflow.png" width="450">
 
 1. Library preparation of biological samples (pre-sequencing)
 2. Quality control - Assessing quality of sequence reads using FastQC
-3. Quality control - Trimming and/or filtering sequencing reads (if necessary)
+3. Quality control [Optional] - Adapter Trimming
 4. Align reads to reference genome using STAR (splice-aware aligner)
 5. Quantifying expression/Counting the number of reads mapping to each gene
 6. Statistical analysis to identify differentially expressed genes (count normalization, linear modeling using R-based tools)
 
+---
 
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
-{% include copyright.md %}
+* *The materials used in this lesson were derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+* *Adapted from the lesson by Tracy Teal. Original contributors: Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)*
+
