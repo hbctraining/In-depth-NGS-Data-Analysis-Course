@@ -15,13 +15,13 @@ duration: 120
 
 
 
-# Setting up
+## Setting up
 
 Today we're going to go through how to access Unix/Linux and some of the basic shell commands. We will be doing this by manipulating an example dataset from a small RNA-seq experiment.
 
 Since we are going to be working with this data on our remote server, [HMS Orchestra](https://rc.hms.harvard.edu/#orchestra), we first need to log onto the server. After we're logged on, we will each make our own copy of the example data folder.
 
-## Logging in
+### Logging in
 
 **Macs**
 
@@ -31,7 +31,7 @@ Macs have a utility application called Terminal for performing tasks on the comm
 
 By default, there is no terminal for the bash shell available in the Windows OS, so you have to use a downloaded program, Git BASH. Git BASH is part of the [Git for Windows](https://git-for-windows.github.io/) download, and is a shell (bash) emulator. You can also use [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) to log in to remote machines from Windows computers, but it is a little more involved and has different capabilities.
 
-### Let's log in! 
+#### Let's log in! 
 
 Type in the following command with your eCommons username (replace the `$USER` placeholder with your username).
 
@@ -43,7 +43,7 @@ You will receive a prompt for your password, and you should type in your eCommon
 
 A warning might pop up the first time you try to connect to a remote machine. If necessary, enter `yes` or `y`. 
 
-## Copy example data folder
+#### Copy example data folder
 
 Once logged in, you should see the Orchestra news and the command prompt (`$`).
 
@@ -73,9 +73,7 @@ Copy the data directory `unix_lesson/` from our shared `hbctraining` group on Or
 cp -r /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/ ngs_course/
 ```
 
-
-
-# Starting with the shell
+## Starting with the shell
 
 Now that we've copied the `unix_lesson/` data to our local user home, let's navigate inside using the `cd` command. `cd` stands for "change directory".
 
@@ -131,7 +129,7 @@ Irrel_kd_2.subset.fq  Mov10_oe_1.subset.fq  Mov10_oe_3.subset.fq
 
 All six items in this directory have no trailing slashes, so they are all files, and not folders/directories.
 
-## Arguments
+### Arguments
 
 Most commands take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` command, like many commands, take a lot of arguments. Another useful one is `-t`, which will show a listing sorted by the time stamp.  
 
@@ -155,7 +153,7 @@ If the manual page within the terminal is hard to read and traverse, the manual 
  
 As you've already just seen, you can move around between different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way using a GUI (GUI = Graphical User Interface, pronounced *gooey*).
 
-## Moving around the file system
+### Moving around the file system
 
 Let's practice moving around a bit.
 
@@ -244,7 +242,7 @@ Now do `ls` and `pwd`.
 `..` denotes parent directory, and you can use it anywhere in the system to go back to the parent directory. Can you think of an example when this won't work?
 
 
-## Examining the contents of other directories
+### Examining the contents of other directories
 
 By default, the `ls` commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the home directory if you are not already there.
 
@@ -268,13 +266,13 @@ You should now be in `raw_fastq/` and you got there without having to step throu
 If you are aware of the directory structure, you can string together as long a list as you like. (Also see note about Tab Completion later in this lesson). Think of the second tree diagram above when you are putting together the route to a directory.
 </div>
 
+***
 ## Exercise
 
 - List the `Mov10_oe_1.subset.fq` file from your home directory without changing directories
+***
 
-
-
-# Full vs. relative paths
+## Full vs. relative paths
 
 The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative path* or a *full path*. 
 
@@ -313,16 +311,16 @@ You can usually use either a full path or a relative path depending on what is m
 
 Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them using relative paths.
 
+***
 ## Exercise
 
 - Change directories to `/home/$USER/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data/` without changing directories again.
 - List the contents of the `/bin/` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
+***
 
+## Saving time with tab completion, wildcards and other shortcuts 
 
-
-# Saving time with tab completion, wildcards and other shortcuts 
-
-## Tab completion
+### Tab completion
 
 Typing out directory names can waste a lot of time and generate a ton of typos. There is a really easy shortcut to help with this.
 
@@ -348,7 +346,7 @@ Tab completion can also fill in the names of commands. For example, enter `e<tab
 **Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the (full or relative) path.
 </div>
 
-## Wild cards
+### Wild cards
 
 The '*' character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
@@ -376,6 +374,7 @@ So how does this actually work? The shell (bash) considers an asterisk (`*`) to 
 An asterisk/star is only one of the many wildcards in UNIX, but this is the most powerful one and we will be using this one the most for our exercises.
 </div>
 
+***
 ## Exercise
 
 Do each of the following using a single `ls` command without
@@ -386,8 +385,9 @@ navigating to a different directory.
 - List all of the files in `/bin/` that end with the letter 'o'
 
 Bonus: List all of the files in `/bin/` that contain the letter 'a' or 'c'.
+***
 
-## Other shortcuts
+### Other shortcuts
 
 There are several more shortcuts which you should know about, but today we are talking about only a few. As you continue to work with the shell and on the terminal, you will come across and likely adopt many other shortcuts. 
 
@@ -424,7 +424,7 @@ Finally, the special directory `.` always refers to your current directory. So, 
 
 To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, and `ls /home/$USER` all do exactly the same thing. These shortcuts are not necessary, but they are really convenient!
 
-## Command History
+### Command History
 
 You can easily access previous commands.  Hit the up arrow. Hit it again.  You can step backwards through your command history. The down arrow takes your forwards in the command history. <kbd>Ctrl + R</kbd> will do a reverse-search through your command history. This is very useful.
 
@@ -456,20 +456,20 @@ then you could repeat command #260 by simply entering:
 Only a certain number of commands are stored and displayed with `history`, there is a way to modify this to store a different number.
 </div>
 
-## Other handy keyboard shortcuts
+### Other handy keyboard shortcuts
 
 - <kbd>Ctrl + C</kbd> will cancel the command you are writing, and give you a fresh prompt.
 - <kbd>Ctrl + A</kbd> will bring you to the start of the command you are writing.
 - <kbd>Ctrl + E</kbd> will bring you to the end of the command.
 
+***
 ## Exercise
 
 - Find the line number in your history for the last exercise (listing
 files in `/bin/`) and reissue that command.
+***
 
-
-
-# Examining Files
+## Examining Files
 
 We now know how to move around the file system and look at the
 contents of directories, but how do we look at the contents of files?
@@ -534,7 +534,7 @@ head -n 1 Mov10_oe_1.subset.fq
 tail -n 1 Mov10_oe_1.subset.fq
 ```
 
-## Creating, moving, copying, and removing
+### Creating, moving, copying, and removing
 
 Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
 
@@ -605,17 +605,13 @@ The `rm` file permanently removes the file. Be careful with this command. The sh
 rm Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 ```
 
+***
 ## Exercise
 
 1. Create a new directory called `backup_ref_data/` in `~/ngs_course/unix_lesson/` (bonus points for creating this when you are in the `backup/` directory!)
 2. Copy over the contents of the `~/ngs_course/unix_lesson/reference_data/` into `backup_ref_data/` after changing directories to `~/ngs_course/unix_lesson/` (if you are not already there).
 3. *Using just one command*, **move** the `raw_fastq/backup/` directory to your current working directory (which is `~/ngs_course/unix_lesson/`) and **rename** it `backup_fastq/`.
-
-
-
-* * *
-
-
+***
 
 We really don't need these backup directories, so, let's delete both. Make sure you have navigated to `~/ngs_course/unix_lesson/`, and now we will use the `rm` command to delete. By default, `rm`, will NOT delete directories, but you use the `-r` flag if you are sure that you want to delete the directories and everything within them. To be safe, let's use it with the `-i` flag.
 
@@ -626,9 +622,7 @@ rm -ri backup_ref_data/ backup_fastq/
 - `-r`: recursive, commonly used as an option when working with directories, e.g. with `cp`. 
 - `-i`: prompt before every removal.
 
-
-
-# Commands, options, and keystrokes covered
+## Commands, options, and keystrokes covered
 
 ```
 bash
@@ -656,16 +650,12 @@ mv
 rm
 ```
 
-
-
-# Additional learning resources
+## Additional learning resources
 
 - http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/
 - https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md
 - http://explainshell.com/
 - http://www.commandlinefu.com/
-
-
 
 {% include copyright.md %}
 
