@@ -13,8 +13,6 @@ duration: 120
   - Automating tasks
 - What is it good for?
 
-
-
 ## Setting up
 
 Today we're going to go through how to access Unix/Linux and some of the basic shell commands. We will be doing this by manipulating an example dataset from a small RNA-seq experiment.
@@ -167,9 +165,7 @@ That root (`/`) is often also called the 'top' level.
 
 When you log in to a remote computer you are on one of the branches of that tree, your home directory (e.g. `/home/$USER`)
 
-<div class="note">
-On macOS, which is UNIX-based, the root level is also `/`. On Windows, it is drive specific; generally `C:\` is considered root, but it changes to `D:\`, if you are on that drive.
-</div>
+> On macOS, which is UNIX-based, the root level is also `/`. On Windows, it is drive specific; generally `C:\` is considered root, but it changes to `D:\`, if you are on that drive.
 
 This tree can also be represented as follows:
 
@@ -340,9 +336,7 @@ When you hit the first tab, nothing happens. The reason is that there are multip
 
 Tab completion can also fill in the names of commands. For example, enter `e<tab><tab>`. You will see the name of every command that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works. 
 
-<div class="note">
-**Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the (full or relative) path.
-</div>
+> **Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the (full or relative) path.
 
 ### Wild cards
 
@@ -368,9 +362,7 @@ lists only the files that begin with 'Mov10' and end with 'fq'
 
 So how does this actually work? The shell (bash) considers an asterisk (`*`) to be a wildcard character that can be used to substitute for any single character or any string of characters. 
 
-<div class="note">
-An asterisk/star is only one of the many wildcards in UNIX, but this is the most powerful one and we will be using this one the most for our exercises.
-</div>
+> An asterisk/star is only one of the many wildcards in UNIX, but this is the most powerful one and we will be using this one the most for our exercises.
 
 ***
 ### Exercise
