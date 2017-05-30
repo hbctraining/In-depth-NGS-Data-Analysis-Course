@@ -94,6 +94,7 @@ If we use `>>`, it will append to rather than overwrite a file.  This can be use
     
 ```bash
 grep -B 1 -A 2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt
+
 ls -l
 ```
 
