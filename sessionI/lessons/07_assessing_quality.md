@@ -19,7 +19,7 @@ A critical first step in the analysis of your NGS data is assessing the quality 
 <img src="../img/RNAseqWorkflow.png" width="400">
 
 
-## FastQC
+## Assessing quality with FastQC
 
 Since we have our directory structure set up, and we know about what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.
 
