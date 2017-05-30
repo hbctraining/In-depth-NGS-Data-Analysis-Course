@@ -60,7 +60,7 @@ $ module list
 This is because the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
 
 ```bash
-$ $PATH
+$ echo $PATH
 ```
 
 To run the FastQC program, we first need to load the appropriate module, so it puts the program into our path:
@@ -74,7 +74,7 @@ Once a module for a tool is loaded, you have essentially made it directly availa
 ```bash
 $ module list
 
-$ $PATH
+$ echo $PATH
 ```
 
 FastQC will accept multiple file names as input, so we can use the `*.fq` wildcard.
