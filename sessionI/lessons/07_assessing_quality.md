@@ -60,7 +60,7 @@ $ module list
 This is because the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
 
 ```bash
-$ $PATH`
+$ $PATH
 ```
 
 To run the FastQC program, we first need to load the appropriate module, so it puts the program into our path:
