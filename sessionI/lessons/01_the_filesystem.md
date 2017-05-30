@@ -449,8 +449,7 @@ $ !260
 ***
 ### Exercise
 
-- Find the line number in your history for the last exercise (listing
-files in `/bin/`) and reissue that command.
+- Find the line number in your history for the last exercise (listing files in `/bin/`) and reissue that command.
 ***
 
 ## Examining Files
