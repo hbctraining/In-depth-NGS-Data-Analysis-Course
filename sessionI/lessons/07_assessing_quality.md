@@ -46,7 +46,7 @@ $ bsub -Is -n 1 -q interactive bash
 Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `untrimmed_fastq`.
 
 ```bash
-$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+$ cd ~/ngs_course/rnaseq/raw_data
 ```  
 
 Before we start using software, we have to load the environments for each software package. On clusters, this is typically done using a **module** system. 
@@ -94,7 +94,7 @@ $ bsub -Is -n 6 -q interactive bash   #start a new session with 6 cpus (-n 6)
 
 $ module load seq/fastqc/0.11.3  #reload the module for the new session
 
-$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+$ cd ~/ngs_course/rnaseq/raw_data
 
 $ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
 ```
@@ -158,7 +158,7 @@ Now in the body of the script, we can include any commands we want run:
 
 ```bash
 ## Changing directories to where the fastq files are located
-cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+cd ~/ngs_course/rnaseq/raw_data
 
 ## Loading modules required for script commands
 module load seq/fastqc/0.11.3
@@ -167,7 +167,7 @@ module load seq/fastqc/0.11.3
 fastqc -t 6 *.fq
 
 ## Moving files to our results directory
-mv *fastqc* ../../results/fastqc_untrimmed_reads/
+mv *fastqc* ../results/fastqc_untrimmed_reads/
 ```
 
 Save and quit the script. Now, let's submit the job to the LSF:
