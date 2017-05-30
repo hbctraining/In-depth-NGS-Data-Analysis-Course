@@ -63,7 +63,7 @@ the name of the sequence.
 2. Search for that sequence in all Mov10 replicate fastq files.
 ***
 
-# Redirection
+## Redirection
 
 We're excited we have all these sequences that we care about that we
 just got from the FASTQ files. That is a really important motif
@@ -144,7 +144,7 @@ Redirecting is not super intuitive, but it's powerful for stringing together the
 The philosophy behind these commands is that none of them really do anything all that impressive. BUT when you start chaining them together, you can do some really powerful things 
 efficiently. If you want to be proficient at using the shell, you must learn to become proficient with the pipe and redirection operators: `|`, `>`, `>>`.
 
-# Practice with searching and redirection
+## Practice with searching and redirection
 
 Finally, let's use the new tools in our kit and a few new ones to examine our gene annotation file, **chr1-hg19_genes.gtf**, which we will be using later to find the genomic coordinates of all known exons on chromosome 1.
 
@@ -187,7 +187,7 @@ To determine the number of total exons on chromosome 1, we are going to perform 
 3. Remove duplicate exons
 4. Count the total number of exons
 
-## Subsetting dataset
+### Subsetting dataset
 
 We will define an exon by it's genomic coordinates. Therefore, we only need the feature type and the genomic location (chr, start, stop, and strand) information to find the total number of exons. The columns corresponding to this information are 1, 3, 4, 5, and 7. 
 
