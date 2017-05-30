@@ -241,12 +241,12 @@ $ sort -u chr1_exons_cut | wc -l
 ****
 **Final Exercise**
 
-How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
+How could have you have determined the number of total exons by combining all of the previous commands (starting with the original `chr1-hg19_genes.gtf`), into a single command (no intermediate files) using pipes?
 
 ****
 
 
-# Commands, options, and keystrokes covered in this lesson
+#### Commands, options, and keystrokes covered in this lesson
 
 ```
 grep
