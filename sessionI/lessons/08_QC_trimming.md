@@ -13,7 +13,7 @@ duration: 60 minutes
 
 So far we have run our raw reads through FastQC to assess the quality of our sequencing reads. Now we are going to improve the quality of our reads, by **trimming** off any "bad" bases.
 
-![Workflow](../img/rnaseq_workflow_trimming.png)
+![Workflow](../img/RNAseqWorkflow.png)
 
 Remember, that for our raw fastq data, we found the quality of the bases decreasing towards the 3' ends of the reads:
 
