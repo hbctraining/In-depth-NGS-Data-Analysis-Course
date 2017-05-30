@@ -167,7 +167,7 @@ chr1    unknown exon    16858   17055   .       -       .       gene_id "WASH7P"
 ```
 > The GTF file is a tab-delimited gene annotation file often used in NGS analyses. For more information on this file format, check out the [Ensembl site](http://useast.ensembl.org/info/website/upload/gff.html). 
 
-The columns in the **GTF file contain the genomic coordinates of gene features (exon, start_codon, stop_codon, CDS) and the gene names, transcript IDs and protein IDs (p_id) associated with these features**. Note that sometimes an exon can be associated with multiple different transcripts or gene isoforms. For example, 
+The columns in the **GTF file contain the genomic coordinates of gene features (exon, start codon, stop codon, CDS) and the gene names, transcript IDs and protein IDs (p_id) associated with these features**. Note that sometimes an exon can be associated with multiple different transcripts or gene isoforms. For example, 
 
 ```bash
 $ grep PLEKHN1 chr1-hg19_genes.gtf | head -n 5
