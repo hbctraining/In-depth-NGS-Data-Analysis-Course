@@ -129,22 +129,22 @@ practice what we just learned in a brief challenge.
 
 **Vim modes:**
 
-```
+
 | key              | action                 |
 | ---------------- | ---------------------- |
 | <kbd>i</kbd>     | insert mode - to write and edit text |
 | <kbd>esc</kbd>     | command mode - to issue commands / shortcuts  |
-```
+
 
 **Saving and quiting:**
 
-```
+
 | key              | action                 |
 | ---------------- | ---------------------- |
 | <kbd>:w</kbd>     | to write to file (save) |
 | <kbd>:wq</kbd>     | to write to file and quit     |
 | <kbd>:q!</kbd>     | to quit without saving |
-```
+
 
 **Shortcuts for navigation:**
 
