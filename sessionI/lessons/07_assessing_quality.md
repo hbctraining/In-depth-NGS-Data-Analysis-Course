@@ -249,7 +249,7 @@ We will go over the remaining plots in class. Remember, our report only represen
 > **_NOTE:_** 
 >The other output of FastQC is a .zip file. These .zip files need to be unpacked with the `unzip` program. If we try to `unzip` them all at once:
 >
->```
+>```bash
 >$ cd ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/    
 >$ unzip *.zip
 >```
