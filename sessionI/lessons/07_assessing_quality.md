@@ -268,7 +268,7 @@ We will go over the remaining plots in class. Remember, our report only represen
 >This loop is basically a simple program. When it runs
 >
 >```
-$ for zip in *.zip
+>$ for zip in *.zip
 > do
 > unzip $zip
 > done
