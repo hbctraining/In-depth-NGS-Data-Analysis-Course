@@ -16,7 +16,7 @@ duration: 85 minutes
 
 A critical first step in the analysis of your NGS data is assessing the quality of your data and performing any necessary quality control measures, such as trimming.
 
-![Workflow](../img/rnaseq_workflow_FASTQC.png)
+<img src="../img/RNAseqWorkflow.png", width=500>
 
 
 ## FastQC
