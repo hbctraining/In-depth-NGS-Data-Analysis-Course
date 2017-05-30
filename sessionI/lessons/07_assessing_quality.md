@@ -249,13 +249,13 @@ We will go over the remaining plots in class. Remember, our report only represen
 > **_NOTE:_** 
 >The other output of FastQC is a .zip file. These .zip files need to be unpacked with the `unzip` program. If we try to `unzip` them all at once:
 >
-```
-$ cd ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/    
-$ unzip *.zip
-```
+>```
+>$ cd ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/    
+>$ unzip *.zip
+>```
 >
 >Did it work? 
-
+>
 >No, because `unzip` expects to get only one zip file. Welcome to the real world.
 >We *could* do each file, one by one, but what if we have 500 files? There is a smarter way.
 >We can save time by using a simple shell `for loop` to iterate through the list of files in *.zip.
