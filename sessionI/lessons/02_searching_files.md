@@ -179,10 +179,10 @@ Now that we know what type of information is inside of our gtf file, let's explo
 
 To determine the number of total exons on chromosome 1, we are going to perform a series of steps:
 	
-**1.** Extract only the genomic coordinates of exon features
-**2.** Subset the dataset to only include the feature type and genomic location information
-3. Remove duplicate exons
-4. Count the total number of exons
+**Step 1:** Extract only the genomic coordinates of exon features
+**Step 2:** Subset the dataset to only include the feature type and genomic location information
+**Step 3:** Remove duplicate exons
+**Step 4:** Count the total number of exons
 	
 #### Extracting exon features
 
