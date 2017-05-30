@@ -1,10 +1,9 @@
 ---
 title: "Quality control using FASTQC"
 author: "Bob Freeman, Mary Piper"
-date: "Wednesday October 26, 2016"
+date: 2017-05-31
+duration: 85 minutes
 ---
-
-Approximate time: 85 minutes
 
 ## Learning Objectives:
 
@@ -13,7 +12,7 @@ Approximate time: 85 minutes
 * Create a job submission script to automate quality assessment
 * Learning best practices for NGS analysis
 
-##Quality Control of FASTQ files
+## Quality Control of FASTQ files
 
 A critical first step in the analysis of your NGS data is assessing the quality of your data and performing any necessary quality control measures, such as trimming.
 
@@ -21,6 +20,7 @@ A critical first step in the analysis of your NGS data is assessing the quality 
 
 
 ## FastQC
+
 Since we have our directory structure set up, and we know about what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.
 
 [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
@@ -33,48 +33,61 @@ The main functions of FastQC are:
 * Export of results to an HTML based permanent report
 * Offline operation to allow automated generation of reports without running the interactive application
 
-###A. Run FastQC  
+### A. Run FastQC  
 
 Before we run FastQC, let's start an interactive session on the cluster:
 
-`$ bsub -Is -n 1 -q interactive bash`
+```bash
+$ bsub -Is -n 1 -q interactive bash
+```
 
 ***An interactive session is very useful to test tools, workflows, run jobs that open new interactive windows (X11-forwarding) and so on.***
 
 Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `untrimmed_fastq`.
 
-`$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq`  
+```bash
+$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+```  
 
 Before we start using software, we have to load the environments for each software package. On clusters, this is typically done using a **module** system. 
 
 If we check which modules we currently have loaded, we should not see FastQC.
 
-`$ module list`
+```bash
+$ module list
+```
 
 This is because the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
 
-`$ $PATH`
+```bash
+$ $PATH`
+```
 
 To run the FastQC program, we first need to load the appropriate module, so it puts the program into our path:
 
-`$ module load seq/fastqc/0.11.3`
+```bash
+$ module load seq/fastqc/0.11.3
+```
 
 Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
 
-```
+```bash
 $ module list
+
 $ $PATH
 ```
 
 FastQC will accept multiple file names as input, so we can use the `*.fq` wildcard.
 
-`$ fastqc *.fq`
+```bash
+$ fastqc *.fq
+```
 
 *Did you notice how each file was processed serially? How do we speed this up?*
 
 Exit the interactive session and start a new one with 6 cores, and use the multi-threading functionality of FastQC to run 6 jobs at once.
 
-```
+```bash
 $ exit  #exit the current interactive session
 
 $ bsub -Is -n 6 -q interactive bash   #start a new session with 6 cpus (-n 6)
@@ -88,16 +101,20 @@ $ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
 
 How did I know about the -t argument for FastQC?
 
-`$ fastqc --help`
+```bash
+$ fastqc --help
+```
 
 
 Now, let's create a home for our results
 
-`$ mkdir ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads`
+```bash
+$ mkdir ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads
+```
 
 ...and move them there (recall, we are still in `~/ngs_course/rnaseq/data/untrimmed_fastq/`)
 
-```
+```bash
 $ mv *fastqc* ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
 ```
 
@@ -106,15 +123,16 @@ So far in our FASTQC analysis, we have been directly submitting commands to Orch
 
 **Job submission scripts** for Orchestra are just regular scripts, but contain the Orchestra **options/directives** for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify in the script using the `bsub` command as follows:
 
-```
+```bash
 # DO NOT RUN THIS
 $ bsub < job_submission_script.lsf
 ```
+
 Submission of the script using the `bsub` command allows the load sharing facility (LSF) to run your job when its your turn. Let's create a job submission script to load the FASTQC module, run FASTQC on all of our fastq files, and move the files to the appropriate directory.
 
 Change directories to `~/ngs_course/rnaseq`, and create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
 
-```
+```bash
 $ cd ~/ngs_course/rnaseq
 
 $ vim mov10_fastqc.lsf
@@ -154,23 +172,24 @@ mv *fastqc* ../../results/fastqc_untrimmed_reads/
 
 Save and quit the script. Now, let's submit the job to the LSF:
 
-```
+```bash
 $ bsub < mov10_fastqc.lsf
 ```
 
 You can check on the status of your job with:
-```
+
+```bash
 $ bjobs
 ```
 
-When your job is finished, check the results directory for the output files:
-```
+
+```bash
 $ ls -lh results/fastqc_untrimmed_reads/
 ```
 
 There should also be standard error (`.err`) and standard out (`.out`) files from the job listed in `~/ngs_course/rnaseq`. You can move these over to your `logs` directory and give them more intuitive names:
 
-``` 
+```bash
 mv *.err logs/fastqc.err
 mv *.out logs/fastqc.out
 ```
@@ -182,7 +201,7 @@ How would you change the `mov10_fastqc.lsf` script if you had 9 fastq files you 
 
 ***
 
-###B. Results
+### B. Results
    
 Let's take a closer look at the files generated by FastQC:
    
@@ -191,13 +210,13 @@ Let's take a closer look at the files generated by FastQC:
 #### HTML reports
 The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer the file for `Mov10_oe_1.subset.fq` over to your laptop via *FileZilla*.
 
-#####Filezilla - Step 1
+##### Filezilla - Step 1
 
 Open *FileZilla*, and click on the File tab. Choose 'Site Manager'.
  
 ![FileZilla_step1](../img/Filezilla_step1.png)
 
-#####Filezilla - Step 2
+##### Filezilla - Step 2
 
 Within the 'Site Manager' window, do the following: 
 
@@ -248,35 +267,35 @@ $ unzip *.zip
 >
 >This loop is basically a simple program. When it runs
 >
-```
+>```
 $ for zip in *.zip
 > do
 > unzip $zip
 > done
-```
+>```
 >This will run unzip once for each file (whose name is stored in the $zip variable). The contents of each file will be unpacked into a separate directory by the unzip program.
 >
 >The 'for loop' is interpreted as a multipart command.  If you press the up arrow on your keyboard to recall the command, it will be shown like so:
 >
-```bash
-for zip in *.zip; do unzip $zip; done
-```
+>```bash
+>for zip in *.zip; do unzip $zip; done
+>```
 >
 >When you check your history later, it will help you remember what you did!
 >
 >What information is contained in the unzipped folder?
 >
-```
-$ ls -lh Mov10_oe_1.subset_fastqc
-$ head Mov10_oe_1.subset_fastqc/summary.txt
-```
+>```bash
+>$ ls -lh Mov10_oe_1.subset_fastqc
+>$ head Mov10_oe_1.subset_fastqc/summary.txt
+>```
 >
 >To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/ngs_course/rnaseq/docs`. 
 >You can use wildcards in paths as well as file names.  Do you remember how we said `cat` is really meant for concatenating text files?
 >    
-```bash
-$ cat */summary.txt > ~/ngs_course/rnaseq/logs/fastqc_summaries.txt
-```
+>```bash
+>$ cat */summary.txt > ~/ngs_course/rnaseq/logs/fastqc_summaries.txt
+>```
 
 ## Quality Control (*Optional*) - Trimming 
 
