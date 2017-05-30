@@ -186,7 +186,7 @@ To determine the number of total exons on chromosome 1, we are going to perform 
 	
 #### Extracting exon features
 
-We only want the exons (not CDS or start_codon features), so let's use `grep` to only keep the exon lines and save to file, **`chr1_exons`**:
+We only want the exons (not CDS or start codon features), so let's use `grep` to only keep the exon lines and save to file, **`chr1_exons`**:
 
 ```bash
 $ grep exon chr1-hg19_genes.gtf > chr1_exons
@@ -196,7 +196,7 @@ $ grep exon chr1-hg19_genes.gtf > chr1_exons
 
 We will define an exon by it's genomic coordinates. Therefore, we only need the genomic location (chr, start, stop, and strand) information to find the total number of exons. The columns corresponding to this information are 1, 4, 5, and 7. 
 
-'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command and look at the output for only the first 5 lines of chr1_exons to make sure we have the command correct:
+'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command and look at the output for only the first 5 lines of `chr1_exons` to make sure we have the command correct:
 
 ```bash
 $ cut -f1,4,5,7 chr1_exons | head -n 5
