@@ -86,11 +86,16 @@ To make it easier to refer to distinct lines, we can add line numbers by typing 
 
 While we cannot point and click to navigate the document, we can use the arrow keys to move around. Navigating with arrow keys can be very slow, so Vim has shortcuts (which are completely unituitive, but very useful as you get used to them over time). Check to see what mode you are currently in. While in command mode, try moving around the screen and familarizing yourself with some of these shortcuts:    
 
-<kbd>gg</kbd>: move to top of file  
-<kbd>G</kbd>: move to bottom of file  
+<kbd>gg</kbd>: move to top of file
+
+<kbd>G</kbd>: move to bottom of file 
+
 <kbd>$</kbd>: move to end of line 
+
 <kbd>0</kbd>: move to beginning of line  
+
 <kbd>w</kbd>: move to next word
+
 <kbd>b</kbd>: move to previous word
 
 In addition to shortcuts for navigation, vim also offers editing shortcuts such as:
