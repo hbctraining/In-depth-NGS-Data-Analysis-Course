@@ -102,6 +102,7 @@ Since our `bad_reads.txt` file isn't a raw fastq file, we should move it to a di
 
 ```bash
 mkdir ../other/
+
 mv bad_reads.txt ../other/
 ```
 
