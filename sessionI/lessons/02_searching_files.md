@@ -36,7 +36,7 @@ grep NNNNNNNNNN Mov10_oe_1.subset.fq
 We get back a lot of lines.  What if we want to see the whole fastq record for each of these reads? We can use the `-B` and `-A` arguments for grep to return the matched line plus one before (`-B 1`) and two lines after (`-A 2`). Since each record is four lines and the second line is the sequence, this should return the whole record.
 
 ```bash
-grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq
+grep -B 1 -A 2 NNNNNNNNNN Mov10_oe_1.subset.fq
 ```
 
 ```
@@ -78,7 +78,7 @@ Let's try it out and put all the sequences that contain 'NNNNNNNNNN'
 from all the files in to another file called `bad_reads.txt`.
 
 ```bash
-grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt
+grep -B 1 -A 2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt
 ```
 
 The prompt should sit there a little bit, and then it should look like nothing
@@ -93,7 +93,7 @@ You should have a new file called `bad_reads.txt`. Take a look at it and see if 
 If we use `>>`, it will append to rather than overwrite a file.  This can be useful for saving more than one search, for example.
     
 ```bash
-grep -B1 -A2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt
+grep -B 1 -A 2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt
 ls -l
 ```
 
@@ -113,7 +113,7 @@ look at it, like we can with `less`. Well it turns out that we can! We pipe
 the `grep` command to `less`.
 
 ```bash
-grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | less
+grep -B 1 -A 2 NNNNNNNNNN Mov10_oe_1.subset.fq | less
 ```
 
 Now we can use the arrows to scroll up and down and use `q` to get out.
