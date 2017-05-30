@@ -2,8 +2,10 @@
 title: The Shell
 author: Sheldon McKay, Mary Piper, Radhika Khetani, Michael Steinbaugh
 date: 2017-05-31
-duration: 120
+duration: 120 minutes
 ---
+
+## Learning Objectives
 
 - How do you access the shell?
 - How do you use it?
