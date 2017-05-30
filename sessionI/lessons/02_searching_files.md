@@ -196,7 +196,7 @@ $ grep exon chr1-hg19_genes.gtf > chr1_exons
 
 We will define an exon by it's genomic coordinates. Therefore, we only need the genomic location (chr, start, stop, and strand) information to find the total number of exons. The columns corresponding to this information are 1, 4, 5, and 7. 
 
-'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command on a small dataset (just the first 5 lines of chr1_exons) to make sure we have the command correct:
+'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command and look at the output for only the first 5 lines of chr1_exons to make sure we have the command correct:
 
 ```bash
 $ cut -f1,4,5,7 chr1_exons | head -n 5
