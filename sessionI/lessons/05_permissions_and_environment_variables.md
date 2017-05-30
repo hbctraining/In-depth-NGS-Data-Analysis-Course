@@ -198,7 +198,9 @@ Which of the following statements is true?
 
 ## Environment Variables
 
-Environment variables are, in short, variables that describe the environment in which programs run in. Two commonly encountered variables are `HOME` and `PATH`.
+Every time a shell session spawns, a process takes place to gather and compile information to determine its behavior and access to resources. One way that the shell keeps track of all of these settings and details is through an area it maintains called the **environment**.
+
+The environment is built by the shell every time that it starts a session. The environment is defined by **environment variables** as they define the system properties of the environment. Two commonly encountered variables are `HOME` and `PATH`.
 
 * `HOME` defines the home directory for a user.
 * `PATH` defines a list of directories to search through when looking for a command to execute.
