@@ -29,6 +29,7 @@ Suppose we want to see how many reads in our file `Mov10_oe_1.subset.fq` are rea
 
 ```bash
 cd ~/ngs_course/unix_lesson/raw_fastq
+
 grep NNNNNNNNNN Mov10_oe_1.subset.fq
 ```
 
