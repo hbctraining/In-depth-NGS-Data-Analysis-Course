@@ -9,7 +9,7 @@ duration: 45 minutes
 
 - Learn how to search for characters or patterns in a text file using the `grep` command
 - Learn about output redirection
-- Learn how to use the pipe (`|`) character to chain together commands
+- Explore how to use the pipe (`|`) character to chain together commands
 
 
 
