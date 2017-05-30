@@ -118,7 +118,7 @@ $ mkdir ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads
 $ mv *fastqc* ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
 ```
 
-## Performing quality assessment using job submission scripts
+### Performing quality assessment using job submission scripts
 So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues using job submission scripts. 
 
 **Job submission scripts** for Orchestra are just regular scripts, but contain the Orchestra **options/directives** for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify in the script using the `bsub` command as follows:
