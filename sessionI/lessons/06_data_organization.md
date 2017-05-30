@@ -19,10 +19,7 @@ duration: 35
 
 Project organization is one of the most important parts of a sequencing project, but is often overlooked in the excitement to get a first look at new data. While it's best to get yourself organized before you begin analysis, it's never too late to start.
 
-Importantly, the methods and approaches needed for bioinformatics are the same required in a wet lab environment. **Planning, documentation, and organization** are essential to good, reproducible science. Before we begin project organization, we will first discuss how to manage data, in particular handling datasets comprised of large files.
-
-Download the [data management slides][].
-
+Importantly, the methods and approaches needed for bioinformatics are the same required in a wet lab environment. **Planning, documentation, and organization** are essential to good, reproducible science. 
 
 ### Planning
 
@@ -42,7 +39,7 @@ $ cd ~
 $ pwd
 ```
 
-This should return `/home/$USER`.
+This should return `/home/username`.
 
 Now make a directory for the RNA-seq analysis within the `ngs_course/` folder using the `mkdir` command. You can use the parents flag (`-p` or `--parents`) to complete the file path if any parents (e.g. `ngs_course/`) don't already exist. This isn't the case here, since we already made `ngs_course/`, but can be very useful when scripting workflows. 
 
