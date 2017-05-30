@@ -231,7 +231,7 @@ Now, we need to remove those exons that show up multiple times for different tra
 We can use a new tool, `sort`, to remove exons that show up more than once.  We can use the `sort` command with the `-u` option to return only unique lines.
 
 ```bash
-$ sort -u chr1_exons | head -n 5
+$ sort -u chr1_exons_cut | head -n 5
 ```
 
 ## Counting the total number of exons
@@ -239,25 +239,15 @@ $ sort -u chr1_exons | head -n 5
 Now, to count how many unique exons are on chromosome 1, we need to pipe the output to `wc -l`:
 
 ```bash
-$ sort -u chr1_exons | wc -l
+$ sort -u chr1_exons_cut | wc -l
 ```
 
-## Exercise
+****
+**Final Exercise**
 
 How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
 
-# Where can I learn more about the shell?
-
-- Software Carpentry tutorial: [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
-- The shell handout: [Command Reference](http://files.fosswire.com/2007/08/fwunixref.pdf)
-- [explainshell.com](http://explainshell.com)
-- http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
-- man bash
-- Google: if you don't know how to do something, try Googling it. Other people
-have probably had the same question.
-- Learn by doing. There's no real other way to learn this than by trying it
-out.  Write your next paper in nano (really emacs or vim), open pdfs from
-the command line, automate something you don't really need to automate.
+****
 
 # Commands, options, and keystrokes covered in this lesson
 
