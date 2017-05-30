@@ -100,10 +100,10 @@ In addition to shortcuts for navigation, vim also offers editing shortcuts such 
 
 | key              | action                 |
 | ---------------- | ---------------------- |
-| <kbd>dw</kbd>     | delete word |
-| <kbd>dd</kbd>     | delete line     |
-| <kbd>u</kbd>     | undo |
-| <kbd>Ctrl + r</kbd>     | redo     |
+| <kbd>dw</kbd>     | to delete word |
+| <kbd>dd</kbd>     | to delete line     |
+| <kbd>u</kbd>     | to undo |
+| <kbd>Ctrl + r</kbd>     | to redo     |
 	
 Practice some of the editing shortcuts, then quit the document without saving any changes.
 
@@ -130,34 +130,44 @@ practice what we just learned in a brief challenge.
 **Vim modes:**
 
 ```
-<kbd>i</kbd>: insert mode - to write and edit text
-<kbd>esc</kbd>: command mode - to issue commands / shortcuts
+| key              | action                 |
+| ---------------- | ---------------------- |
+| <kbd>i</kbd>     | insert mode - to write and edit text |
+| <kbd>esc</kbd>     | command mode - to issue commands / shortcuts  |
 ```
 
 **Saving and quiting:**
 
 ```
-<kbd>:w</kbd>: write to file (save)
-<kbd>:wq</kbd>: write to file and quit
-<kbd>:q!</kbd>: quit without saving
+| key              | action                 |
+| ---------------- | ---------------------- |
+| <kbd>:w</kbd>     | to write to file (save) |
+| <kbd>:wq</kbd>     | to write to file and quit     |
+| <kbd>:q!</kbd>     | to quit without saving |
 ```
+
 **Shortcuts for navigation:**
 
-	<kbd>gg<kbd>: move to top of file  
-	<kbd>G`: move to bottom of file  
-	<kbd>$`: move to end of line 
-	`0`: move to beginning of line  
-	`w`: move to next word
-	`b`: move to previous word
+
+| key              | action                 |
+| ---------------- | ---------------------- |
+| <kbd>gg</kbd>     | to move to top of file |
+| <kbd>G</kbd>     | to move to bottom of file     |
+| <kbd>$</kbd>     | to move to end of line |
+| <kbd>0</kbd>     | to move to beginning of line     |
+| <kbd>w</kbd>     | to move to next word     |
+| <kbd>b</kbd>     | to move to previous word     |
 
 **Shortcuts for editing:**
 
-	`dw`: delete word 
-	`dd`: delete line  
-	`u`: undo
-	`Ctrl + r`: redo
-	`:set number`: number lines
-	`:set nonumber`: no line numbers
+| key              | action                 |
+| ---------------- | ---------------------- |
+| <kbd>dw</kbd>     | to delete word |
+| <kbd>dd</kbd>     | to delete line     |
+| <kbd>u</kbd>     | to undo |
+| <kbd>Ctrl + r</kbd>     | to redo     |
+| <kbd>:set number</kbd>     | to number lines |
+| <kbd>:set nonumber</kbd>     | to remove line numbers    |
 	
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
