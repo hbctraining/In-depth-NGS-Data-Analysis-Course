@@ -54,14 +54,14 @@ Vim has **_two basic modes_** that will allow you to create documents and edit y
 - **_insert (or edit) mode:_** will allow you to write and edit text
 
 
-Upon creation of a file, vim is automatically in command mode. Let's _change to insert mode_ by typing `i`. Notice the `--INSERT--` at the bottom left hand of the screen. Now type in a few lines of text:
+Upon creation of a file, vim is automatically in command mode. Let's _change to insert mode_ by typing <kbd>i</kbd>. Notice the `--INSERT--` at the bottom left hand of the screen. Now type in a few lines of text:
 
 ![vim-insert-mode](../img/vim_insert.png)
 
-After you have finished typing, press `esc` to enter command mode. Notice the `--INSERT--` disappeared from the bottom of the screen.
+After you have finished typing, press <kbd>esc</kbd> to enter command mode. Notice the `--INSERT--` disappeared from the bottom of the screen.
 
 #### Vim Saving and Quitting
-To **write to file (save)**, type `:w`. You can see the commands you type in the bottom left-hand corner of the screen. 
+To **write to file (save)**, type <kbd>:w</kbd>. You can see the commands you type in the bottom left-hand corner of the screen. 
 
 ![vim-save](../img/vim_save.png)
 
@@ -69,9 +69,9 @@ After you have saved the file, the total number of lines and characters in the f
 
 ![vim-postsave](../img/vim_postsave.png)
 
-Alternatively, we can **write to file (save) and quit**. Let's do that by typing `:wq`. Now, you should have exited vim and returned back to your terminal window.
+Alternatively, we can **write to file (save) and quit**. Let's do that by typing <kbd>:wq</kbd>. Now, you should have exited vim and returned back to your terminal window.
 
-To edit your `draft.txt` document, open up the file again by calling vim and entering the file name: `vim draft.txt`. Change to insert mode and type a few more lines (you can move around the lines using the arrows on the keyboard). This time we decide to **quit without saving** by typing `:q!`
+To edit your `draft.txt` document, open up the file again by calling vim and entering the file name: `vim draft.txt`. Change to insert mode and type a few more lines (you can move around the lines using the arrows on the keyboard). This time we decide to **quit without saving** by typing <kbd>:q!</kbd>
  
 ![vim-quit](../img/vim_quit.png)
 
@@ -80,25 +80,25 @@ Create the document "spider.txt" in vim. Enter the text as follows:
 
 ![image](../img/vim_spider.png)
 
-To make it easier to refer to distinct lines, we can add line numbers by typing `:set number`. **Save the document.** Later, if you choose to remove the line numbers you can type `:set nonumber`.
+To make it easier to refer to distinct lines, we can add line numbers by typing <kbd>:set number</kbd>. **Save the document.** Later, if you choose to remove the line numbers you can type <kbd>:set nonumber</kbd>.
 
 ![image](../img/vim_spider_number.png)
 
 While we cannot point and click to navigate the document, we can use the arrow keys to move around. Navigating with arrow keys can be very slow, so Vim has shortcuts (which are completely unituitive, but very useful as you get used to them over time). Check to see what mode you are currently in. While in command mode, try moving around the screen and familarizing yourself with some of these shortcuts:    
 
-	`gg`: move to top of file  
-	`G`: move to bottom of file  
-	`$`: move to end of line 
-	`0`: move to beginning of line  
-	`w`: move to next word
-	`b`: move to previous word
+	<kbd>gg</kbd>: move to top of file  
+	<kbd>G</kbd>: move to bottom of file  
+	<kbd>$</kbd>: move to end of line 
+	<kbd>0</kbd>: move to beginning of line  
+	<kbd>w</kbd>: move to next word
+	<kbd>b</kbd>: move to previous word
 
 In addition to shortcuts for navigation, vim also offers editing shortcuts such as:
 
-	`dw`: delete word 
-	`dd`: delete line  
-	`u`: undo
-	`Ctrl + r`: redo
+	<kbd>dw</kbd>: delete word 
+	<kbd>dd</kbd>: delete line  
+	<kbd>u</kbd>: undo
+	<kbd>Ctrl + r</kbd>: redo
 	
 Practice some of the editing shortcuts, then quit the document without saving any changes.
 
@@ -125,22 +125,22 @@ practice what we just learned in a brief challenge.
 **Vim modes:**
 
 ```
-`i`: insert mode - to write and edit text
-`esc`: command mode - to issue commands / shortcuts
+<kbd>i</kbd>: insert mode - to write and edit text
+<kbd>esc</kbd>: command mode - to issue commands / shortcuts
 ```
 
 **Saving and quiting:**
 
 ```
-`:w`: write to file (save)
-`:wq`: write to file and quit
-`:q!`: quit without saving
+<kbd>:w</kbd>: write to file (save)
+<kbd>:wq</kbd>: write to file and quit
+<kbd>:q!</kbd>: quit without saving
 ```
 **Shortcuts for navigation:**
 
-	`gg`: move to top of file  
-	`G`: move to bottom of file  
-	`$`: move to end of line 
+	<kbd>gg<kbd>: move to top of file  
+	<kbd>G`: move to bottom of file  
+	<kbd>$`: move to end of line 
 	`0`: move to beginning of line  
 	`w`: move to next word
 	`b`: move to previous word
