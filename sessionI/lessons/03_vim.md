@@ -28,12 +28,12 @@ When working remotely, we need a text editor that functions from the command lin
 
 While there are simpler editors available for use (i.e. [nano](http://www.nano-editor.org/)), most computational scientists tend to favor editors that have greater functionality. Some popular editors include [Emacs](http://www.gnu.org/software/emacs/), [Vim](http://www.vim.org/), or a graphical editor such as [Gedit](http://projects.gnome.org/gedit/). These are editors which are generally available for use on high-performance compute clusters.
 
-#### Introduction to Vim 
+### Introduction to Vim 
 
 To write and edit files, we're going to use a text editor called 'Vim'. Vim is a very powerful text editor, and it offers extensive text editing options. However, in this introduction we are going to focus on exploring some of the more basic functions. There is a lot of functionality that we are not going to cover during this session, but encourage you to go further as you become more comfortable using it. To help you remember some of the keyboard shortcuts that are introduced below and to allow you to explore additional functionality on your own, we have compiled a [cheatsheet](../../resources/VI_CommandReference.pdf).
 
 
-#### Vim Interface
+### Vim Interface
 
 You can create a document by calling a text editor and providing the name of the document you wish to create. Change directories to the `unix_lesson/other` folder and create a document using `vim` entitled `draft.txt`:
 
@@ -46,7 +46,7 @@ $ vim draft.txt
 Notice the `"draft.txt" [New File]` typed at the bottom left-hand section of the screen. This tells you that you just created a new file in vim. 
 
 
-#### Vim Modes
+### Vim Modes
 Vim has **_two basic modes_** that will allow you to create documents and edit your text:   
 
 - **_command mode (default mode):_** will allow you to save and quit the program (and execute other more advanced commands).  
@@ -60,7 +60,7 @@ Upon creation of a file, vim is automatically in command mode. Let's _change to 
 
 After you have finished typing, press <kbd>esc</kbd> to enter command mode. Notice the `--INSERT--` disappeared from the bottom of the screen.
 
-#### Vim Saving and Quitting
+### Vim Saving and Quitting
 To **write to file (save)**, type <kbd>:w</kbd>. You can see the commands you type in the bottom left-hand corner of the screen. 
 
 ![vim-save](../img/vim_save.png)
@@ -75,7 +75,7 @@ To edit your `draft.txt` document, open up the file again by calling vim and ent
  
 ![vim-quit](../img/vim_quit.png)
 
-#### Vim Editing
+### Vim Editing
 Create the document "spider.txt" in vim. Enter the text as follows: 
 
 ![image](../img/vim_spider.png)
@@ -125,7 +125,7 @@ practice what we just learned in a brief challenge.
 
 ***
 
-#### Overview of vim commands
+### Overview of vim commands
 
 **Vim modes:**
 
