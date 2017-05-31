@@ -78,7 +78,7 @@ to a file, so that we can look at it later.
 The redirection command for putting something in a file is `>`
 
 Let's try it out and put all the sequences that contain 'NNNNNNNNNN'
-from all the files in to another file called `bad_reads.txt`.
+from all the files into another file called `bad_reads.txt`.
 
 ```bash
 $ grep -B 1 -A 2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt
