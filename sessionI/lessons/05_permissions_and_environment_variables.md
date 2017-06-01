@@ -276,29 +276,6 @@ $ vim ~/.bashrc
 
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
-### [[Extra, extra!!]] Modifying command prompt content
-
-To change the command prompt you would modify the `PS1` environment variable. Let's take a look at what the current contents are.
-
-```bash
-echo $PS1
-```
-
-To change the command prompt to contain the full path of the directory you are in, open the `~/.bashrc` file using "vim" and add the following line to the end of the file.
-
-```bash
-PS1="\u@\h:\w\$ "
-```
-The `\u`, `\h`, `\w` and `\W` are "bash prompt special characters." You can find more information about what those characters mean [at this link](https://linuxconfig.org/bash-prompt-basics).
-
-After you add it, run the `source` command on the file to make the modification go into effect.
-
-```bash
-$ source ~/.bashrc
-```
-
-These steps will modify the command prompt when you start an interactive session on Orchestra to display the full path. If you want to make the same change to the command prompt when you log in, you will have to add the `PS1` reassignment line to `~/.bash_profile`.
-
 ---
 
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
