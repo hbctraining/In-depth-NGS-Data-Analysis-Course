@@ -35,7 +35,7 @@ We will start by creating a directory that we can use for the rest of the RNA-se
 First, make sure that you are in your home directory.
 
 ```bash
-$ cd ~
+$ cd
 $ pwd
 ```
 
@@ -49,7 +49,7 @@ $ mkdir -p ~/ngs_course/rnaseq/
 
 Next, set up the following structure within your project directory to keep files organized.
 
-```
+```bash
 rnaseq
   ├── logs
   ├── meta
@@ -63,7 +63,7 @@ rnaseq
 
 - `logs`: It is important to keep track of the commands run and the specific parameters used, but also to have a record of any standard output that is generated while running the command. 
 - `meta`: This folder contains any information that describes the samples you are using, which we often refer to as metadata. 
-- `raw_data`: Store any **unmodified** raw data obtained prior to computational analysis here. We strongly recommend placing the original source NGS run data here, including FASTQ files.
+- `raw_data`: Store any **unmodified** raw data obtained prior to computational analysis here. We strongly recommend placing the original source NGS run data here, i.e. FASTQ files.
 - `reference_data`: Store any necessary genomic annotation reference (e.g. FASTA, GTF) files here.
 - `results`: This folder will contain the output from the different tools you implement in your workflow. To stay organized, you should create sub-folders specific to each tool/step of the workflow. 
 - `scripts`: This folder will contain the scripts that you use to run analyses at different points in the workflow.
@@ -72,22 +72,13 @@ Create a directory for the project by changing into `rnaseq/` and then using `mk
 
 ```bash
 $ cd ~/ngs_course/rnaseq/
-$ mkdir -p logs/ meta/ raw_data/ reference_data/ results/ scripts/
+$ mkdir -p logs meta raw_data reference_data results scripts
 ``` 
 
 Verify that the subdirectories now exist.
 
 ```bash
 ls -l
-```
- 
-```
-drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 logs
-drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 meta
-drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 raw_data
-drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 reference_data
-drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 results
-drwxrwxr-x 2 usr01 usr01 0 May 11 12:49 scripts
 ```
 
 Let's populate the `rnaseq/` project with our example RNA-seq FASTQ data.
@@ -98,7 +89,7 @@ The FASTQ files are located inside `~/ngs_course/unix_lesson/raw_fastq/`, and we
 $ cp ~/ngs_course/unix_lesson/raw_fastq/*.fq raw_data/
 ```
 
-Later in the workflow when we perform alignment, we will require genome reference files (.fa, .gtf) to map against. These files are also in the `unix_lesson/` directory inside `reference_data/`. You can use `.` as a placeholder for the current working directory as the destination.
+Later in the workflow when we perform alignment, we will require genome reference files (.fa, .gtf) for alignment and read counting. These files are also in the `unix_lesson/` directory inside `reference_data/`, we can copy over the whole folder in this case. You can use `.` as a placeholder for the current working directory as the destination.
 
 ```bash
 $ cp -r ~/ngs_course/unix_lesson/reference_data/ .
@@ -106,7 +97,7 @@ $ cp -r ~/ngs_course/unix_lesson/reference_data/ .
 
 Perfect, now the structure of `rnaseq/` should look like this:
 
-```
+```bash
 rnaseq
 ├── logs
 ├── meta
@@ -144,14 +135,16 @@ Keeping notes on what happened in what order, and what was done, is essential fo
 ```
 ## README ##
 ## This directory contains data generated from the NGS Data Analysis Course
-## Date: November 1st, 2016
+## Date: June 1st, 2017
 
-There are five directories in this directory:
+There are six subdirectories in this directory:
 
-data: contains raw data
+raw_data : contains raw data
 meta:  contains...
-results:
 logs:
+reference_data:
+results:
+scripts:
 ```
 
 *** 
