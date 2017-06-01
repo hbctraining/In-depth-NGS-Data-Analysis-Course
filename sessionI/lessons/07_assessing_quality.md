@@ -43,7 +43,7 @@ $ bsub -Is -n 1 -q interactive bash
 
 ***An interactive session is very useful to test tools, workflows, run jobs that open new interactive windows (X11-forwarding) and so on.***
 
-Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `untrimmed_fastq`.
+Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `raw_data`.
 
 ```bash
 $ cd ~/ngs_course/rnaseq/raw_data
