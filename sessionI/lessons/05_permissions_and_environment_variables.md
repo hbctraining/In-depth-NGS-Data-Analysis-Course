@@ -71,7 +71,9 @@ Let's look at this model in action.
 
 If we say,
 
-	$ ls -l /bin/ls
+```bash
+$ ls -l /bin/ls
+```
 
 It tells us `-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`. 
  
@@ -85,13 +87,15 @@ So, `ls` is an executable file that belong to user root and group root, and only
 Now let's run the command `ls -l ~/ngs_course/unix_lesson`, to list the files in that directory:
 
 	
-	$ ls -l
-
-	drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
-	drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
-	-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
-	drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
-
+```bash
+$ ls -l
+```
+```
+drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
+drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
+drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
+```
 
 The `-l` flag tells `ls` to give us a long-form listing. It's a lot of information, so let's go through the columns in turn.
 
@@ -101,7 +105,9 @@ Next to the modification time is the file's size in bytes and the names of the u
 
 Let's have a closer look at one of those permission strings for README.txt:
 	
-	-rw-rw-r--
+```
+-rw-rw-r--
+```
 
 The first character tells us what type of thing this is: '-' means it's a regular file, while 'd' means it's a directory, and other characters mean more esoteric things.
 
@@ -113,34 +119,38 @@ The final triplet shows us what everyone who isn't the file's owner, or in the f
 
 To change permissions, we use the `chmod` command (whose name stands for "change mode"). Let's make our README.txt file **inaccessible** to all users other than you and your group, currently they are able to read it:
 
-	
-	$ ls -l ~/ngs_course/unix_lesson/README.txt
+```bash
+$ ls -l ~/ngs_course/unix_lesson/README.txt
 
-	-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
+```
 
-	$ chmod o-rw ~/ngs_course/unix_lesson/README.txt         # the "-" after o denotes removing that permission
-	
-	$ ls -l ~/ngs_course/unix_lesson/README.txt
+```bash
+$ chmod o-rw ~/ngs_course/unix_lesson/README.txt         # the "-" after o denotes removing that permission
 
-	-rw-rw---- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
+$ ls -l ~/ngs_course/unix_lesson/README.txt
 
+-rw-rw---- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
+```
 
 The 'o' signals that we're changing the privileges of "others".
 
 Let's change it back to allow it to be readable by others:
 	
-	$ chmod o+r ~/ngs_course/unix_lesson/README.txt         # the "+" after o denotes adding/giving that permission
+```bash
+$ chmod o+r ~/ngs_course/unix_lesson/README.txt         # the "+" after o denotes adding/giving that permission
 
-	$ ls -l ~/ngs_course/unix_lesson/README.txt
+$ ls -l ~/ngs_course/unix_lesson/README.txt
 
-	-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
+```
 
 If we wanted to make this an executable file for ourselves (the file's owners) we would say `chmod u+rwx`, where the 'u' signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter "g" `chmod g-w`. 
 
 Before we go any further,
 let's run `ls -l` on the `~/ngs_course/unix_lesson` directory to get a long-form listing:
 
-```
+```bash
 $ ls -l
 
 drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
@@ -171,7 +181,7 @@ This trick gives people a way to make some of their directories visible to the w
 
 If `ls -l myfile.php` returns the following details:
 
-```
+```bash
 -rwxr-xr-- 1 caro zoo  2312  2014-10-25 18:30 myfile.php
 ```
  
@@ -193,13 +203,14 @@ Environment variables are, in short, variables that describe the environment in 
 In the context of the shell the Environment variables are usually all upper case.
 
 First, let's see our list of environment variables:
-```
+
+```bash
 $ env
 ```
 
 Let's see what is stored in these variables:
 
-```
+```bash
 $ echo $HOME
 
 /home/rsk27
@@ -207,7 +218,7 @@ $ echo $HOME
 
 Variables, in most systems, are called/denoted with a "$" before the variable name
 
-```
+```bash
 $ echo $PATH
 
 /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin:/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:/opt/lsf/7.0/linux2.6-glibc2.3-x86_64/etc:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
@@ -232,7 +243,7 @@ When someone says a command or an executable file is "*in you path*", they mean 
 For any command you execute on the command prompt, you can find out where they are located using the which command.
 
 Try it on a few of the basic commands we have learned so far:
-```
+```bash
 $ which ls
 $ which <your favorite command>
 $ which <your favorite command>
@@ -248,7 +259,7 @@ $ which <your favorite command>
 The $PATH variable is reset to a set of defaults (/bin:/usr/bin and so on), each time you start a new shell terminal. To make sure that a command/program you need is always at your fingertips, you have to put it in one of 2 special shell scripts that are always run when you start a new terminal. These are hidden files in your home directory called `.bashrc` and `.bash_profile`. You can create them if they don't exist, and shell will use them.
 
 Check what hidden files exist in our home directory:
- ```
+```bash
 $ ls -al ~/
 ```
 
@@ -256,7 +267,7 @@ Open the .bashrc file and at the end of the file add the export command that add
 
 The location we want to add to the beginning of the list is `/opt/bcbio/centos/bin`, we need this for later in the course.
 
-```
+```bash
 $ vim ~/.bashrc
 
 # at the end of the file type in the following - "export PATH=/opt/bcbio/centos/bin:$PATH"
