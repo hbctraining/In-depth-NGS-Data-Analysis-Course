@@ -276,7 +276,7 @@ $ vim ~/.bashrc
 
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
-### Extra, extra!!
+### [[Extra, extra!!]] Modifying command prompt content
 
 To change the command prompt you would modify the `PS1` environment variable. Let's take a look at what the current contents are.
 
