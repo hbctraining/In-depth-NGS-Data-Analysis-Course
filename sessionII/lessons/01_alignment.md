@@ -207,7 +207,7 @@ Listed below are additional parameters that we will use in our command:
 
 We can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. If you want to manually enter the command, it is advisable to first type out the full command in a text editor (i.e. [Sublime Text](http://www.sublimetext.com/) or [Notepad++](https://notepad-plus-plus.org/)) on your local machine and then copy paste into the terminal. This will make it easier to catch typos and make appropriate changes. 
 
-```
+```bash
 # DO NOT RUN THIS!
 
 STAR --genomeDir /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/reference_data/reference_STAR \
@@ -229,7 +229,7 @@ The interactive queue on Orchestra offers a great way to test commands to make s
 
 **Positional parameters** allow flexibility within a script. These are special variables that allow us to change the values in a script by entering those values as command line arguments. For example, the following command has two command line arguments specified:
 
-```
+```bash
 $ sh script.sh filename.fq
 ```
 
@@ -239,12 +239,12 @@ The command is 'sh', and the arguments are the name of the script, "script.sh" a
 
 We can specify a filename to use as input to a script using **positional parameters**. To explore this using positional parameters, let's create a script called `word_count.sh` to count the number of words, lines, and characters in a specified file:
 
-```
+```bash
 $ vim ~/ngs_course/rnaseq/scripts/word_count.sh
 ```
 In the script, write the following:
 
-```
+```bash
 #!/bin/bash
 
 # Exploring positional parameters
@@ -254,14 +254,14 @@ wc $1
 
 We can run this script by entering the following:
 
-```
+```bash
 $ sh ~/ngs_course/rnaseq/scripts/word_count.sh Mov10_oe_1.subset.fq
 ```
 In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq` is $1. Whatever we enter in the $1 position when we run the command will be used in place of $1 inside the script for `wc $1`.
 
 Let's say we wanted to specify as input the option or flag of the `wc` command to return the number of words, lines, or characters. We could create another variable, $2 as the flag for `wc`:
 
-```
+```bash
 #!/bin/bash
 
 # Exploring positional parameters
@@ -270,8 +270,8 @@ wc -$2 $1
 ```
 Now we can determine the number of **lines** in the Mov10 rep1 file with:
 
-```
-sh word_count.sh Mov10_oe_1.subset l
+```bash
+sh ~/ngs_course/rnaseq/scripts/word_count.sh Mov10_oe_1.subset.fq l
 ```
 
 In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq` is $1 and `l` is $2. When these parameters are used in the script, the full command executed is: `wc -l Mov10_oe_1.subset.fq`.
@@ -282,13 +282,13 @@ In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq` is $1 and `l` 
 
 Now let's write a script to run the STAR command and use positional parameters to specify which filename to run the script on:
 
-```
-$ vim star_analysis_on_input_file.sh
+```bash
+$ vim ~/ngs_course/rnaseq/scripts/star_analysis_on_input_file.sh
 ```
 
 Within the script, add the shebang line and create a variable named `fq` to be the first command line parameter used when running the script:
 
-```
+```bash
 #!/bin/bash
 
 fq=$1
@@ -296,7 +296,7 @@ fq=$1
 
 Next, we'll initialize variables that contain the paths to where the common files are stored and then use the variable names (with a $) in the actual commands later in the script. This is a shortcut for when you want to use this script for a dataset that used a different genome, e.g. mouse; you'll just have to change the contents of these variable at the beginning of the script.
 
-```
+```bash
 # location of genome reference index files
 
 genome=/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/reference_data/reference_STAR 
@@ -316,7 +316,7 @@ align_out=~/ngs_course/rnaseq/results/STAR/${fq}_
 
 Our variables are now staged. We now need to modify the STAR command to use it so that it will run the steps of the analytical workflow with more flexibility:
 
-```
+```bash
 # Run STAR
 STAR --runThreadN 6 \
 --genomeDir $genome \
@@ -328,17 +328,17 @@ STAR --runThreadN 6 \
 ```
 It is always nice to have comments at the top of a more complex script to make sure that when your future self, or a co-worker, uses it they know exactly how to run it and what the script will do. So for our script, we can have the following lines of comments right at the top after #!/bin/bash/:
 
-```
+```bash
 # This script takes a fastq file of RNA-Seq data and outputs STAR alignment files.
 # USAGE: sh star_analysis_on_input_file.sh <name of fastq file>
 ```
 
 Once you save this new script, it is ready for running:
 
-```
-$ chmod u+rwx star_analysis_on_input_file.sh      # make it executable, this is good to do, even if your script runs fine without it to ensure that it always does and you are able to tell that it's an executable shell script.
+```bash
+$ chmod u+rwx ~/ngs_course/rnaseq/scripts/star_analysis_on_input_file.sh      # make it executable, this is good to do, even if your script runs fine without it to ensure that it always does and you are able to tell that it's an executable shell script.
 
-$ sh star_analysis_on_input_file.sh <name of fastq>
+$ sh ~/ngs_course/rnaseq/scripts/star_analysis_on_input_file.sh <name of fastq>
 ```
 
 #### Running our script iteratively as a job submission to the LSF scheduler
@@ -347,11 +347,11 @@ The above script will run in an interactive session for one file at a time, but 
 
 To run the above script iteratively for all of the files on a worker node via the job scheduler, we could write a **new submission script** that uses a **for loop** to iterate through and run the above script for all the fastq files.
 
-```
+```bash
 # DO NOT RUN THIS!
 
 #!/bin/bash
-#BSUB -q priority       # Partition to submit to (comma separated)
+#BSUB -q priority       # Queue
 #BSUB -n 6                  # Number of cores, since we are running the STAR command with 6 threads
 #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
 #BSUB -R "rusage[mem=4000]"    # Memory in MB
@@ -373,14 +373,14 @@ done
 
 ### Parallelizing workflow for efficiency
 
-The above script will run through the analysis for all your input fastq files, but it will do so in serial. **We can set it up so that the pipeline is working on all the trimmed data in parallel (at the same time)**. This will save us a lot of time when we have realistic datasets.
+The above script will run through the analysis for all your input fastq files, but it will do so in serial. **We can set it up so that the pipeline is working on all the fastq files in parallel (at the same time)**. This will save us a lot of time when we have realistic datasets.
 
 Let's make a modified version of the above script to parallelize our analysis. To do this need to modify one major aspect which will enable us to work with some of the constraints that this scheduler (LSF) has. We will be using a `for loop` for submission and putting the directives for each submission in the bsub command.
 
 Let's make a new file called `star_analysis_on_allfiles-for_lsf.sh`. Note this is a normal shell script.
 
 ```bash
-$ vim star_analysis_on_allfiles_for-lsf.sh
+$ vim ~/ngs_course/rnaseq/scripts/star_analysis_on_allfiles_for-lsf.sh
 ```
 
 This file will loop through the same files as in the previous script, but the command it submits will be the actual bsub command:
@@ -400,7 +400,7 @@ done
 Now, let's run the job to submit jobs to LSF for each fastq file in the `raw_data` folder:
 
 ```bash
-$ sh star_analysis_on_allfiles_for-lsf.sh
+$ sh ~/ngs_course/rnaseq/scripts/star_analysis_on_allfiles_for-lsf.sh
 ```
 
 >NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best.
@@ -416,8 +416,8 @@ Don't forget about the `bkill` command, should something go wrong and you need t
 Last but not least, it is best practice to keep everything contained within the planned storage that you had created when setting up for this project. There should be a number of standard error (`.err`) and standard out (`.out`) files that you will want to keep for future reference. Move these over to your `logs` folder: 
 
 ```bash
-$ mv *.err ../../logs
-$ mv *.out ../../logs
+$ mv *.err ../logs
+$ mv *.out ../logs
 ```
 
 ---
