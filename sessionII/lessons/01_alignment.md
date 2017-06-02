@@ -34,7 +34,8 @@ STAR is shown to have high accuracy and outperforms other aligners by more than 
 
 For every read that STAR aligns, STAR will search for the longest sequence that exactly matches one or more locations on the reference genome. These longest matching sequences are called the Maximal Mappable Prefixes (MMPs):
 
-![STAR_step1](../img/alignment_STAR_step1.png)
+
+<img src="../img/alignment_STAR_step1.png" width="500">
 	
 The different parts of the read that are mapped separately are called 'seeds'. So the first MMP that is mapped to the genome is called *seed1*.
 
