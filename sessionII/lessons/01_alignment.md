@@ -1,7 +1,7 @@
 ---
 title: "Alignment with STAR"
 author: "Meeta Mistry, Bob Freeman, Mary Piper"
-date: "Tuesday, June 28, 2016"
+date: "Wednesday, June 7, 2017"
 ---
 
 Approximate time: 90 minutes
@@ -65,45 +65,42 @@ Then the seeds are stitched together based on the best alignment for the read (s
 
 ### Set-up
 
-To get started with this lesson, start an interactive session with 6 cores:
+To get started with this lesson, start an interactive session with 3 cores:
 
-```
-$ bsub -Is -n 6 -q interactive bash	
+```bash
+$ bsub -Is -n 3 -q interactive bash	
 ```
 
 You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
 
-```
+```bash
 rnaseq
-	├── data
-	│   ├── reference_data
-	│   │   └── chr1.fa
-	│   │   └── chr1-hg19_genes.gtf
- 	|   ├── untrimmed_fastq
-	│   │   
-	│   └── trimmed_fastq
-	│       ├── Irrel_kd_1.subset.fq.qualtrim25.minlen35.fq
-	│       ├── Irrel_kd_2.subset.fq.qualtrim25.minlen35.fq
-	│       ├── Irrel_kd_3.subset.fq.qualtrim25.minlen35.fq
-	│       ├── Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
-	│       ├── Mov10_oe_2.subset.fq.qualtrim25.minlen35.fq
-	│       └── Mov10_oe_3.subset.fq.qualtrim25.minlen35.fq
-	|
+	├── logs
 	├── meta
+	├── raw_data
+	│   ├── Irrel_kd_1.subset.fq
+	│   ├── Irrel_kd_2.subset.fq
+	│   ├── Irrel_kd_3.subset.fq
+	│   ├── Mov10_oe_1.subset.fq
+	│   ├── Mov10_oe_2.subset.fq
+	│   └── Mov10_oe_3.subset.fq
+	├── reference_data
+	│   ├── chr1.fa
+	│   └── chr1-hg19_genes.gtf
 	├── results
-	└── logs
+	└── scripts
 ```
 
 Change directories into the `reference_data` folder. 
 
-```
-$ cd ~/ngs_course/rnaseq/data/reference_data
+```bash
+$ cd ~/ngs_course/rnaseq/reference_data
 ```
 
 To use the STAR aligner, load the Orchestra module: 
 
-```
-$ module load seq/STAR/2.5.2a
+```bash
+$ module load seq/STAR/2.5.3a
 ```
 
 Aligning reads using STAR is a two step process:   
@@ -113,7 +110,7 @@ Aligning reads using STAR is a two step process:
 
 > A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
 
-```
+```bash
 $ ls -l /groups/shared_databases/igenome/
 ```
 
@@ -123,7 +120,7 @@ For this workshop we are using reads that originate from a small subsection of c
 
 To store our genome indices, we need to create a directory:
 
-```
+```bash
 $ mkdir my_genome_index
 ```
 
@@ -141,12 +138,12 @@ The basic options to **generate genome indices** using STAR are as follows:
 
 Now let's create a job submission script to generate the genome index:
 
-```
-$ vim genome_index.lsf
+```bash
+$ vim ~/ngs_course/rnaseq/scripts/genome_index.lsf
 ```
 Within `vim` we now add our shebang line, the Orchestra LSF directives, and our STAR command. 
 
-```
+```bash
 #!/bin/bash
 
 #BSUB -q priority # queue name
@@ -156,7 +153,9 @@ Within `vim` we now add our shebang line, the Orchestra LSF directives, and our 
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-module load seq/STAR/2.5.2a
+cd ~/ngs_course/rnaseq/reference_data
+
+module load seq/STAR/2.5.3a
 
 STAR --runThreadN 6 \
 --runMode genomeGenerate \
@@ -167,26 +166,19 @@ STAR --runThreadN 6 \
 
 ```
 
-```
-$ bsub < genome_index.lsf 
+```bash
+$ bsub < ~/ngs_course/rnaseq/scripts/genome_index.lsf
 ```
 
 ### Aligning reads
 
-After you have the genome indices generated, you can perform the read alignment. We previously generated the genome indices for you in `/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR` directory so that we don't get held up waiting on the generation of the indices.
-
-To get started with read alignment, change directories to the `trimmed_fastq` folder and remove the extra `Mov10_oe_1` trimmed file that we currently have. This will save us problems with duplicate samples down the road: 
-
-```bash
-
-$ cd ~/ngs_course/rnaseq/data/trimmed_fastq/
-$ rm Mov10_oe_1.qualtrim25.minlen35.fq
-```
+After you have the genome indices generated, you can perform the read alignment. We previously generated the genome indices for you in `/groups/hbctraining/ngs-data-longcourse/rnaseq/reference_data/reference_STAR` directory so that we don't get held up waiting on the generation of the indices.
 
 Create an output directory for our alignment files:
 
-	$ mkdir ../../results/STAR
-
+```bash
+$ mkdir ../results/STAR
+```
 
 We are going to explore how to **automate running the STAR command** by doing the following:
 
@@ -196,7 +188,7 @@ We are going to explore how to **automate running the STAR command** by doing th
 
 ### STAR command in interactive bash
 
-For now, we're going to work on just one sample to set up our workflow. To start we will use the trimmed first replicate in the Mov10 over-expression group, `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`. Details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf); we encourage you to peruse through to get familiar with all available options.
+For now, we're going to work on just one sample to set up our workflow. To start we will use the first replicate in the Mov10 over-expression group, `Mov10_oe_1.subset.fq`. Details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf); we encourage you to peruse through to get familiar with all available options.
 
 The basic options for aligning reads to the genome using STAR are:
 
@@ -218,10 +210,10 @@ We can access the software by simply using the STAR command followed by the basi
 ```
 # DO NOT RUN THIS!
 
-STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR \
+STAR --genomeDir /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/reference_data/reference_STAR \
 --runThreadN 6 \
---readFilesIn Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq \
---outFileNamePrefix ../../results/STAR/Mov10_oe_1_ \
+--readFilesIn Mov10_oe_1.subset.fq\
+--outFileNamePrefix ../results/STAR/Mov10_oe_1_ \
 --outSAMtype BAM SortedByCoordinate \
 --outSAMunmapped Within \
 --outSAMattributes Standard 
@@ -248,7 +240,7 @@ The command is 'sh', and the arguments are the name of the script, "script.sh" a
 We can specify a filename to use as input to a script using **positional parameters**. To explore this using positional parameters, let's create a script called `word_count.sh` to count the number of words, lines, and characters in a specified file:
 
 ```
-$ vim word_count.sh
+$ vim ~/ngs_course/rnaseq/scripts/word_count.sh
 ```
 In the script, write the following:
 
@@ -263,9 +255,9 @@ wc $1
 We can run this script by entering the following:
 
 ```
-$ sh word_count.sh Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
+$ sh ~/ngs_course/rnaseq/scripts/word_count.sh Mov10_oe_1.subset.fq
 ```
-In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1. Whatever we enter in the $1 position when we run the command will be used in place of $1 inside the script for `wc $1`.
+In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq` is $1. Whatever we enter in the $1 position when we run the command will be used in place of $1 inside the script for `wc $1`.
 
 Let's say we wanted to specify as input the option or flag of the `wc` command to return the number of words, lines, or characters. We could create another variable, $2 as the flag for `wc`:
 
@@ -279,10 +271,10 @@ wc -$2 $1
 Now we can determine the number of **lines** in the Mov10 rep1 file with:
 
 ```
-sh word_count.sh Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq l
+sh word_count.sh Mov10_oe_1.subset l
 ```
 
-In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1 and `l` is $2. When these parameters are used in the script, the full command executed is: `wc -l Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`.
+In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq` is $1 and `l` is $2. When these parameters are used in the script, the full command executed is: `wc -l Mov10_oe_1.subset.fq`.
 
 [This is an example of a simple script that used the concept of positional parameters and the associated variables.](http://steve-parker.org/sh/eg/var3.sh.txt)
 
@@ -307,11 +299,11 @@ Next, we'll initialize variables that contain the paths to where the common file
 ```
 # location of genome reference index files
 
-genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
+genome=/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/reference_data/reference_STAR 
 
 # set up our software environment
 
-module load seq/STAR/2.5.2a
+module load seq/STAR/2.5.3a
 
 # feedback from our script to help with future debugging
 
@@ -337,7 +329,7 @@ STAR --runThreadN 6 \
 It is always nice to have comments at the top of a more complex script to make sure that when your future self, or a co-worker, uses it they know exactly how to run it and what the script will do. So for our script, we can have the following lines of comments right at the top after #!/bin/bash/:
 
 ```
-# This script takes a trimmed fastq file of RNA-Seq data and outputs STAR alignment files.
+# This script takes a fastq file of RNA-Seq data and outputs STAR alignment files.
 # USAGE: sh star_analysis_on_input_file.sh <name of fastq file>
 ```
 
@@ -367,13 +359,13 @@ To run the above script iteratively for all of the files on a worker node via th
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-# this 'for loop', will take our trimmed fastq files as input and run the script for all of them one after the other. 
+# this 'for loop', will take our raw fastq files as input and run the script for all of them one after the other. 
 
-cd ~/ngs_course/rnaseq/data/trimmed_fastq/
+cd ~/ngs_course/rnaseq/raw_data
 
 for file in *.fq 
 do
-sh ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh $file
+sh ~/ngs_course/rnaseq/scripts/star_analysis_on_input_file.sh $file
 done
 
 # DO NOT RUN THIS!
@@ -387,26 +379,27 @@ Let's make a modified version of the above script to parallelize our analysis. T
 
 Let's make a new file called `star_analysis_on_allfiles-for_lsf.sh`. Note this is a normal shell script.
 
-```
+```bash
 $ vim star_analysis_on_allfiles_for-lsf.sh
 ```
 
 This file will loop through the same files as in the previous script, but the command it submits will be the actual bsub command:
 
-```
+```bash
 #!/bin/bash
 
-cd ~/ngs_course/rnaseq/data/trimmed_fastq/
+cd ~/ngs_course/rnaseq/raw_data/
 
 for file in *.fq
 do
-bsub -q priority -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10 -o %J.out -e %J.err sh ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh $file
+bsub -q priority -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10 -o %J.out -e %J.err sh ~/ngs_course/rnaseq/scripts/star_analysis_on_input_file.sh $file
 sleep 1
 done
 ```
 
-Now, let's run the job to submit jobs to LSF for each fastq file in the `trimmed_fastq` folder:
-```
+Now, let's run the job to submit jobs to LSF for each fastq file in the `raw_data` folder:
+
+```bash
 $ sh star_analysis_on_allfiles_for-lsf.sh
 ```
 
@@ -422,8 +415,10 @@ Don't forget about the `bkill` command, should something go wrong and you need t
 
 Last but not least, it is best practice to keep everything contained within the planned storage that you had created when setting up for this project. There should be a number of standard error (`.err`) and standard out (`.out`) files that you will want to keep for future reference. Move these over to your `logs` folder: 
 
-	$ mv *.err ../../logs
-	$ mv *.out ../../logs
+```bash
+$ mv *.err ../../logs
+$ mv *.out ../../logs
+```
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
