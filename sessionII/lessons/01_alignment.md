@@ -210,6 +210,7 @@ We can access the software by simply using the STAR command followed by the basi
 
 ```bash
 # DO NOT RUN THIS!
+cd ~/ngs_course/rnaseq/raw_data
 
 STAR --genomeDir /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/reference_data/reference_STAR \
 --runThreadN 6 \
