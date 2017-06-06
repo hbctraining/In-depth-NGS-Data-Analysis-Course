@@ -94,7 +94,7 @@ number <- x + y
 ```
 
 ***
-**Exercise**
+**Exercises**
 
 1. Try changing the value of the variable `x` to 5. What happens to `number`?
 2. Now try changing the value of variable `y` to contain the value 10. What do you need to do, to update the variable `number`?
@@ -194,7 +194,7 @@ species
 ***
 **Exercise**
 
-1. Create a vector of numeric and character values by _combining_ the two vectors that we just created (`glengths` and `species`). Assign this combined vector to a new variable called `combined`. *Hint: you will need to use the combine `c()` function to do this*. 
+Create a vector of numeric and character values by _combining_ the two vectors that we just created (`glengths` and `species`). Assign this combined vector to a new variable called `combined`. *Hint: you will need to use the combine `c()` function to do this*. 
 Print the `combined` vector in the console, what looks different compared to the original vectors?
 
 ***
@@ -227,7 +227,7 @@ The expression vector is categorical, in that all the values in the vector belon
 
 
 ***
-**Exercise**
+**Exercises**
 
 Let's say that in our experimental analyses, we are working with three different sets of cells: normal, cells knocked out for geneA (a very exciting gene), and cells overexpressing geneA. We have three replicates for each celltype.
 
