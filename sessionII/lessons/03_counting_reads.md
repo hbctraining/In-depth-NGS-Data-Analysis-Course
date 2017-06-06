@@ -145,7 +145,7 @@ For paired-end (PE) data, the bam file contains information about whether both r
 
 For counting PE fragments associated with genes, the input bam files need to be sorted by read name (i.e. alignment information about both read pairs in adjoining rows). The alignment tool might sort them for you, but watch out for how the sorting was done. If they are sorted by coordinates (like with STAR), you will need to use `samtools sort` to re-sort them by read name before using as input in featureCounts. If you do not sort you BAM file by read name before using as input, featureCounts assumes that almost all the reads are not properly paired.
 
-## Keeping track of read numbers at all steps
+## Documenting results
 
 ### Manual tracking
 It is important to keep track of how many reads you started with and how many of those ended up being associated with genes. This will help you pick out any obvious outliers, and it will also alert you early on about issues with contamination and so on.
