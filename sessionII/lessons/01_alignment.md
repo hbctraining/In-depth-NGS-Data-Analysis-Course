@@ -419,8 +419,8 @@ Don't forget about the `bkill` command, should something go wrong and you need t
 Last but not least, it is best practice to keep everything contained within the planned storage that you had created when setting up for this project. There should be a number of standard error (`.err`) and standard out (`.out`) files that you will want to keep for future reference. Move these over to your `logs` folder: 
 
 ```bash
-$ mv *.err ../logs
-$ mv *.out ../logs
+$ mv ../scripts/*.err ../logs
+$ mv ../scripts/*.out ../logs
 ```
 
 ---
