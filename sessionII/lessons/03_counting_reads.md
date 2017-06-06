@@ -1,7 +1,7 @@
 ---
-title: "Counting reads"
-author: "Meeta Mistry, Bob Freeman, Radhika Khetani"
-date: "Tuesday, February 16, 2016"
+title: Counting reads
+author: Meeta Mistry, Bob Freeman, Radhika Khetani
+date: 06/06/2017
 ---
 
 Approximate time: 
@@ -48,7 +48,7 @@ First things first, start an interactive session with 4 cores:
 $ bsub -Is -n 4 -q interactive bash
 ```
 
-Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for the bam files we generated yesterday:
+Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for the bam files we generated earlier:
 
 ``` bash
 $ cd ~/ngs_course/rnaseq/
