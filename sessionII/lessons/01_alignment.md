@@ -25,7 +25,7 @@ To determine where on the human genome our reads originated from, we will align 
 
 ### STAR Alignment Strategy
 
-STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but is memory intensive. The algorithm achieves this highly efficient mapping by performing a two-step process:
+STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is memory intensive. The algorithm achieves this highly efficient mapping by performing a two-step process:
 
 1. Seed searching
 2. Clustering, stitching, and scoring
