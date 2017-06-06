@@ -1,7 +1,7 @@
 ---
 title: "Advanced R, matching"
 authors: Meeta Mistry, Mary Piper
-date: "Tuesday, May 9, 2017"
+date: "Wednesday, June 7, 2017"
 ---
 Approximate time: 110 min
 
