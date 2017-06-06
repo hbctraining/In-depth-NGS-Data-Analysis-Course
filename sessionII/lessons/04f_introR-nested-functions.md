@@ -1,14 +1,13 @@
 ---
 title: "Nested Functions"
-authors: Meeta Mistry, Mary Piper
-date: 2017-06-08
-duration: 30
+authors: Meeta Mistry, Mary Piper, Radhika Khetani
+date: "Tuesday, May 9, 2017"
 ---
+Approximate time: 30 min
 
 ## Learning Objectives
 
-* Understand and implement functions nested within other functions
-
+* Describe and implement nested functions in R.
 
 ## Nested functions
 
@@ -25,10 +24,10 @@ metadata[idx, ]
 However, we could have also done this in a single line of code and avoid having to create the variable `idx`:
 
 ```r
-metadata[metadata$celltype == "typeA",]
+metadata[metadata$celltype == "typeA", ]
 ```
 
-This is a rather simple example combining only two lines of code, but you see how the code becomes lengthy and slightly more difficult to read. Even if you decide to avoid writing nested functions for the time being, you should still have experience reading and understanding them. The key to understanding nested functions is to **read from the inside out**.
+This is a rather simple example combining only two lines of code, but you see how the code becomes lengthy but slightly more comprehensive. Even if you decide to avoid writing nested functions for the time being, you should still have experience reading and understanding them. The key to understanding nested functions is to **read from the inside out**.
 
 Let's work through some examples of nested functions!
 
@@ -79,20 +78,20 @@ sex_fr <- factor(sex)
 **Step 3:** Use the `cbind` function to add the column to the **end** of the `metadata` dataframe: 
 
 ```r
-metadata_new <- cbind(metadata, sex=sex_fr)
+metadata_new <- cbind(metadata, gender=sex_fr)
 ```
 
 Instead of performing all three steps, we would like to create a nested function. We could first replace the `sex_fr` variable with the assignment in **Step2**:
 
 ```r
-metadata_new <- cbind(metadata, sex=factor(sex))
+metadata_new <- cbind(metadata, gender=factor(sex))
 ```
 
 Or we can go a step further and combine all steps, making your code slightly more difficult to read (we don't recommend doing this):
 
 ```r
 metadata_new <- cbind(metadata,
-			sex=factor(c("M","F","M","M","F","M","M","F","M","M","F","M")))
+			gender=factor(c("M","F","M","M","F","M","M","F","M","M","F","M")))
 ```
 
 ### Nested functions practice #3			
@@ -107,7 +106,7 @@ rloc <- which(metadata$genotype == "Wt")
 **Step 2:** Obtain the vector of row names from `metadata`:
 	
 ```r
-rnames <- row.names(metadata)
+rnames <- rownames(metadata)
 ```
 
 **Step 3:** Identify the sample names by using the indexes determined in **Step 2**:
@@ -119,7 +118,7 @@ wt_samples <- rnames[rloc]
 Alternatively, we could combine the steps:
 
 ```r
-wt_samples <- row.names(metadata)[which(metadata$genotype == "Wt")]
+wt_samples <- rownames(metadata)[which(metadata$genotype == "Wt")]
 ```
 
 Learning to understand nested functions is a critical part of your mastery of R. Not only will their use improve your efficiency, but nested functions are frequently encountered in help forums and R package documentation, so understanding them is critical to your learning process. 

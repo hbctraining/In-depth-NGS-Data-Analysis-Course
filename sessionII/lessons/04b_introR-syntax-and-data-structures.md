@@ -1,15 +1,16 @@
 ---
+layout: topic
 title: R Syntax and Data Structures
 authors: Meeta Mistry, Mary Piper
-date: 2017-06-08
-duration: 70
+date: "Tuesday, May 9, 2017"
 ---
+Approximate time: 70 min
 
 ## Learning Objectives
 
-* Become familiar with R syntax
-* Understand variables and the assignment operator in R
-* Understand the various data types and data structures in R
+* Employ variables and functions in R.
+* Describe the various data types used in R. 
+* Construct data structures to store data.
 
 ## The R syntax
 Now that we know how to talk with R via the script editor or the console, we want to use R for something more than adding numbers. To do this, we need to know more about the R syntax. 
@@ -124,7 +125,7 @@ Variables can contain values of specific types within R. The six **data types** 
 * `"numeric"` for any numerical value 
 * `"character"` for text values, denoted by using quotes ("") around value   
 * `"integer"` for integer numbers (e.g., `2L`, the `L` indicates to R that it's an integer)
-* `"logical"` for `TRUE` and `FALSE` (the boolean data type)
+* `"logical"` for `TRUE` and `FALSE` (the Boolean data type)
 * `"complex"` to represent complex numbers with real and imaginary parts (e.g.,
   `1+4i`) and that's all we're going to say about them
 * `"raw"` that we won't discuss further
@@ -250,7 +251,7 @@ Matrices are used commonly as part of the mathematical machinery of statistics. 
 
 ### Data Frame
 
-A `data.frame` is the _de facto_ data structure for most tabular data and what we use for statistics and plotting. A `data.frame` is similar to a matrix in that it's a collection of vectors of of the **same length** and each vector represents a column. However, in a dataframe **each vector can be of a different data type** (e.g., characters, integers, factors). 
+A `data.frame` is the _de facto_ data structure for most tabular data and what we use for statistics and plotting. A `data.frame` is similar to a matrix in that it's a collection of vectors of the **same length** and each vector represents a column. However, in a dataframe **each vector can be of a different data type** (e.g., characters, integers, factors). 
 
 ![dataframe](../img/dataframe.png)
 
@@ -279,7 +280,7 @@ Lists are a data structure in R that can be perhaps a bit daunting at first, but
 ![list](../img/list.png)
 
 
-If you have variables of different data structures you wish to combine, you can put all of those into one list object by using the `list()` function and placing all the items you wish to combine within parantheses:
+If you have variables of different data structures you wish to combine, you can put all of those into one list object by using the `list()` function and placing all the items you wish to combine within parentheses:
 
 ```r
 list1 <- list(species, df, number)
@@ -303,7 +304,7 @@ list1
 
 ```
 
-There are three components corresponding to the three different variables we passed in, and what you see is that structure of each is retained. Each component of a list is referenced based on the number position. For example, since the dataframe was the second structure we passed in, it is referenced with `list1[[2]]`. We will talk more about how to inspect and manipulate components of lists in later lessons.
+There are three components corresponding to the three different variables we passed in, and what you see is that structure of each is retained. Each component of a list is referenced based on the number position. We will talk more about how to inspect and manipulate components of lists in later lessons.
 
 ***
 **Exercise**
