@@ -2,7 +2,7 @@
 layout: topic
 title: R Syntax and Data Structures
 authors: Meeta Mistry, Mary Piper
-date: "Wednesday, June 7th, 2017"
+date: "Wednesday, June 7, 2017"
 ---
 Approximate time: 70 min
 
