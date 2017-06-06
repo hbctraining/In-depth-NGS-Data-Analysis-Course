@@ -147,7 +147,7 @@ For counting PE fragments associated with genes, the input bam files need to be 
 
 ## Documenting results for QC
 
-As you walk through the workflow, it is important to document the parameters you are using to run the analysis, but it is are very important to document the results at every step. This is a a form of QC and it will enable you to identify any issues with the parameters you are using or any samples that are behaving inconsistently, etc.  
+As you walk through the workflow, it is important to document the parameters you are using to run the analysis, but it is are very important to document the results at every step. This is a a form of QC and it will enable you to identify any issues with the parameters you are using or any contamination, biases, etc.  
 
 ### Manual tracking
 One way to document the results is by keeping track of how many reads you started with and how many of those ended up being associated with genes. 
