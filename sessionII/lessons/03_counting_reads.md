@@ -175,7 +175,10 @@ cd results/multiqc_report
 Next, we are going to run multiQC on the output of FastQC (zip files), STAR (.Log.final.out files) and featureCounts (the summary file).
 
 ```bash
-multiqc -n multiqc_report_rnaseq ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/*zip ~/ngs_course/rnaseq/results/STAR/*Log.final.out ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt.summary
+multiqc -n multiqc_report_rnaseq \
+~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/*zip \
+~/ngs_course/rnaseq/results/STAR/*Log.final.out \
+~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt.summary
 ```
 
 > If you want to save the output on the terminal into a log file, you can use `2>` operator to redirect it to a file.
