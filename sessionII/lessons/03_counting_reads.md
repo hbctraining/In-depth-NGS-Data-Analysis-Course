@@ -8,8 +8,9 @@ Approximate time:
 
 ## Learning Objectives:
 
-* learn about read counting tools
-* learn to generate a count matrix using featureCounts
+* understand how counting tools work
+* generate a count matrix using featureCounts
+* generate a report with multiQC to document results
 
 ## Counting reads as a measure of gene expression
 <img src="../img/counts-workflow.png" width="400">
