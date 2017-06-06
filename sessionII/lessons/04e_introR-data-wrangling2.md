@@ -1,7 +1,7 @@
 ---
 title: "Data manipulation"
 authors: Meeta Mistry, Mary Piper
-date: "Tuesday, May 9, 2017"
+date: "Wednesday, June 7, 2017"
 ---
 Approximate time: 60 min
 
@@ -179,7 +179,7 @@ sub_meta <- subset(metadata, replicate < 3, select = c('genotype', 'celltype'))
 
 ***
 
-**Exercise** 
+**Exercises** 
 
 1. Return only the rows of data from the `metadata` dataframe with `genotype` of `Wt`. 
 
