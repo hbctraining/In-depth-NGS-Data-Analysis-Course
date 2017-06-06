@@ -109,7 +109,7 @@ Aligning reads using STAR is a two step process:
 1. Create a genome index 
 2. Map reads to the genome
 
-> A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at >`/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome >indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a >tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
+> A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
 >
 >```bash
 >$ ls -l /groups/shared_databases/igenome/
