@@ -144,8 +144,9 @@ For paired-end (PE) data, the bam file contains information about whether both r
 
 For counting PE fragments associated with genes, the input bam files need to be sorted by read name (i.e. alignment information about both read pairs in adjoining rows). The alignment tool might sort them for you, but watch out for how the sorting was done. If they are sorted by coordinates (like with STAR), you will need to use `samtools sort` to re-sort them by read name before using as input in featureCounts. If you do not sort you BAM file by read name before using as input, featureCounts assumes that almost all the reads are not properly paired.
 
-### Keeping track of read numbers
+## Keeping track of read numbers at all steps
 
+### Manual tracking
 It is important to keep track of how many reads you started with and how many of those ended up being associated with genes. This will help you pick out any obvious outliers, and it will also alert you early on about issues with contamination and so on.
 
 The things to keep track of for each sample are the following:
@@ -156,4 +157,31 @@ The things to keep track of for each sample are the following:
  
 We have an [Excel template](https://dl.dropboxusercontent.com/u/74036176/rna-seq_reads_template.xlsx) available, to get you started.
 
+### Tracking and aggregating results from tools with *MultiQC*
 
+[MultiQC](http://multiqc.info/) is a tool that aggregates results from several tools and generates a single HTML report with plots to visualize results. This is a very useful method of not only keeping track of what is going on at each step with each sample, but more importantly it enables a graphical comparison of samples with each other.
+
+MultiQC can generate this report from 36 different bioinformatics tools, and these tools span various NGS analyses, e.g., basic QC, RNA-seq, variant calling, genome annotation, etc. Today we are going to use it to aggregate information from the results of [FastQC](http://multiqc.info/docs/#fastqc), [STAR](http://multiqc.info/docs/#star), and [featureCounts](http://multiqc.info/docs/#featurecounts). MultiQC can parse the information from specific output files from each of these tools and the manual page specifies the required output from each of the tools that should be used as input to multiQC.
+
+We are going to start by creating a directory in the `~/ngs_course/rnaseq/results/` directory called `multiqc_report` and navigating to it. You should already be in the `~/ngs_course/rnaseq/` directory.
+
+```bash
+mkdir results/multiqc_report
+
+cd results/multiqc_report
+```
+
+Next, we are going to run multiQC on the output of FastQC (zip files), STAR (.Log.final.out files) and featureCounts (the summary file).
+
+```bash
+multiqc -n multiqc_report_rnaseq ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/*zip ~/ngs_course/rnaseq/results/STAR/*Log.final.out ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt.summary
+```
+
+> If you want to save the output on the terminal into a log file, you can use `2>` operator to redirect it to a file.
+
+The output of multiQC is 1 HTML file and a data folder. Let's transfer the interactive HTML report over to our laptops using FileZilla and visualize the outputs of the 3 tools we used to generate the report.
+
+The multiqc report is relatively quick to generate and provides a really clear method for comparing the samples to determine consistency, and to identify problematic samples.
+
+---
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
