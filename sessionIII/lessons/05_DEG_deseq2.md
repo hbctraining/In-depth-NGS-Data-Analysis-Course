@@ -19,7 +19,7 @@ Approximate time: 45 minutes
 
 To run the differential expression pipeline on the raw counts in DESeq2, we use a **single call to the function `DESeq()`**. The required input is the `DESeqDataSet` object that we created in the last lesson. By re-assigning the results of the function back to the same variable name, we can continue to fill in the `slots` of our `DESeqDataSet` object.
 
-	##Run analysis
+	## Run analysis
 	dds <- DESeq(dds)
  
 This function will print out a message for the various steps it performs: 
