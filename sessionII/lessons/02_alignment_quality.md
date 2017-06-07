@@ -42,6 +42,7 @@ The log file provides information on reads that 1) mapped uniquely, 2) reads tha
 
 > NOTE: The thresholds suggested above will vary depending on the organism that you are working with. Much of what is discussed here is in the context of working with human or mouse data. For example, 75% of mapped reads holds true only if the genome is good or mature. For badly assembled genomes we may not observe a high mapping rate, even if the actual sequence sample is good.
 
+## Other quality checks
 
 In addition to the aligner-specific summary we can also obtain quality metrics using tools like [Qualimap](http://qualimap.bioinfo.cipf.es/doc_html/intro.html#what-is-qualimap) or [RNASeQC](http://archive.broadinstitute.org/cancer/cga/rna-seqc). These tools examine sequencing alignment data according to the features of the mapped reads and their genomic properties and **provides an overall view of the data that helps to to the detect biases in the sequencing and/or mapping of the data**.The input can be one or more BAM files and the output consists of HTML or PDF reports with useful figures and tab delimited files of metrics data.
 
