@@ -178,9 +178,11 @@ Next, we are going to run multiQC on the output of FastQC (zip files), STAR (.Lo
 ```bash
 multiqc -n multiqc_report_rnaseq \
 ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/*zip \
-~/ngs_course/rnaseq/results/STAR/*Log.final.out \
+~/ngs_course/rnaseq/logs/*Log.final.out \
 ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt.summary
 ```
+
+> If you did not move the log files that are output by STAR, you will have to modify the path of the 2nd input in the code above to `~/ngs_course/rnaseq/results/STAR/*Log.final.out`
 
 > If you want to save the output on the terminal into a log file, you can use `2>` operator to redirect it to a file.
 
