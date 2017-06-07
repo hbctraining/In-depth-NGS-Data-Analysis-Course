@@ -89,7 +89,7 @@ We are going to use the following options:
 
 and the following are the values for the required parameters:
 
-`-a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf # required option for specifying path to GTF`
+`-a ~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf # required option for specifying path to GTF`
 
 `-o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt # required option for specifying path to, and name of the text output (count matrix)`
 
