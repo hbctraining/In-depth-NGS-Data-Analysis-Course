@@ -42,18 +42,6 @@ The log file provides information on reads that 1) mapped uniquely, 2) reads tha
 
 > NOTE: The thresholds suggested above will vary depending on the organism that you are working with. Much of what is discussed here is in the context of working with human or mouse data. For example, 75% of mapped reads holds true only if the genome is good or mature. For badly assembled genomes we may not observe a high mapping rate, even if the actual sequence sample is good.
 
-## Other quality checks
-
-In addition to the aligner-specific summary we can also obtain quality metrics using tools like [Qualimap](http://qualimap.bioinfo.cipf.es/doc_html/intro.html#what-is-qualimap) or [RNASeQC](http://archive.broadinstitute.org/cancer/cga/rna-seqc). These tools examine sequencing alignment data according to the features of the mapped reads and their genomic properties and **provides an overall view of the data that helps to to the detect biases in the sequencing and/or mapping of the data**.The input can be one or more BAM files and the output consists of HTML or PDF reports with useful figures and tab delimited files of metrics data.
-
-We will not be performing this step in the course, but we describe some of the features below to point out things to look for when assessing alignment quality of RNA-seq data:
-
-* **Reads genomic origin**: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
-* **Ribosomal RNA (rRNA)** constitutes a large majority of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve complete rRNA removal. Even with Poly-A enrichment a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data.
-* **Transcript coverage and 5'-3' bias**: assesing the affect on expression level and on levels of transcript GC content
-* **Junction analysis**: analysis of junction positions in spliced alignments (i.e known, partly known, novel) 
-* **Strand specificity:** assess the performance of strand-specific library construction methods. The percentage of sense-derived reads is given for each end of the read pair. A non-strand-specific protocol would give values of 50%/50%, whereas strand-specific protocols typically yield 99%/1% or 1%/99% for this metric.
-
 *** 
 
 **Exercise**
@@ -65,6 +53,19 @@ Using the less command take a look at `Mov10_oe_1.subset.fq.qualtrim25.minlen35.
 3. What is the average mapped length per read?
 
 ***
+
+
+## Other quality checks
+
+In addition to the aligner-specific summary we can also obtain quality metrics using tools like [Qualimap](http://qualimap.bioinfo.cipf.es/doc_html/intro.html#what-is-qualimap) or [RNASeQC](http://archive.broadinstitute.org/cancer/cga/rna-seqc). These tools examine sequencing alignment data according to the features of the mapped reads and their genomic properties and **provides an overall view of the data that helps to to the detect biases in the sequencing and/or mapping of the data**.The input can be one or more BAM files and the output consists of HTML or PDF reports with useful figures and tab delimited files of metrics data.
+
+We will not be performing this step in the course, but we describe some of the features below to point out things to look for when assessing alignment quality of RNA-seq data:
+
+* **Reads genomic origin**: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
+* **Ribosomal RNA (rRNA)** constitutes a large majority of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve complete rRNA removal. Even with Poly-A enrichment a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data.
+* **Transcript coverage and 5'-3' bias**: assesing the affect on expression level and on levels of transcript GC content
+* **Junction analysis**: analysis of junction positions in spliced alignments (i.e known, partly known, novel) 
+* **Strand specificity:** assess the performance of strand-specific library construction methods. The percentage of sense-derived reads is given for each end of the read pair. A non-strand-specific protocol would give values of 50%/50%, whereas strand-specific protocols typically yield 99%/1% or 1%/99% for this metric.
 
 
 ## Alignment file format: SAM/BAM
