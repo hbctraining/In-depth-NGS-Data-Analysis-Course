@@ -214,7 +214,7 @@ We can access the software by simply using the STAR command followed by the basi
 # DO NOT RUN THIS!
 
 STAR --genomeDir /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/reference_data/reference_STAR \
---runThreadN 6 \
+--runThreadN 3 \
 --readFilesIn Mov10_oe_1.subset.fq\
 --outFileNamePrefix ../results/STAR/Mov10_oe_1_ \
 --outSAMtype BAM SortedByCoordinate \
