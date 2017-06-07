@@ -4,7 +4,7 @@ author: Meeta Mistry, Bob Freeman, Radhika Khetani
 date: 06/06/2017
 ---
 
-Approximate time: 
+Approximate time: 75 minutes
 
 ## Learning Objectives:
 
