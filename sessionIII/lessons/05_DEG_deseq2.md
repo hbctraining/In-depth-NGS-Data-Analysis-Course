@@ -10,7 +10,7 @@ Approximate time: 45 minutes
 
 * Understanding the different components of differential expression analysis in the context of DESeq2
 * Exploring different objects in DESeq2 
-* Building results tables for comprison of different sample classes
+* Building results tables for comprison of different sample conditions
 
 
 ## DESeq2: Differential expression analysis
