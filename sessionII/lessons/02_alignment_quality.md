@@ -34,7 +34,7 @@ What you should see, is that for each FASTQ file you have **5 output files** and
 
 Having completed the alignment, the first thing we want to know is how well did our reads align to the reference. Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at one of those files. We'll use the `less` command which allows us to scroll through it easily: 
 
-	$ less Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Log.final.out
+	$ less Mov10_oe_1.subset.fq_Log.final.out
 	
 The log file provides information on reads that 1) mapped uniquely, 2) reads that mapped to mutliple locations and 3) reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the **mapping rate and the number of multimappers**.
 
@@ -46,7 +46,7 @@ The log file provides information on reads that 1) mapped uniquely, 2) reads tha
 
 **Exercise**
 
-Using the less command take a look at `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Log.final.out` and answer the following questions:
+Using the less command take a look at `Mov10_oe_1.subset.fq_Log.final.out` and answer the following questions:
 
 1. How many reads map to more than 10 locations on the genome?
 2. How many reads are unmapped due to read length?
