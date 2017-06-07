@@ -164,7 +164,6 @@ STAR --runThreadN 6 \
 --genomeFastaFiles chr1.fa \
 --sjdbGTFfile chr1-hg19_genes.gtf \
 --sjdbOverhang 99
-
 ```
 
 ```bash
@@ -321,7 +320,7 @@ Our variables are now staged. We now need to modify the STAR command to use it s
 
 ```bash
 # Run STAR
-STAR --runThreadN 6 \
+STAR --runThreadN 3 \
 --genomeDir $genome \
 --readFilesIn $fq \
 --outFileNamePrefix $align_out \
