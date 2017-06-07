@@ -99,7 +99,7 @@ Let's run this now:
 
 ``` bash
 $ featureCounts -T 4 -s 2 \ 
-  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
+  -a ~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf \
   -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
   ~/ngs_course/rnaseq/results/STAR/bams/*bam
 ```
@@ -111,7 +111,7 @@ $ featureCounts -T 4 -s 2 \
 # note the last line of the command below
 	
 $ featureCounts -T 4 -s 2 \ 
-  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
+  -a ~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf \
   -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
   ~/ngs_course/rnaseq/results/STAR/bams/*bam \
   2> /ngs_course/rnaseq/results/counts/Mov10_featurecounts.screen-output
