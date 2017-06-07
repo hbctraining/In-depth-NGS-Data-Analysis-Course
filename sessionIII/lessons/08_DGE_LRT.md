@@ -23,11 +23,7 @@ To use the LRT, we use the `DESeq()` function but this time adding two arguments
 	### Likelihood ratio test
 	dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
 
-Since our model only has one factor (`sampletype`), the reduced model is just the intercept (`~1`). For each gene, the LRT is comparing the full model to the reduced model to identify significant genes. The p-values are determined solely by the difference in deviance between the full and reduced model formula (not fold changes). 
-
-For each gene, consider taking the data points across all samples and plotting them. In the reduced model situation we only model the intercept, therefore we simply fit a regression line through the data. In the full model, we have a covariate (`sampletype`). and so the line that is fit to the data is curved based on our knowledge of sample classification by the covariate. The LRT test then assesses each fit (full versus reduced model) to determine which of the two models is better at explaining the data. 
-
-Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although there will be substantial overlap).
+Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. The p-values are determined solely by the difference in deviance between the full and reduced model formula (not fold changes). Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although there will be substantial overlap).
 
 Let's take a look at the results table:
 
