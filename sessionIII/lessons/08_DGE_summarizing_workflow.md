@@ -37,7 +37,7 @@ We have detailed the various steps in a differential expression analysis workflo
 	rld <- rlog(dds, blind=TRUE)
 	
 	# Plot PCA 
-	plotPCA(rld, intgroup="sampletype")
+	plotPCA(rld, intgroup="condition")
 	
 	# Extract the rlog matrix from the object
 	rld_mat <- assay(rld)
@@ -53,29 +53,29 @@ We have detailed the various steps in a differential expression analysis workflo
 
 	```r
 	# Create DESeq2 dataset
-	dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
+	dds <- DESeqDataSetFromMatrix(countData = raw_counts, colData = metadata, design = ~ condition)
 	
 	# Run DESeq2 differential expression analysis
 	dds <- DESeq(dds)
-```
+	```
 	
 4. Check the fit of the dispersion estimates:
 	
 	```r
 	# Plot dispersion estimates
 	plotDispEsts(dds)
-``` 
+	``` 
 
 5. Create contrasts to perform Wald testing on the shrunken log2 foldchanges between specific conditions:
 
 	```r
 	res <- results(dds, contrast = c("sample_group", "level_to_compare", "base_level"))
-```
+	```
 
 6. Output significant results:
 
 	```r
 	sig_res <- subset(as.data.frame(res), res_tableOE$padj < padj.cutoff & abs(res_tableOE$log2FoldChange) > lfc.cutoff)
-```
+	```
 
 7. Visualize results (volcano plots, heatmaps, etc.)
