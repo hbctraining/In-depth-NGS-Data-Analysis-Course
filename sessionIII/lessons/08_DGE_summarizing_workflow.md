@@ -83,4 +83,4 @@ We have detailed the various steps in a differential expression analysis workflo
 	sig_res <- subset(res_df, res_df$padj < padj.cutoff & abs(res_df$log2FoldChange) > lfc.cutoff)
 	```
 
-7. Visualize results (volcano plots, heatmaps, etc.)
+7. Visualize results: volcano plots, heatmaps, normalized counts plots of top genes, etc.
