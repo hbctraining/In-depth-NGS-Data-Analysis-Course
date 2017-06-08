@@ -8,7 +8,9 @@ Approximate time: 50 min
 
 ## Learning Objectives
 
-* Describe and utilize functions in R. * Modify default behavior of functions using arguments in R.* Identify R-specific sources of help to get more information about functions.
+* Describe and utilize functions in R. 
+* Modify default behavior of functions using arguments in R.
+* Identify R-specific sources of help to get more information about functions.
 * Demonstrate how to install external packages to extend R’s functionality. 
 * Identify different R-specific and external sources of help to (1) troubleshoot errors and (2) get more information about functions and packages.
 * Export data tables and plots for use outside of the R environment.
@@ -43,7 +45,7 @@ The **defaults** represent standard values that the author of the function speci
 
 We have already used a few examples of basic functions in the previous lessons i.e `getwd()`, `c()`, and  `factor()`. These functions are available as part of R's built in capabilities, and we will explore a few more of these base functions below. 
 
-You can also get functions from external [*packages or libraries*](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/07_introR-functions-and-arguments.md#packages-and-libraries) (which we'll talk about in a bit), or [even write your own](https://campus.datacamp.com/courses/writing-functions-in-r/a-quick-refresher?ex=1). 
+You can also get functions from external [*packages or libraries*](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionII/lessons/04c_introR-functions-and-arguments.md#packages-and-libraries) (which we'll talk about in a bit), or [even write your own](https://campus.datacamp.com/courses/writing-functions-in-r/a-quick-refresher?ex=1). 
 
 Let's revisit a function that we have used previously to combine data `c()` into vectors. The *arguments* it takes is a collection of numbers, characters or strings (separated by a comma). The `c()` function performs the task of combining the numbers or characters into a single vector. You can also use the function to add elements to an existing vector:
 
