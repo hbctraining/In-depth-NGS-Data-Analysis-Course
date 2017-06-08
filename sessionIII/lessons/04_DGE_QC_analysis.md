@@ -162,7 +162,7 @@ rld_mat <- assay(rld)    ## assay() is function from the "SummarizedExperiment" 
 Then we need to compute the pairwise correlation values for samples. We can do this using the `cor()` function:
 
 ```r
-### Compute pairwise corrrelation values
+### Compute pairwise correlation values
 rld_cor <- cor(rld_mat)    ## cor() is a base R function
 
 head(rld_cor)   ## check the output of cor(), make note of the rownames and colnames
