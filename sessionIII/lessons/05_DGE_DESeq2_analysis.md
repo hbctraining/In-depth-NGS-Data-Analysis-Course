@@ -72,13 +72,17 @@ The design formula would be:
 
 #### MOV10 DE analysis: creating design formula and running DESeq2
 
-Now that we know how to specify the model to DESeq2, we can run the differential expression pipeline on the **raw counts**. To do this, we must create a DESeqDataSet as we did in the ['Count normalization'](https://github.com/hbctraining/Intro-to-R-with-DGE/blob/master/lessons/11_DGE_count_normalization.md#2-create-deseq2-object) lesson and specify the location of our raw counts and metadata, and input our design formula:
+Now that we know how to specify the model to DESeq2, we can run the differential expression pipeline on the **raw counts**. 
+
+**To get our differential expression results from our raw count data, we only need to run 2 lines of code!**
+
+First we create a DESeqDataSet as we did in the ['Count normalization'](https://github.com/hbctraining/Intro-to-R-with-DGE/blob/master/lessons/11_DGE_count_normalization.md#2-create-deseq2-object) lesson and specify the location of our raw counts and metadata, and input our design formula:
 
 ```r
 dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
 ```
 
-To run the actual differential expression analysis, we use a single call to the function `DESeq()`. 
+Then, to run the actual differential expression analysis, we use a single call to the function `DESeq()`. 
 
 ```r
 ##Run analysis
@@ -104,9 +108,11 @@ fitting model and testing
 
 ## DESeq2 differential gene expression analysis workflow
 
-The workflow for the differential gene expression analysis with DESeq2 is output below. We will be taking a detailed look at each of these steps to better understand how DESeq2 is performing the statistical analysis and what metrics we should examine to explore the quality of our analysis.
+With the 2 lines of code above, we just completed the workflow for the differential gene expression analysis with DESeq2, which is output below:
 
 <img src="../img/deseq2_workflow_separate.png" width="200">
+
+We will be taking a detailed look at each of these steps to better understand how DESeq2 is performing the statistical analysis and what metrics we should examine to explore the quality of our analysis.
 
 ### Step 1: Estimate size factors
 

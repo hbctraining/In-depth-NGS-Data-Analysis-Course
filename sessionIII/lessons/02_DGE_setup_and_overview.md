@@ -4,14 +4,17 @@ author: "Meeta Mistry, Radhika Khetani, Mary Piper"
 date: "May 12, 2017"
 ---
 
+[GEO]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE51443 "Gene Expression Omnibus"
+[SRA]: https://trace.ncbi.nlm.nih.gov/Traces/sra/?study=SRP031507 "Sequence Read Archive"
+
 Approximate time: 60 minutes
 
 ## Learning Objectives 
 
-* Have a general idea of the experiment and its objectives
-* Understand how and why we chose this dataset
-* Getting setup in R (project setup, loading data, loading libraries)
-* Gain a general understanding of the differential gene expression analysis workflow and why the negative binomial distribution is used to model RNA-seq count data
+* Explain the experiment and its objectives
+* Describe how to set up an RNA-seq project in R 
+* Describe the RNA-seq and the differential gene expression analysis workflow
+* Explain why negative binomial distribution is used to model RNA-seq count data
 
 
 # Differential gene expression (DGE) analysis overview 
