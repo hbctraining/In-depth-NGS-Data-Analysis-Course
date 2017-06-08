@@ -18,7 +18,7 @@ We have detailed the various steps in a differential expression analysis workflo
 	
 	```r
 	# Check that the row names of the metadata equal the column names of the **raw counts** data
-	all(colnames(data) == rownames(meta))
+	all(colnames(raw_counts) == rownames(metadata))
 	
 	# Create DESeq2Dataset object
 	dds <- DESeqDataSetFromMatrix(countData = raw_counts, colData = metadata, design = ~ condition)
@@ -69,13 +69,18 @@ We have detailed the various steps in a differential expression analysis workflo
 5. Create contrasts to perform Wald testing on the shrunken log2 foldchanges between specific conditions:
 
 	```r
-	res <- results(dds, contrast = c("sample_group", "level_to_compare", "base_level"))
+	res <- results(dds, contrast = c("condition", "level_to_compare", "base_level"))
 	```
 
 6. Output significant results:
 
 	```r
-	sig_res <- subset(as.data.frame(res), res_tableOE$padj < padj.cutoff & abs(res_tableOE$log2FoldChange) > lfc.cutoff)
+	
+	# Turn the results object into a data frame
+	res_df <- as.data.frame(res)
+	
+	# Subset the significant results
+	sig_res <- subset(res_df, res_df$padj < padj.cutoff & abs(res_df$log2FoldChange) > lfc.cutoff)
 	```
 
 7. Visualize results (volcano plots, heatmaps, etc.)
