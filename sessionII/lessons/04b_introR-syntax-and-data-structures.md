@@ -115,7 +115,7 @@ special meaning in R (for methods) and other programming languages, it's best to
 avoid them. 
 - Use nouns for object names and verbs for function names
 - Keep in mind that **R is case sensitive** (e.g., `genome_length` is different from `Genome_length`)
-- Be consistent with the styling of your code (where you put spaces, how you name variable, etc.). In R, two popular style guides are [Hadley Wickham's style guide](http://adv-r.had.co.nz/Style.html) and [Google's](https://google-styleguide.googlecode.com/svn/trunk/Rguide.xml).
+- Be consistent with the styling of your code (where you put spaces, how you name variable, etc.). In R, two popular style guides are [Hadley Wickham's style guide](http://adv-r.had.co.nz/Style.html) and [Google's](http://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html).
 
 
 ## Data Types
