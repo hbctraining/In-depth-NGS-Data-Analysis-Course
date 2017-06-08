@@ -166,18 +166,11 @@ mcols(res_tableOE, use.names=T)
 * `pvalue`: Wald test p-value
 * `padj`: BH adjusted p-values
  
-Now that we have results for the overexpression results, let's do the same for the **Control vs. Knockdown samples**. The first thing, we need to do is create a contrasts vector called `contrast_kd` for the Mov10_knockdown comparison to control.
+Now that we have results for the overexpression results, let's do the same for the **Control vs. Knockdown samples**. Use contrasts in the `results()` to extract a results table and store that to a variable called `res_tableKD`.  
 
 ```r
-## Define contrasts
-contrast_kd <- list( "sampletypeMOV10_knockdown", "sampletypecontrol")
-```
-
-Use that contrasts vector to extract a results table and store that to a variable called `res_tableKD`.  
-
-```r
-# Extract results table
-res_tableKD <- results(dds, contrast=contrast_kd)
+## Define contrasts and extract results table
+res_tableKD <- results(dds, contrast = c("sampletype", "MOV10_knockdown", "control"))
 ```
 
 Take a quick peek at the results table containing Wald test statistics for the Control-Knockdown comparison we are interested in and make sure that format is similar to what we observed with the OE.
