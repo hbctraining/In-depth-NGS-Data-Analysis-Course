@@ -70,7 +70,7 @@ The design formula would be:
 
 `design <- ~ sex + age + treatment + treat_sex`
 
-#### MOV10 DE analysis: creating design formula and running DESeq2
+### MOV10 DE analysis 
 
 Now that we know how to specify the model to DESeq2, we can run the differential expression pipeline on the **raw counts**. 
 
@@ -108,7 +108,7 @@ fitting model and testing
 
 ## DESeq2 differential gene expression analysis workflow
 
-With the 2 lines of code above, we just completed the workflow for the differential gene expression analysis with DESeq2, which is output below:
+With the 2 lines of code above, we just completed the workflow for the differential gene expression analysis with DESeq2. The steps in the analysis are output below:
 
 <img src="../img/deseq2_workflow_separate.png" width="200">
 
