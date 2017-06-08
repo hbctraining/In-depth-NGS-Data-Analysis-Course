@@ -71,7 +71,6 @@ We have detailed the various steps in a differential expression analysis workflo
 	```r
 	
 	# Output results of Wald test for constrast
-	
 	res <- results(dds, contrast = c("condition", "level_to_compare", "base_level"))
 	```
 
