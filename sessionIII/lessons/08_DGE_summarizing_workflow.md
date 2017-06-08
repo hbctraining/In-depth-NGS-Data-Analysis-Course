@@ -69,6 +69,9 @@ We have detailed the various steps in a differential expression analysis workflo
 5. Create contrasts to perform Wald testing on the shrunken log2 foldchanges between specific conditions:
 
 	```r
+	
+	# Output results of Wald test for constrast
+	
 	res <- results(dds, contrast = c("condition", "level_to_compare", "base_level"))
 	```
 
