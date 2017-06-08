@@ -61,18 +61,16 @@ However, generally we are interested in the LFC estimates relative to other samp
 
 #### Creating contrasts
 
-To indicate to DESeq2 the two groups we want to compare, we can use **contrasts** to perform differential expression testing using the Wald test. Contrasts can be provided to DESeq2 a few different ways:
+To indicate to DESeq2 the two groups we want to compare, we can use **contrasts** to perform differential expression testing using the Wald test. Contrasts can be provided to DESeq2 a couple of different ways:
 
 1. Automatically DESeq2 will use the base factor level of the condition of interest as the base for statistical testing. 
-2. You can create a list for your comparison of interest using the factor levels given in `resultsNames()`, which lists all of the levels for all factors in your model design. The level given last is the base level for the comparison. For example, if the output of `resultsNames(dds)` is `"sexF", "sexM"`, then you could write the contrast as follows:
+2. In the results() function you can specify the comparison of interest, and the levels to compare. The level given last is the base level for the comparison. The syntax is given below:
 	
 	```r
 	
 	# DO NOT RUN!
 	
-	contrast_sex <- list("sexF", "sexM")
-	
-	results(dds, contrast=contrast_sex)
+	results(dds, contrast = c("condition", "level_to_compare", "base_level"))
 	
 	```
 >
@@ -103,38 +101,14 @@ Irrel_kd_3	 1		1		  0				0
 
 This design matrix is now used to setup the contrasts to request the comparisons we want to make. This information is utilized to inform the model about which replicates should be used to estimate the **log2 foldchanges (LFC)**.
 
-We will tell DESeq2 the contrasts we would like to make using the `list()` method. To do this, we need to use the coefficient names to specify our comparisons, these correspond to the headers in your design matrix. To find out how the coefficients are named we can use the `resultsNames()` function:
+We will tell DESeq2 the contrasts we would like to make using the `results()` contrast argument:
 
 ```r
-# Find names of coefficients
-resultsNames(dds)
+## Define contrasts and extract results table
+res_tableOE <- results(dds, contrast = c("sampletype", "MOV10_overexpression", "control"))
 ```
 
-To specify the contrasts, we need to provide the column names from the coefficients table as a list of 2 character vectors:
-
-```r
-## Define contrasts
-contrast_oe <- list( "sampletypeMOV10_overexpression", "sampletypecontrol")
-```
-
-**The order of the names, determines the direction of fold change that is reported.** The name provided in the second element is the level that is used as baseline. So for example, if we observe a log2 fold change of -2 this would mean the gene expression is lower in Mov10_oe relative to the control. Now, pass the contrast vector as an argument to the `results()` function:
-
-```r
-# Extract results table
-res_tableOE <- results(dds, contrast=contrast_oe)
-```
-
->**NOTE:** We could have specified the contrast in the `results()` argument. The syntax is:
->
->```r
->results(dds, contrast = c("sample_group", "level_to_compare", "base_level"))
->````
->
->Using our data, you could specify the contrast as follows:
->
->```r
->results(dds, contrast = c("sampletype", "MOV10_overexpression", "control"))`
->```
+**The order of the names determines the direction of fold change that is reported.** The name provided in the second element is the level that is used as baseline. So for example, if we observe a log2 fold change of -2 this would mean the gene expression is lower in Mov10_oe relative to the control. 
 
 This will build a results table containing Wald test statistics for the comparison we are interested in. Let's take a look at what information is stored in the results:
 
