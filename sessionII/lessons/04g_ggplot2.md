@@ -16,10 +16,10 @@ Approximate time: 60 minutes
 
 ## Calculating simple statistics
 
-Let's take a closer look at our counts data by bringing it into a data frame in R. 
+Let's take a closer look at our counts data by bringing it into a data frame in R. We are going to download a [new counts data file](https://raw.githubusercontent.com/hbctraining/In-depth-NGS-Data-Analysis-Course/may2017/sessionII/data/counts.rpkm_ordered.csv) into our data folder for plotting. 
 
 ```r
-rpkm_data <- read.csv("data/counts.rpkm.csv", row.names = 1)
+rpkm_data <- read.csv("data/counts.rpkm_ordered.csv", row.names = 1)
 
 View(rpkm_data)
 ```
