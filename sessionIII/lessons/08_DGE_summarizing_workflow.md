@@ -28,7 +28,7 @@ We have detailed the various steps in a differential expression analysis workflo
 	
 	# Output normalized counts
 	normalized_counts <- counts(dds, normalized=TRUE)
-```
+	```
 	
 2. Exploratory data analysis (PCA & heirarchical clustering) - identifying outliers and sources of variation in the data:
 	
@@ -47,7 +47,7 @@ We have detailed the various steps in a differential expression analysis workflo
 	
 	# Plot heatmap
 	pheatmap(rld_cor)
-```
+	```
 	
 3. Run DESeq2:
 
