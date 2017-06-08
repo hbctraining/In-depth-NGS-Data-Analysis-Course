@@ -13,7 +13,6 @@ Approximate time: 50 min
 * Identify R-specific sources of help to get more information about functions.
 * Demonstrate how to install external packages to extend R’s functionality. 
 * Identify different R-specific and external sources of help to (1) troubleshoot errors and (2) get more information about functions and packages.
-* Export data tables and plots for use outside of the R environment.
 
 ## Functions and their arguments
 
