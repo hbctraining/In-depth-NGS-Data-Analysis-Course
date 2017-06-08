@@ -80,7 +80,7 @@ round(3.14159)
 We can see that we get `3`. That's because the default is to round to the nearest whole number. **What if we want a different number of significant digits?**
 
 
-#### Seeking help & Arguments
+### Seeking help on arguments for functions
 
 The best way of finding out this information is to use the `?` followed by the name of the function. Doing this will open up the help manual in the bottom right panel of RStudio that will provide a description of the function, usage, arguments, details, and examples: 
 
@@ -112,17 +112,14 @@ round(3.14159, digits=2)
 >
 >However, it's usually not recommended practice because it involves a lot of memorization. In addition, it makes your code difficult to read for your future self and others, especially if your code includes functions that are not commonly used. (It's however OK to not include the names of the arguments for basic functions like `mean`, `min`, etc...). Another advantage of naming arguments, is that the order doesn't matter. This is useful when a function has many arguments. 
 
-**Example of an argument**
-
-```r
-df <- data.frame(species, glengths, stringsAsFactors = F)
-```
 
 ***
 **Exercise** 
 
 1. Another commonly used base function is `mean()`. Use this function to calculate an average for the `glengths` vector.
+2. Use the help manual to identify additional arguments for `mean()`.
 
+***
 
 ## Packages and Libraries
 
