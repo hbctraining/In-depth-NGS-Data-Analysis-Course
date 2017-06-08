@@ -149,13 +149,6 @@ plotPCA(rld, intgroup="sampletype")
 
 > **NOTE:** The `plotPCA()` function will only return the values for PC1 and PC2. If you would like to explore the additional PCs in your data or if you would like to identify genes that contribute most to the PCs, you can use the `prcomp()` function. [Resources](http://www.sthda.com/english/wiki/principal-component-analysis-in-r-prcomp-vs-princomp-r-software-and-data-mining) are available to learn how to do more complex inquiries using the PCs.
 
-***
-
-**Exercise**
-
-Plot the PCA using *all of the genes* in your original count matrix. *Hint: you can use `nrow()` to help get the total number of genes.* Does this plot look different from before, when we considered only the top 500 most variable genes?
-
-***
 
 ### Hierarchical Clustering
 

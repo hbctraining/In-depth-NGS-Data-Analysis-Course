@@ -85,7 +85,7 @@ subset(res_tableOE, threshold == TRUE)
 Using the same thresholds as above (`padj.cutoff < 0.05` and `lfc.cutoff = 0.58`), create a threshold vector to report the number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
 
 ```r
-threshold_KD <- res_tableOKD$padj < padj.cutoff & abs(res_tableKD$log2FoldChange) > lfc.cutoff
+threshold_KD <- res_tableKD$padj < padj.cutoff & abs(res_tableKD$log2FoldChange) > lfc.cutoff
 ```
 
 Take this new threshold vector and add it as a new column called `threshold` to the `res_tableKD` which contains a logical vector denoting genes as being differentially expressed or not. **How many genes are differentially expressed in the Knockdown compared to Control?**
@@ -139,20 +139,12 @@ ggplot(df) +
 
 Alternatively, we could extract only the genes that are identified as significant and the plot the expression of those genes using a heatmap.
 
-
-To do this, let's start by sorting the results file by adjusted p-value:
-	
-```r
-### Sort the results tables
-res_tableOE_sorted <- res_tableOE[order(res_tableOE$padj), ]
-res_tableKD_sorted <- res_tableKD[order(res_tableKD$padj), ]
-```	
-Now, let's get the gene names for those significant genes:
+Let's get the gene names for those significant genes:
 
 ```r
 ### Get significant genes
-sigOE <- row.names(res_tableOE_sorted)[which(res_tableOE_sorted$threshold)]
-sigKD <- row.names(res_tableKD_sorted)[which(res_tableKD_sorted$threshold)]
+sigOE <- row.names(res_tableOE)[which(res_tableOE$threshold)]
+sigKD <- row.names(res_tableKD)[which(res_tableKD$threshold)]
 ```
 	
 We can then use those genes to select the corresponding rows from the normalized data matrix:
@@ -191,7 +183,6 @@ annotation= annotation, border_color=NA, fontsize = 10, scale="row",
 
 ***
 
----
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
 * *Materials and hands-on activities were adapted from [RNA-seq workflow](http://www.bioconductor.org/help/workflows/rnaseqGene/#de) on the Bioconductor website*

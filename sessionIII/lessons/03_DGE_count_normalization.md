@@ -18,21 +18,21 @@ The first step in the DE analysis workflow is count normalization, which is nece
 
 <img src="../img/deseq_workflow_normalization.png" width="200">
 
-The raw count data is affected by various factors that need to be accounted for and "normalized". A few of these factors are listed below:
+The counts of mapped reads for each gene is proportional to the expression of RNA ("interesting") in addition to many other factors ("uninteresting"). Normalization is the process of scaling raw count values to account for the "uninteresting" factors. In this way the expression levels are more comparable between and/or within samples.
+
+The main factors often considered during normalization are:
  
- - **normalization for library size: necessary for comparison of expression of the same gene between samples. In the example below, sample 2 has a higher number of reads associated with it.
+ - **Sequencing depth:** Accounting for sequencing depth is necessary for comparison of gene expression between samples. In the example below, each gene appears to have doubled in expression in sample 2, however this is a consequence of sample 2 having double the sequencing depth.
  
     <img src="../img/sequencing_depth.png" width="400">
  
- - **normalization for gene length: necessary for comparison of expression of different genes of varying lengths within the same sample.
+ - **Gene length:** Accounting for gene length is necessary for comparing expression between different genes within the same sample. The number of reads mapped to a longer gene can appear to have equal count/expression as a shorter gene that is more highly expressed. 
  
     <img src="../img/length_of_gene.png" width="400">
  
- - **normalization for RNA composition:** recommended for comparison of expression between samples (particularly important when performing differential expression analyses)
- 
- > "A few highly and differentially expressed genes may have strong influence on the total read count, causing the ratio of total read counts not to be a good estimate for the ratio of expected counts (for all genes)"[[1](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106)]
+ - **RNA composition:** A few highly differentially expressed genes can skew some types of normalization methods. Accounting for RNA composition is recommended for comparison of expression between samples, and is particularly important when performing differential expression analyses [[1](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106)]
     
-While normalization is essential for differential expression analyses, it is also necessary whenever you are exploring or comparing counts between or within samples, e.g. if you plot the counts for a figure.]
+While normalization is essential for differential expression analyses, it is also necessary for exploratory data analysis, visualization of data, and whenever you are exploring or comparing counts between or within samples.
  
 ### Common normalization methods
 
@@ -54,12 +54,12 @@ Using RPKM/FPKM normalization, the total number of RPKM/FPKM normalized counts f
 
 | gene | sampleA | sampleB |
 | ----- |:-----:|:-----:|
-| MOV10 | 5.5 | 5.5 |
-| ABCD | 73.4 | 21.8 |
+| XCR1 | 5.5 | 5.5 |
+| WASHC1 | 73.4 | 21.8 |
 | ... | ... | ... |
 |Total RPKM-normalized counts | 1,000,000 | 1,500,000 |
 
-For example, in the table above, SampleA has a greater proportion of counts associated with MOV10 (5.5/1,000,000) than does sampleB (5.5/1,500,000) even though the RPKM count values are the same. Therefore, we cannot directly compare the counts for MOV10 (or any other gene) between sampleA and sampleB because the total number of normalized counts are different between samples. 
+For example, in the table above, SampleA has a greater proportion of counts associated with XCR1 (5.5/1,000,000) than does sampleB (5.5/1,500,000) even though the RPKM count values are the same. Therefore, we cannot directly compare the counts for XCR1 (or any other gene) between sampleA and sampleB because the total number of normalized counts are different between samples. 
 
 ### TPM (recommended)
 In contrast to RPKM/FPKM, TPM-normalized counts normalize for both sequencing depth and gene length, but have the same total TPM-normalized counts per sample. Therefore, the normalized count values are comparable both between and within samples.
@@ -78,7 +78,7 @@ For each gene, a pseudo-reference sample is created that is equal to the geometr
 | gene | sampleA | sampleB | pseudo-reference sample  |
 | ----- |:-----:|:-----:|:-----:|
 | EF2A | 1489 | 906 | sqrt(1489 * 906) = **1161.5** |
-| ABCD | 22 | 13 | sqrt(24 * 13) = **17.7** |
+| ABCD1 | 22 | 13 | sqrt(24 * 13) = **17.7** |
 | ... | ... | ... | ... |
 
 **Step 2: calculates ratio of each sample to the reference**
@@ -88,9 +88,9 @@ For every gene in a sample, the ratios (sample/ref) are calculated (as shown bel
 | gene | sampleA | sampleB | pseudo-reference sample  | ratio sampleA/ref | ratio sampleB/ref |
 | ----- |:-----:|:-----:|:-----:| :-----: | :-----: |
 | EF2A | 1489 | 906 | 1161.5 | 1489/1161.5 = **1.28** | 906/1161.5 = **0.78** |
-| ABCD | 22 | 13 | 16.9 | 22/16.9 = **1.30** | 13/16.9 = **0.77** |
-| MEF3 | 793 | 410 | 570.2 | 793/570.2 = **1.39** | 410/570.2 = **0.72**
-| BBC1 | 76 | 42 | 56.5 | 76/56.5 = **1.35** | 42/56.5 = **0.74**
+| ABCD1 | 22 | 13 | 16.9 | 22/16.9 = **1.30** | 13/16.9 = **0.77** |
+| MEFV | 793 | 410 | 570.2 | 793/570.2 = **1.39** | 410/570.2 = **0.72**
+| BAG1 | 76 | 42 | 56.5 | 76/56.5 = **1.35** | 42/56.5 = **0.74**
 | MOV10 | 521 | 1196 | 883.7 | 521/883.7 = **0.590** | 1196/883.7 = **1.35** |
 | ... | ... | ... | ... |
 
@@ -123,7 +123,7 @@ SampleB median ratio = 0.77
 | gene | sampleA | sampleB |  
 | ----- |:-----:|:-----:|
 | EF2A | 1489 | 906 | 
-| ABCD | 22 | 13 | 
+| ABCD1 | 22 | 13 | 
 | ... | ... | ... | 
 
 **Normalized Counts**
@@ -131,7 +131,7 @@ SampleB median ratio = 0.77
 | gene | sampleA | sampleB |
 | ----- |:-----:|:-----:|
 | EF2A | 1489 / 1.3 = **1145.39** | 906 / 0.77 = **1176.62** | 
-| ABCD | 22 / 1.3 = **16.92** | 13 / 0.77 = **16.88** | 
+| ABCD1 | 22 / 1.3 = **16.92** | 13 / 0.77 = **16.88** | 
 | ... | ... | ... | 
 
 > Please note that normalized count values are not whole numbers.
@@ -210,12 +210,12 @@ As we go through the workflow we will use the relevant functions to check what i
 
 ### 3. Generate the Mov10 normalized counts
 
-The next step is to normalize the count data in order to be able to make fair gene comparisons both within and between samples.
+The next step is to normalize the count data in order to be able to make fair gene comparisons between samples.
 
 
 <img src="../img/slide5_DGE.png" width="400">
 
-Remember, that there are other factors that are proportional to the read counts in addition to the gene expression that we are interested in. To generate these size factors we can use the `estimateSizeFactors()` function:
+To perform the **median of ratios method** of normalization, DESeq2 has a single `estimateSizeFactors()` function that will generate size factors for us:
 
 ```r
 dds <- estimateSizeFactors(dds)
