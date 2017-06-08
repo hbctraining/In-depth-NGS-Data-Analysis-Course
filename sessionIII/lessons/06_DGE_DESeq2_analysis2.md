@@ -214,17 +214,6 @@ Take a quick peek at the results table containing Wald test statistics for the C
 > 2. If a row contains a sample with an extreme count outlier then the p-value and adjusted p-value will be set to NA. These outlier counts are detected by Cook’s distance. 
 > 3. If a row is filtered by automatic independent filtering, for having a low mean normalized count, then only the adjusted p-value will be set to NA. 
 
-# Summary of DGE analysis
-
-1. Count normalization and exploratory data analysis (PCA & heirarchical clustering)
-2. Run DESeq2:
-	- Create DESeq2 dataset:
-	```
-	dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
-	```
-
-	
-
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
