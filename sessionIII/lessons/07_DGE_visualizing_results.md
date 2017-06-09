@@ -18,7 +18,7 @@ When we are working with large amounts of data it can be useful to display that 
 
 ### Plotting signicant DE genes
 
-One way to visualize results would be to simply plot the expression data for a handful of genes. We could do that by picking out specific genes of interest, for example Mov10, or selecting a range of genes:
+One way to visualize results would be to simply plot the expression data for a handful of genes. We could do that by picking out specific genes of interest or selecting a range of genes:
 
 #### Using DESeq2 `plotCounts()` to plot a single gene
 
