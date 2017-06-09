@@ -16,16 +16,56 @@ Approximate time: 75 minutes
 
 When we are working with large amounts of data it can be useful to display that information graphically to gain more insight. Visualization deserves an entire course of its own, but during this lesson we will get you started with some basic and more advanced plots commonly used when exploring differential gene expression data.
 
-### Significant genes plot
+### Plotting signicant DE genes
 
-One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out specific genes of interest, for example Mov10:
+One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out specific genes of interest, for example Mov10, or selecting a range of genes:
+
+#### Using DESeq2 `plotCounts()`
+
+One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out a specific gene of interest, for example Mov10:
 
 ```r
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype")
 ```
-	
+
 ![topgene](../img/topgen_plot.png)
+
+#### Using `ggplot2`
+
+```r
+#plot top 20 values - input to this is the DESeq2 dds object and the significant results with gene names ('symbol')
+
+## Order significant results
+sigOE_ordered <- sigOE[order(sigOE), ]
+
+## normalized counts for all significant genes
+normalized_counts <- counts(dds, normalized=T)
+norm_counts_sigOE <- data.frame(normalized_counts[rownames(sigOE_ordered), ])
+
+## match the order of the normalized counts to the match the 20 most significant padj. values in the results file
+idx <- match(rownames(sigOE_ordered)[1:20], rownames(norm_counts_sigOE))
+top20_sigOE <- norm_counts_sigOE[idx, ]
+
+## change data structure to matrix to use melt() for plotting, then convert back to dataframe
+top20_sigOE <- as.matrix(top20_sigOE)
+melted_ordered_counts_sigOE <- data.frame(melt(top20_sigOE))
+colnames(melted_ordered_counts_sigOE) <- c("gene", "samplename", "normalized_counts")
+
+## add metadata to melted dataframe
+metadata$samplename <- rownames(metadata)
+melted_ordered_counts_sigOE <- merge(melted_ordered_counts_sigOE, metadata[1:6])
+
+## plot using ggplot2
+ggplot(melted_ordered_counts_sigOE) +
+        geom_jitter(aes(x = gene, y = norm_counts_sigOE, color = samplegroup)) +
+        scale_y_log10() +
+        xlab("Genes") +
+        ylab("Normalized Counts") +
+        ggtitle("Top 20 Significant DE Genes") +
+        theme_bw() +
+	theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
 ### Volcano plot
 
