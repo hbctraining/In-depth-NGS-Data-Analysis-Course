@@ -25,6 +25,9 @@ One way to visualize results would be to simply plot the expression data for a h
 One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out a specific gene of interest, for example Mov10:
 
 ```r
+library(DESeq2)
+library(reshape)
+
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype")
 ```
@@ -62,14 +65,21 @@ Now that we have the normalized counts for each of the top 20 genes, to plot usi
 
 <img src="../img/melt_wide_to_long_format.png" width="800">
 
+```r
 ## use melt to change to long data format
 melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
 colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
+```
+
+Now combine the metadata to the melted normalized counts data to provide annotations in the plot:
 
 ## add metadata to melted dataframe
 meta$samplename <- rownames(meta)
 melted_top20_sigOE <- merge(melted_top20_sigOE, meta[3:8, ])
 
+Finally, we can use ggplot2 to plot our normalized counts for the top 20 genes:
+
+```r
 ## plot using ggplot2
 ggplot(melted_top20_sigOE) +
         geom_point(aes(x = gene, y = normalized_counts, color = sampletype)) +
