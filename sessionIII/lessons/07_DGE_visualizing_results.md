@@ -8,7 +8,6 @@ Approximate time: 75 minutes
 
 ## Learning Objectives 
 
-* Summarizing significant differentially expressed genes for each comparison
 * Exploring our significant genes using data visualization
 * Using volcano plots to evaluate relationships between DEG statistics
 * Plotting expression of significant genes using heatmaps
