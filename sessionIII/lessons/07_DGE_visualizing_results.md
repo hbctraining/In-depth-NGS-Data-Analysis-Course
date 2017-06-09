@@ -94,6 +94,8 @@ ggplot(melted_top20_sigOE) +
 	theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+<img src="../img/sig_genes_melt.png" width="300">
+
 ### Volcano plot
 
 The above plot would be great to look at the expression levels of good number of genes, but for more of a global view there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. 
