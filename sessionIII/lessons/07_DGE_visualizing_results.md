@@ -77,7 +77,7 @@ Now if we want our counts colored by sample group, then we need to combine the m
 ```r
 ## add metadata to melted dataframe
 meta$samplename <- rownames(meta)
-melted_top20_sigOE <- merge(melted_top20_sigOE, meta[3:8, ])
+melted_top20_sigOE <- merge(melted_top20_sigOE, meta)
 ```
 
 Finally, we can use ggplot2 to plot our normalized counts for the top 20 genes:
@@ -96,7 +96,7 @@ ggplot(melted_top20_sigOE) +
 
 ### Volcano plot
 
-The above plot would be great to validate a select few genes, but for more of a global view there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. 
+The above plot would be great to look at the expression levels of good number of genes, but for more of a global view there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. 
 
 To generate a volcano plot, we first need to have a column in our results data indicating whether or not the gene is considered differentially expressed based on p-adjusted and log2 foldchange values.
 
