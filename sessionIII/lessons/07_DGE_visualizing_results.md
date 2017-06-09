@@ -191,6 +191,25 @@ annotation= annotation, border_color=NA, fontsize = 10, scale="row",
 
 > *NOTE:* There are several additional arguments we have included in the function for aesthetics. One important one is `scale="row"`, in which Z-scores are plotted, rather than the actual normalized count value. Z-scores are computed on a gene-by-gene basis by subtracting the mean and then dividing by the standard deviation. The Z-scores are computed **after the clustering**, so that it only affects the graphical aesthetics and the color visualization is improved.
 
+### MA Plot
+
+Another plot often useful to exploring our results is the MA plot. The MA plot shows the mean of the normalized counts versus the log2 foldchanges for all genes tested. The genes that are significantly DE are colored to be easily identified. The DESeq2 package also offers a simple function to generate this plot:
+
+```r
+plotMA(res_tableOE, ylim=c(-2,2))
+```
+
+We would expect to see significant genes across the range of expression levels.
+
+DESeq2 offers a useful function for interactively identifying genes in the MA plot:
+
+```r
+idx <- identify(res_tableOE$baseMean, res_tableOE$log2FoldChange)
+
+# Click on points to identify, then hit `esc` to return back to the command prompt. When finished, the row numbers should appear on the plot
+
+rownames(res_tableOE)[idx]
+
 ***
 
 **Exercise**
