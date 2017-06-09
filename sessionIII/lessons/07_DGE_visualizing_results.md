@@ -238,7 +238,7 @@ rownames(res_tableOE)[idx]
 ***NOTE:** The package 'DEGreport' can make the top20 genes and the volcano plots generated above by writing a few lines of simple code. While you can customize the plots above, you may be interested in using the easier code. Below are examples for code to create these plots:*
 
 ```r
-DEGreport::degPlot(dds = dds, res = res_tableOE, n=20, xs="type", group = "condition")
+DEGreport::degPlot(dds = dds, res = res, n=20, xs="type", group = "condition")
 
 DEGreport::degPlotWide(dds = dds, genes = row.names(res)[1:5], group = "condition")
 
