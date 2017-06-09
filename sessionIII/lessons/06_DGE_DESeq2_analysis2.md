@@ -230,8 +230,8 @@ lfc.cutoff <- 0.58
 The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of 1.5 which is pretty reasonable. Let's create vector that helps us identify the genes that meet our criteria:
 
 ```r
-sigOE <- subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
-sigKD <- subset(res_tableKD, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+sigOE <- data.frame(subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff))
+sigKD <- data.frame(subset(res_tableKD, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff))
 ```
 
 **How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above?** Does this reduce our results? 
