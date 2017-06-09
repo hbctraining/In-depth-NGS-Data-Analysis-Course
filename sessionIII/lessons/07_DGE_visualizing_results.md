@@ -25,6 +25,7 @@ One way to visualize results would be to simply plot the expression data for a h
 To pick out a specific gene of interest to plot, for example Mov10, we can use the `plotCounts()` from DESeq2:
 
 ```r
+# load libraries
 library(DESeq2)
 library(reshape)
 library(ggplot2)
@@ -39,9 +40,13 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype")
 This function only allows for plotting the counts of a single gene at a time. If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
 
 ```r
-d <- plotCounts(dds, gene="MOV10", intgroup="sampletype", returnData=TRUE) 
+# Save plotcounts to variable
+d <- plotCounts(dds, gene="MOV10", intgroup="sampletype", returnData=TRUE)
+
+# Adding samplenames to data frame
 d$name <- rownames(d)
 
+# Plotting the MOV10 normalized counts
 ggplot(d, aes(x=sampletype, y=count, color=sampletype)) + 
   geom_point(position=position_jitter(w=0.1,h=0)) +
   geom_text_repel(aes(label = name)) + 
