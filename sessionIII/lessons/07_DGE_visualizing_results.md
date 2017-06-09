@@ -209,6 +209,7 @@ idx <- identify(res_tableOE$baseMean, res_tableOE$log2FoldChange)
 # Click on points to identify, then hit `esc` to return back to the command prompt. When finished, the row numbers should appear on the plot
 
 rownames(res_tableOE)[idx]
+```
 
 ***
 
