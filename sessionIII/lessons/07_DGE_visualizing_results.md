@@ -37,7 +37,7 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype")
 #plot top 20 values - input to this is the DESeq2 dds object and the significant results with gene names ('symbol')
 
 ## Order significant results
-sigOE_ordered <- sigOE[order(sigOE), ]
+sigOE_ordered <- sigOE[order(sigOE$padj), ]
 
 ## normalized counts for all significant genes
 normalized_counts <- counts(dds, normalized=T)
