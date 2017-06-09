@@ -198,6 +198,7 @@ Another plot often useful to exploring our results is the MA plot. The MA plot s
 ```r
 plotMA(res_tableOE, ylim=c(-2,2))
 ```
+<img src="../img/MA_plot.png" width="600">
 
 We would expect to see significant genes across the range of expression levels.
 
