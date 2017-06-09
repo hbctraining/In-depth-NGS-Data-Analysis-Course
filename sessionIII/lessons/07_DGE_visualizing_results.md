@@ -46,7 +46,8 @@ ggplot(d, aes(x=sampletype, y=count, color=sampletype)) +
   geom_point(position=position_jitter(w=0.1,h=0)) +
   geom_text_repel(aes(label = name)) + 
   theme_bw() +
-  ggtitle("MOV10")
+  ggtitle("MOV10") +
+  theme(plot.title=element_text(hjust=0.5))
 ```
 
 **Within `ggplot()` we can use the `geom_text_repel()` from the 'ggrepel' R package to label our individual points on the plot.**
@@ -106,7 +107,8 @@ ggplot(melted_top20_sigOE) +
         ylab("Normalized Counts") +
         ggtitle("Top 20 Significant DE Genes") +
         theme_bw() +
-	theme(axis.text.x = element_text(angle = 45, hjust = 1))
+	theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+	theme(plot.title=element_text(hjust=0.5))
 ```
 
 <img src="../img/sig_genes_melt.png" width="600">
