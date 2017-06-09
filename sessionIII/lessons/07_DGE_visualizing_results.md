@@ -28,6 +28,8 @@ To pick out a specific gene of interest to plot, for example Mov10, we can use t
 library(DESeq2)
 library(reshape)
 library(ggplot2)
+library(ggrepel)
+library(DEGreport)
 
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype") 
@@ -40,9 +42,11 @@ _**NOTE:**_ If you wish to change the appearance of this plot, we can save the o
 
 ```r
 d <- plotCounts(dds, gene="MOV10", intgroup="sampletype", returnData=TRUE) 
+d$name <- rownames(d)
 
 ggplot(d, aes(x=sampletype, y=count, color=sampletype)) + 
   geom_point(position=position_jitter(w=0.1,h=0)) + 
+ geom_text_repel(aes(label = name)) +
   theme_bw()
 ```
 
