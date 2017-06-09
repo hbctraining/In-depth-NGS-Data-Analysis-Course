@@ -235,23 +235,18 @@ rownames(res_tableOE)[idx]
 
 ***
 
-***NOTE:** The package DEGreport can make many of the plots shown above (e.g. the top20 genes and the volcano plots) by writing a few lines of simple code. While you can customize the plots above, you may be interested in using the easier code. Below is code for how to use a few of the plots:
+***NOTE:** The package DEGreport can make the top20 genes and the volcano plots generated above by writing a few lines of simple code. While you can customize the plots above, you may be interested in using the easier code. Below are examples for code to create these plots:
 
 ```r
-DEGreport::degPlot(dds = dds, res = res, n=9, xs="type", group = "condition")
+DEGreport::degPlot(dds = dds, res = res_tableOE, n=20, xs="type", group = "condition")
+
 DEGreport::degPlotWide(dds = dds, genes = row.names(res)[1:5], group = "condition")
-
-
-pattern = DEGreport::degPatterns(norm_counts[row.names(res)[1:500],], # norm counts
-                                 meta, # design
-                                 time = "type", col = "condition") # plot settings
 
 DEGreport::degVolcano(
     as.data.frame(res[,c("log2FoldChange","padj")]), # table - 2 columns
     plot_text=as.data.frame(res[1:10,c("log2FoldChange","padj","id")])) # table to add names
 ```
-
-
+***
 
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
