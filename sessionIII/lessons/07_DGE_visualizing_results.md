@@ -31,7 +31,7 @@ library(ggplot2)
 
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype") 
-
+```
 ![topgene](../img/topgen_plot.png)
 
 This function only allows for plotting the counts of a single gene at a time.
