@@ -45,7 +45,8 @@ d$name <- rownames(d)
 ggplot(d, aes(x=sampletype, y=count, color=sampletype)) + 
   geom_point(position=position_jitter(w=0.1,h=0)) +
   geom_text_repel(aes(label = name)) + 
-  theme_bw()
+  theme_bw() +
+  ggtitle("MOV10")
 ```
 
 **Within `ggplot()` we can use the `geom_text_repel()` from the 'ggrepel' R package to label our individual points on the plot.**
