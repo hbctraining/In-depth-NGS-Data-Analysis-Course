@@ -36,9 +36,7 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype")
 ```
 ![topgene](../img/topgen_plot.png)
 
-This function only allows for plotting the counts of a single gene at a time.
-
-_**NOTE:**_ If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
+This function only allows for plotting the counts of a single gene at a time. If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
 
 ```r
 d <- plotCounts(dds, gene="MOV10", intgroup="sampletype", returnData=TRUE) 
@@ -51,6 +49,8 @@ ggplot(d, aes(x=sampletype, y=count, color=sampletype)) +
 ```
 
 **Within `ggplot()` we can use the `geom_text_repel()` from the 'ggrepel' R package to label our individual points on the plot.**
+
+<img src="../img/plotCounts_ggrepel.png" width="600">
 
 #### Using `ggplot2` to plot multiple genes (e.g. top 20)
 
