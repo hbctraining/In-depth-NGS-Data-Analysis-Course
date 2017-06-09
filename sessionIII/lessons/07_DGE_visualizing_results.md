@@ -70,7 +70,7 @@ colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 
 <img src="../img/melt_wide_to_long_format.png" width="800">
 
-Now if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data to provide legends in the plot:
+Now if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data into the same data frame for input to `ggplot()`:
 
 ```r
 ## add metadata to melted dataframe
