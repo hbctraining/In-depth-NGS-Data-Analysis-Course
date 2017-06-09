@@ -74,9 +74,11 @@ colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 
 Now if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data to provide legends in the plot:
 
+```r
 ## add metadata to melted dataframe
 meta$samplename <- rownames(meta)
 melted_top20_sigOE <- merge(melted_top20_sigOE, meta[3:8, ])
+```
 
 Finally, we can use ggplot2 to plot our normalized counts for the top 20 genes:
 
