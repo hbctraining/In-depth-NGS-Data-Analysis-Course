@@ -20,7 +20,7 @@ When we are working with large amounts of data it can be useful to display that 
 
 One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out specific genes of interest, for example Mov10, or selecting a range of genes:
 
-#### Using DESeq2 `plotCounts()`
+#### Using DESeq2 `plotCounts()` to plot a single gene
 
 One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out a specific gene of interest, for example Mov10:
 
@@ -31,21 +31,35 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype")
 
 ![topgene](../img/topgen_plot.png)
 
-#### Using `ggplot2`
+This function only allows for plotting the counts of a single gene at a time.
+
+#### Using `ggplot2` to plot multiple genes (e.g. top 20)
+
+Often it is helpful to check the expression of multiple genes of interest at the same time. While this isn't easily done using the `plotCounts()` function, we can use `ggplot()` to do this after performing some data wrangling.
+
+We are going to plot the normalized count values for the **top 20 differentially expressed genes (by padj values)**. 
+
+To do this, we first need to determine the gene names of our top 20 genes by ordering our significant results and extracting the top 20 genes:
 
 ```r
 #plot top 20 values - input to this is the DESeq2 dds object and the significant results with gene names ('symbol')
 
 ## Order significant results by padj values
 sigOE_ordered <- sigOE[order(sigOE$padj), ]
-top20_sigOE_res <- sigOE_ordered[1:20, ]
+top20_sigOE_genes <- rownames(sigOE_ordered[1:20, ])
+```
 
-## normalized counts for all significant genes
+Then, we can extract the normalized count values for these top 20 genes:
+
+```r
+## normalized counts for top 20 significant genes
 normalized_counts <- counts(dds, normalized=T)
-top20_sigOE_norm <- data.frame(normalized_counts[rownames(top20_sigOE_res), ])
+top20_sigOE_norm <- normalized_counts[top20_sigOE_genes, ]
+```
 
-## change data structure to matrix to use melt() for plotting, then convert back to dataframe
-top20_sigOE_norm <- as.matrix(top20_sigOE_norm)
+Now that we have the normalized counts for each of the top 20 genes, to plot using `ggplot()`, we need to gather the counts for all samples into a single column. The `melt()` function in the **reshape** R package will perform this operation, and the result will be the normalized counts for all genes for *Mov10_oe_1 listed in the first 20 rows*, followed by the normalized counts for *Mov10_oe_2 in the following 20 rows*, so on and so forth.
+
+## use melt to change to long data format
 melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
 colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 
