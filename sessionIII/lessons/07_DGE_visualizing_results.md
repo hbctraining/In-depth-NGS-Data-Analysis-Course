@@ -36,29 +36,26 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype")
 ```r
 #plot top 20 values - input to this is the DESeq2 dds object and the significant results with gene names ('symbol')
 
-## Order significant results
+## Order significant results by padj values
 sigOE_ordered <- sigOE[order(sigOE$padj), ]
+top20_sigOE_res <- sigOE_ordered[1:20, ]
 
 ## normalized counts for all significant genes
 normalized_counts <- counts(dds, normalized=T)
-norm_counts_sigOE <- data.frame(normalized_counts[rownames(sigOE_ordered), ])
-
-## match the order of the normalized counts to the match the 20 most significant padj. values in the results file
-idx <- match(rownames(sigOE_ordered)[1:20], rownames(norm_counts_sigOE))
-top20_sigOE <- norm_counts_sigOE[idx, ]
+top20_sigOE_norm <- data.frame(normalized_counts[rownames(top20_sigOE_res), ])
 
 ## change data structure to matrix to use melt() for plotting, then convert back to dataframe
-top20_sigOE <- as.matrix(top20_sigOE)
-melted_ordered_counts_sigOE <- data.frame(melt(top20_sigOE))
-colnames(melted_ordered_counts_sigOE) <- c("gene", "samplename", "normalized_counts")
+top20_sigOE_norm <- as.matrix(top20_sigOE_norm)
+melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
+colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 
 ## add metadata to melted dataframe
-metadata$samplename <- rownames(metadata)
-melted_ordered_counts_sigOE <- merge(melted_ordered_counts_sigOE, metadata[1:6])
+meta$samplename <- rownames(meta)
+melted_top20_sigOE <- merge(melted_top20_sigOE, meta[3:8, ])
 
 ## plot using ggplot2
-ggplot(melted_ordered_counts_sigOE) +
-        geom_jitter(aes(x = gene, y = norm_counts_sigOE, color = samplegroup)) +
+ggplot(melted_top20_sigOE) +
+        geom_point(aes(x = gene, y = normalized_counts, color = sampletype)) +
         scale_y_log10() +
         xlab("Genes") +
         ylab("Normalized Counts") +
