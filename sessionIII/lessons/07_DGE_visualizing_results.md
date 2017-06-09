@@ -22,14 +22,20 @@ One way to visualize results would be to simply plot the expression data for a h
 
 #### Using DESeq2 `plotCounts()` to plot a single gene
 
-One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out a specific gene of interest, for example Mov10:
+To pick out a specific gene of interest to plot, for example Mov10, we can use the `plotCounts()` from DESeq2:
 
 ```r
 library(DESeq2)
 library(reshape)
+library(ggplot2)
 
 # Plot expression for single gene
-plotCounts(dds, gene="MOV10", intgroup="sampletype")
+plotCounts(dds, gene="MOV10", intgroup="sampletype")  +
+        xlab("Genes") +
+        ylab("Normalized Counts") +
+        ggtitle("Top 20 Significant DE Genes") +
+        theme_bw() +
+	theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 ![topgene](../img/topgen_plot.png)
