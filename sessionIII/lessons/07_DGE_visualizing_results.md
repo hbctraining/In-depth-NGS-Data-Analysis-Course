@@ -30,17 +30,21 @@ library(reshape)
 library(ggplot2)
 
 # Plot expression for single gene
-plotCounts(dds, gene="MOV10", intgroup="sampletype")  +
-        xlab("Genes") +
-        ylab("Normalized Counts") +
-        ggtitle("Top 20 Significant DE Genes") +
-        theme_bw() +
-	theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
+plotCounts(dds, gene="MOV10", intgroup="sampletype") 
 
 ![topgene](../img/topgen_plot.png)
 
 This function only allows for plotting the counts of a single gene at a time.
+
+_**NOTE:**_ If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
+
+```r
+d <- plotCounts(dds, gene="MOV10", intgroup="sampletype", returnData=TRUE) 
+
+ggplot(d, aes(x=sampletype, y=count, color=sampletype)) + 
+  geom_point(position=position_jitter(w=0.1,h=0)) + 
+  theme_bw()
+```
 
 #### Using `ggplot2` to plot multiple genes (e.g. top 20)
 
