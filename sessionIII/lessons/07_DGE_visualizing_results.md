@@ -94,7 +94,7 @@ ggplot(melted_top20_sigOE) +
 	theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-<img src="../img/sig_genes_melt.png" width="300">
+<img src="../img/sig_genes_melt.png" width="600">
 
 ### Volcano plot
 
