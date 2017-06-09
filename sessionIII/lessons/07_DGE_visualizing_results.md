@@ -113,7 +113,7 @@ length(which(threshold_OE))
 To add this vector to our results table we can use the `$` notation to create the column on the left hand side of the assignment operator, and then assign the vector to it instead of using `cbind()`:
 
 ```r
-res_tableOE$threshold <- threshold                
+res_tableOE$threshold <- threshold_OE                
 ```
 
 Now, we need to do the same for the `res_tableKD`:
@@ -135,7 +135,7 @@ resOE_df <- data.frame(res_tableOE)
 
 Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot:
 
-```
+```r
 # Volcano plot
 ggplot(resOE_df) +
 	geom_point(aes(x=log2FoldChange, y=-log10(padj), colour=threshold)) +
@@ -154,21 +154,11 @@ ggplot(resOE_df) +
 
 ### Heatmap
 
-Alternatively, we could extract only the genes that are identified as significant and the plot the expression of those genes using a heatmap.
-
-Let's get the gene names for those significant genes:
-
-```r
-### Get significant genes
-sigOE <- row.names(res_tableOE)[which(res_tableOE$threshold)]
-sigKD <- row.names(res_tableKD)[which(res_tableKD$threshold)]
-```
-	
-We can then use those genes to select the corresponding rows from the normalized data matrix:
+Alternatively, we could extract only the genes that are identified as significant and the plot the expression of those genes using a heatmap:
 
 ```r
 ### Extract normalized expression for significant genes
-norm_OEsig <- normalized_counts[sigOE,]
+norm_OEsig <- normalized_counts[rownames(sigOE),]
 ```
 
 Now let's draw the heatmap using `pheatmap`:
@@ -176,7 +166,7 @@ Now let's draw the heatmap using `pheatmap`:
 ```r
 ### Annotate our heatmap (optional)
 annotation <- data.frame(sampletype=meta[,'sampletype'], 
-                     row.names=row.names(meta))
+                     row.names=rownames(meta))
 
 ### Set a color palette
 heat.colors <- brewer.pal(6, "YlOrRd")
