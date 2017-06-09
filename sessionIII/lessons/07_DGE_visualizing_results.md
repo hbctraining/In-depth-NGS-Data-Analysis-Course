@@ -60,10 +60,9 @@ normalized_counts <- counts(dds, normalized=T)
 top20_sigOE_norm <- normalized_counts[top20_sigOE_genes, ]
 ```
 
-Now that we have the normalized counts for each of the top 20 genes, to plot using `ggplot()`, we need to gather the counts for all samples into a single column. The `melt()` function in the **reshape** R package will perform this operation, and the result will be the normalized counts for all genes for *Mov10_oe_1 listed in the first 20 rows*, followed by the normalized counts for *Mov10_oe_2 in the following 20 rows*, so on and so forth.
+Now that we have the normalized counts for each of the top 20 genes, to plot using `ggplot()`, we need to gather the counts for all samples into a single column (dataset from a wide format to a long format).
 
-
-<img src="../img/melt_wide_to_long_format.png" width="800">
+The `melt()` function in the **reshape** R package will perform this operation, and the result will output the normalized counts for all genes for *Mov10_oe_1* listed in the first 20 rows, followed by the normalized counts for *Mov10_oe_2* in the next 20 rows, so on and so forth.
 
 ```r
 ## use melt to change to long data format
@@ -71,7 +70,9 @@ melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
 colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 ```
 
-Now combine the metadata to the melted normalized counts data to provide annotations in the plot:
+<img src="../img/melt_wide_to_long_format.png" width="800">
+
+Now if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data to provide legends in the plot:
 
 ## add metadata to melted dataframe
 meta$samplename <- rownames(meta)
