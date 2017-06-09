@@ -211,7 +211,7 @@ The default FDR threshold is set using the option `alpha` within `summary()`; 0.
 
 **Exercise**
 
-1. Explore the results table summary for the **Mov10_knockdown comparison to control**. How many genes are differentially expressed at FDR < 0.1? How many fewer genes do we find at FDR < 0.05?
+Explore the results table summary for the **Mov10_knockdown comparison to control**. How many genes are differentially expressed at FDR < 0.1? How many fewer genes do we find at FDR < 0.05?
 
 ***
 
