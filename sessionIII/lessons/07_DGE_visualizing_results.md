@@ -37,7 +37,7 @@ plotCounts(dds, gene="MOV10", intgroup="sampletype")
 ```
 ![topgene](../img/topgen_plot.png)
 
-This function only allows for plotting the counts of a single gene at a time. If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
+**This function only allows for plotting the counts of a single gene at a time.** If you wish to change the appearance of this plot, we can save the output of `plotCounts()` to a variable specifying the `returnData=TRUE` argument, then use `ggplot()`:
 
 ```r
 # Save plotcounts to variable
