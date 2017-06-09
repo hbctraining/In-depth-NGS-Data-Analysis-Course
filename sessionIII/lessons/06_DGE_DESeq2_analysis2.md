@@ -10,6 +10,7 @@ Approximate time: 60 minutes
 
 * Understanding the different steps in a differential expression analysis in the context of DESeq2
 * Building results tables for comparison of different sample classes
+* Summarizing significant differentially expressed genes for each comparison
 
 
 
@@ -180,6 +181,64 @@ Take a quick peek at the results table containing Wald test statistics for the C
 > 1. If within a row, all samples have zero counts, the baseMean column will be zero, and the log2 fold change estimates, p-value and adjusted p-value will all be set to NA.
 > 2. If a row contains a sample with an extreme count outlier then the p-value and adjusted p-value will be set to NA. These outlier counts are detected by Cook’s distance. 
 > 3. If a row is filtered by automatic independent filtering, for having a low mean normalized count, then only the adjusted p-value will be set to NA. 
+
+## Summarizing results and identifying DEGs
+
+To summarize the results table, a handy function in DESeq2 is `summary()`. Confusingly it has the same name as the function used to inspect variables. This function when called with a DESeq results table as input, will summarize the results using the default threshold: FDR < 0.1 (padj/FDR is used even though the output says `p-value < 0.1`). Let's start with the OE vs control results:
+
+```r
+## Summarize results
+summary(res_tableOE)
+```
+
+```r  
+out of 19748 with nonzero total read count
+adjusted p-value < 0.1
+LFC > 0 (up)     : 3657, 19% 
+LFC < 0 (down)   : 3897, 20% 
+outliers [1]     : 0, 0% 
+low counts [2]   : 3912, 20% 
+(mean count < 4)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+```
+
+In addition to the number of genes up- and down-regulated at the default threshold, **the function also reports the number of genes that were tested (genes with non-zero total read count), and the number of genes not included in multiple test correction due to a low mean count** (which in our case is < 4 and was determined automatically by DESeq2 based on overall counts).
+
+The default FDR threshold is set using the option `alpha` within `summary()`; 0.1 is quite liberal so let's try changing that to `0.05` -- *how many genes are we left with*?
+
+***
+
+**Exercise**
+
+1. Explore the results table summary for the **Mov10_knockdown comparison to control**. How many genes are differentially expressed at FDR < 0.1? How many fewer genes do we find at FDR < 0.05?
+
+***
+
+The FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also **add a fold change threshold**. The `summary()` function doesn't have an argument for fold change threshold,
+
+> *NOTE:* the `results()` function does have an option to add a fold change threshold and subset the data this way. Take a look at the help manual using `?results` and see what argument would be required. However, rather than subsetting the results, we want to return the whole dataset and simply identify which genes meet our criteria. 
+
+Let's first create variables that contain our threshold criteria:
+
+```r
+### Set thresholds
+padj.cutoff <- 0.05
+lfc.cutoff <- 0.58
+```
+
+The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of 1.5 which is pretty reasonable. Let's create vector that helps us identify the genes that meet our criteria:
+
+```r
+sigOE <- subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+sigKD <- subset(res_tableKD, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+```
+
+**How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above?** Does this reduce our results? 
+
+
+**How many genes are differentially expressed in the Knockdown compared to Control, given our criteria specified above?** 
+
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
