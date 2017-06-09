@@ -60,7 +60,7 @@ top20_sigOE_norm <- normalized_counts[top20_sigOE_genes, ]
 Now that we have the normalized counts for each of the top 20 genes, to plot using `ggplot()`, we need to gather the counts for all samples into a single column. The `melt()` function in the **reshape** R package will perform this operation, and the result will be the normalized counts for all genes for *Mov10_oe_1 listed in the first 20 rows*, followed by the normalized counts for *Mov10_oe_2 in the following 20 rows*, so on and so forth.
 
 
-<img src="../img/melt_wide_format.png" width="200">
+<img src="../img/melt_wide_format.png" width="500">
 
 ## use melt to change to long data format
 melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
