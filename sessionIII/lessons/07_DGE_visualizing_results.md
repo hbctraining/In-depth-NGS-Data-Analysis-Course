@@ -196,7 +196,7 @@ annotation= annotation, border_color=NA, fontsize = 10, scale="row",
 Another plot often useful to exploring our results is the MA plot. The MA plot shows the mean of the normalized counts versus the log2 foldchanges for all genes tested. The genes that are significantly DE are colored to be easily identified. The DESeq2 package also offers a simple function to generate this plot:
 
 ```r
-plotMA(res_tableOE, ylim=c(-2,2))
+plotMA(res_tableOE, alpha = 0.05, ylim=c(-2,2))
 ```
 <img src="../img/MA_plot.png" width="600">
 
