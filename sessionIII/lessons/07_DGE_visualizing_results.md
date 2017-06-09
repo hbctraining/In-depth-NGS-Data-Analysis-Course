@@ -1,6 +1,6 @@
 ---
 title: "DGE visualization of results"
-author: "Meeta Mistry", "Mary Piper"
+author: "Meeta Mistry, Mary Piper"
 date: "June 14, 2017"
 ---
 
