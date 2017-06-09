@@ -45,8 +45,6 @@ We are going to plot the normalized count values for the **top 20 differentially
 To do this, we first need to determine the gene names of our top 20 genes by ordering our significant results and extracting the top 20 genes:
 
 ```r
-#plot top 20 values - input to this is the DESeq2 dds object and the significant results with gene names ('symbol')
-
 ## Order significant results by padj values
 sigOE_ordered <- sigOE[order(sigOE$padj), ]
 top20_sigOE_genes <- rownames(sigOE_ordered[1:20, ])
