@@ -1,7 +1,7 @@
 ---
 title: "Peak calling with MACS2"
 author: "Meeta Mistry"
-date: "Tuesday, July 19th, 2016"
+date: "June 12th, 2017"
 ---
 
 Contributors: Meeta Mistry, Radhika Khetani
@@ -26,11 +26,13 @@ From the alignment files (BAM), you typically observe reads/tags to be identifie
 
 <div style="text-align:center"><img src="../img/chip-fragments.png" width="300" align="middle"></div>
 
-There are various tools that are available for peak calling. Two of the popular ones we will demonstrate in this session are MACS2 and SPP. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
+There are various tools that are available for peak calling. One of the more commonly used peack callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
+
+> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is also very commonly used for narrow peak calling. While we will not be going through the steps for this peak caller in this Session, we do have [a lesson on SPP](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md) that we encourage you to browse throughif you are interested in learning more.
 
 ## MACS2
 
-A commonly used tool for identifying transcript factor binding sites is named [Model-based Analysis of ChIP-Seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. MACS improves the spatial resolution of binding sites through combining the information of both sequencing tag position and orientation. MACS can be easily used for ChIP-Seq data alone, or with control sample with the increase of specificity.
+A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-Seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. MACS improves the spatial resolution of binding sites through combining the information of both sequencing tag position and orientation. MACS can be easily used for ChIP-Seq data alone, or with control sample with the increase of specificity.
 
 
 ### Modeling the shift size
@@ -38,12 +40,12 @@ The tag density around a true binding site should show a bimodal enrichment patt
 
 ![model](../img/model.png)
 
-Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mfold`), MACS slides 2 bandwidth windows across the genome to find regions with tags more than mfold enriched relative to a random tag genome distribution. MACS randomly samples 1,000 of these high-quality peaks, separates their Watson and Crick tags, and aligns them by the midpoint between their Watson and Crick tag centers. The distance between the modes of the Watson and Crick peaks in the alignment is defined as 'd', and MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
+Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mfold`), MACS slides 2 `bandwidth` windows across the genome to find regions with tags more than `mfold` enriched relative to a random tag genome distribution. MACS randomly samples 1,000 of these high-quality peaks, separates their Watson and Crick tags, and aligns them by the midpoint between their Watson and Crick tag centers. The distance between the modes of the Watson and Crick peaks in the alignment is defined as 'd', and MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
 
 
 ### Peak detection
 
-For experiments in which sequence depth differs between input and treatment samples, MACS linearly scales the total control tag count to be the same as the total ChIP tag count. Also, MACS allows each genomic position to contain no more than one tag and removes all the redundancies. 
+For experiments in which sequence depth differs between input and treatment samples, MACS linearly scales the total control tag count to be the same as the total ChIP tag count. Also, MACS allows each genomic position to contain no more than one tag and removes all the redundancies. *Note that we have already removed all redundancies.* 
 
 To model the background noise, MACS uses a dynamic local Poisson distribution in which the lambda parameter is deduced by taking the maximum value λlocal = max(λBG, [λ1k,] λ5k, λ10k); this helps reduce the effects of local biases. Fold enrichment is then computed as the density of tags in a given peak compared to background λlocal parameter; this will help isolate the signal from the noise.
 
@@ -110,17 +112,16 @@ Now that we have a feel for the different ways we can tweak our command, let's s
 $ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 	-c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
  	-f BAM -g 1.3e+8 \
-	--bdg --outdir macs2 \
 	-n Nanog-rep1
 ```
 
 The tool is quite verbose so you should see lines of text being printed to the terminal, describing each step that is being carried out. If that runs successfully, go ahead and **run the same command on the remaining samples**:
 
-	 $ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Nanog-rep2
+	 $ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Nanog-rep2
 	 
-	 $ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Pou5f1-rep1
+	 $ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep1
 	 
-	 $ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Pou5f1-rep2
+	 $ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep2
 
 ## MACS2 Output files
 
@@ -187,9 +188,9 @@ Open up the pdf file for Nanog-rep1. The first plot illustrates the distance bet
 
 <img src="../img/model-macs.png" width="400">
 
-The second plot is the cross-correlation plot, and we will be discussing that in a little more detail in the next (SPP) lesson.
+The second plot is the cross-correlation plot....
 
-**ADD CROSS-CORELATION DETAILS HERE IF WE TAKE OUT SPP**
+**ADD CROSS-CORrELATION DETAILS HERE IF WE TAKE OUT SPP**
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
