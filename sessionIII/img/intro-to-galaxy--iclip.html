@@ -1,0 +1,698 @@
+<!DOCTYPE HTML>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+    <!--base_panels.mako-->
+    
+
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name = "viewport" content = "maximum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+            <title>
+    Galaxy | 
+Accessible History | 
+    Intro to Galaxy -iCLIP
+</title>
+        <link rel="index" href="/"/>
+        
+    
+    
+    <link href="/static/style/base.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+<link href="/static/style/jquery.rating.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+<link href="/static/style/bootstrap-tour.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    #center {
+            left: 0 !important;
+    }
+    </style>
+
+    <link href="/static/style/autocomplete_tagging.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+<link href="/static/style/embed_item.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+<link href="/static/style/jquery.rating.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+<link href="/static/style/library.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+<link href="/static/style/jquery-ui/smoothness/jquery-ui.css?v=1488986038" media="screen" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        .page-body {
+            padding: 10px;
+        }
+        .page-meta {
+            float: right;
+            width: 27%;
+            padding: 0.5em;
+            margin: 0.25em;
+            vertical-align: text-top;
+            border: 2px solid #DDDDDD;
+            border-top: 4px solid #DDDDDD;
+        }
+
+        .toolForm {
+            max-width: 500px;
+        }
+
+        div.toolForm{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+    <style type="text/css">
+
+    </style>
+
+        
+    
+    
+
+
+    <script src="/static/scripts/bundled/libs.bundled.js?v=1488986038" type="text/javascript"></script>
+<script src="/static/scripts/libs/require.js?v=1488986038" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        // configure require
+        // due to our using both script tags and require, we need to access the same jq in both for plugin retention
+        // source http://www.manuel-strehl.de/dev/load_jquery_before_requirejs.en.html
+        window.Galaxy = window.Galaxy || {};
+        window.Galaxy.root = '/';
+        define( 'jquery', [], function(){ return jQuery; })
+        // TODO: use one system
+
+        // shims and paths
+        require.config({
+            baseUrl: "/static/scripts",
+            shim: {
+                "libs/underscore": {
+                    exports: "_"
+                },
+                "libs/backbone": {
+                    deps: [ 'jquery', 'libs/underscore' ],
+                    exports: "Backbone"
+                }
+            },
+            // cache busting using time server was restarted
+            urlArgs: 'v=1488986059',
+        });
+    </script>
+
+
+
+    <script src="/static/scripts/libs/jquery/jstorage.js?v=1488986038" type="text/javascript"></script>
+<script src="/static/scripts/libs/jquery/jquery.event.drag.js?v=1488986038" type="text/javascript"></script>
+<script src="/static/scripts/libs/jquery/jquery.mousewheel.js?v=1488986038" type="text/javascript"></script>
+<script src="/static/scripts/libs/farbtastic.js?v=1488986038" type="text/javascript"></script>
+<script src="/static/scripts/libs/jquery/jquery.autocomplete.js?v=1488986038" type="text/javascript"></script>
+    
+    
+<script type="text/javascript">
+    // Handle click on community tag.
+    function community_tag_click(tag_name, tag_value) {
+        var href = '/history/list_published';
+        href = href + "?f-tags=" + tag_name;
+        if (tag_value != undefined && tag_value != "") {
+            href = href + ":" + tag_value;
+        }
+        self.location = href;
+    }
+
+    // Map item rating to number of stars to show.
+    function map_rating_to_num_stars(rating) {
+        if (rating <= 0)
+            return 0;
+        else if (rating > 0 && rating <= 1.5)
+            return 1;
+        else if (rating > 1.5 && rating <= 2.5)
+            return 2;
+        else if (rating > 2.5 && rating <= 3.5)
+            return 3;
+        else if (rating > 3.5 && rating <= 4.5)
+            return 4;
+        else if (rating > 4.5)
+            return 5;
+    }
+
+    // Init. on document load.
+    $(function() {
+        // Set links to Galaxy screencasts to open in overlay.
+        $(this).find("a[href^='http://screencast.g2.bx.psu.edu/']").each( function() {
+            $(this).click( function() {
+                var href = $(this).attr('href');
+                show_in_overlay(
+                    {
+                        url: href,
+                        width: 640,
+                        height: 480,
+                        scroll: 'no'
+                    }
+                );
+                return false;
+            });
+        });
+
+        // Init user item rating.
+        $('.user_rating_star').rating({
+            callback: function(rating, link) {
+                $.ajax({
+                    type: "GET",
+                    url: "/history/rate_async",
+                    data: { id : "4ff6f47412c3e65e", rating : rating },
+                    dataType: 'json',
+                    error: function() { alert( "Rating submission failed" ); },
+                    success: function( community_data ) {
+                        $('#rating_feedback').show();
+                        $('#num_ratings').text(Math.round(community_data[1]*10)/10);
+                        $('#ave_rating').text(community_data[0]);
+                        $('.community_rating_star').rating('readOnly', false);
+                        $('.community_rating_star').rating('select', map_rating_to_num_stars(community_data[0])-1);
+                        $('.community_rating_star').rating('readOnly', true);
+                    }
+                });
+            },
+            required: true // Hide cancel button.
+        });
+    });
+</script>
+
+
+
+        
+    
+    
+    <script type="text/javascript">
+        //TODO: global...
+        define( 'bootstrapped-data', function(){
+            return window.bootstrapped;
+        });
+    </script>
+
+    <script type="text/javascript">
+        require([ 'require', 'galaxy' ], function( require, galaxy ){
+            //TODO: global...
+            window.Galaxy = new galaxy.GalaxyApp({
+                root    : '/',
+                config  : 
+    
+{
+"communication_server_host": "http://localhost", 
+"ftp_upload_site": "54.196.229.156", 
+"mailing_lists": "https://wiki.galaxyproject.org/MailingLists", 
+"nginx_upload_path": "/_upload", 
+"terms_url": null, 
+"ftp_upload_dir": "/mnt/galaxy/tmp/ftp", 
+"allow_user_deletion": true, 
+"enable_unique_workflow_defaults": true, 
+"wiki_url": "https://wiki.galaxyproject.org/", 
+"version_major": "16.10", 
+"support_url": "https://wiki.galaxyproject.org/Support", 
+"persistent_communication_rooms": [], 
+"remote_user_logout_href": null, 
+"message_box_content": null, 
+"logo_src": "/static/images/galaxyIcon_noText.png", 
+"biostar_url_redirect": "http://54.196.229.156/biostar/biostar_redirect", 
+"message_box_visible": false, 
+"user_library_import_dir": null, 
+"logo_url": "/", 
+"brand": null, 
+"search_url": "http://galaxyproject.org/search/usegalaxy/", 
+"screencasts_url": null, 
+"ga_code": null, 
+"require_login": false, 
+"communication_server_port": 7070, 
+"lims_doc_url": "https://usegalaxy.org/u/rkchak/p/sts", 
+"inactivity_box_content": "Your account has not been activated yet. Feel free to browse around and see what's available, but you won't be able to upload data or run jobs until you have verified your email address.", 
+"citation_url": "https://wiki.galaxyproject.org/CitingGalaxy", 
+"allow_user_creation": true, 
+"is_admin_user": true, 
+"allow_user_dataset_purge": true, 
+"allow_library_path_paste": "True", 
+"server_startttime": 1488986038, 
+"biostar_url": null, 
+"datatypes_disable_auto": false, 
+"use_remote_user": null, 
+"library_import_dir": "/mnt/galaxy/tmp/library_import_dir", 
+"message_box_class": "info"
+}
+,
+                user    : 
+    
+{
+"username": "mary", 
+"quota_percent": null, 
+"total_disk_usage": 1344916466.0, 
+"nice_total_disk_usage": "1.3 GB", 
+"email": "piper@hsph.harvard.edu", 
+"is_admin": true, 
+"tags_used": [], 
+"model_class": "User", 
+"id": "1cd8e2f6b131e891"
+}
+,
+            }, window.bootstrapped );
+
+        });
+    </script>
+
+
+    </head>
+
+    
+
+    <body scroll="no" class="full-content ">
+        <div id="everything" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            <div id="background"></div>
+            <div id="masthead" class="navbar navbar-fixed-top navbar-inverse">
+                
+    
+    
+    
+
+    <script type="text/javascript">
+        if( !window.Galaxy ){
+            Galaxy = {};
+        }
+
+        // if we're in an iframe, create styles that hide masthead/messagebox, and reset top for panels
+        // note: don't use a link to avoid roundtrip request
+        // note: we can't select here because the page (incl. messgaebox, center, etc.) isn't fully rendered
+        // TODO: remove these when we no longer navigate with iframes
+        var in_iframe = window !== window.top;
+        if( in_iframe ){
+            var styleElement = document.createElement( 'style' );
+            document.head.appendChild( styleElement );
+            [
+                '#masthead, #messagebox { display: none; }',
+                '#center, #right, #left { top: 0 !important; }',
+             ].forEach( function( rule ){
+                styleElement.sheet.insertRule( rule, 0 );
+            });
+        }
+        // TODO: ?? move above to base_panels.mako?
+
+        require([
+            'layout/masthead',
+            'mvc/ui/ui-modal',
+            'mvc/user/user-model'
+        ], function( Masthead, Modal, user ){
+            if( !Galaxy.user ) {
+                // this doesn't need to wait for the page being readied
+                Galaxy.user = new user.User({
+  "username": "mary", 
+  "quota_percent": null, 
+  "total_disk_usage": 1344916466.0, 
+  "nice_total_disk_usage": "1.3 GB", 
+  "email": "piper@hsph.harvard.edu", 
+  "is_admin": true, 
+  "tags_used": [], 
+  "model_class": "User", 
+  "id": "1cd8e2f6b131e891"
+});
+            }
+
+            $(function() {
+                if (!Galaxy.masthead) {
+                    Galaxy.masthead = new Masthead.View({"ftp_upload_site": "54.196.229.156", "mailing_lists": "https://wiki.galaxyproject.org/MailingLists", "nginx_upload_path": "/_upload", "terms_url": "", "user_requests": false, "wiki_url": "https://wiki.galaxyproject.org/", "support_url": "https://wiki.galaxyproject.org/Support", "user_json": {"username": "mary", "quota_percent": null, "total_disk_usage": 1344916466.0, "nice_total_disk_usage": "1.3 GB", "email": "piper@hsph.harvard.edu", "is_admin": true, "tags_used": [], "model_class": "User", "id": "1cd8e2f6b131e891"}, "remote_user_logout_href": null, "logo_src": "../../../static/images/galaxyIcon_noText.png", "biostar_url_redirect": "http://54.196.229.156/biostar/biostar_redirect", "ftp_upload_dir": "/mnt/galaxy/tmp/ftp", "logo_url": "/", "search_url": "http://galaxyproject.org/search/usegalaxy/", "screencasts_url": "https://vimeo.com/galaxyproject", "brand": "", "lims_doc_url": "https://usegalaxy.org/u/rkchak/p/sts", "active_view": "shared", "citation_url": "https://wiki.galaxyproject.org/CitingGalaxy", "allow_user_creation": true, "is_admin_user": true, "biostar_url": null, "datatypes_disable_auto": false, "use_remote_user": null, "enable_cloud_launch": false});
+                    Galaxy.modal = new Modal.View();
+                    $('#masthead').replaceWith( Galaxy.masthead.render().$el );
+                }
+            });
+        });
+    </script>
+
+
+            </div>
+            
+    
+    
+
+    
+
+    <div id="top-modal" class="modal fade " style='display: none;'>
+        <div id="top-modal-backdrop" class="modal-backdrop fade " style="z-index: -1"></div>
+        <div id="top-modal-dialog" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type='button' class='close' style="display: none;">&times;</button>
+                    <h4 class='title'></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <div class="buttons" style="float: right;"></div>
+                    <div class="extra_buttons" style=""></div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="center" class="inbound">
+                
+    
+
+    
+    
+    
+
+
+    <div class="unified-panel-header" unselectable="on" style="overflow: hidden">
+        <div class="unified-panel-header-inner">
+            <div style="float: right">
+                
+
+    <a href="/history/switch_to_history?hist_id=4ff6f47412c3e65e" style="width: 100%" title="Make this history your current history">
+        Switch to this history
+    </a>
+
+            </div>
+                Accessible 
+History
+            | 
+    Intro to Galaxy -iCLIP
+        </div>
+    </div>
+
+    <div class="unified-panel-body">
+        <div style="overflow: auto; height: 100%;">
+            <div class="page-body">
+                <div>
+                    
+
+                </div>
+
+                
+<div id="history-4ff6f47412c3e65e" class="history-panel"></div>
+<script type="text/javascript">
+    var historyJSON  = {"hid_counter": 12, "update_time": "2017-03-08T17:10:26.043349", "user_id": "1cd8e2f6b131e891", "importable": true, "tags": [], "deleted": false, "contents_url": "/api/histories/4ff6f47412c3e65e/contents", "slug": "intro-to-galaxy--iclip", "username_and_slug": "u/mary/h/intro-to-galaxy--iclip", "id": "4ff6f47412c3e65e", "url": "/api/histories/4ff6f47412c3e65e", "genome_build": "hg19", "create_time": "2017-03-08T16:03:18.092550", "published": false, "model_class": "History", "annotation": null, "size": 424369848, "contents_active": {"active": 8, "deleted": 3, "hidden": 0}, "purged": false, "name": "Intro to Galaxy -iCLIP"};
+
+    $( '.page-body' )
+        .css( 'height', '100%' )
+        .addClass( 'flex-vertical-container' );
+
+    require.config({
+        baseUrl : "/static/scripts",
+        urlArgs: 'v=1488986059'
+    })([
+        'mvc/history/history-view-annotated',
+        'mvc/history/copy-dialog',
+    ], function( panelMod, historyCopyDialog ){
+        // history module is already in the dpn chain from the panel. We can re-scope it here.
+        var HISTORY = require( 'mvc/history/history-model' );
+        var HISTORY_CONTENTS = require( 'mvc/history/history-contents' );
+
+        var HistoryContentsWithAnnotations = HISTORY_CONTENTS.HistoryContents.extend({
+            _buildFetchData : function( options ){
+                console.log( '_buildFetchData:' );
+                options = options || {};
+                if( !options.keys && !options.view ){
+                    options.view = 'summary';
+                    options.keys = 'annotation,tags';
+                }
+                return HISTORY_CONTENTS.HistoryContents.prototype._buildFetchData.call( this, options );
+            }
+        });
+        var HistoryWithAnnotations = HISTORY.History.extend({
+            contentsClass : HistoryContentsWithAnnotations
+        });
+
+        var historyModel = new HistoryWithAnnotations( historyJSON, null, {
+            order           : 'hid-asc',
+        });
+
+        $( '.history-copy-link' ).click( function( ev ){
+            historyCopyDialog( historyModel, { useImport: true, allowAll: false })
+                .done( function(){
+                    var mainWindow = ( window && ( window !== window.parent ) )? window.top : window;
+                    mainWindow.location.href = Galaxy.root;
+                });
+        });
+
+        window.historyView = new panelMod.AnnotatedHistoryView({
+            el              : $( "#history-" + historyJSON.id ),
+            className       : panelMod.AnnotatedHistoryView.prototype.className + ' wide',
+            model           : historyModel,
+            show_deleted    : false,
+            show_hidden     : false,
+        });
+        historyView.trigger( 'loading' );
+        historyModel.fetchContents({ silent: true })
+            .fail( function(){ alert( 'Galaxy history failed to load' ); })
+            .done( function(){
+                historyView.trigger( 'loading-done' );
+                historyView.render();
+            });
+    });
+</script>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+            </div><!--end center-->
+                <div id="right">
+                    
+
+    
+    
+    
+
+
+    <div class="unified-panel-header" unselectable="on">
+        <div class="unified-panel-header-inner">
+            About this 
+History
+        </div>
+    </div>
+
+    <div class="unified-panel-body">
+        <div style="overflow: auto; height: 100%;">
+            <div style="padding: 10px;">
+
+                <div style="float: right;"><img src="https://secure.gravatar.com/avatar/159fef58573634bc25d3630440f036e6?d=identicon"></div>
+
+                <h4>Author</h4>
+
+                <p>mary</p>
+
+                <h4>Related Histories</h4>
+                <p>
+                    <a href="/history/list_published">All published histories</a><br>
+                    <a href="/history/list_published?f-username=mary">Published histories by mary</a>
+
+                <h4>Rating</h4>
+
+                
+                <div style="padding-bottom: 0.75em; float: left">
+                    Community<br>
+                    <span style="font-size:80%">
+                        (<span id="num_ratings">0</span> ratings,
+                         <span id="ave_rating">0.0</span> average)
+                    <span>
+                </div>
+                <div style="float: right">
+                    <input name="star1" type="radio" class="community_rating_star star" disabled="disabled" value="1"
+
+                    />
+                    <input name="star1" type="radio" class="community_rating_star star" disabled="disabled" value="2"
+                    />
+                    <input name="star1" type="radio" class="community_rating_star star" disabled="disabled" value="3"
+                    />
+                    <input name="star1" type="radio" class="community_rating_star star" disabled="disabled" value="4"
+                    />
+                    <input name="star1" type="radio" class="community_rating_star star" disabled="disabled" value="5"
+                    />
+                </div>
+                <div style="clear: both;"></div>
+                    <div style="float: left">
+                        Yours<br><span id="rating_feedback" style="font-size:80%; display: none">(thanks!)</span>
+                    </div>
+                    <div style="float: right">
+                        <input name="star2" type="radio" class="user_rating_star" value="1"
+                        />
+                        <input name="star2" type="radio" class="user_rating_star" value="2"
+                        />
+                        <input name="star2" type="radio" class="user_rating_star" value="3"
+                        />
+                        <input name="star2" type="radio" class="user_rating_star" value="4"
+                        />
+                        <input name="star2" type="radio" class="user_rating_star" value="5"
+                        />
+                    </div>
+                <div style="clear: both;"></div>
+
+                <h4>Tags</h4>
+                <p>
+                <div>
+                    Community:
+                    
+    
+    
+    
+    <div class="tag-element"
+            id="4369138156291484672"
+            style="display: none"
+    >
+        <div class="tag-area
+        ">
+
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        init_tag_click_function($('#4369138156291484672'), community_tag_click);
+    </script>
+
+                        none
+                </div>
+                    <p>
+                    <div>
+                        Yours:
+                        
+    
+
+    
+    
+    <div class="tag-element"
+            id="4704805537375759360"
+    >
+        <div class="tag-area
+                individual-tag-area
+        ">
+
+
+                    <input class="tag-input" type='text' size='15'/>
+                    <img src='/static/images/fugue/tag--plus.png' class="add-tag-button" title="Add tags"/>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        //
+        // Set up autocomplete tagger.
+        //
+
+        //
+        // Default function get text to display on the toggle link.
+        //
+        var default_get_toggle_link_text_fn = function(tags)
+        {
+            var text = "";
+            var num_tags = _.size(tags);
+            if (num_tags != 0)
+              {
+                text = num_tags + (num_tags != 1 ? " Tags" : " Tag");
+                /*
+                // Show first N tags; hide the rest.
+                var max_to_show = 1;
+
+                // Build tag string.
+                var tag_strs = new Array();
+                var count = 0;
+                for (tag_name in tags)
+                  {
+                    tag_value = tags[tag_name];
+                    tag_strs[tag_strs.length] = build_tag_str(tag_name, tag_value);
+                    if (++count == max_to_show)
+                      break;
+                  }
+                tag_str = tag_strs.join(", ");
+
+                // Finalize text.
+                var num_tags_hiding = num_tags - max_to_show;
+                text = "Tags: " + tag_str +
+                  (num_tags_hiding != 0 ? " and " + num_tags_hiding + " more" : "");
+                */
+              }
+            else
+              {
+                // No tags.
+                text = "Add tags";
+              }
+            return text;
+        };
+
+        // Default function to handle a tag click.
+        var default_tag_click_fn = function(tag_name, tag_value) { };
+
+        
+        var options =
+        {
+            tags : {},
+            editable : true,
+            get_toggle_link_text_fn: default_get_toggle_link_text_fn,
+            tag_click_fn: community_tag_click,
+            ajax_autocomplete_tag_url: "/tag/tag_autocomplete_data?item_id=4ff6f47412c3e65e&item_class=History",
+            ajax_add_tag_url: "/tag/add_tag_async?item_id=4ff6f47412c3e65e&item_class=History&context=view.mako",
+            ajax_delete_tag_url: "/tag/remove_tag_async?item_id=4ff6f47412c3e65e&item_class=History&context=view.mako",
+            delete_tag_img: "/static/images/delete_tag_icon_gray.png",
+            delete_tag_img_rollover: "/static/images/delete_tag_icon_white.png",
+            use_toggle_link: false
+         };
+
+        $('#4704805537375759360').autocomplete_tagging(options);
+    </script>
+
+    <style>
+    .tag-area {
+        display: block;
+    }
+    </style>
+
+    <noscript>
+    <style>
+    .tag-area {
+        display: block;
+    }
+    </style>
+    </noscript>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+                    <div class="unified-panel-footer">
+                        <div class="panel-collapse right"></div>
+                        <div class="drag"></div>
+                    </div>
+                </div><!--end right-->
+        </div><!--end everything-->
+        <div id='dd-helper' style="display: none;"></div>
+        
+
+    <script type="text/javascript">
+
+
+        var rp = new panels.RightPanel({ el: '#right' });
+        window.handle_minwidth_hint = function( x ) { rp.handle_minwidth_hint( x ) };
+        force_right_panel = function( x ) { rp.force_panel( x ) };
+
+
+    </script>
+
+
+    </body>
+</html>

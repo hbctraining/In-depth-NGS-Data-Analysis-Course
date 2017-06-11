@@ -55,11 +55,9 @@ We will be using the newest version of this tool, MACS2. The underlying algorith
 
 ### Setting up
 
-To run MACS2, we will first start an interactive session and load the MACS2 module:
+To run MACS2, we will first start an interactive session:
 
 	$ bsub -Is -q interactive bash  
-	
-	$ module load seq/macs/2.1.1
 	
 We will also need to create a directory for the output generated from MACS2:
 
@@ -69,7 +67,7 @@ Now change directories to the `results` folder:
 
 	$ cd ~/ngs_course/chipseq/results/
 	
-We only have the BAM file for our Input-rep1, but will need alignment information for all 6 files. We have generated the remaining BAM files for you, so you will need to copy them over:
+We only have the BAM file for our Input-rep1, but will need alignment information for **all 6 files**. We have generated the remaining BAM files for you, so **you will need to copy them over**:
 
 	$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2/* bowtie2/
 
@@ -190,6 +188,8 @@ Open up the pdf file for Nanog-rep1. The first plot illustrates the distance bet
 <img src="../img/model-macs.png" width="400">
 
 The second plot is the cross-correlation plot, and we will be discussing that in a little more detail in the next (SPP) lesson.
+
+**ADD CROSS-CORELATION DETAILS HERE IF WE TAKE OUT SPP**
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*

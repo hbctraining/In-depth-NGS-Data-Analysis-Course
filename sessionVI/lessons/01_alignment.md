@@ -1,10 +1,9 @@
 ---
-title: "Alignment with BWA"
-author: "Meeta Mistry, Mary Piper"
-date: "Wednesday, March 23, 2016"
+title: Alignment with BWA
+author: Meeta Mistry, Mary Piper
+date: 2017-07-06
+duration: 90
 ---
-
-Approximate time: 90 minutes
 
 ## Learning Objectives:
 

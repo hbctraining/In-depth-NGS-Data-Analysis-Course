@@ -1,14 +1,16 @@
 ---
-layout: page
 title: Version Control with Git
 subtitle: Introduction to version control systems
-minutes: 20
+duration: 20
 ---
-## Learning Objectives
 
-*   Understand the benefits of an automated version control system.
+Learning Objectives:
 
-## Introduction to version control systems
+- Understand the benefits of an automated version control system.
+
+
+
+# Introduction to version control systems
 
 Version control systems are designed to manage changes to files or sets of files. Changes made to files that are committed to version control are never truly lost. Since all old versions of files are saved, it’s always possible to go back in time to see exactly what was written on a particular day, or what version of a program was used to generate a particular set of results, and, if needed, we can revert to a previous version, much like the “undo” feature in an editor.
 
@@ -18,7 +20,8 @@ Teams are not the only ones to benefit from version control: lone researchers ca
 
 Version control is the lab notebook of the digital world: it’s what professionals use to keep track of what they’ve done and to collaborate with other people. Every large software development project relies on it, and most programmers use it for their small jobs as well. And it isn’t just for software: books, papers, small data sets, and anything that changes over time or needs to be shared can and should be stored in a version control system.
 
-### Exploring version control
+
+## Exploring version control
 
 We'll start by exploring how version control can be used
 to keep track of what one person did and when.
@@ -61,9 +64,10 @@ across different computers facilitating collaboration among different people.
 > These modern systems also include powerful merging tools that make it possible for multiple authors to work within 
 > the same files concurrently.
 
-## Git version control system
+
+
+# Git version control system
 
 Git is a widely-used, free and open-source version control system. The basic command structure for saving versions of files in Git is relatively easy to learn, with features allowing you to examine the new versions of your files prior to saving. In addition, Git has more powerful features to aid in group project work. [Git user documentation](https://git-scm.com/book) is accessible and thorough, and simple guides for quick command look-ups are widely available, such as [Git - the simple guide](http://rogerdudler.github.io/git-guide/) and [Bitbucket's Basic Git command documentation](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html). So while the intricacies of Git may be a bit overwhelming at first, there is a lot of documentation to help you along the way. 
 
 While Git is fast, with most actions being performed on your local computer, we often use Git with a web-based Git repository hosting service such [Github](https://github.com) or [Bitbucket](https://bitbucket.org) to store our file repositories and to share them with others. By the end of these lessons, you should be able to perform routine file version back-ups and collaborate simply with collaborators using Git and Github.
-

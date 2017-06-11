@@ -1,16 +1,16 @@
 ---
 layout: topic
 title: Introduction to R and RStudio
-authors: Mary Piper, Meeta Mistry
-date: "Wednesday, September 28, 2016"
+authors: Mary Piper, Meeta Mistry, Radhika Khetani
+date: "Tuesday, May 9, 2017"
 ---
 Approximate time: 30 minutes
 
 ## Learning Objectives
 
-* An introduction to R and RStudio
-* Creating a directory structure for efficient data management
-* Learning how to interact with R
+* Describe what R and RStudio are.
+* Interact with R using RStudio.
+* Use the various components of RStudio.
 
 ## What is R?
 
@@ -66,7 +66,7 @@ Let's create a new project directory for our "Introduction to R" lesson today.
 
 ![RStudio interface](../img/Rstudio_interface.png)
 
-## Presentation of RStudio
+## RStudio Interface
 
 **The RStudio interface has four main panels:**
 
@@ -75,7 +75,7 @@ Let's create a new project directory for our "Introduction to R" lesson today.
 3. **Environment/History**: environment shows all active objects and history keeps track of all commands run in console
 4. **Files/Plots/Packages/Help**
 
-## Organizing your working directory
+## Organizing your working directory & setting up
 
 ### Viewing your working directory
 
@@ -112,11 +112,22 @@ When finished, your working directory should look like:
 
 There are a few files that we will be working with in the next few lessons and you can access them using the links provided below. If you right click on the link, and "Save link as..". Choose `~/Desktop/Intro-to-R/data` as the destination of the file. You should now see the file appear in your working directory. **We will discuss these files a bit later in the lesson.**
 
-* Download the **normalized counts file** by right clicking on [this link](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionII/data/counts.rpkm.csv)
-* Download **metadata file** using [this link](https://github.com/hbc/NGS_Data_Analysis_Course/raw/master/sessionII/data/mouse_exp_design.csv)
+* Download the **normalized counts file** by right clicking on [this link](https://raw.githubusercontent.com/hbctraining/Intro-to-R-with-DGE/master/data/counts.rpkm.csv)
+* Download **metadata file** using [this link](https://raw.githubusercontent.com/hbctraining/Intro-to-R-with-DGE/master/data/mouse_exp_design.csv)
 
-> *NOTE:* If the files download automatically to some other location on your laptop, you can move them to the your working directory using your file explorer or navigating to the files in the `Files` tab of the bottom right panel of RStudio
+> *NOTE:* If the files download automatically to some other location on your laptop, you can move them to the your working directory using your file explorer or finder (outside RStudio), or navigating to the files in the `Files` tab of the bottom right panel of RStudio
 
+### Setting up 
+
+This is more of a housekeeping task. We will be writing long lines of code in our script editor and want to make sure that the lines "wrap" and you don't have to scroll back and forth to look at your long line of code.
+
+Click on "Tools" at the top of your RStudio screen and click on "Global Options" in the pull down menu.
+
+![options](../img/tools_options.png)
+
+On the left, select "Code" and put a check against "Soft-wrap R source files". Make sure you click the "Apply" button at the bottom of the Window before saying "OK".
+
+![wrap_options](../img/wrap_option.png)
 
 ## Interacting with R
 
@@ -202,7 +213,7 @@ If you're in Rstudio and you can't figure out why your command isn't running, yo
 R is commonly used for handling big data, and so it only makes sense that we learn about R in the context of some kind of relevant data. We had previously downloaded two files to our working directory. Since we will be working with these files over the course of the workshop, let's take a few minutes to familiarize ourselves with the data.
 
 ### The dataset
-In this example dataset, we have collected whole brain samples from 12 mice and want to evaluate expression differences between them. The expression data is provided in the form of normalized count data obtained from RNA-sequencing of the 12 brain samples. This data is stored in a comma separated values (CSV) file as a 2-dimensional matrix, with **each row corresponding to a gene and each column corresponding to a sample**.
+In this example dataset, we have collected whole brain samples from 12 mice and want to evaluate expression differences between them. The expression data represents normalized count data obtained from RNA-sequencing of the 12 brain samples. This data is stored in a comma separated values (CSV) file as a 2-dimensional matrix, with **each row corresponding to a gene and each column corresponding to a sample**.
 
 <img src="../img/counts_view.png" width=900> 
 
@@ -210,7 +221,7 @@ In this example dataset, we have collected whole brain samples from 12 mice and 
 ### The metadata
 We have another file in which we identify **information about the data** or **metadata**. Our metadata is also stored in a CSV file. In this file, each row corresponds to a sample and each column contains some information about each sample. 
 
-The first column contains the row names, and **note that these are identical to the column names in our expression data file above** (albeit, in a slightly different order). The next few columns contain information about our samples that allow us to categorize them. For example, the second column contains genotype information for each sample. Each sample is classified in one of two categories: Wt (wildtype) or KO (knockout). *What types of categories do you observe in the remaining columns?*
+The first column contains the row names, and **note that these are identical to the column names in our expression data file above** (albeit, in a slightly different order). The next few columns contain information about our samples that allow us to categorize them. For example, the second column contains genotype information for each sample. Each sample is classified in one of two categories: Wt (wild type) or KO (knockout). *What types of categories do you observe in the remaining columns?*
 
 <img src="../img/metadata_view.png" width=400> 
 
@@ -223,7 +234,7 @@ Before we move on to more complex concepts and getting familiar with the languag
 
 * Code and workflow are more reproducible if we can document everything that we do. Our end goal is not just to "do stuff", but to do it in a way that anyone can easily and exactly replicate our workflow and results. **All code should be written in the script editor and saved to file, rather than working in the console.** 
 * The **R console** should be mainly used to inspect objects, test a function or get help. 
-* Use `#` signs to comment. **Comment liberally** in your R scripts. This will help future you and other collabrators know what each line of code (or code block) was meant to do. Anything to the right of a `#` is ignored by R. *A shortcut for this is `Ctrl + Shift + C` if you want to comment an entire chunk of text.*
+* Use `#` signs to comment. **Comment liberally** in your R scripts. This will help future you and other collaborators know what each line of code (or code block) was meant to do. Anything to the right of a `#` is ignored by R. *A shortcut for this is `Ctrl + Shift + C` if you want to comment an entire chunk of text.*
 
 ---
 

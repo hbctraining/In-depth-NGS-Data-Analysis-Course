@@ -1,10 +1,9 @@
 ---
 title: "Variant calling with Freebayes"
 author: "Radhika Khetani, Meeta Mistry"
-date: "Thursday, April 28th, 2016"
+date: 2017-07-06
+duration: 45
 ---
-
-Approximate time: 45 minutes
 
 ## Learning Objectives:
 

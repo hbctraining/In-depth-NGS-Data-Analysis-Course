@@ -1,8 +1,7 @@
 ---
-layout: page
 title: Version Control with Git
 subtitle: Remotes in GitHub
-minutes: 60
+duration: 60
 ---
 
 ## Learning Objectives
