@@ -184,13 +184,18 @@ We can also take a look at the plots, but first we will have to generate it. We 
 	
 Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using `Filezilla`. 
 
-Open up the pdf file for Nanog-rep1. The first plot illustrates the distance between the modes from which the shift size was determined. 
+Open up the pdf file for Nanog-rep1. The first plot illustrates **the distance between the modes from which the shift size was determined**. 
 
 <img src="../img/model-macs.png" width="400">
 
-The second plot is the cross-correlation plot....
+The second plot is the  **cross-correlation plot**. This is a graphical representation of the Pearson correlation of positive- and negative- strand tag densities, shifting the strands relative to each other by increasing distance. 
 
-**ADD CROSS-CORrELATION DETAILS HERE IF WE TAKE OUT SPP**
+**ADD PLOT HERE**
+
+The peak reflects the strand shift value at which we observe the highest correlation between the positive and negative strands genome-wide. In an ideal case, when all of the sequenced tags participate in such binding patterns, the correlation magnitude reaches a maximum value. Conversely, the magnitude decreases as tag positions are randomized.
+
+From the plot, it appears that the highest correlation ..... is observed at about _______strand shift. *Take a look at the Nanog-rep2 plot, how does this compare considering there were zero peaks identified?*
+
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
