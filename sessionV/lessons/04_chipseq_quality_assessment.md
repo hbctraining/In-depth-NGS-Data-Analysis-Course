@@ -14,16 +14,16 @@ Approximate time: 1.5 hours
 * Assess the quality of alignments between samples using visualization tools
 * Creating bigWig files for visualization of peaks in a genome browser
 
-# ChIP-Seq quality assessment
+## ChIP-Seq quality assessment
 
-Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. After running the peak caller on our data, you may have noticed that the replicates generated a different number of peaks. The quality assessment we introduce in this lesson can help to troubleshoot any discrepancies observed with peak calls, but also is generally a good practice to evaluate your data and help differentiate signal from noise.
+Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. After running the peak caller on our data, you may have noticed that the replicates generated a different number of peaks. The quality assessment we introduce in this lesson can help to **troubleshoot any discrepancies observed with peak calls**, but also is generally a good practice to evaluate your data and help **differentiate signal from noise**.
 
 
 ## Quality metrics for ChIP-seq data
 
-The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they appear to measure. Then we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
+The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they are measuring. Then we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
 
-Three important quality metrics to observe are the NSC, RSC and QualityTag values and are based on the cross-correlation plot [previously described](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/03_peak_calling_macs.md#macs2-output-files-1). These metrics are useful in determining the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. They are described in more detail below:
+Three important quality metrics to observe are the **NSC, RSC and QualityTag values** and are based on the cross-correlation plot [previously described](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/03_peak_calling_macs.md#macs2-output-files-1). These metrics are useful in determining the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. They are described in more detail below:
 
 **Normalized strand cross-correlation coefficent (NSC)**: is the ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment). Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
 
@@ -31,11 +31,11 @@ Three important quality metrics to observe are the NSC, RSC and QualityTag value
 
 **QualityTag:** A thresholded version of the RSC, with negative values indicating poor signal to noise.
 
-### `phantompeakqualtools` 
+## `phantompeakqualtools` 
 
 The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualtools/) package is a tool used to compute enrichment and quality measures for ChIP-Seq data [[1](http://www.g3journal.org/content/4/2/209.full)]. We will be using the package to compute the predominant insert-size (fragment length) based on strand cross-correlation peak and data quality measures based on relative phantom peak.
 
-#### Set up
+### Set up
 
 The `phantompeakqualtools` package is written as an R script, that uses `samtools` as a dependency. The package has various options that need to be specified when running from the command line. To get set up, we will need to start an interactive session, load the necessary modules and set up the directory structure:
 
@@ -50,7 +50,8 @@ $ mkdir chip_qc
 
 $ cd chip_qc
 ```
-#### Downloading `phantompeakqualtools`
+
+### Downloading `phantompeakqualtools`
 
 To use this `phantompeakqualtools` package, we need to download it from the project website. On the [project website](https://code.google.com/archive/p/phantompeakqualtools/), click on the *Downloads* option on the left-hand side of the page. The *Downloads* page has all updates for the package, with the most recent being from 2013. 
 
@@ -97,7 +98,7 @@ $ less README.txt
 ```
 Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). This is the script we will be using.
 
-#### Installing R libraries
+### Installing R libraries
 
 In the README you will have noticed an *INSTALLATION* section. We will need to install the R package, `caTools`, into our personal R library to run the script. To do this, first open up R:
 
@@ -117,7 +118,7 @@ Use the install.packages() function to install `caTools`:
 ```
  > **NOTE:** We do not need to install `spp` because the R module we have loaded has the package pre-installed.
 
-#### Running `phantompeakqualtools`
+### Running `phantompeakqualtools`
 
 To obtain quality measures based on cross-correlation plots, we will be running the `run_spp_nodups.R` script from the command line which is a package built on SPP. This modified SPP package allows for determination of the cross-correlation peak and predominant fragment length in addition to peak calling. We will be using this package solely for obtaining these quality measures (no peak calling). 
 
@@ -160,7 +161,7 @@ $ cat qual/*qual > qual/phantompeaks_summary.xls
 ```
 Let's use Filezilla or `scp` move the summary file over to our local machine for viewing.
 
-#### Quality metrics output
+### Quality metrics output
 
 The qual files are tab-delimited with the columns containing the following information:
 
@@ -180,114 +181,16 @@ The qual files are tab-delimited with the columns containing the following infor
 
 All samples have quite high NSC values indicating more enrichment, a good signal to noise and a fair number of peaks. Nanog-rep2 has a comparably higher NSC value which might explain the increased number of peaks for that sample compared to the others. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag. Based on these metrics, the samples look good for further analysis.
 
-#### Cross-correlation plots
+### Cross-correlation plots
 
 The cross-correlation plots show the best estimate for strand shift and the cross-correlation values. This file can be viewed by transferring it to your local machine using FileZilla. Copy `H1hesc_Nanog_Rep1_chr12_aln.pdf` to your machine to view the strand shift. The cross correlation peak shows the highest cross-correlation at fragment length 105, **How does this compare to the one we generated using MACS?**.
 
 <img src="../img/H1hesc_Nanog_Rep1_chr12_aln.png" width=400>
 
-## Quality assessment using `deepTools`
 
-Another way in which we can assess the quality of our samples is by investigating the read coverages for each sample and determine the variability in coverage per sample group. Replicate samples that vary greatly in where the reads stack up is indicative of a weak ChIP-Seq experiment. In addition, we can identify outlier samples or batch effects.
-
-To evaluate read coverage we will be using the [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), a suite of python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. `deepTools` has a wide variety of tools that go beyond those that are covered in this lesson. We encourage you to look through the docuementation and explore on your own time.
-
-Assessing and visualizing coverage using `deepTools` requires three steps: 
-
-1. Indexing the BAM alignment files
-2. Calculation of the read coverage scores using the `multiBamSummary` tool
-3. Visualizing how read coverage scores compare between samples
-
-First let's create a directory for all of the output generated by deepTools, and move into that directory:
-
-```
-$ cd ~/ngs_course/chipseq/results/chip_qc		
- 		
-$ mkdir deeptools 		
- 	
-$ cd deeptools
-```
-To use deepTools, we will need an **index** (`.bai` file) for each of our BAM files using the `samtools index` tool. This has **already been done for you**, if you look inside your `bowtie2` folder:
-
-```
-$ ls -l ../../bowtie2/*.bai
-```
-
-Let's load the module and we are ready to get started:
-
-```
-$ module load seq/deeptools/2.2.0
-```
-
-### Calculation of the read coverage scores using the `multiBamSummary` tool
-
-The `multiBamSummary` tool will calculate the read coverage scores for specific genomic regions between samples and provide the output as a binary compressed numpy array (.npz) file; however, the analysis can be performed on the entire genome by changing the mode of this tool to `bins`. If you prefer, it can also output a `readCounts.tab` file that contains a list read counts per sample for every 10,000bp region in the genome from which you can use to create your own images. 
-
-```
-$ multiBamSummary bins --ignoreDuplicates -p 6 \
---bamfiles ../../bowtie2/*aln.bam \
--out deeptools_multiBAM.out.npz \
---outRawCounts readCounts.tab
-```
-
-### Visualizing read coverage quality metrics
-
-Now that we have the read coverage scores calculated for all samples, we can now analyze the coverage between samples using a variety of the `deepTools` tools:
-
-#### 1. Sample correlation - `plotCorrelation` tool
-
-The `plotCorrelation` tool allows us to visualize the similarity between samples based on their read coverage of regions of the genome. 
-
-![correlate](../img/QC_bamCorrelate_deeptools.png)
-
-We can visualize correlations using a scatterplot:
-
-```
-$ plotCorrelation --corData deeptools_multiBAM.out.npz \
---plotFile deepTools_scatterplot.png \
---corMethod pearson \
---whatToPlot scatterplot \
---labels Input_Rep1 Input_Rep2 Nanog_Rep1 Nanog_Rep2 Pou5f1_Rep1 Pou5f1_Rep2
-```
-<img src="../img/deepTools_scatterplot.png" width="500">
-
-We expect high correlations between replicates, and lower correlations between samplegroups. However, we do not observe this when looking at read coverage on chromosome 12. Specifically, we see that Input-Rep1 does not correlate well with any of the other samples. If this were for the entire genome, we might be concerned that we would not have reporducibility between replicates for many of the peaks, and that Input-Rep1 is a potential outlier.
-
-The same `plotCorrelation` tool can be used to examine the read coverage similarity using a heatmap to perform heirarchical clustering and determine whether our sample groups cluster well (i.e. have similar read coverage profiles within and between sample groups). The lack of correlation between replicates is even more visible in the heatmap, as is the lack of correlation with Input-Rep1 and all other samples.
-
-```
-$ plotCorrelation --corData deeptools_multiBAM.out.npz \
---plotFile deepTools_heatmap.png \
---corMethod pearson \
---whatToPlot heatmap \
---labels Input_Rep1 Input_Rep2 Nanog_Rep1 Nanog_Rep2 Pou5f1_Rep1 Pou5f1_Rep2 \
---plotNumbers
-```
-<img src="../img/deeptools_heatmap.png" width="400">
-
-#### 2. Sample variability - `plotPCA` tool
-
-The next quality metric we will explore is the principal component analysis (PCA) of our read coverage calculations. PCA can be used to determine whether samples display greater variability between experimental conditions than between replicates of the same treatment based on information (read coverage values) from thousands of regions. PCA is also useful to identify unexpected patterns, such as those caused by batch effects or outliers. 
-
-We will use the tool `plotPCA` to sort the principal components according to the amount of variability of the data that they explain and generate two plots:
-
-- the PCA plot for the top two principal components eigenvalues 
-- the Scree plot for the top five principal components where the bars represent the amount of variability explained by the individual factors and the red line traces the amount of variability is explained by the individual components in a cumulative manner [[1]](http://deeptools.readthedocs.org/en/latest/content/tools/plotPCA.html)
-
-```
-$ plotPCA --corData deeptools_multiBAM.out.npz \
---plotFile deepTools_pcaplot.png \
--T "PCA of read counts" \
---outFileNameData deeptools_pcaProfile.tab \
---labels Input_Rep1 Input_Rep2 Nanog_Rep1 Nanog_Rep2 Pou5f1_Rep1 Pou5f1_Rep2
-```
-
-<img src="../img/deepTools_pcaplot.png" width=400>
-
-Similar to the correlation plots, we see little clustering of the replicates. The variation between sample groups does not account for the major sources of variation in the data. Keep in mind that these plots are generated for a small subset of data. It is likely that using the whole dataset will change the outcome of these plots and perhaps more similar to what we would expect.
+## `ChIPQC`: Additional quality metrics for ChIP-seq data
 
 
-### Creating bigWig files for visualization of peaks
 
 
 
