@@ -1,7 +1,7 @@
 ---
 title: "ChIP-Seq QC and alignment"
 author: "Mary Piper, Radhika Khetani"
-date: "Monday, April 4th, 2016"
+date: "June 11th, 2017"
 ---
 
 Contributors: Mary Piper, Radhika Khetani
@@ -27,7 +27,7 @@ Let's run FastQC on all of our files.
 Start an interactive session with 4 cores if don't have one going, and change directories to the untrimmed_fastq folder.
 
 ```
-$ cd ~/ngs_course/chipseq/data/untrimmed_fastq 
+$ cd ~/ngs_course/chipseq/raw_data 
 
 $ module load seq/fastqc/0.11.3 
 
@@ -36,11 +36,13 @@ $ fastqc H1hesc_Input_Rep1_chr12.fastq
 
 Now, move all of the `fastqc` files to the `results/untrimmed_fastqc` directory:
 
-`$ mv *fastqc* ../../results/untrimmed_fastqc/`
+`$ mv *fastqc* ../results/untrimmed_fastqc/`
 
 Transfer the FastQC zip file for Input replicate 1 to your local machine using FileZilla and view the report.
 
 ![fastqc](../img/fastqc_input_rep1.png)
+
+**ADD TRIMMOMATIC EXPLANATION HERE? SINCE WE NEVER COVERED THIS IN RNA-SEQ**
 
 Based on the sequence quality plot, trimming should be performed from both ends of the sequences. We will use Trimmomatic to trim the reads from both ends of the sequence using the following parameters:
 
@@ -60,7 +62,7 @@ $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
 -threads 4 \
 -phred33 \
 H1hesc_Input_Rep1_chr12.fastq \
-../trimmed_fastq/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
+../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
 LEADING:20 \
 TRAILING:20 \
 MINLEN:36
@@ -68,11 +70,11 @@ MINLEN:36
 
 Let's see how much trimming improved our reads by running FastQC again:
 
-`$ fastqc ../trimmed_fastq/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`
+`$ fastqc ../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`
 
 Move the FastQC folders to the results directory for trimmed FastQC results:
 
-`$ mv ../trimmed_fastq/*fastqc* ../../results/trimmed_fastqc/`
+`$ mv ../results/trimmed/*fastqc* ../results/trimmed_fastqc/`
 
 Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to your computer.
 
@@ -133,8 +135,8 @@ The basic options for aligning reads to the genome using Bowtie2 are:
 
 ```
 $ bowtie2 -p 4 -q \
--x ~/ngs_course/chipseq/data/reference_data/chr12 \
--U ~/ngs_course/chipseq/data/trimmed_fastq/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
+-x ~/ngs_course/chipseq/reference_data/chr12 \
+-U ~/ngs_course/chipseq/results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
 -S ~/ngs_course/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
 ```

@@ -1,7 +1,7 @@
 ---
 title: "Introduction to ChIP-Seq and directory setup"
 author: "Mary Piper, Radhika Khetani"
-date: "Thursday, March 3rd, 2016"
+date: "June 11, 2017"
 ---
 
 Contributors: Mary Piper, Radhika Khetani
@@ -96,20 +96,23 @@ $ mkdir chipseq
 $ cd chipseq
 ```
 
-Now let's setup the directory structure. In one command create folders for `data`and `results` _and_ within the `data` folder create folders for `untrimmed_fastq`, `trimmed_fastq`, and `reference_data`:
+Now let's setup the directory structure. In one command create folders for `raw_data`and `reference_data`:
 
-`$ mkdir -p data/untrimmed_fastq data/trimmed_fastq data/reference_data`
+`$ mkdir -p raw_data reference_data`
 
-Within the `results` folder create folders for untrimmed_fastqc, trimmed_fastqc, and bowtie2:
+We'll also create a folder for `results` and within that folder create folders for `untrimmed_fastqc`, `trimmed`, `trimmed_fastqc`, and `bowtie2`:
 
-`$ mkdir -p results/untrimmed_fastqc results/trimmed_fastqc results/bowtie2`
+`$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/results/bowtie2`
 
-Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our fastq files and reference data files:
+Finally, we will need directories for our `scripts`, `logs`, and `meta`:
+
+`$ mkdir scripts logs meta` 
+
+Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our FASTQ files and reference data files:
 
 ```
-$ cd data
 
-$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq untrimmed_fastq/
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq raw_data/
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcoursechipseq/reference_data/chr12* reference_data/
 ```
