@@ -1,7 +1,7 @@
 ---
 title: "ChIP-Seq Quality Assessment"
 author: "Mary Piper"
-date: "Wednesday, July 20, 2016"
+date: "June 12, 2017"
 ---
 
 Contributors: Mary Piper and Meeta Mistry
@@ -11,8 +11,7 @@ Approximate time: 1.5 hours
 ## Learning Objectives
 
 * Generate enrichment and quality metrics for evaluating ChIP-Seq data
-* Assess the quality of alignments between samples using visualization tools
-* Creating bigWig files for visualization of peaks in a genome browser
+* Generate a report containing additional quality metrics and diagnostic plots
 
 ## ChIP-Seq quality assessment
 
@@ -193,7 +192,7 @@ The cross-correlation plots show the best estimate for strand shift and the cros
 
 
 
-
+> **NOTE:** Many of the plots that were generated in the ChIPQC report can also be generated using [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), a suite of python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. If you are interested in learning more we have a [lesson on quality assessment using deepTools](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/qc_deeptools.md).
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
