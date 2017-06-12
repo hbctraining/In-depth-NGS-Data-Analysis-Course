@@ -44,14 +44,17 @@ sig_res_LRT <- subset(res_LRT, padj < padj.cutoff)
 dim(sig_res_LRT)
 
 # Get sig gene lists
-LRT_genes <- row.names(sig_res_LRT)
-length(LRT_genes)
+sigLRT_genes <- rownames(sig_res_LRT)
+length(sigLRT_genes)
 
 # Compare with the sigOE and sigKD gene lists
-length(sigOE)
-length(sigKD)
+sigOE_genes <- rownames(sigOE)
+length(sigOE_genes)
 
-sigOE %in% L
+sigKD_genes <- rownames(sigKD)
+length(sigKD_genes)
+
+sigOE_genes %in% sigLRT_genes
 How many genes from the Mov10 overexpression Wald test are contained in the LRT gene set? And for the Mov10 knockdown? 
 
 The number of significant genes observed from the LRT is quite high. We are **unable to set a fold change criteria here since the statistic is not generated from any one pairwise comparison.** This list includes genes that can be changing in any number of combinations across the three factor levels. It is advisable to instead increase the stringency on our criteria and lower the FDR threshold.
