@@ -17,27 +17,34 @@ Approximate time: 35 minutes
 
 An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the LRT which is used to identify any genes that show change in expression across the three levels. This type of test can be especially useful in analyzing time course experiments. 
 
-To use the LRT, we use the `DESeq()` function but this time adding two arguments: 1) to specify that we want to use the LRT `test` and 2) the `reduced` model:
+To use the LRT, we use the `DESeq()` function but this time adding two arguments: 
+1) to specify that we want to use the LRT `test`
+2) the `reduced` model
 
-	
-	### Likelihood ratio test
-	dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
+```r
+# Likelihood ratio test
+dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
+```
 
-Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. **The p-values are determined solely by the difference in deviance between the full and reduced model formula (not log2 fold changes)**. Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although there will be substantial overlap).
+Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. **The p-values are determined solely by the difference in deviance between the full and reduced model formula (not log2 fold changes)**. 
+
+Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although we do expect a majority overlap).
 
 Let's take a look at the results table:
 
-	# Extract results
-	res_LRT <- results(dds_lrt)
-	
+```r
+# Extract results
+res_LRT <- results(dds_lrt)
+```
+
 You will find that similar columns are reported for the LRT test. One thing to note is, even though there are fold changes present they are not directly associated with the actual hypothesis test. Thus, when filtering significant genes from the LRT we use only the FDR as our threshold. *How many genes are significant at `padj < 0.05`?*
 
 	sig_res_LRT <- subset(res_LRT, padj < padj.cutoff)
 	dim(sig_res_LRT)
 
 	# Get sig gene lists
-	LRTgenes <- row.names(sig_res_LRT)
-	length(LRTgenes)
+	LRT_genes <- row.names(sig_res_LRT)
+	length(LRT_genes)
 	length(sigOE)
 	length(sigKD)
 	
