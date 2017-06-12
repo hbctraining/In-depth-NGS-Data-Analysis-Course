@@ -182,11 +182,11 @@ These images illustrate some common features of RNA-seq count data, including a 
 
 ### Modeling count data
 
-Count data (discrete) is often modeled using the **binomial distribution**, which can give you the **probability of getting a number of heads upon tossing a coin a number of times**. However, not all count data can be fit with the binomial distribution. 
+Count data is often modeled using the **binomial distribution**, which can give you the **probability of getting a number of heads upon tossing a coin a number of times**. However, not all count data can be fit with the binomial distribution. The binomial is based on discrete events and used in situations when you have a certain number of cases.
 
-With some events, like the lottery, when **the number of cases is very large (people who buy tickets), but the probability of an event is very small (probability of winning)**, the **Poisson distribution** is used to model these types of count data. [Details provided by Rafael Irizarry in the EdX class.](https://youtu.be/fxtB8c3u6l8)
+When **the number of cases is very large or infinite (i.e. people who buy lottery tickets), but the probability of an event is very small (probability of winning)**, the **Poisson distribution** is used to model these types of count data. The Poisson is similar to the binomial, but is based on continuous events. [Details provided by Rafael Irizarry in the EdX class.](https://youtu.be/fxtB8c3u6l8)
 
-**With RNA-Seq data, a very large number of RNAs are represented and the probability of pulling out a particular transcript is very small**. Hence, if the proportions of mRNA stayed exactly constant between the biological replicates for each sample class, we could expect Poisson distribution (where mean == variance). [A nice description of this concept is presented by Rafael Irizarry in the EdX class.](https://youtu.be/HK7WKsL3c2w)
+**With RNA-Seq data, a very large number of RNAs are represented and the probability of pulling out a particular transcript is very small**. Thus, the Poisson distribution is appropriate for a single sample. A unique property of this distribution, is that the mean of any Poisson distribution is equal to its variance. If the proportions of mRNA stayed exactly constant between the biological replicates for each sample class, we could expect Poisson distribution (where mean == variance). [A nice description of this concept is presented by Rafael Irizarry in the EdX class.](https://youtu.be/HK7WKsL3c2w)
 
 Realistically, for RNA-Seq data biological variation across the replicates (within a sample class) is expected, and genes with larger average expression levels tend to have larger observed variances across replicates. The model that fits best, given this type of variability between replicates, is the Negative Binomial (NB) model. Essentially, **the NB model is a good approximation for data where the mean < variance**, as is the case with RNA-Seq count data.
 
