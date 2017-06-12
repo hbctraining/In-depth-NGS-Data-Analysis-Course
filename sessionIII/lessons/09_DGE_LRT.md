@@ -70,7 +70,7 @@ The number of significant genes observed from the LRT is quite high. We are **un
 
 ### LRT example - time course analyses
 
-The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in expression of genes between treatments between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed at a particular time point, but do not change expression over time.
+The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in expression of genes between treatments between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed between groups at a particular time point, but the difference between groups does not change over time.
 
 For example, we have an experiment looking at the effect of treatment over time on mice of two different genotypes. Therefore, our design formula for our 'full model' would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the effect of treatment over time (`treatment:time`).
 
@@ -78,7 +78,7 @@ For example, we have an experiment looking at the effect of treatment over time 
 full_model <- ~ genotype + treatment + time + treatment:time
 ```
 
-To perform the LRT test, we can determine all genes that have significant differences in expression between treatments between any of the time points by giving the 'reduced model' without the `treatment:time` term:
+To perform the LRT test, we can determine all genes that have significant differences in expression between treatments across time points by giving the 'reduced model' without the `treatment:time` term:
 
 ```r
 reduced_model <- ~ genotype + treatment + time
@@ -87,6 +87,8 @@ reduced_model <- ~ genotype + treatment + time
 Then, we could run our test by using the following code:
 
 ```r
+dds <- DESeqDataSetFromMatrix(countData = raw_counts, colData = metadata, design = ~ genotype + treatment + time + treatment:time)
+
 dds_lrt_time <- DESeq(dds, test="LRT", reduced = ~ genotype + treatment + time)
 ```
 
