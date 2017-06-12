@@ -90,6 +90,12 @@ Then, we could run our test by using the following code:
 dds_lrt_time <- DESeq(dds, test="LRT", reduced = ~ genotype + treatment + time)
 ```
 
+We could then determine the significant genes using a threshold of `padj` < 0.05 and return the normalized counts for those genes. Then we could perform clustering to identify genes that change over time in a way meaningful to us:
+
+```r
+clusters <- DEGreport::degPatterns(log(sig_norm_count, 2), metadata, time="time", col="treatment")
+```
+
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
