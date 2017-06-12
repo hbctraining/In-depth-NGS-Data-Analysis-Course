@@ -68,6 +68,8 @@ The number of significant genes observed from the LRT is quite high. We are **un
 3. Find the overlapping number of genes between these gene sets and the genes from LRT at `padj < 0.0001`.
 ***
 
+### LRT example - time course analyses
+
 The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in expression of genes between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed at a particular time point, but do not change expression over time.
 
 For example, we have an experiment looking at the effect of treatment over time on mice of two different genotypes. Therefore, our design formula for our 'full model' would include the major sources of variation in our data: genotype, treatment, time, and our main condition of interest, which is the effect of treatment over time (treatment:time).
