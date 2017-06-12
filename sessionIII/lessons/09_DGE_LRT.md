@@ -53,8 +53,8 @@ length(sigOE_genes)
 
 sigKD_genes <- rownames(sigKD)
 length(sigKD_genes)
+```
 
-sigOE_genes %in% sigLRT_genes
 How many genes from the Mov10 overexpression Wald test are contained in the LRT gene set? And for the Mov10 knockdown? 
 
 The number of significant genes observed from the LRT is quite high. We are **unable to set a fold change criteria here since the statistic is not generated from any one pairwise comparison.** This list includes genes that can be changing in any number of combinations across the three factor levels. It is advisable to instead increase the stringency on our criteria and lower the FDR threshold.
@@ -66,6 +66,27 @@ The number of significant genes observed from the LRT is quite high. We are **un
 1. Using a more stringent cutoff of `padj < 0.001`, count how many genes are significant using the LRT method.
 2. Set the variables `OEgenes` and `KDgenes`to contain the genes that meet the  threshold `padj < 0.001`.
 3. Find the overlapping number of genes between these gene sets and the genes from LRT at `padj < 0.0001`.
+***
+
+The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in expression of genes between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed at a particular time point, but do not change expression over time.
+
+For example, we have an experiment looking at the effect of treatment over time on mice of two different genotypes. Therefore, our design formula for our 'full model' would include the major sources of variation in our data: genotype, treatment, time, and our main condition of interest, which is the effect of treatment over time (treatment:time).
+
+```r
+full_model <- ~ genotype + treatment + time + treatment:time
+```
+
+To perform the LRT test, we can determine all genes that have significant differences in expression between treatments between any of the time points by giving the 'reduced model' without the `treatment:time` term:
+
+```r
+reduced_model <- ~ genotype + treatment + time
+```
+
+Then, we could run our test by using the following code:
+
+```r
+dds_lrt_time <- DESeq(dds, test="LRT", reduced = ~ genotype + treatment + time)
+```
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
