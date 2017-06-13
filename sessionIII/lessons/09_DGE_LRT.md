@@ -4,7 +4,7 @@ author: "Meeta Mistry and Mary Piper"
 date: "June 14, 2017"
 ---
 
-Approximate time: 45 minutes
+Approximate time: 60 minutes
 
 ## Learning Objectives 
 
@@ -32,7 +32,7 @@ library(DEGreport)
 dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
 ```
 
-Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. **The p-values are determined solely by the difference in deviance between the full and reduced model formula (not log2 fold changes)**. 
+Since our 'full' model only has one factor (`sampletype`), the 'reduced' model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. **The p-values are determined solely by the difference in deviance between the 'full' and 'reduced' model formula (not log2 fold changes)**. Essentially the LRT test is testing whether the term(s) removed in the 'reduced' model explains a significant amount of variation in the data?
 
 Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although we do expect a majority overlap).
 
@@ -71,7 +71,7 @@ The number of significant genes observed from the LRT is quite high. We are **un
 
 1. Using a more stringent cutoff of `padj < 0.001`, count how many genes are significant using the LRT method.
 2. Set the variables `OEgenes` and `KDgenes`to contain the genes that meet the  threshold `padj < 0.001`.
-3. Find the overlapping number of genes between these gene sets and the genes from LRT at `padj < 0.0001`.
+3. Find the overlapping number of genes between these gene sets and the genes from LRT at `padj < 0.001`.
 ***
 
 Often we are interested in genes that have particular patterns across the sample groups (levels) of our condition. For example, with the MOV10 dataset, we may be interested in genes that exhibit the lowest expression for the `Mov10_KD` and highest expression for the `Mov10_OE` sample groups (i.e. KD < CTL < OE). To identify genes associated with these patterns we can use a clustering tool, `degPatterns` from the 'DEGreport' package, that groups the genes based on their changes in expression across sample groups.
