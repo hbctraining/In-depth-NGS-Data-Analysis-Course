@@ -207,8 +207,8 @@ If it's count data, it should fit the negative binomial, as discussed previously
 Run the following code to plot the mean versus variance for the 'Mov10 overexpression' replicates:
 
 ```r
-mean_counts <- apply(data[, 1:3], 1, mean)
-variance_counts <- apply(data[, 1:3], 1, var)
+mean_counts <- apply(data[, 3:5], 1, mean)
+variance_counts <- apply(data[, 3:5], 1, var)
 df <- data.frame(mean_counts, variance_counts)
 
 ggplot(df) +
