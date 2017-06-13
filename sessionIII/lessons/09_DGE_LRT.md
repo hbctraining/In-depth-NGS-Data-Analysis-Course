@@ -83,7 +83,23 @@ cluster_rlog <- rlog_norm_counts[rownames(clustering_sig_genes), ]
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
 
-<img src="../img/mov10_clusters.png" width="400">
+While we don't see any clusters with the pattern we are looking for, we do see a lot of genes that don't change much between control and knockdown sample groups, but increase drastically with the overexpression group (Group 1). 
+
+<img src="../img/mov10_clusters.png" width="600">
+
+Let's explore the set of genes in Group 1 in more detail:
+
+```r
+# What type of data structure is the clusters output?
+class(clusters)
+
+# Let's see what is stored in the `df` component
+head(clusters$df)
+
+# Extract the Group 1 genes
+cluster_groups <- clusters$df
+group1 <- cluster_groups[cluster_groups$cluster == 1, ]
+```
 
 ### LRT example - time course analyses
 
