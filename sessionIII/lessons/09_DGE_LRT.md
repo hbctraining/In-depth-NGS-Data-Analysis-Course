@@ -71,12 +71,18 @@ The number of significant genes observed from the LRT is quite high. We are **un
 Often we are interested in genes that have particular patterns across the sample groups (levels) of our condition. For example, with the MOV10 dataset, we may be interested in genes that exhibit the lowest expression for the `Mov10_KD` and highest expression for the `Mov10_OE` sample groups (i.e. KD < CTL < OE). To identify genes associated with these patterns we can use a clustering tool, `degPatterns` from the 'DEGreport' package, that groups the genes based on their changes in expression across sample groups.
 
 ```r
-# Requires the rlog normalized count values for the significant genes
-rlog_norm_counts <- assay(rld)
-sig_rlog <- rlog_norm_counts[sigLRT_genes, ]
+# Subset results for faster cluster finding (for classroom demo purposes)
+ordered_sig_res_LRT <- sig_res_LRT[order(sig_res_LRT$padj), ]
+clustering_sig_genes <- data.frame(ordered_sig_res_LRT[1:1000, ])
 
-clusters <- degPatterns(sig_rlog, metadata = meta, time = "sampletype, col=NULL)
+# Obtain the rlog values for the normalized counts for plotting purposes
+rlog_norm_counts <- assay(rld)
+cluster_rlog <- rlog_norm_counts[rownames(clustering_sig_genes), ]
+
+# Use the `degPatterns` function from the 'DEGreport' package to show gene clusters across sample groups
+clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
+
 
 ### LRT example - time course analyses
 
