@@ -111,13 +111,7 @@ We could extract the groups of genes and use functional analysis tools to find t
 
 ### LRT example - time course analyses
 
-The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. This analysis will not return genes where the treatment effect does not change over time, even though the genes may be differentially expressed between groups at a particular time point, as shown in the figure below:
-
-<img src="../img/lrt_time_nodiff.png" width="200">
-
-The significant DE genes will represent those genes that have differences in the effect of treatment over time, an example is displayed in the figure below:
-
-<img src="../img/lrt_time_yesdiff.png" width="200">
+The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. 
 
 For have an experiment looking at the effect of treatment over time on mice of two different genotypes. We could use a design formula for our 'full model' that would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the difference in the effect of treatment over time (`treatment:time`).
 
@@ -138,13 +132,22 @@ dds <- DESeqDataSetFromMatrix(countData = raw_counts, colData = metadata, design
 
 dds_lrt_time <- DESeq(dds, test="LRT", reduced = ~ genotype + treatment + time)
 ```
+This analysis will not return genes where the treatment effect does not change over time, even though the genes may be differentially expressed between groups at a particular time point, as shown in the figure below:
 
-We could then determine the significant genes using a threshold of `padj` < 0.05 and return the normalized counts for those genes. Then we could perform clustering to identify genes that change over time in a way meaningful to us:
+<img src="../img/lrt_time_nodiff.png" width="200">
+
+The significant DE genes will represent those genes that have differences in the effect of treatment over time, an example is displayed in the figure below:
+
+<img src="../img/lrt_time_yesdiff.png" width="200">
+
+
+Once we have our results, we can determine the significant genes using a threshold of `padj` < 0.05 and return the normalized counts for those genes. Then we could perform clustering to identify genes that change over time in a way meaningful to us:
 
 ```r
-clusters <- DEGreport::degPatterns(log(sig_norm_count, 2), metadata, time="time", col="treatment")
+clusters <- degPatterns(cluster_rlog, metadata = meta, time="time", col="treatment")
 ```
 
+You can extract the groups of genes associated with the patterns of interest similar to the actions performed previously, then move on to functional analysis for each of the gene groups of interest.
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
