@@ -231,13 +231,13 @@ The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold cha
 
 ```r
 # Significant results for mov10OE relative to control
-sigOE <- data.frame(subset(res_tableOE, padj < padj.cutoff))
+sigOE <- subset(data.frame(res_tableOE), padj < padj.cutoff)
 
 # Narrow the results using a log2 foldchange threshold as well
-sigOE <- data.frame(subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff))
+sigOE <- subset(data.frame(res_tableOE), padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
 
 # Significant results for mov10KD relative to control
-sigKD <- data.frame(subset(res_tableKD, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff))
+sigKD <- subset(data.frame(res_tableKD), padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
 ```
 
 **How many genes are differentially expressed in the Overexpression compared to Control, given our criteria specified above?** Does this reduce our results? 
