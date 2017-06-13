@@ -343,7 +343,7 @@ head(rpkm_ordered)
 all(row.names(metadata) == colnames(rpkm_ordered))
 ```
 
-Now that our samples are ordered the same in our metadata and counts data, we could proceed to perform differential expression analysis with this dataset.
+Now that our samples are ordered the same in our metadata and counts data, we could proceed to perform differential expression analysis with this dataset if it were raw sequencing data (not rpkm).
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
