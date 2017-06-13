@@ -1,10 +1,10 @@
 ---
-title: "DEG analysis usin LRT in DESeq2"
-author: "Meeta Mistry"
-date: "October 17, 2016"
+title: "DGE analysis using LRT in DESeq2"
+author: "Meeta Mistry and Mary Piper"
+date: "June 14, 2017"
 ---
 
-Approximate time: 35 minutes
+Approximate time: 45 minutes
 
 ## Learning Objectives 
 
@@ -15,11 +15,11 @@ Approximate time: 35 minutes
 
 ## Hypothesis testing: Likelihood ratio test (LRT)
 
-An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the LRT which is used to identify any genes that show change in expression across the three levels. This type of test can be especially useful in analyzing time course experiments. 
+An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the LRT which is used to identify any genes that show change in expression across the different levels. This type of test can be especially useful in analyzing time course experiments. 
 
 To use the LRT, we use the `DESeq()` function but this time adding two arguments: 
-1) to specify that we want to use the LRT `test`
-2) the `reduced` model
+1) to specify that we want to use the LRT test
+2) the 'reduced' model
 
 ```r
 # Likelihood ratio test
@@ -67,6 +67,15 @@ The number of significant genes observed from the LRT is quite high. We are **un
 2. Set the variables `OEgenes` and `KDgenes`to contain the genes that meet the  threshold `padj < 0.001`.
 3. Find the overlapping number of genes between these gene sets and the genes from LRT at `padj < 0.0001`.
 ***
+
+Often we are interested in genes that have particular patterns across the sample groups (levels) of our condition. For example, with the MOV10 dataset, we may be interested in genes that exhibit the lowest expression for the `Mov10_KD` and highest expression for the `Mov10_OE` sample groups (i.e. KD < CTL < OE). To identify genes associated with these patterns we can use a clustering tool, `degPatterns` from the 'DEGreport' package, that groups the genes based on their changes in expression across sample groups.
+
+```r
+# Requires the rlog normalized count values for the significant genes
+sig_rlog <- rlog_counts[sigLRT_genes, ]
+
+DEGreport::degPatterns(sig_rlog, meta, col="sampletype")
+```
 
 ### LRT example - time course analyses
 
