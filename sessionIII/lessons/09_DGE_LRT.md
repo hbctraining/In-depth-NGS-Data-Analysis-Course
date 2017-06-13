@@ -40,8 +40,8 @@ res_LRT <- results(dds_lrt)
 You will find that similar columns are reported for the LRT test. One thing to note is, even though there are fold changes present they are not directly associated with the actual hypothesis test. Thus, when filtering significant genes from the LRT we use only the FDR as our threshold. *How many genes are significant at `padj < 0.05`?*
 
 ```r
+# Subset the LRT results to return genes with padj < 0.05
 sig_res_LRT <- subset(res_LRT, padj < padj.cutoff)
-dim(sig_res_LRT)
 
 # Get sig gene lists
 sigLRT_genes <- rownames(sig_res_LRT)
@@ -72,9 +72,10 @@ Often we are interested in genes that have particular patterns across the sample
 
 ```r
 # Requires the rlog normalized count values for the significant genes
-sig_rlog <- rlog_counts[sigLRT_genes, ]
+rlog_norm_counts <- assay(rld)
+sig_rlog <- rlog_norm_counts[sigLRT_genes, ]
 
-DEGreport::degPatterns(sig_rlog, meta, col="sampletype")
+clusters <- degPatterns(sig_rlog, metadata = meta, time = "sampletype, col=NULL)
 ```
 
 ### LRT example - time course analyses
