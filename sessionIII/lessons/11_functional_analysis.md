@@ -79,9 +79,94 @@ The calculation of probability of k successes follows the formula:
 
 ![hypergeo](../img/hypergeo.png) 
 
+## clusterProfiler
+[clusterProfiler](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) performs over-representation analysis on GO terms associated with a list of genes. The tool takes as input a significant gene list and a background gene list and performs statistical enrichment analysis using hypergeometric testing. The user selects the organism and the GO ontology (BP, CC, MF) to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level.
+
+```r
+# Load libraries
+library(clusterProfiler)
+library(DOSE)
+library(org.Hs.eg.db)
+library(biomaRt)
+
+# Subsetting dataset to only include significant genes with padj < 0.05
+
+sig_genes_OE <- subset(res_tableOE, padj < 0.05) 
+sig_genes_OE <- data.frame(sig_genes_OE)
+
+# clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and the background genes
+
+human <- useDataset("hsapiens_gene_ensembl",
+                   useMart('ENSEMBL_MART_ENSEMBL',
+                           host =  'grch37.ensembl.org'))
+                           
+sig_genes_ensembl <- getBM(filters = "external_gene_name", 
+                values = rownames(sig_genes_OE),
+                attributes = c("ensembl_gene_id", "external_gene_name"),
+                mart = human)
+                
+sig_genes <- as.character(sig_genes_ensembl$ensembl_gene_id)
+
+# Create background dataset for hypergeometric testing using all genes tested for significance in the raw counts dataset
+
+all_genes <- getBM(filters = "external_gene_name", 
+                   values = rownames(data),
+                   attributes = "ensembl_gene_id",
+                   mart = human)
+                   
+all_genes <- as.character(all_genes$ensembl_gene_id)
+
+# Run GO enrichment analysis 
+ego <- enrichGO(gene=sig_genes, universe=all_genes, keytype ="ENSEMBL", OrgDb=org.Hs.eg.db, ont="BP", pAdjustMethod = "BH", qvalueCutoff =0.05, readable=TRUE)
+
+# Output results from GO analysis to a table
+cluster_summary <- summary(ego)
+```
+![cluster_summary](../img/cluster_summary.png)
+
+### Visualizing clusterProfiler results
+clusterProfiler has a variety of options for viewing the over-represented GO terms. We will explore the dotplot, enrichment plot, and the category netplot.
+
+The dotplot shows the number of genes associated with the first 25 terms (size) and the p-adjusted values for these terms (color). 
+
+```r
+dotplot(ego, showCategory=25)
+```
+
+![dotplot](../img/dotplot.png)
+
+The enrichment GO plot below shows the relationship between the top 25 most significantly enriched GO terms, by grouping similar terms together. The color represents the p-values relative to the other displayed terms (brighter red is more significant) and the size of the terms represents the number of genes that are significant from our list.
+
+```r
+enrichMap(ego, n=25, vertex.label.font=10)
+```
+
+![enrichplot](../img/enrich.png)
+
+Finally, the category netplot shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). The size of the GO terms reflects the pvalues of the terms, with the more significant terms being larger. This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes. 
+
+```r
+# To color genes by log2 fold changes, we need to extract the log2 fold changes from our results table
+OE_foldchanges <- sig_genes_OE$log2FoldChange
+
+cnetplot(ego, categorySize="pvalue", showCategory = 5, foldChange=OE_foldchanges, vertex.label.font=6)
+```
+
+![cnetplot](../img/cnet.png)
+
+**NOTE:** You can color genes by fold changes by adding an argument called `foldChange` with a vector of foldchanges corresponding to the `sig_genes` vector. Also, if you are interested in significant processes that are **not** among the top five, you can subset your `ego` dataset to only display these processes:
+
+```r
+ego2 <- ego
+ego2@result <- ego@result[c(3,16,17,18,25),]
+cnetplot(ego2, categorySize="pvalue", showCategory = 5)
+```
+
+![cnet_example](../img/ego2_example.png)
+
 ### gProfiler
 
-[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a tool for the interpretation of large gene lists which can be run using a web interface or through R. The core tool takes a gene list as input and performs statistical enrichment analysis using hypergeometric testing to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
+[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a tool for the interpretation of large gene lists which can be run using a web interface or through R. The core tool takes a gene list as input and performs statistical enrichment analysis using hypergeometric testing to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. The GO terms output by gprofileR are generally quite similar to those output by clusterProfiler, but there are small differences due to the different algorithms used by the programs.
 
 ![gprofiler](../img/gProfiler.png)
 
@@ -103,11 +188,6 @@ For our gProfiler analysis, we are going to subset our `res_tableOE` only using 
 ### Functional analysis of MOV10 Overexpression using gProfileR (some of these are defaults; check help pages) 
 
 library(gProfileR)
-
-# Subsetting dataset to only include significant genes with padj < 0.05
-
-sig_genes_table <- subset(res_tableOE, padj < 0.05) 
-sig_genes_table <- data.frame(sig_genes_table)
 
 # Running gprofiler to identify enriched processes among significant genes
 
@@ -161,83 +241,6 @@ Open `GOs_oe.txt` and copy and paste the GO ids into the REVIGO search box, and 
 J. Reimand, T. Arak, P. Adler, L. Kolberg, S. Reisberg, H. Peterson, J. Vilo. g:Profiler -- a web server for functional interpretation of gene lists (2016 update). Nucleic Acids Research 2016; doi: 10.1093/nar/gkw199
 
 Supek F, Bošnjak M, Škunca N, Šmuc T. REVIGO summarizes and visualizes long lists of Gene Ontology terms. PLoS ONE 2011. doi:10.1371/journal.pone.0021800
-
-## clusterProfiler
-Similar to gprofileR, the tool [clusterProfiler](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) performs over-representation analysis on GO terms associated with a list of genes. The GO terms output by clusterProfiler are generally quite similar to those output by gprofileR, but there are small differences due to the different algorithms used by the programs.
-
-```r
-# Load libraries
-library(clusterProfiler)
-library(DOSE)
-library(org.Hs.eg.db)
-library(biomaRt)
-
-# clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and the background genes
-
-mart <- useDataset("hsapiens_gene_ensembl",
-                   useMart('ENSEMBL_MART_ENSEMBL',
-                           host =  'grch37.ensembl.org'))
-                           
-sig_genes_ensembl <- getBM(filters = "external_gene_name", 
-                values = rownames(sig_genes_table),
-                attributes = c("ensembl_gene_id", "external_gene_name"),
-                mart = mart)
-                
-sig_genes <- as.character(sig_genes_ensembl$ensembl_gene_id)
-
-# Create background dataset for hypergeometric testing using all genes tested for significance in the raw counts dataset
-
-all_genes <- getBM(filters = "external_gene_name", 
-                   values = rownames(data),
-                   attributes = "ensembl_gene_id",
-                   mart = mart)
-                   
-all_genes <- as.character(all_genes$ensembl_gene_id)
-
-# Run GO enrichment analysis 
-ego <- enrichGO(gene=sig_genes, universe=all_genes, keytype ="ENSEMBL", OrgDb=org.Hs.eg.db, ont="BP", pAdjustMethod = "BH", qvalueCutoff =0.05, readable=TRUE)
-
-# Output results from GO analysis to a table
-cluster_summary <- summary(ego)
-```
-![cluster_summary](../img/cluster_summary.png)
-
-### Visualizing clusterProfiler results
-clusterProfiler has a variety of options for viewing the over-represented GO terms. We will explore the dotplot, enrichment plot, and the category netplot.
-
-The dotplot shows the number of genes associated with the first 25 terms (size) and the p-adjusted values for these terms (color). 
-
-```r
-dotplot(ego, showCategory=25)
-```
-
-![dotplot](../img/dotplot.png)
-
-The enrichment plot shows the relationship between the top 25 most significantly enriched GO terms, by grouping similar terms together.
-
-```r
-enrichMap(ego, n=25, vertex.label.font=10)
-```
-
-![enrichplot](../img/enrich.png)
-
-Finally, the category netplot shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes. 
-
-```r
-cnetplot(ego, categorySize="pvalue", showCategory = 5, vertex.label.font=6)
-```
-
-![cnetplot](../img/cnet.png)
-
-**NOTE:** You can color genes by fold changes by adding an argument called `foldChange` with a vector of foldchanges corresponding to the `sig_genes` vector. Also, if you are interested in significant processes that are **not** among the top five, you can subset your `ego` dataset to only display these processes:
-
-```r
-ego2 <- ego
-ego2@result <- ego@result[c(3,16,17,18,25),]
-cnetplot(ego2, categorySize="pvalue", showCategory = 5)
-```
-
-![cnet_example](../img/ego2_example.png)
 
 ## [Other functional analysis methods](https://github.com/hbc/NGS-Data-Analysis-long-course/blob/Fall_2016/sessionIII/lessons/functional_analysis_other_methods.md)
 
