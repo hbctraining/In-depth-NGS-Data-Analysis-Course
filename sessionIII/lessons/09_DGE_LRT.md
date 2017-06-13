@@ -118,7 +118,7 @@ group1 <- cluster_groups[cluster_groups$cluster == 1, ]
 
 We could extract the groups of genes and perform functional analysis on each of the groups of interest.
 
-### LRT example - time course analyses
+### LRT - time course analyses
 
 The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. 
 
