@@ -50,9 +50,11 @@ For example, in the figure above, the green gene and purple gene have the same m
 
 >**NOTE:** If very large expected fold changes for a number of individual genes are expected, but not so many large fold changes that the prior would not include such large fold changes, then you may want to turn off LFC shrinkage.
 > 
->You can turn off the beta prior when calling the `DESeq()` fucntion: `DESeq(dds, betaPrior=FALSE)`. By turning off the prior, the log2 foldchanges would be the same as those calculated by:
+>You can turn off the beta prior when calling the `DESeq()` function: `DESeq(dds, betaPrior=FALSE)`. By turning off the prior, the log2 foldchanges would be the same as those calculated by:
 >
 >`log2 (normalized_counts_group1 / normalized_counts_group2)`
+
+>**Addendum to NOTE:** In the most recent version of DESeq2 (that runs with R 3.4), the `betaPrior` and the argument is set to FALSE.
 
 ### Hypothesis testing using the Wald test
 
@@ -108,6 +110,8 @@ We will tell DESeq2 the contrasts we would like to make using the `results()` co
 ## Define contrasts and extract results table
 res_tableOE <- results(dds, contrast = c("sampletype", "MOV10_overexpression", "control"))
 ```
+
+>**NOTE:** In the most recent version of DEseq2, the shrinkage of LFC estimates is **not performed by default**. This means that you have to run an additional step on your result object with the function `lfcShrink()` to generate the shrunken lfc estimate. [Click here](https://support.bioconductor.org/p/95695/) for more information on how to do this.
 
 **The order of the names determines the direction of fold change that is reported.** The name provided in the second element is the level that is used as baseline. So for example, if we observe a log2 fold change of -2 this would mean the gene expression is lower in Mov10_oe relative to the control. 
 
