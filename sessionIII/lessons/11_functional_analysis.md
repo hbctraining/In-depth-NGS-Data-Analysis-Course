@@ -80,7 +80,7 @@ The calculation of probability of k successes follows the formula:
 ![hypergeo](../img/hypergeo.png) 
 
 ## clusterProfiler
-[clusterProfiler](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) performs over-representation analysis on GO terms associated with a list of genes. The tool takes as input a significant gene list and a background gene list and performs statistical enrichment analysis using hypergeometric testing. The user selects the organism and the GO ontology (BP, CC, MF) to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level.
+[clusterProfiler](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) performs over-representation analysis on GO terms associated with a list of genes. The tool takes as input a significant gene list and a background gene list and performs statistical enrichment analysis using hypergeometric testing. The basic arguments allows the user to select the appropriate organism and the GO ontology (BP, CC, MF) to test. 
 
 ```r
 # Load libraries
@@ -91,8 +91,8 @@ library(biomaRt)
 
 # Subsetting dataset to only include significant genes with padj < 0.05
 
-sig_genes_OE <- subset(res_tableOE, padj < 0.05) 
-sig_genes_OE <- data.frame(sig_genes_OE)
+sigOE <- subset(res_tableOE, padj < 0.05) 
+sigOE <- data.frame(sigOE)
 
 # clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and the background genes
 
@@ -101,11 +101,11 @@ human <- useDataset("hsapiens_gene_ensembl",
                            host =  'grch37.ensembl.org'))
                            
 sig_genes_ensembl <- getBM(filters = "external_gene_name", 
-                values = rownames(sig_genes_OE),
+                values = rownames(sigOE),
                 attributes = c("ensembl_gene_id", "external_gene_name"),
                 mart = human)
                 
-sig_genes <- as.character(sig_genes_ensembl$ensembl_gene_id)
+sigOE_genes <- as.character(sig_genes_ensembl$ensembl_gene_id)
 
 # Create background dataset for hypergeometric testing using all genes tested for significance in the raw counts dataset
 
@@ -117,7 +117,7 @@ all_genes <- getBM(filters = "external_gene_name",
 all_genes <- as.character(all_genes$ensembl_gene_id)
 
 # Run GO enrichment analysis 
-ego <- enrichGO(gene=sig_genes, universe=all_genes, keytype ="ENSEMBL", OrgDb=org.Hs.eg.db, ont="BP", pAdjustMethod = "BH", qvalueCutoff =0.05, readable=TRUE)
+ego <- enrichGO(gene=sigOE_genes, universe=all_genes, keytype ="ENSEMBL", OrgDb=org.Hs.eg.db, ont="BP", pAdjustMethod = "BH", qvalueCutoff =0.05, readable=TRUE)
 
 # Output results from GO analysis to a table
 cluster_summary <- summary(ego)
@@ -147,7 +147,7 @@ Finally, the category netplot shows the relationships between the genes associat
 
 ```r
 # To color genes by log2 fold changes, we need to extract the log2 fold changes from our results table
-OE_foldchanges <- sig_genes_OE$log2FoldChange
+OE_foldchanges <- sigOE_genes$log2FoldChange
 
 cnetplot(ego, categorySize="pvalue", showCategory = 5, foldChange=OE_foldchanges, vertex.label.font=6)
 ```
