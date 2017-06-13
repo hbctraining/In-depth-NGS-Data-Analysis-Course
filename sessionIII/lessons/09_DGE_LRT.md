@@ -111,13 +111,15 @@ We could extract the groups of genes and use functional analysis tools to find t
 
 ### LRT example - time course analyses
 
-The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed between groups at a particular time point when the treatment effect does not change over time.
+The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. This analysis will not return genes where the treatment effect does not change over time, even though the genes may be differentially expressed between groups at a particular time point, as shown in the figure below:
 
-<img src="../img/lrt_time_nodiff.png" width="300">
+<img src="../img/lrt_time_nodiff.png" width="200">
 
-<img src="../img/lrt_time_yesdiff.png" width="300">
+The significant DE genes will represent those genes that have differences in the effect of treatment over time, an example is displayed in the figure below:
 
-For example, for have an experiment looking at the effect of treatment over time on mice of two different genotypes. We could use a design formula for our 'full model' that would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the difference in the effect of treatment over time (`treatment:time`).
+<img src="../img/lrt_time_yesdiff.png" width="200">
+
+For have an experiment looking at the effect of treatment over time on mice of two different genotypes. We could use a design formula for our 'full model' that would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the difference in the effect of treatment over time (`treatment:time`).
 
 ```r
 full_model <- ~ genotype + treatment + time + treatment:time
