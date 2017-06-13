@@ -25,6 +25,9 @@ To use the LRT, we use the `DESeq()` function but this time adding two arguments
 library(DESeq2)
 library(DEGreport)
 
+# The full model was specified previously with the `design = ~ sampletype`:
+# dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
+
 # Likelihood ratio test
 dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
 ```
