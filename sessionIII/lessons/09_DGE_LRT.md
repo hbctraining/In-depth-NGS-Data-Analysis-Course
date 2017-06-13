@@ -81,6 +81,12 @@ cluster_rlog <- rlog_norm_counts[rownames(clustering_sig_genes), ]
 
 # Use the `degPatterns` function from the 'DEGreport' package to show gene clusters across sample groups
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
+
+# If we would like the order to be more intuitive we can reorder the levels and run the clustering again
+levels(meta$sampletype)
+levels(meta$sampletype) <- levels(meta$sampletype)[c(2,1,3)]
+
+clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
 
 While we don't see any clusters with the pattern we are looking for, we do see a lot of genes that don't change much between control and knockdown sample groups, but increase drastically with the overexpression group (Group 1). 
@@ -101,11 +107,17 @@ cluster_groups <- clusters$df
 group1 <- cluster_groups[cluster_groups$cluster == 1, ]
 ```
 
+We could extract the groups of genes and use functional analysis tools to find the groups most interesting to us.
+
 ### LRT example - time course analyses
 
-The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in expression of genes between treatments between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed between groups at a particular time point, but the difference between groups does not change over time.
+The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed between groups at a particular time point when the treatment effect does not change over time.
 
-For example, we have an experiment looking at the effect of treatment over time on mice of two different genotypes. Therefore, our design formula for our 'full model' would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the effect of treatment over time (`treatment:time`).
+<img src="../img/lrt_nodiff.png" width="600">
+
+<img src="../img/lrt_yesdiff.png" width="600">
+
+For example, for have an experiment looking at the effect of treatment over time on mice of two different genotypes. We could use a design formula for our 'full model' that would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the difference in the effect of treatment over time (`treatment:time`).
 
 ```r
 full_model <- ~ genotype + treatment + time + treatment:time
