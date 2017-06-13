@@ -113,9 +113,9 @@ We could extract the groups of genes and use functional analysis tools to find t
 
 The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. Note that this analysis will not return genes that may be differentially expressed between groups at a particular time point when the treatment effect does not change over time.
 
-<img src="../img/lrt_time_nodiff.png" width="600">
+<img src="../img/lrt_time_nodiff.png" width="300">
 
-<img src="../img/lrt_time_yesdiff.png" width="600">
+<img src="../img/lrt_time_yesdiff.png" width="300">
 
 For example, for have an experiment looking at the effect of treatment over time on mice of two different genotypes. We could use a design formula for our 'full model' that would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the difference in the effect of treatment over time (`treatment:time`).
 
