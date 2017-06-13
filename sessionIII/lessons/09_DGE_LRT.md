@@ -105,9 +105,12 @@ head(clusters$df)
 # Extract the Group 1 genes
 cluster_groups <- clusters$df
 group1 <- cluster_groups[cluster_groups$cluster == 1, ]
+
+# or you could use subset(): 
+# group1 <- subset(cluster_groups, cluster == 1)
 ```
 
-We could extract the groups of genes and use functional analysis tools to find the groups most interesting to us.
+We could extract the groups of genes and perform functional analysis on each of the groups of interest.
 
 ### LRT example - time course analyses
 
