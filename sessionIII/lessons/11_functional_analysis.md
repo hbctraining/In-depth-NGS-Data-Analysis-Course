@@ -147,7 +147,7 @@ Finally, the category netplot shows the relationships between the genes associat
 
 ```r
 # To color genes by log2 fold changes, we need to extract the log2 fold changes from our results table
-OE_foldchanges <- sig_genes_ensembl$log2FoldChange
+OE_foldchanges <- sigOE$log2FoldChange
 
 cnetplot(ego, categorySize="pvalue", showCategory = 5, foldChange=OE_foldchanges, vertex.label.font=6)
 ```
