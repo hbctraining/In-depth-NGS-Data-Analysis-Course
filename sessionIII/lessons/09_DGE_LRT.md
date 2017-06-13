@@ -22,6 +22,9 @@ To use the LRT, we use the `DESeq()` function but this time adding two arguments
 2) the 'reduced' model
 
 ```r
+library(DESeq2)
+library(DEGreport)
+
 # Likelihood ratio test
 dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
 ```
