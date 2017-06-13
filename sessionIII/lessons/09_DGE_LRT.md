@@ -83,6 +83,7 @@ cluster_rlog <- rlog_norm_counts[rownames(clustering_sig_genes), ]
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
 
+<img src="../img/mov10_clusters.png" width="400">
 
 ### LRT example - time course analyses
 
