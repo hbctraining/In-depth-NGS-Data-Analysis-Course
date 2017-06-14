@@ -76,38 +76,51 @@ The number of significant genes observed from the LRT is quite high. We are **un
 
 Often we are interested in genes that have particular patterns across the sample groups (levels) of our condition. For example, with the MOV10 dataset, we may be interested in genes that exhibit the lowest expression for the `Mov10_KD` and highest expression for the `Mov10_OE` sample groups (i.e. KD < CTL < OE). To identify genes associated with these patterns we can use a clustering tool, `degPatterns` from the 'DEGreport' package, that groups the genes based on their changes in expression across sample groups.
 
+First we will subset our rlog transformed normalized counts to contain only the differentially expressed genes (padj < 0.05).
+
 ```r
 # Subset results for faster cluster finding (for classroom demo purposes)
 ordered_sig_res_LRT <- sig_res_LRT[order(sig_res_LRT$padj), ]
 clustering_sig_genes <- data.frame(ordered_sig_res_LRT[1:1000, ])
 
-# Obtain the rlog values for the normalized counts for plotting purposes
-rlog_norm_counts <- assay(rld)
-cluster_rlog <- rlog_norm_counts[rownames(clustering_sig_genes), ]
+# Use the rlog values for the normalized counts for plotting purposes and only return those significant genes
 
+cluster_rlog <- rld_mat[rownames(clustering_sig_genes), ]
+```
+
+Then we can use the `degPatterns` function from the 'DEGreport' package to determine sets of genes that exhibit similar expression patterns across sample groups. The `degPatterns` tool uses a hierarchical clustering approach based on pair-wise correlations, then cuts the hierarchical tree to generate groups of genes with similar expression profiles. The tool cuts the tree in a way to optimize the diversity of the clusters, such that the variability inter-cluster > the variability intra-cluster.
+
+```r
 # Use the `degPatterns` function from the 'DEGreport' package to show gene clusters across sample groups
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
+```
 
-# If we would like the order to be more intuitive we can reorder the levels and run the clustering again
+If we would like the order to be more intuitive we can reorder the levels and run the clustering again:
+
+``r
 levels(meta$sampletype)
 levels(meta$sampletype) <- levels(meta$sampletype)[c(2,1,3)]
 
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
 
-While we don't see any clusters with the pattern we are looking for, we do see a lot of genes that don't change much between control and knockdown sample groups, but increase drastically with the overexpression group (Group 1). 
+Let's explore the output:
+
+```r
+# What type of data structure is the `clusters` output?
+class(clusters)
+
+# Let's see what is stored in the `df` component
+head(clusters$df)
+```
+
+While we don't see any clusters with the pattern we are looking for (KD < CTL < OE), we do see a lot of genes that don't change much between control and knockdown sample groups, but increase drastically with the overexpression group (Group 1). 
 
 <img src="../img/mov10_clusters.png" width="600">
 
 Let's explore the set of genes in Group 1 in more detail:
 
 ```r
-# What type of data structure is the clusters output?
-class(clusters)
-
-# Let's see what is stored in the `df` component
-head(clusters$df)
-
 # Extract the Group 1 genes
 cluster_groups <- clusters$df
 group1 <- cluster_groups[cluster_groups$cluster == 1, ]
@@ -116,11 +129,11 @@ group1 <- cluster_groups[cluster_groups$cluster == 1, ]
 # group1 <- subset(cluster_groups, cluster == 1)
 ```
 
-We could extract the groups of genes and perform functional analysis on each of the groups of interest.
+After extracting a group of genes, we can perform functional analysis to explore associated functions. We can repeat this extraction and functional analysis for any of the groups of interest.
 
 ### LRT - time course analyses
 
-The LRT test can be especially helpful when performing time course analyses. We can explore whether there are any significant differences in treatment effect between any of the timepoints. 
+The LRT test can be especially helpful when performing time course analyses. We can use the LRT to explore whether there are any significant differences in treatment effect between any of the timepoints. 
 
 For have an experiment looking at the effect of treatment over time on mice of two different genotypes. We could use a design formula for our 'full model' that would include the major sources of variation in our data: `genotype`, `treatment`, `time`, and our main condition of interest, which is the difference in the effect of treatment over time (`treatment:time`).
 
