@@ -260,23 +260,17 @@ rownames(res_tableOE)[idx]
 
 ***
 
-**Exercise**
-
-1. Generate two figures for the KD-control comparison: a volcano plot and a heatmap. 
-2. Save both images to file.
-
-***
-
 ***NOTE:** The package 'DEGreport' can make the top20 genes and the volcano plots generated above by writing a few lines of simple code. While you can customize the plots above, you may be interested in using the easier code. Below are examples for code to create these plots:*
 
 ```r
 DEGreport::degPlot(dds = dds, res = res, n=20, xs="type", group = "condition")
 
-DEGreport::degPlotWide(dds = dds, genes = row.names(res)[1:5], group = "condition")
-
 DEGreport::degVolcano(
     as.data.frame(res[,c("log2FoldChange","padj")]), # table - 2 columns
     plot_text=as.data.frame(res[1:10,c("log2FoldChange","padj","id")])) # table to add names
+    
+# Available in the newer version for R 3.4
+DEGreport::degPlotWide(dds = dds, genes = row.names(res)[1:5], group = "condition")
 ```
 ***
 
