@@ -129,7 +129,7 @@ group1 <- cluster_groups[cluster_groups$cluster == 1, ]
 
 After extracting a group of genes, we can perform functional analysis to explore associated functions. We can repeat this extraction and functional analysis for any of the groups of interest.
 
-### LRT - time course analyses
+### Time course analyses with LRT
 
 The LRT test can be especially helpful when performing time course analyses. We can use the LRT to explore whether there are any significant differences in treatment effect between any of the timepoints. 
 
