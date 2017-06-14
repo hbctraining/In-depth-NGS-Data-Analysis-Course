@@ -163,7 +163,7 @@ We want to label some of the genes that have very low p-values. To do this we fi
 sig_genes <- row.names(resOE_df)[which(resOE_df$padj < 1e-80)]
 
 # Add a column of logical values to indicate which genes we want labeled
-resOE_df$genelabels <- row.names(res_tableOE) %in% sig_genes
+resOE_df$genelabels <- row.names(resOE_df) %in% sig_genes
 ```
 
 Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot. In order to display the selected text labels we will need to add the `aes()` inside of `ggplot()` instead of `geom_point()`: 
