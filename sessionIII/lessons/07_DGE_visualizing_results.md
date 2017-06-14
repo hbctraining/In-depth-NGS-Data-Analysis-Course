@@ -150,42 +150,54 @@ threshold_KD <- res_tableKD$padj < padj.cutoff & abs(res_tableKD$log2FoldChange)
 res_tableKD$threshold <- threshold_KD
 ``` 
 
-To plot using ggplot2, we need our results to be data frames (currently stored in  `DESeqResults` objects):
-
-```r
-# Create dataframe for plotting
-resOE_df <- data.frame(res_tableOE)
-```
-We want to label some of the genes that have very low p-values. To do this we fist need to identify the set of genes that we want labeled.
-
-```r
-# Get gene symbols for genes that have p < 1e-80
-sig_genes <- row.names(resOE_df)[which(resOE_df$padj < 1e-80)]
-
-# Add a column of logical values to indicate which genes we want labeled
-resOE_df$genelabels <- row.names(resOE_df) %in% sig_genes
-```
-
-Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot. In order to display the selected text labels we will need to add the `aes()` inside of `ggplot()` instead of `geom_point()`: 
+Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot:
 
 ```r
 # Volcano plot
-  
-ggplot(resOE_df, aes(x=log2FoldChange, y=-log10(padj),color=threshold, label=row.names(resOE_df))) +
-  geom_point() +
-  geom_text(aes(label=ifelse(genelabels ==T,row.names(resOE_df),'')), hjust=0, vjust=0) +
-  ggtitle('Mov10 overexpression') +
+ggplot(resOE_df) +
+  geom_point(aes(x=log2FoldChange, y=-log10(padj), colour=threshold)) +
+  ggtitle("Mov10 overexpression") +
   xlab("log2 fold change") + 
   ylab("-log10 adjusted p-value") +
-  xlim(c(-2,6)) +
-  theme(plot.title = element_text(size = rel(1.5), hjust=0.5),
-        axis.title = element_text(size = rel(1.5)),
-        axis.text = element_text(size = rel(1.25)),
-        legend.position = "none")
-
+  theme(legend.position = "none",
+        plot.title = element_text(size = rel(1.5), hjust = 0.5),
+        axis.title = element_text(size = rel(1.25)))  
 ```
 
-![volcano](../img/volcanoplot-1-labeled.png)
+<img src="../img/volcanoplot-1_new.png" width=500> 
+
+This is a great way to get an overall picture of what is going on, but what if we also wanted to know where the top 10 genes (lowest padj) in our DE list are located on this plot? We could label those dots with the gene name.
+
+We can use `geom_text_repel()` to add the gene labels to our plot, but to make this work we have to take the following 2 steps:
+(1) need to create a new data frame sorted or ordered by padj
+(2) indicate which genes we want to label add a logical vector in the ordered data frame such that "TRUE" = genes we want to label.
+(3) finally, we need to tell `geom_text_repel()` which genes we want to label, we will be using a new function, `ifelse()`, for this.
+ 
+```r
+resOE_df_ordered <- resOE_df[order(resOE_df$padj), ] 
+
+resOE_df_ordered$genelabels <- rownames(resOE_df_ordered) %in% rownames(resOE_df_ordered[1:10,])
+
+View(resOE_df_ordered)
+```
+
+Now we have an ordered data frame with a logical genelabels column that we use to replot the volcano plot with and additional layer for `geom_text_repel()`.
+
+```r
+ggplot(resOE_df_ordered) +
+  geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold)) +
+  geom_text_repel(aes(x = log2FoldChange, y = -log10(padj), label = ifelse(genelabels == T, rownames(resOE_df_ordered),""))) +
+  ggtitle("Mov10 overexpression") +
+  xlab("log2 fold change") + 
+  ylab("-log10 adjusted p-value") +
+  theme(legend.position = "none",
+        plot.title = element_text(size = rel(1.5), hjust = 0.5),
+        axis.title = element_text(size = rel(1.25))) 
+```
+
+<img src="../img/volcanoplot-2.png" width=500> 
+
+The `ifelse()` function is a simple function that outputs a vector if a certain condition is T. In the above example, it checks if the value in the `resOE_df_ordered$genelevel` column is TRUE, in which case it will output the row name for that row (`rownames(resOE_df_ordered)`). If the value in the genelevel column is FALSE it will output nothing (`""`). This is good way to inform `geom_point()` about genes we want labeled.
 
 
 ### Heatmap
