@@ -135,7 +135,7 @@ The dotplot shows the number of genes associated with the first 50 terms (size) 
 dotplot(ego, showCategory=50)
 ```
 
-![dotplot](../img/mov10oe_dotplot.png)
+<img src="../img/mov10oe_dotplot.png" width="600">
 
 The enrichment GO plot below shows the relationship between the top 50 most significantly enriched GO terms, by grouping similar terms together. The color represents the p-values relative to the other displayed terms (brighter red is more significant) and the size of the terms represents the number of genes that are significant from our list.
 
@@ -143,7 +143,7 @@ The enrichment GO plot below shows the relationship between the top 50 most sign
 enrichMap(ego, n=50, vertex.label.font=6)
 ```
 
-![enrichplot](../img/mov10oe_enrichmap.png)
+<img src="../img/mov10oe_enrichmap.png" width="600">
 
 Finally, the category netplot shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). The size of the GO terms reflects the pvalues of the terms, with the more significant terms being larger. This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes. 
 
