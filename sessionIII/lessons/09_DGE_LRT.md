@@ -66,7 +66,6 @@ How many genes from the Mov10 overexpression Wald test are contained in the LRT 
 The number of significant genes observed from the LRT is quite high. We are **unable to set a fold change criteria here since the statistic is not generated from any one pairwise comparison.** This list includes genes that can be changing in any number of combinations across the three factor levels. It is advisable to instead increase the stringency on our criteria and lower the FDR threshold.
 
 ***
-
 **Exercise**
 
 1. Using a more stringent cutoff of `padj < 0.001`, count how many genes are significant using the LRT method.
@@ -84,7 +83,6 @@ ordered_sig_res_LRT <- sig_res_LRT[order(sig_res_LRT$padj), ]
 clustering_sig_genes <- data.frame(ordered_sig_res_LRT[1:1000, ])
 
 # Use the rlog values for the normalized counts for plotting purposes and only return those significant genes
-
 cluster_rlog <- rld_mat[rownames(clustering_sig_genes), ]
 ```
 
