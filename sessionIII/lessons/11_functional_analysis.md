@@ -99,7 +99,7 @@ sigOE <- subset(res_tableOE, padj < 0.05)
 sigOE <- data.frame(sigOE)
 ```
 
-Once we have our significant genes, we are going to turn our gene names into Ensembl IDs using biomARt, since the tool works a bit easier with the Ensembl IDs.
+Once we have our significant genes, we are going to turn our gene names into Ensembl IDs using biomaRt, since the tool works a bit easier with the Ensembl IDs.
 
 ```r
 # clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and merge with significant results
