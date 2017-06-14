@@ -94,7 +94,7 @@ library(biomaRt)
 sigOE <- subset(res_tableOE, padj < 0.05) 
 sigOE <- data.frame(sigOE)
 
-# clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and the background genes
+# clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and merge with significant results
 
 human <- useDataset("hsapiens_gene_ensembl",
                    useMart('ENSEMBL_MART_ENSEMBL',
@@ -104,8 +104,10 @@ sig_genes_ensembl <- getBM(filters = "external_gene_name",
                 values = rownames(sigOE),
                 attributes = c("ensembl_gene_id", "external_gene_name"),
                 mart = human)
+         
+merged_sig_genes_ensembl <- merge(sigOE, sig_genes_ensembl, by.x="row.names", by.y="external_gene_name")             
                 
-sigOE_genes <- as.character(sig_genes_ensembl$ensembl_gene_id)
+sigOE_genes <- as.character(merged_sig_genes_ensembl$ensembl_gene_id)
 
 # Create background dataset for hypergeometric testing using all genes tested for significance in the raw counts dataset
 
@@ -127,39 +129,41 @@ cluster_summary <- summary(ego)
 ### Visualizing clusterProfiler results
 clusterProfiler has a variety of options for viewing the over-represented GO terms. We will explore the dotplot, enrichment plot, and the category netplot.
 
-The dotplot shows the number of genes associated with the first 25 terms (size) and the p-adjusted values for these terms (color). 
+The dotplot shows the number of genes associated with the first 50 terms (size) and the p-adjusted values for these terms (color). 
 
 ```r
-dotplot(ego, showCategory=25)
+dotplot(ego, showCategory=50)
 ```
 
-![dotplot](../img/dotplot.png)
+![dotplot](../img/mov10oe_dotplot.png)
 
-The enrichment GO plot below shows the relationship between the top 25 most significantly enriched GO terms, by grouping similar terms together. The color represents the p-values relative to the other displayed terms (brighter red is more significant) and the size of the terms represents the number of genes that are significant from our list.
+The enrichment GO plot below shows the relationship between the top 50 most significantly enriched GO terms, by grouping similar terms together. The color represents the p-values relative to the other displayed terms (brighter red is more significant) and the size of the terms represents the number of genes that are significant from our list.
 
 ```r
-enrichMap(ego, n=25, vertex.label.font=10)
+enrichMap(ego, n=50, vertex.label.font=6)
 ```
 
-![enrichplot](../img/enrich.png)
+![enrichplot](../img/mov10oe_enrichmap.png)
 
 Finally, the category netplot shows the relationships between the genes associated with the top five most significant GO terms and the fold changes of the significant genes associated with these terms (color). The size of the GO terms reflects the pvalues of the terms, with the more significant terms being larger. This plot is particularly useful for hypothesis generation in identifying genes that may be important to several of the most affected processes. 
 
 ```r
-# To color genes by log2 fold changes, we need to extract the log2 fold changes from our results table
-OE_foldchanges <- sigOE$log2FoldChange
+# To color genes by log2 fold changes, we need to extract the log2 fold changes from our results table creating a named vector
+OE_foldchanges <- merged_sig_genes_ensembl$log2FoldChange
+
+names(OE_foldchanges) <- merged_sig_genes_ensembl$Row.names
 
 cnetplot(ego, categorySize="pvalue", showCategory = 5, foldChange=OE_foldchanges, vertex.label.font=6)
 ```
 
-![cnetplot](../img/cnet.png)
+![cnetplot](../img/mov10oe_cnetplot.png)
 
-**NOTE:** You can color genes by fold changes by adding an argument called `foldChange` with a vector of foldchanges corresponding to the `sig_genes` vector. Also, if you are interested in significant processes that are **not** among the top five, you can subset your `ego` dataset to only display these processes:
+If you are interested in significant processes that are **not** among the top five, you can subset your `ego` dataset to only display these processes:
 
 ```r
 ego2 <- ego
-ego2@result <- ego@result[c(3,16,17,18,25),]
-cnetplot(ego2, categorySize="pvalue", showCategory = 5)
+ego2@result <- ego@result[c(1,3,4,8,9,13,14),]
+cnetplot(ego2, categorySize="pvalue", foldChange=OE_foldchanges, showCategory = 7)
 ```
 
 ![cnet_example](../img/ego2_example.png)
