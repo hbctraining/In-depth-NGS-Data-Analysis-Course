@@ -107,6 +107,8 @@ meta$samplename <- rownames(meta)
 melted_top20_sigOE <- merge(melted_top20_sigOE, meta)
 ```
 
+> NOTE: `merge()` will merge 2 data frames with respect to the "samplename" column, i.e. a column with the same colname in both data frames.
+
 Finally, we can use ggplot2 to plot our normalized counts for the top 20 genes:
 
 ```r
