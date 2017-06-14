@@ -82,6 +82,10 @@ The calculation of probability of k successes follows the formula:
 ## clusterProfiler
 [clusterProfiler](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) performs over-representation analysis on GO terms associated with a list of genes. The tool takes as input a significant gene list and a background gene list and performs statistical enrichment analysis using hypergeometric testing. The basic arguments allows the user to select the appropriate organism and the GO ontology (BP, CC, MF) to test. 
 
+### Running clusterProfiler
+
+We first need to load the libraries and subset are results to only include those significant results based on p-adjusted value. Depending on the experiment, you may also want to include a log2 fold change threshold.
+
 ```r
 # Load libraries
 library(clusterProfiler)
@@ -93,7 +97,11 @@ library(biomaRt)
 
 sigOE <- subset(res_tableOE, padj < 0.05) 
 sigOE <- data.frame(sigOE)
+```
 
+Once we have our significant genes, we are going to turn our gene names into Ensembl IDs using biomARt, since the tool works a bit easier with the Ensembl IDs.
+
+```r
 # clusterProfiler does not work as easily using gene names, so turning gene names into Ensembl IDs using biomaRt package for the significant genes and merge with significant results
 
 human <- useDataset("hsapiens_gene_ensembl",
@@ -108,7 +116,11 @@ sig_genes_ensembl <- getBM(filters = "external_gene_name",
 merged_sig_genes_ensembl <- merge(sigOE, sig_genes_ensembl, by.x="row.names", by.y="external_gene_name")             
                 
 sigOE_genes <- as.character(merged_sig_genes_ensembl$ensembl_gene_id)
+```
 
+We need to do the same thing for the background dataset:
+
+```r
 # Create background dataset for hypergeometric testing using all genes tested for significance in the raw counts dataset
 
 all_genes <- getBM(filters = "external_gene_name", 
@@ -117,13 +129,27 @@ all_genes <- getBM(filters = "external_gene_name",
                    mart = human)
                    
 all_genes <- as.character(all_genes$ensembl_gene_id)
+```
 
+Now we can perform the GO enrichment analysis:
+
+```r
 # Run GO enrichment analysis 
-ego <- enrichGO(gene=sigOE_genes, universe=all_genes, keytype ="ENSEMBL", OrgDb=org.Hs.eg.db, ont="BP", pAdjustMethod = "BH", qvalueCutoff =0.05, readable=TRUE)
+ego <- enrichGO(gene = sigOE_genes, 
+                    universe = all_genes, 
+                    keytype = "ENSEMBL", 
+                    OrgDb = org.Hs.eg.db, 
+                    ont = "BP", 
+                    pAdjustMethod = "BH", 
+                    qvalueCutoff = 0.05, 
+                    readable = TRUE)
 
 # Output results from GO analysis to a table
 cluster_summary <- summary(ego)
+
+write.csv(cluster_summary, "results/clusterProfiler_Mov10oe.csv")
 ```
+
 ![cluster_summary](../img/cluster_summary.png)
 
 ### Visualizing clusterProfiler results
@@ -162,15 +188,17 @@ If you are interested in significant processes that are **not** among the top fi
 
 ```r
 ego2 <- ego
-ego2@result <- ego@result[c(1,3,4,8,9,13,14),]
-cnetplot(ego2, categorySize="pvalue", foldChange=OE_foldchanges, showCategory = 7)
+ego2@result <- ego@result[c(1,3,4,8,9),]
+cnetplot(ego2, categorySize="pvalue", foldChange=OE_foldchanges, showCategory = 5)
 ```
 
-![cnet_example](../img/ego2_example.png)
+<img src="../img/mov10oe_cnetplot2.png" width="800">
 
 ### gProfiler
 
-[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a tool for the interpretation of large gene lists which can be run using a web interface or through R. The core tool takes a gene list as input and performs statistical enrichment analysis using hypergeometric testing to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. The GO terms output by gprofileR are generally quite similar to those output by clusterProfiler, but there are small differences due to the different algorithms used by the programs.
+[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a tool for the interpretation of large gene lists which can be run using a web interface or through R. The core tool takes a gene list as input and performs statistical enrichment analysis using hypergeometric testing similar to clusterProfiler. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
+
+The GO terms output by gprofileR are generally quite similar to those output by clusterProfiler, but there are small differences due to the different algorithms used by the programs.
 
 ![gprofiler](../img/gProfiler.png)
 
@@ -186,7 +214,7 @@ We encourage you to explore gProfiler online, for today's class we will be demon
 
 #### Running gProfiler
 
-For our gProfiler analysis, we are going to subset our `res_tableOE` only using a padjusted-value threshold of 0.05 (padj = 0.05). 
+We can run gProfileR relatively easily from R, by loading the library and running the  `gprofiler` function.
 
 ```r
 ### Functional analysis of MOV10 Overexpression using gProfileR (some of these are defaults; check help pages) 
@@ -213,9 +241,8 @@ Let's save the gProfiler results to file:
 ```r
 ## Write results to file
 
-write.table(gprofiler_results_oe, 
-            "results/gprofiler_MOV10_oe.txt", 
-            sep="\t", quote=F, row.names=F)
+write.csv(gprofiler_results_oe, 
+            "results/gprofiler_MOV10_oe.csv")
 ```
 
 Now, extract only those lines in the gProfiler results with GO term accession numbers for downstream analyses:
@@ -227,7 +254,7 @@ allterms_oe <- gprofiler_results_oe$term.id
 
 GOs_oe <- allterms_oe[grep('GO:', allterms_oe)]
 
-write.table(GOs_oe, "results/GOs_oe.txt", sep="\t", quote=F, row.names=F, col.names=F)
+write(GOs_oe, "results/GOs_oe.txt", ncol = 1)
 ```
 
 ### REVIGO
