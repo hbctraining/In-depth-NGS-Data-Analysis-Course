@@ -88,6 +88,11 @@ The `melt()` function in the **reshape** R package will perform this operation a
 ```r
 ## use melt to change to long data format
 melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
+
+## check the column header in the "melted" data frame
+View(melted_top20_sigOE)
+
+## add column names that make sense
 colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 ```
 
@@ -98,6 +103,7 @@ Now if we want our counts colored by sample group, then we need to combine the m
 ```r
 ## add metadata to melted dataframe
 meta$samplename <- rownames(meta)
+
 melted_top20_sigOE <- merge(melted_top20_sigOE, meta)
 ```
 
