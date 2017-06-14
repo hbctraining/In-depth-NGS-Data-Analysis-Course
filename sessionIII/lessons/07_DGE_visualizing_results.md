@@ -156,24 +156,36 @@ To plot using ggplot2, we need our results to be data frames (currently stored i
 # Create dataframe for plotting
 resOE_df <- data.frame(res_tableOE)
 ```
+We want to label some of the genes that have very low p-values. To do this we fist need to identify the set of genes that we want labeled.
 
-Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot:
+```r
+# Get gene symbols for genes that have p < 1e-80
+sig_genes <- row.names(resOE_df)[which(resOE_df$padj < 1e-80)]
+
+# Add a column of logical values to indicate which genes we want labeled
+resOE_df$genelabels <- row.names(res_tableOE) %in% sig_genes
+```
+
+Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot. In order to display the selected text labels we will need to add the `aes()` inside of `ggplot()` instead of `geom_point()`: 
 
 ```r
 # Volcano plot
-ggplot(resOE_df) +
-	geom_point(aes(x=log2FoldChange, y=-log10(padj), colour=threshold)) +
-	xlim(c(-2,2)) +
-	ggtitle('Mov10 overexpression') +
-	xlab("log2 fold change") + 
-	ylab("-log10 adjusted p-value") +
-	theme(legend.position = "none",
-    	plot.title = element_text(size = rel(1.5)),
-    	axis.title = element_text(size = rel(1.5)),
-    	axis.text = element_text(size = rel(1.25)))  
+  
+ggplot(resOE_df, aes(x=log2FoldChange, y=-log10(padj),color=threshold, label=row.names(resOE_df))) +
+  geom_point() +
+  geom_text(aes(label=ifelse(genelabels ==T,row.names(resOE_df),'')), hjust=0, vjust=0) +
+  ggtitle('Mov10 overexpression') +
+  xlab("log2 fold change") + 
+  ylab("-log10 adjusted p-value") +
+  xlim(c(-2,6)) +
+  theme(plot.title = element_text(size = rel(1.5), hjust=0.5),
+        axis.title = element_text(size = rel(1.5)),
+        axis.text = element_text(size = rel(1.25)),
+        legend.position = "none")
+
 ```
 
-![volcano](../img/volcanoplot-1.png)
+![volcano](../img/volcanoplot-1-labeled.png)
 
 
 ### Heatmap
