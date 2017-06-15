@@ -16,6 +16,16 @@ Approximate time: 75 minutes
 
 When we are working with large amounts of data it can be useful to display that information graphically to gain more insight. Visualization deserves an entire course of its own, but during this lesson we will get you started with some basic and more advanced plots commonly used when exploring differential gene expression data.
 
+Let's start by loading a few libraries:
+```r
+# load libraries
+library(DESeq2)
+library(reshape)
+library(ggplot2)
+library(ggrepel)
+library(DEGreport)
+```
+
 ### Plotting signicant DE genes
 
 One way to visualize results would be to simply plot the expression data for a handful of genes. We could do that by picking out specific genes of interest or selecting a range of genes:
@@ -25,13 +35,6 @@ One way to visualize results would be to simply plot the expression data for a h
 To pick out a specific gene of interest to plot, for example Mov10, we can use the `plotCounts()` from DESeq2:
 
 ```r
-# load libraries
-library(DESeq2)
-library(reshape)
-library(ggplot2)
-library(ggrepel)
-library(DEGreport)
-
 # Plot expression for single gene
 plotCounts(dds, gene="MOV10", intgroup="sampletype") 
 ```
