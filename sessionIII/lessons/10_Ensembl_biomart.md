@@ -1,10 +1,8 @@
 ---
 title: "Biological Databases: Ensembl/BioMart"
-author: "Mary Piper"
-date: "Monday, November 14th, 2016"
+author: "Mary Piper, Radhika Khetani"
+date: "Thursday, June 15th, 2017"
 ---
-
-Contributors: Mary Piper
 
 Approximate time: 1.5 hours
 
