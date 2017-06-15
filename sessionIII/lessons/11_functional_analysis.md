@@ -145,7 +145,7 @@ ego <- enrichGO(gene = sigOE_genes,
                     readable = TRUE)
 
 # Output results from GO analysis to a table
-cluster_summary <- summary(ego)
+cluster_summary <- data.frame(ego)
 
 write.csv(cluster_summary, "results/clusterProfiler_Mov10oe.csv")
 ```
@@ -223,7 +223,7 @@ library(gProfileR)
 
 # Running gprofiler to identify enriched processes among significant genes
 
-gprofiler_results_oe <- gprofiler(query = rownames(sig_genes_table), 
+gprofiler_results_oe <- gprofiler(query = rownames(sigOE), 
                                   organism = "hsapiens",
                                   ordered_query = F, 
                                   exclude_iea = F, 
