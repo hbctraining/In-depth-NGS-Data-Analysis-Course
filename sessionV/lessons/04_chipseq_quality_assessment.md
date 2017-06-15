@@ -15,20 +15,41 @@ Approximate time: 1.5 hours
 
 ## ChIP-Seq quality assessment
 
-Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. After running the peak caller on our data, you may have noticed that the replicates generated a different number of peaks. The quality assessment we introduce in this lesson can help to **troubleshoot any discrepancies observed with peak calls**, but also is generally a good practice to evaluate your data and help **differentiate signal from noise**.
+Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. What we are looking for is good	quality	ChIP-seq	enrichment	over	background. **To quantify the quality, we will be using two different tools: [ChIPQC](https://bioconductor.org/packages/release/bioc/html/ChIPQC.html) and [phantompeakqualtools](https://code.google.com/archive/p/phantompeakqualtools/).**
+
+### Sources of low quality ChiP-seq
+
+* **The specifity of the antibody.** It is possible that there was poor reactivity against the intended target in the IP. Or perhaps the antibody is not specific enough, causing cross-reactivity with other DNA-associated proteins.
+* **Degree of enrichment:** 
+* **Biases during library preparation:** PCR amplification and fragment biases.
+
+### Quality Metrics for ChIP-seq data
+
+The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they are measuring. Then, we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
+
+#### FRIP: Fraction of reads in peaks
+A useful	first-pass to evaluate	the	success	of	the	immunoprecipita)on
+• A good	quality	TF	>	5%	-- but also known	examples	of	good	data	with	FRiP	<	1%	RNAPIII	and	ZNF274
+
+#### REGI: Relative enrichment in genomic intervals
 
 
-## Quality metrics for ChIP-seq data
+#### Signal to Noise:
 
-The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they are measuring. Then we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
+These metrics are useful in determining the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. They are described in more detail below:
 
-Three important quality metrics to observe are the **NSC, RSC and QualityTag values** and are based on the cross-correlation plot [previously described](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/03_peak_calling_macs.md#macs2-output-files-1). These metrics are useful in determining the strength of the signal relative to noise and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. They are described in more detail below:
+**Normalized strand cross-correlation coefficent (NSC): **
 
-**Normalized strand cross-correlation coefficent (NSC)**: is the ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment). Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
+The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment). Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
 
-**Relative strand cross-correlation coefficient (RSC)**: is the ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality. RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which is biologically justifiable also show low RSC scores.
+**Relative strand cross-correlation coefficient (RSC):**
 
-**QualityTag:** A thresholded version of the RSC, with negative values indicating poor signal to noise.
+The ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality. RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which is biologically justifiable also show low RSC scores.
+
+
+
+
+
 
 ## `phantompeakqualtools` 
 
