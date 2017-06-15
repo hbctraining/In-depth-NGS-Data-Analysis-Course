@@ -97,48 +97,27 @@ Each species in Ensembl has its own home page, where you can find out who provid
 
 While Ensembl contains extensive genomic information, we often want to mine the data to export a custom dataset. Ensembl offers the `Biomart` tool for accessing and mining the Ensembl database. You can access BioMart directly using the web interface; alternatively, there is an R package, "biomaRt", available for use for mining Ensembl data from R.
 
-### Web interface
+### Biomart web interface
 
-8. You can access BioMart from any page using the link in the menu bar.
-![biomart](../img/ensembl_biomart.png)
+The Web interface can be accessed from the Ensembl home page.
 
-The BioMart tool for data mining the Ensembl database is easy to use and requires three steps:
+![ensembl_biomart](../img/ensembl_biomart.png). 
 
-1. **Choose a dataset.** The dropdown menu allows you to choose from the Ensembl Gene, Ensembl Variation, Ensembl Regulation, and Vega databases. You will then be able to choose your species of interest.
-2. **Select your filters or inputs.** You can restrict your query using various criteria, such as genomic region, specific genes, particular variants, etc.
-3. **Choose the attributes to output.** You have a wide range of attributes that you can choose your query to output, such as features, structures, and sequence information.
+Briefly, BioMart requires three pieces of information that can be selected from drop-down menus and using check boxes on the web interface:
 
-![biomart_homepage](../img/biomart_query.png)
+1. **Choose a database to mine.** Options are Ensembl Gene, Ensembl Variation, Ensembl Regulation, and [Vega](https://en.wikipedia.org/wiki/Vertebrate_and_Genome_Annotation_Project) databases. You will be able to choose your species of interest within these databases.
+2. **Select the type and content of input/query.** Your query can be genomic region(s), specific gene(s), known variant(s), etc.
+3. **Choose the attributes/content to output.** Depending on your query, this can be almost any related genomic information.
 
-Let’s use BioMart to obtain information on genomic location and transcript count for [this gene list](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/sigOE_hw.txt); download this list by clicking on the link, or copy the list from your browser.
+If you are interested in exploring how to use the web interface, Ensembl has a [video tutorial](http://www.ensembl.org/Multi/Help/Movie?db=core;id=189) that goes over the various aspects. 
 
-#### **Step 1: Choose a dataset** 
-Click on `Dataset` and choose the database `Ensembl Genes ##` and `Homo sapiens genes(GRCh38.p#)`. 
-_**NOTE:** if we wanted to use an older version of BioMart, we could click on the lower right-hand link to `View in archive site`._
-
-#### **Step 2: Select your filters or inputs**
-Click on `Filters`. Expand `GENE` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu. Either choose the file `sigOE_hw.txt` or copy and paste the gene names in the file into the text box.
-
-#### **Step 3: Choose the attributes to output**
-Click on `Attributes`and keep `Features` selected.
-
-Expand `GENE` and choose the following:
-	
-	- Ensembl Gene ID
-	- Description
-	- Chromosome Name
-	- Gene Start (bp)
-	- Gene End (bp)
-	- Strand
-	- Associated Gene Name
-	- Transcript count
-
-Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
+In this section we will focus on the R package to mine genomic information from Ensembl. Please note that the functions within the R package also require the 3 pieces of information listed above.
 
 ### biomaRt R package
-When you are performing an NGS analysis, you often find a need to access BioMart, for example, to find genomic locations, convert gene IDs, or filter sequences from your data. Luckily for us, there is an R package for BioMart, called `biomaRt`, which allows us to perform BioMart queries from R.
 
-Let's explore BioMart functionality in R using a counts dataset with Ensembl IDs as row names. We would like to **convert the Ensembl IDs to gene names**. We can use `biomaRt` package to perform this conversion easily within R.
+This is a very convenient way to access and mine the database, since you can easily add any steps with biomart to your DGE workflow within R. 
+
+Let's explore bioMart functionality in R using the row names or the Ensembl IDs from the mm_counts data frame. Out goal here is to **obtain the gene names for a list of Ensembl mouse IDs**, which is something you will find yourself doing relatively frequently as you start working on large genomic datasets. 
 
 Click on the link to the [counts file](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/counts.txt) and save it to your `data` folder.
 
@@ -147,9 +126,9 @@ Read in the counts file:
 ```r
 # Read in counts file
 
-full_counts <- read.table("data/counts.txt")
+example_counts <- read.table("data/counts.txt")
 
-counts <- head(full_counts, n=50)
+mm_counts <- head(example_counts, n=50)
 ```
 
 Load the biomaRt library:
@@ -160,7 +139,7 @@ Load the biomaRt library:
 library("biomaRt")
 ```
 
-Now the same three steps required by the web interface are required by the R package. We are going show how to run the three steps by using BioMart to achieve the following goal: ***Return the gene names for a list of Ensembl mouse IDs***
+As mentioned before, the same three components required by the web interface are required by the R package. To reiterate, the following steps will demonstrate how to ***obtain the gene names for a list of Ensembl mouse IDs***.
 
 #### **Step 1: Choose a dataset**
 
@@ -197,7 +176,7 @@ We can build a query of our dataset using the `getBM()` function and specifying 
 
 First we can specify our input using the `filters`argument. 
 
-**What is our input?** We want to return gene names for a list of Ensembl mouse IDs from within our `counts` dataframe; therefore our input will be Ensembl IDs and their values will be the row names of our counts dataframe.
+**What is our input?** We want to return gene names for a list of Ensembl mouse IDs from within our `mm_counts` dataframe; therefore our input will be Ensembl IDs and their values will be the row names of our mm_counts dataframe.
 
 ```r
 # To build a query - getBM(filters, values, ...)
@@ -211,10 +190,10 @@ View(filters)
 getBM(filters= "ensembl_gene_id", ...)  # The "..." represents that the getBM() function is not complete
 
                     
-## "Values" is a vector of values for the filter; in our case, our Ensembl IDs are the row names of the counts dataset
+## "Values" is a vector of values for the filter; in our case, our Ensembl IDs are the row names of the mm_counts dataset
 
 getBM(filters= "ensembl_gene_id", 
-		values= row.names(counts), ...)
+		values= row.names(mm_counts), ...)
 ```
 
 #### **Step 3: Choose the attributes to output**
@@ -233,7 +212,7 @@ View(attributes)
 ## Use BioMart to return gene names for a list of Ensembl IDs:
 
 gene_names <- getBM(filters= "ensembl_gene_id",
-                    values= row.names(counts), 
+                    values= row.names(mm_counts), 
                     attributes= c("ensembl_gene_id", "external_gene_name"), ...)
 ```
 
@@ -243,7 +222,7 @@ Finally, to complete the `getBM()` function, we need to specify which dataset to
 # To build a query - getBM(filters, values, attributes, mart)
 
 gene_names <- getBM(filters= "ensembl_gene_id",
-                    values= row.names(counts), 
+                    values= row.names(mm_counts), 
                     attributes= c("ensembl_gene_id", "external_gene_name"), 
                     mart= mouse)
 
@@ -253,14 +232,14 @@ View(gene_names)
                     
 ```
 
-Now that we have our gene names, we need to match them to the Ensembl IDs in our counts dataset. If the columns from two dataframes have the same name, we can merge the dataframes using those columns:
+Now that we have our gene names, we need to match them to the Ensembl IDs in our mm_counts dataset. If the columns from two dataframes have the same name, we can merge the dataframes using those columns:
 
 ```r
 # Merge the two dataframes by ensembl_gene_id
 
-ensembl_results <- merge(counts, gene_names, by.x="row.names", by.y = "ensembl_gene_id")
+ensembl_results <- merge(mm_counts, gene_names, by.x="row.names", by.y = "ensembl_gene_id")
 
-write.csv(ensembl_results, "results/annotated_counts.csv", quote=F)
+write.csv(ensembl_results, "results/annotated_mm_counts.csv", quote=F)
 ```
 #### What if you are using an older genome? 
 
@@ -282,7 +261,7 @@ The filters and attributes change for different builds of the genome, so you mig
 # DO NOT RUN			   
 gene.names_mm9 <- getBM(filters= "ensembl_gene_id", 
                     attributes= c("ensembl_gene_id", "external_gene_name"),
-                    values= row.names(counts),
+                    values= row.names(mm_counts),
                     mart= mouse_mm9)
 ```
 
@@ -295,7 +274,7 @@ View(attributes_mm9)
 
 gene.names_mm9 <- getBM(filters= "ensembl_gene_id", 
                     attributes= c("ensembl_gene_id", "external_gene_id"),
-                    values= row.names(counts),
+                    values= row.names(mm_counts),
                     mart= mouse_mm9)
 
 # human archive for GRCH37 genome build: host = "grch37.ensembl.org"
