@@ -3,6 +3,8 @@ Functional class scoring (FCS) tools, such as [GSEA](http://software.broadinstit
 
 ### Gene set enrichment analysis using clusterProfiler and Pathview
 
+ClusterProfiler is a versatile tool allowing for over-representation analysis and GSEA analysis. To perform GSEA analysis of KEGG gene sets, we need to obtain the Entrez IDs for all genes in our results dataset.
+
 ```r
 # Return all genes with Entrez IDs
 sig_genes_entrez <- getBM(filters = "external_gene_name", 
@@ -11,13 +13,25 @@ sig_genes_entrez <- getBM(filters = "external_gene_name",
                    mart = human)
                    
 merged_sig_genes_entrez <- merge(data.frame(res_tableOE), sig_genes_entrez, by.x="row.names", by.y="external_gene_name") 
+```
 
+When performing our analysis, we need to remove the NA values prior to the analysis:
+
+```r
 # Remove any NA values
 all_results_gsea <- subset(sig_genes_entrez, entrezgene != "NA")
+```
 
+We also need to order our results by log2 fold changes:
+
+```r
 # Order results by `Log2FoldChange`
 all_results_gsea[order(all_results_gsea$log2FoldChange, decreasing = T), ]
+```
 
+Finally, extract and name the fold changes:
+
+```r
 # Extract the ordered foldchanges
 foldchanges <- all_results_gsea$log2FoldChange
 names(foldchanges) <- all_results_gsea$entrezgene
