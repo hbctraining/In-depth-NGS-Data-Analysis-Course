@@ -96,8 +96,7 @@ clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=
 If we would like the order to be more intuitive we can reorder the levels and run the clustering again:
 
 ```r
-levels(meta$sampletype)
-levels(meta$sampletype) <- levels(meta$sampletype)[c(2,1,3)]
+meta$sampletype <- factor(meta$sampletype, levels=c("MOV10_knockdown", "control", "MOV10_overexpression"))
 
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
