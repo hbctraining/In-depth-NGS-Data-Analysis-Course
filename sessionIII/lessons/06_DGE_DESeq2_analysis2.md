@@ -30,22 +30,22 @@ Modeling is a mathematically formalized way to approximate how the data behaves 
 
  <img src="../img/NB_model_formula_betas.png" width="600">
 
-By fitting the  data to the model, DESeq2 will determine the estimates for the **log2 foldchanges** and their standard error values for each sample group **relative to the mean expression of all samples.** However, these estimates do not account for the large dispersion observed with low read counts, and as a consequence these weakly expressed genes would falsely be identified as differentially expressed. To avoid this, the log2 fold changes calculated by the model need to be adjusted. 
+By fitting the  data to the model, DESeq2 will determine the estimates for the **log2 foldchanges** and their standard error values for each sample group **relative to the mean expression of all samples.** However, these estimates do not account for the large dispersion observed with low read counts, and as a consequence these weakly expressed genes would falsely be identified as differentially expressed. To avoid this, the **log2 fold changes calculated by the model need to be adjusted**. 
 
 ### Shrunken log2 foldchanges (LFC)
 
-Generally for NGS count data, there is a large dispersion associated with the LFC estimates for genes with low read counts, and these weakly expressed genes would be identified as differentially expressed due solely to this variation. To account for this issue and reduce false positives for lowly expressed genes, DESeq2 shrinks the LFC estimates toward zero when the information for a gene is low, which could include:
+Generally for NGS count data, there is a large dispersion associated with the LFC estimates for genes with low read counts, and these weakly expressed genes would be identified as differentially expressed due solely to this variation. To account for this issue and reduce false positives for lowly expressed genes, DESeq2 **shrinks the LFC estimates toward zero** when the information for a gene is low, which could include:
 
 - Low counts
 - High dispersion values
 
-Similar to the previous shrinkage of dispersion estimates, information from all genes is used to generate more accurate LFC estimates. Specifically, the distribution of LFC estimates for all genes is used (as a prior) to shrink the LFC estimates of genes with little information or high dispersion toward more likely (lower) LFC estimates. 
+Similar to the previous shrinkage of dispersion estimates, **information from all genes** is used to generate more accurate LFC estimates. Specifically, the distribution of LFC estimates for all genes is used (as a prior) to shrink the LFC estimates of genes with little information or high dispersion toward more likely (lower) LFC estimates. 
 
 <img src="../img/deseq2_shrunken_lfc.png" width="500">
 
 *Illustration taken from the [DESeq2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8).*
 
-For example, in the figure above, the green gene and purple gene have the same mean values for the two sample groups (C57BL/6J and DBA/2J), but the green gene has little variation while the purple gene has high levels of variation. For the green gene with low variation, the unshrunken LFC estimate (vertex of the green solid line) is very similar to the shrunken LFC estimate (vertex of the green dotted line), but the LFC estimates for the purple gene are quite different due to the high dispersion. So even though two genes can have similar normalized count values, they can have differing degrees of LFC shrinkage. Notice the **LFC estimates are shrunken toward the prior** (black solid line).
+For example, in the figure above, the green gene and purple gene have the same mean values for the two sample groups (C57BL/6J and DBA/2J), but the green gene has little variation while the purple gene has high levels of variation. For the green gene with low variation, the **unshrunken LFC estimate** (vertex of the green **solid line**) is very similar to the shrunken LFC estimate (vertex of the green dotted line), but the LFC estimates for the purple gene are quite different due to the high dispersion. So even though two genes can have similar normalized count values, they can have differing degrees of LFC shrinkage. Notice the **LFC estimates are shrunken toward the prior (black solid line)**.
 
 
 >**NOTE:** If very large expected fold changes for a number of individual genes are expected, but not enough such that the prior would not include such large fold changes, then you may want to turn off LFC shrinkage.
