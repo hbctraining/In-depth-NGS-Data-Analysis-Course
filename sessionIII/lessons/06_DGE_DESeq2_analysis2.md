@@ -39,16 +39,16 @@ Generally for NGS count data, there is a large dispersion associated with the LF
 - Low counts
 - High dispersion values
 
-Similar to the previous shrinkage of dispersion estimates, the shrinkage of LFC estimates uses information from all genes to generate more accurate estimates. Specifically, the distribution of LFC estimates for all genes is used (as a prior) to shrink the LFC estimates of genes with little information or high dispersion toward more likely (lower) LFC estimates. 
+Similar to the previous shrinkage of dispersion estimates, information from all genes is used to generate more accurate LFC estimates. Specifically, the distribution of LFC estimates for all genes is used (as a prior) to shrink the LFC estimates of genes with little information or high dispersion toward more likely (lower) LFC estimates. 
 
 <img src="../img/deseq2_shrunken_lfc.png" width="500">
 
 *Illustration taken from the [DESeq2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8).*
 
-For example, in the figure above, the green gene and purple gene have the same mean values for the two sample groups (C57BL/6J and DBA/2J), but the green gene has low variation while the purple gene has high levels of variation. For the green gene with low variation, the unshrunken LFC estimate (vertex of the green solid line) is very similar to the shrunken LFC estimate (vertex of the green dotted line), but the LFC estimates for the purple gene are quite different due to the high dispersion. So even though two genes can have similar normalized count values, they can have differing degrees of LFC shrinkage. Notice the LFC estimates are shrunken toward the prior (black solid line).
+For example, in the figure above, the green gene and purple gene have the same mean values for the two sample groups (C57BL/6J and DBA/2J), but the green gene has little variation while the purple gene has high levels of variation. For the green gene with low variation, the unshrunken LFC estimate (vertex of the green solid line) is very similar to the shrunken LFC estimate (vertex of the green dotted line), but the LFC estimates for the purple gene are quite different due to the high dispersion. So even though two genes can have similar normalized count values, they can have differing degrees of LFC shrinkage. Notice the **LFC estimates are shrunken toward the prior** (black solid line).
 
 
->**NOTE:** If very large expected fold changes for a number of individual genes are expected, but not so many large fold changes that the prior would not include such large fold changes, then you may want to turn off LFC shrinkage.
+>**NOTE:** If very large expected fold changes for a number of individual genes are expected, but not enough such that the prior would not include such large fold changes, then you may want to turn off LFC shrinkage.
 > 
 >You can turn off the beta prior when calling the `DESeq()` function: `DESeq(dds, betaPrior=FALSE)`. By turning off the prior, the log2 foldchanges would be the same as those calculated by:
 >
@@ -58,16 +58,16 @@ For example, in the figure above, the green gene and purple gene have the same m
 
 ### Hypothesis testing using the Wald test
 
-The shrunken LFC estimates are output for each sample group relative to the mean expression of all groups. These estimates represent the **model coefficients**, and these coefficients are calculated regardless of the comparison of interest. The model coefficients can be viewed with `coefficients(dds)` to explore the strength of the effect for each factor group relative the overall mean for every gene. 
+The shrunken LFC estimates are output for each sample group relative to the mean expression across groups. These estimates represent the **model coefficients**, and these coefficients are calculated regardless of the comparison of interest. The model coefficients can be viewed with `coefficients(dds)` to explore the strength of the effect for each factor group relative the overall mean for every gene. 
 
-However, generally we are interested in the LFC estimates relative to other sample groups instead of to the mean expression of all groups. To do this, we must test if the difference in the log2 fold changes between groups is zero. To determine whether the difference in shrunken LFC estimates differs significantly from zero, the **Wald test** is used. The Wald test is generally used to make pair-wise comparisons (i.e. compare the LFCs from two different conditions).
+However, generally **we are interested in the LFC estimates relative to other sample groups**. To do this, we must test if the difference in the log2 fold changes between groups is zero. To determine whether the difference in shrunken LFC estimates differs significantly from zero, the **Wald test** is used. The Wald test is generally used to make pair-wise comparisons (i.e. compare the LFCs from two different conditions).
 
 #### Creating contrasts
 
 To indicate to DESeq2 the two groups we want to compare, we can use **contrasts** to perform differential expression testing using the Wald test. Contrasts can be provided to DESeq2 a couple of different ways:
 
 1. Automatically DESeq2 will use the base factor level of the condition of interest as the base for statistical testing. 
-2. In the results() function you can specify the comparison of interest, and the levels to compare. The level given last is the base level for the comparison. The syntax is given below:
+2. In the `results()` function you can specify the comparison of interest, and the levels to compare. The level given last is the base level for the comparison. The syntax is given below:
 	
 	```r
 	
@@ -138,7 +138,7 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 
 Note that we have pvalues and p-adjusted values in the output. Which should we use to identify significantly differentially expressed genes?
 
-If we used the `p-value` directly from the Wald test with a significance cut-off of 0.05 (α = 0.05), then 5% of all genes would be called as differentially expressed (i.e. 5% false positive genes). The more genes we test, the more 'false positives' we discover. For example, if we test 20,000 genes for differential expression, we would expect to find 1,000 false positive genes. We would not want to sift through our "significant" genes to identify which ones are true positives.
+If we used the `p-value` directly from the Wald test with a significance cut-off of 0.05 (α = 0.05), then we expect 5% of all differentially expressed genes to be false positives. Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. **This is the multiple testing problem.** For example, if we test 20,000 genes for differential expression, we would expect to find 1,000 false positive genes. We would not want to sift through our "significant" genes to identify which ones are true positives.
 
 DESeq2 helps reduce the number of genes tested by removing those genes unlikely to be significantly DE prior to testing, such as those with low number of counts and outlier samples (gene-level QC). However, we still need to correct for multiple testing to reduce the number of false positives, and there are a few common approaches:
 
@@ -146,7 +146,7 @@ DESeq2 helps reduce the number of genes tested by removing those genes unlikely 
 - **FDR / Benjamini-Hochberg:** Rank the genes by p-value, then multiply each ranked p-value by m/rank. This approach is designed to control the proportion of false positives among the set of rejected null hypotheses.
 - **Q-value / Storey method:** The minimum FDR that can be attained when calling that feature significant. For example, if gene X has a q-value of 0.013 it means that 1.3% of genes that show p-values at least as small as gene X are false positives
 
-In DESeq2, the p-values attained by the Wald test are corrected for multiple testing using the Benjamini and Hochberg method. The p-adjusted values should be used to determine significant genes. The significant genes can be output for visualization and/or functional analysis.
+In DESeq2, the p-values attained by the Wald test are corrected for multiple testing using the Benjamini and Hochberg method by default. There are options to use other methods in teh `results()` function. The p-adjusted values should be used to determine significant genes. The significant genes can be output for visualization and/or functional analysis.
 
 #### MOV10 DE analysis: results exploration
 
