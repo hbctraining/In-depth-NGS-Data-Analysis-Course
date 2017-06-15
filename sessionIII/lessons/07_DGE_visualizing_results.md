@@ -84,12 +84,14 @@ normalized_counts <- counts(dds, normalized=T)
 top20_sigOE_norm <- normalized_counts[top20_sigOE_genes, ]
 ```
 
-Now that we have the normalized counts for each of the top 20 genes, to plot using `ggplot()`, we need to gather the counts for all samples into a single column (dataset from a wide format to a long format).
+Now that we have the normalized counts for each of the top 20 genes for all 8 samples, to plot using `ggplot()`, we need to gather the counts for all samples into a single column to allow us to give ggplot the one column with the values we want it to plot.
 
 The `melt()` function in the **reshape** R package will perform this operation and will output the normalized counts for all genes for *Mov10_oe_1* listed in the first 20 rows, followed by the normalized counts for *Mov10_oe_2* in the next 20 rows, so on and so forth.
 
+<img src="../img/melt_wide_to_long_format.png" width="800">
+
 ```r
-## use melt to change to long data format
+## use melt to modify the format of the data frame
 melted_top20_sigOE <- data.frame(melt(top20_sigOE_norm))
 
 ## check the column header in the "melted" data frame
@@ -99,20 +101,18 @@ View(melted_top20_sigOE)
 colnames(melted_top20_sigOE) <- c("gene", "samplename", "normalized_counts")
 ```
 
-<img src="../img/melt_wide_to_long_format.png" width="800">
-
-Now if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data into the same data frame for input to `ggplot()`:
+Now, if we want our counts colored by sample group, then we need to combine the metadata information with the melted normalized counts data into the same data frame for input to `ggplot()`:
 
 ```r
-## add metadata to melted dataframe
+## add metadata to "melted" dataframe
 meta$samplename <- rownames(meta)
 
 melted_top20_sigOE <- merge(melted_top20_sigOE, meta)
 ```
 
-> NOTE: `merge()` will merge 2 data frames with respect to the "samplename" column, i.e. a column with the same colname in both data frames.
+The `merge()` will merge 2 data frames with respect to the "samplename" column, i.e. a column with the same colname in both data frames.
 
-Finally, we can use ggplot2 to plot our normalized counts for the top 20 genes:
+Now that we have a data frame in a format that can be utilised by ggplot easily, let's plot! 
 
 ```r
 ## plot using ggplot2
