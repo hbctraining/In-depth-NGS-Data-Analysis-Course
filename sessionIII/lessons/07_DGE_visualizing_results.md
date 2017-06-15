@@ -148,18 +148,13 @@ length(which(threshold_OE))
 To add this vector to our results table we can use the `$` notation to create the column on the left hand side of the assignment operator, and then assign the vector to it instead of using `cbind()`:
 
 ```r
-res_tableOE$threshold <- threshold_OE                
+res_tableOE$threshold <- threshold_OE 
+
+# We need to convert the DESeq results object to a data frame to use as ggplot input
+resOE_df <- data.frame(res_tableOE)
+
+View(resOE_df)
 ```
-
-Now, we need to do the same for the `res_tableKD`:
-
-```r
-# Create threshold vector
-threshold_KD <- res_tableKD$padj < padj.cutoff & abs(res_tableKD$log2FoldChange) > lfc.cutoff
-
-# Add vector to data frame
-res_tableKD$threshold <- threshold_KD
-``` 
 
 Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot:
 
@@ -177,12 +172,11 @@ ggplot(resOE_df) +
 
 <img src="../img/volcanoplot-1.png" width=500> 
 
-This is a great way to get an overall picture of what is going on, but what if we also wanted to know where the top 10 genes (lowest padj) in our DE list are located on this plot? We could label those dots with the gene name.
+This is a great way to get an overall picture of what is going on, but what if we also wanted to know where the top 10 genes (lowest padj) in our DE list are located on this plot? We could label those dots with the gene name on the Volcano plot using `geom_text_repel()`.
 
-We can use `geom_text_repel()` to add the gene labels to our plot, but to make this work we have to take the following 2 steps:
-(1) need to create a new data frame sorted or ordered by padj
-(2) indicate which genes we want to label add a logical vector in the ordered data frame such that "TRUE" = genes we want to label.
-(3) finally, we need to tell `geom_text_repel()` which genes we want to label, we will be using a new function, `ifelse()`, for this.
+To make this work we have to take the following 3 steps:
+(Step 1) Create a new data frame sorted or ordered by padj
+(Step 2) Indicate in the data frame which genes we want to label by adding a logical vector to it, wherein "TRUE" = genes we want to label.
  
 ```r
 resOE_df_ordered <- resOE_df[order(resOE_df$padj), ] 
@@ -192,7 +186,7 @@ resOE_df_ordered$genelabels <- rownames(resOE_df_ordered) %in% rownames(resOE_df
 View(resOE_df_ordered)
 ```
 
-Now we have an ordered data frame with a logical genelabels column that we use to replot the volcano plot with and additional layer for `geom_text_repel()`.
+(Step 3) Finally, we need to add the `geom_text_repel()` layer to the ggplot code we used before, and let it know which genes we want labelled. 
 
 ```r
 ggplot(resOE_df_ordered) +
@@ -209,7 +203,6 @@ ggplot(resOE_df_ordered) +
 <img src="../img/volcanoplot-2.png" width=500> 
 
 The `ifelse()` function is a simple function that outputs a vector if a certain condition is T. In the above example, it checks if the value in the `resOE_df_ordered$genelevel` column is TRUE, in which case it will output the row name for that row (`rownames(resOE_df_ordered)`). If the value in the genelevel column is FALSE it will output nothing (`""`). This is good way to inform `geom_point()` about genes we want labeled.
-
 
 ### Heatmap
 
@@ -250,16 +243,6 @@ plotMA(res_tableOE, alpha = 0.05, ylim=c(-2,2))
 <img src="../img/MA_plot.png" width="600">
 
 We would expect to see significant genes across the range of expression levels.
-
-DESeq2 offers a useful function for interactively identifying genes in the MA plot:
-
-```r
-idx <- identify(res_tableOE$baseMean, res_tableOE$log2FoldChange)
-
-# Click on points to identify, then hit `esc` to return back to the command prompt. When finished, the row numbers should appear on the plot
-
-rownames(res_tableOE)[idx]
-```
 
 ***
 
