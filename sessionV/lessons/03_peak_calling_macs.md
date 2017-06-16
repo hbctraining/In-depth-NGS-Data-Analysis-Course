@@ -14,25 +14,28 @@ Approximate time: 90 minutes
 * Learn to use MACS2 for peak calling
 * Interpret results from MACS2
 
-## Peak Calling
+# Peak Calling
 
 Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment. 
 
-<div style="text-align:center"><img src="../img/workflow-peakcalling.png" width="400"></div>
+<img src="../img/workflow-peakcalling.png" width="300"></div>
 
 
-From the alignment files (BAM), you typically observe reads/tags to be identified on each side of the binding site for the protein of interest. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
+What we observe from the alignment files is a strand asymmetry with read densities on the +/- strand, centered around the binding site. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
 
-
-<div style="text-align:center"><img src="../img/chip-fragments.png" width="300" align="middle"></div>
+<img src="../img/chip-fragments.png" width="300" align="middle"></div>
 
 There are various tools that are available for peak calling. One of the more commonly used peack callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
 
-> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is also very commonly used for narrow peak calling. While we will not be going through the steps for this peak caller in this Session, we do have [a lesson on SPP](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md) that we encourage you to browse throughif you are interested in learning more.
+> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is also very commonly used for narrow peak calling. While we will not be going through the steps for this peak caller in this Session, we do have [a lesson on SPP](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md) that we encourage you to browse through if you are interested in learning more.
 
 ## MACS2
 
-A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-Seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. MACS improves the spatial resolution of binding sites through combining the information of both sequencing tag position and orientation. MACS can be easily used for ChIP-Seq data alone, or with control sample with the increase of specificity.
+A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-Seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. Although it was developed for the detection of transcription factor binding sites it is also suited for larger regions.
+
+MACS improves the spatial resolution of binding sites through **combining the information of both sequencing tag position and orientation.** MACS can be easily used for ChIP-Seq data alone, or with control sample with the increase of specificity. The MACS2 workflow is depicted below. In this lesson, we will describe the steps in more detail.
+
+<img src="../img/macs_workflow.png" width=500>
 
 
 ### Modeling the shift size
