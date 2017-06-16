@@ -1,5 +1,5 @@
 ---
-title: "ChIP-Seq QC and alignment"
+title: "FastQC and alignment"
 author: "Mary Piper, Radhika Khetani"
 date: "June 11th, 2017"
 ---
@@ -19,14 +19,19 @@ Now that we have our files and directory structure, we are ready to begin our Ch
 
 ![workflow_QC](../img/chipseq_workflow_QC_partial.png)
 
-## Quality Control
+## Quality control of sequence reads
+
 For any NGS analysis method, our first step is ensuring our reads are of good quality prior to aligning them to the reference genome. We will use FastQC to get a good idea of the overall quality of our data, to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
+
+### FASTQC
 
 Let's run FastQC on all of our files. 
 
-Start an interactive session with 4 cores if don't have one going, and change directories to the untrimmed_fastq folder.
+Start an interactive session with 4 cores if don't have one going, and change directories to the `raw_data` folder.
 
 ```
+$ bsub -Is -n 4 -q interactive bash
+
 $ cd ~/ngs_course/chipseq/raw_data 
 
 $ module load seq/fastqc/0.11.3 
@@ -42,9 +47,29 @@ Transfer the FastQC zip file for Input replicate 1 to your local machine using F
 
 ![fastqc](../img/fastqc_input_rep1.png)
 
-**ADD TRIMMOMATIC EXPLANATION HERE? SINCE WE NEVER COVERED THIS IN RNA-SEQ**
 
-Based on the sequence quality plot, trimming should be performed from both ends of the sequences. We will use Trimmomatic to trim the reads from both ends of the sequence using the following parameters:
+Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. Trimming should be performed from both ends of the sequences. 
+
+### Trimmomatic
+
+We will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multi-threaded to run quickly using a single, complex command. 
+
+We will use Trimmomatic to trim the reads from both ends of the sequence.
+
+Let's check for the *Trimmomatic* module and load it:
+
+``` bash
+$ module avail seq/
+$ module load seq/Trimmomatic/0.33
+```
+
+By loading the *Trimmomatic* module, the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
+
+``` bash
+$ echo $PATH
+```
+
+We will run Trimmomatic using the following parameters:
 
 * `SE`: Single End reads
 * `-threads`: number of threads / cores
@@ -53,11 +78,24 @@ Based on the sequence quality plot, trimming should be performed from both ends 
 * `TRAILING`: cut bases off the end of a read, if below a threshold quality
 * `MINLEN`: drop an entire read if it is below a specified length
 
-Since we are only trimming a single file, we will run the command in the interactive session rather than creating a script:
+> *NOTE:* We have to specify the `-threads` parameter because *Trimmomatic* uses all threads on a node by default.
+
+*Trimmomatic* has a variety of other options and parameters:
+
+* **_SLIDINGWINDOW_** Perform sliding window trimming, cutting once the average quality within the window falls below a threshold.
+* **_CROP_** Cut the read to a specified length.
+* **_HEADCROP_** Cut the specified number of bases from the start of the read.
+* **_ILLUMINACLIP_** Cut adapter and other illumina-specific sequences from the read
+* **_TOPHRED33_** Convert quality scores to Phred-33.
+* **_TOPHRED64_** Convert quality scores to Phred-64.
+
+
+Now that we know what parameters  we can set up our command.  
+Since we are only trimming a single file, we will run the command in the interactive session rather than creating a script. Because *Trimmomatic* is java based, it is run using the `java -jar` command. In addition to the options as described above, we have two arguments specifying our input file and output file names. 
+
+> *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. 
 
 ```
-$ module load seq/Trimmomatic/0.33
-
 $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
 -threads 4 \
 -phred33 \
@@ -90,13 +128,6 @@ Now that we have removed the poor quality sequences from our data, we are ready 
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should use Bowtie1. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
-To perform peak calling for ChIP-Seq analysis, we need our alignment files to contain only **uniquely mapping reads** (no multi-mappers or duplicate reads) in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:
-
-1. Create a bowtie2 index
-2. Align reads with bowtie2 and output a SAM alignment file
-3. Change alignment file format from SAM to BAM
-4. Sort BAM file by read coordinate locations
-5. Filter to keep only uniquely mapping reads (this will also remove any unmapped reads)
 
 ### Creating Bowtie2 index
 
@@ -143,7 +174,15 @@ $ bowtie2 -p 4 -q \
 > _**NOTE:** If you had added the bcbio path ino your `.bashrc` file last session you should be able to use bowtie2 without loading a module. If not, load the module using `module load seq/bowtie/2.2.4`_
 >
 
-### Changing file format from SAM to BAM
+## Filtering reads
+
+To perform peak calling for ChIP-Seq analysis, we need our alignment files to **contain only uniquely mapping reads** (no multi-mappers or duplicate reads) in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:
+
+1. Change alignment file format from SAM to BAM
+2. Sort BAM file by read coordinate locations
+3. Filter to keep only uniquely mapping reads (this will also remove any unmapped reads)
+
+### 1. Changing file format from SAM to BAM
 
 While the SAM alignment file output by Bowtie2 is human readable, we need a BAM alignment file for downstream tools. Therefore, we will use [Samtools](http://samtools.github.io) to convert the file formats. The command we will use is `samtools view` with the following parameters
 
@@ -158,7 +197,7 @@ $ samtools view -h -S \
 -o H1hesc_Input_Rep1_chr12_aln_unsorted.bam
 ```
 
-### Sorting BAM files by genomic coordinates
+### 2. Sorting BAM files by genomic coordinates
 
 Before we can filter to keep the uniquely mapping reads, we need to sort our BAM alignment files by genomic coordinates. To perform this sort, we will use [Sambamba](http://lomereiter.github.io/sambamba/index.html), which is a tool that quickly processes BAM and SAM files. It is similar to SAMtools, but has unique functionality.
 The command we will use is `sambamba sort` with the following parameters:
@@ -172,7 +211,7 @@ $ sambamba sort -t 4 \
 H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
 ```
 
-### Filtering uniquely mapping reads
+### 3. Filtering uniquely mapping reads
 
 Finally, we can filter the uniquely mapped reads. We will use the `sambamba view` command with the following parameters:
 
