@@ -90,8 +90,7 @@ We will run Trimmomatic using the following parameters:
 * **_TOPHRED64_** Convert quality scores to Phred-64.
 
 
-Now that we know what parameters  we can set up our command.  
-Since we are only trimming a single file, we will run the command in the interactive session rather than creating a script. Because *Trimmomatic* is java based, it is run using the `java -jar` command. In addition to the options as described above, we have two arguments specifying our input file and output file names. 
+Now that we know what parameters  we can set up our command. Since we are only trimming a single file, we will run the command in the interactive session rather than creating a script. Because *Trimmomatic* is java based, it is run using the `java -jar` command. In addition to the options as described above, we have two arguments specifying our input file and output file names. 
 
 > *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. 
 
@@ -120,13 +119,13 @@ Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to y
 
 ## Alignment
 
-![workflow_align](../img/chipseq_workflow_align_partial.png)
-
 Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. 
 
 *Bowtie2* supports gapped, local and paired-end alignment modes. It works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1), and it can perform soft-clipping to remove poor quality bases [[1](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should use Bowtie1. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
+![workflow_align](../img/chipseq_workflow_align_partial.png)
+
 
 
 ### Creating Bowtie2 index
