@@ -22,7 +22,7 @@ In the standard RNA-seq pipeline that we have presented so far in this course, w
 
 ### What is Salmon?
 
-[Salmon](http://salmon.readthedocs.io/en/latest/salmon.html#using-salmon) is based on the philosophy of lightweight algorithms, which use the sequence of genes or transcripts as input (in FASTA format) and do not align the whole read. However, many of these lightweight tools, in addition to the more traditional alignment-based tools, lack sample-specific bias models for transcriptome-wide abundance estimation. Sample-specific bias models are needed to account for known biases present in RNA-Seq data including:
+[Salmon](http://salmon.readthedocs.io/en/latest/salmon.html#using-salmon) is based on the philosophy of lightweight algorithms, which uses the sequence of genes or transcripts as input (in FASTA format) and do not align the whole read. However, many of these lightweight tools, in addition to the more traditional alignment-based tools, lack sample-specific bias models for transcriptome-wide abundance estimation. Sample-specific bias models are needed to account for known biases present in RNA-Seq data including:
 
 - GC bias
 - positional coverage biases
@@ -30,10 +30,10 @@ In the standard RNA-seq pipeline that we have presented so far in this course, w
 - fragment length distribution
 - strand-specific methods
 
-If not accounted for, these biases can lead to unacceptable false positive rates in differential expression studies [[1](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. Salmon algorithm learns these sample-specific biases and accounts for them in the transcript abundance estimates by combining a quasi-mapping approach that is extremely fast at "mapping" reads to the transcriptome and often more accurate, with a dual inference method that is used to account for sample-specific biases and parameters. [[2](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. 
+If not accounted for, these biases can lead to unacceptable false positive rates in differential expression studies [[1](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. The Salmon algorithm learns these sample-specific biases and accounts for them in the transcript abundance estimates by combining a quasi-mapping approach with a dual inference method that is used to account for sample-specific biases and parameters. Salmon is extremely fast at "mapping" reads to the transcriptome and often more accurate than standard aproaches [[2](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. 
 
 ### How does Salmon estimate transcript abundances?
-Similar to standard, base-to-base alignment, the quasi-mapping approach utilized by Salmon requires a reference index to determine the position and orientation information for where the fragments best "map" prior to quantification [[1](https://academic.oup.com/bioinformatics/article/32/12/i192/2288985/RapMap-a-rapid-sensitive-and-accurate-tool-for)]. 
+Similar to standard base-to-base alignment approaches, the quasi-mapping approach utilized by Salmon requires a reference index to determine the position and orientation information for where the fragments best "map" prior to quantification [[1](https://academic.oup.com/bioinformatics/article/32/12/i192/2288985/RapMap-a-rapid-sensitive-and-accurate-tool-for)]. 
 
 #### **Indexing** 
 
@@ -122,7 +122,7 @@ To run the quantification step on a single sample we have the command provided b
 ```bash
 $ salmon quant -i /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/ \
  -l SR \
- -r ~/ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq \
+ -r ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq \
  -o Mov10_oe_1.subset.salmon \
  --writeMappings=salmon.out \
  --useVBOpt
