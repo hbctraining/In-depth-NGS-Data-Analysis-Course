@@ -14,7 +14,7 @@ Approximate time: 1.5 hours
 * Using `phantompeakqualtools` to compute cross-correlation and associated QC metrics
 * Evaluating the cross-correlation plot
 
-## QC: Strand cross-correlation
+## Strand cross-correlation
 
 A very useful ChIP-seq quality metric that is independent of peak calling is strand cross-correlation. It is based on the fact that a high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags at locations bound by the protein of interest, that present as a bimodal enrichment of reads on the forward and reverse strands.
 
@@ -166,7 +166,7 @@ The options that we will be using include:
 
 ```
 ## DO NOT RUN THIS
-## THIS SCRIPT IS FOR COMUTING METRICS ON A SINGLE FILE
+## THIS SCRIPT IS FOR COMPUTING METRICS ON A SINGLE FILE
 $ Rscript run_spp.R -c=<tagAlign/BAMfile> -savp -out=<outFile>
 ```
 >_**NOTE:** Even though the script is called `run_spp.R`, we aren't actually performing peak calling with SPP. 
@@ -195,7 +195,7 @@ To visualize the quality metrics (.qual) files more easily, we will concatenate 
 ```
 $ cat qual/*qual > qual/phantompeaks_summary.xls
 ```
-Let's use Filezilla or `scp` move the summary file over to our local machine for viewing.
+Let's use Filezilla or `scp` move the summary file over to our local machine for viewing. Open up the file in Excel and take a look at our NSC and RSC values. **How do the values compare to the thresholds mentioned above?**
 
 
 ### Cross-correlation plots
