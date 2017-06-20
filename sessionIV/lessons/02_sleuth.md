@@ -82,7 +82,7 @@ $ mkdir -p ~/R/library
 
 ### Installing R packages
 
-Since Sleuth was designed to use the output of Kallisto as input, our Sailfish transcript abundance estimates need to be massaged into the format of the Kallisto output. To do this, we are going to use the package [Wasabi](https://github.com/COMBINE-lab/wasabi). 
+Since Sleuth was designed to use the output of Kallisto as input, our Salmon transcript abundance estimates need to be massaged into the format of the Kallisto output. To do this, we are going to use the package [Wasabi](https://github.com/COMBINE-lab/wasabi). 
 
 We have installed all of these packages for you to copy to your personal libraries:
 
