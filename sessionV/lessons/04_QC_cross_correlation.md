@@ -10,7 +10,48 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
-* Understanding the cross-correlation plot
+* Understanding strand cross-correlation
+* Using `phantompeakqualtools` to compute cross-correlation and associated QC metrics
+* Evaluating the cross-correlation plot
+
+## QC: Strand cross-correlation
+
+A very useful ChIP-seq quality metric that is independent of peak calling is strand cross-correlation. It is based on the fact that a high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags at locations bound by the protein of interest, that present as a bimodal enrichment of reads on the forward and reverse strands.
+
+The cross-correlation metric is computed as the **Pearson's linear correlation between the Crick strand and the Watson strand, after shifting Watson by k base pairs.** Using a small genomic window as an example, let's walk through the details of the cross-correlation below.
+
+**At strand shift of zero, the Pearson correlation between the two vectors is 0.539.**
+
+<img src="../img/cross-corr-1.png"" width =500>
+
+**At strand shift of 5bp, the Pearson correlation between the two vectors is 0.931**
+
+<img src="../img/cross-corr-2.png"" width =500>
+
+**Keep shifting the vectors and for each strand shift compute a correlation value.** 
+
+<img src="../img/cross-corr-3.png"" width =500>
+
+In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. This is computed per chromosome and values are multiplied by a scaling factor and then summed across all chromosomes. We can then **plot cross-correlation values (y-axis) against the shift value (x-axis)** to generate a cross-correlation plot.
+
+The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak).
+
+High-quality ChIP-seq data sets tend to have a larger fragment-length peak compared with the read-length peak, whereas failed ones and inputs have little or no such peak. 
+
+
+
+### Cross-correlation quality metrics
+
+Using the cross-correlation plot we can compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. These metrics are described in more detail below:
+
+#### Normalized strand cross-correlation coefficent (NSC):
+
+The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). **Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment).** Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
+
+#### Relative strand cross-correlation coefficient (RSC):
+
+The ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. **The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality.** RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which is biologically justifiable also show low RSC scores.
+
 
 
 
