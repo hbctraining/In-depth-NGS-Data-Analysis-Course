@@ -1,6 +1,6 @@
 ---
 title: "ChIP-Seq Quality Assessment"
-author: "Mary Piper"
+author: "Mary Piper, Meeta Mistry"
 date: "June 12, 2017"
 ---
 
@@ -10,20 +10,13 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
-* Generate enrichment and quality metrics for evaluating ChIP-Seq data
-* Generate a report containing additional quality metrics and diagnostic plots
+* Discuss other quality metrics for evaluating ChIP-Seq data
+* Generate a report containing quality metrics and diagnostic plots
+* Identify sources of low quality data
 
-## ChIP-Seq quality assessment
 
-Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. What we are looking for is good	quality	ChIP-seq	enrichment	over	background. **To quantify the quality, we will be using two different tools: [ChIPQC](https://bioconductor.org/packages/release/bioc/html/ChIPQC.html) and [phantompeakqualtools](https://code.google.com/archive/p/phantompeakqualtools/).**
 
-### Sources of low quality ChiP-seq
-
-* **The specifity of the antibody.** It is possible that there was poor reactivity against the intended target in the IP. Or perhaps the antibody is not specific enough, causing cross-reactivity with other DNA-associated proteins.
-* **Degree of enrichment:** 
-* **Biases during library preparation:** PCR amplification and fragment biases.
-
-### Quality Metrics for ChIP-seq data
+## Additional Quality Metrics for ChIP-seq data
 
 The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they are measuring. Then, we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
 
@@ -36,34 +29,32 @@ A useful	first-pass to evaluate	the	success	of	the	immunoprecipita)on
 
 
 
-
-### `phantompeakqualtools`: quality metrics output
-
-The qual files are tab-delimited with the columns containing the following information:
-
-- COL1: Filename: tagAlign/BAM filename 
-- COL2: numReads: effective sequencing depth i.e. total number of mapped reads in input file 
-- COL3: estFragLen: comma separated strand cross-correlation peak(s) in decreasing order of correlation. (**NOTE:** The top 3 local maxima locations that are within 90% of the maximum cross-correlation value are output. In almost all cases, the top (first) value in the list represents the predominant fragment length.) 
-- COL4: corr_estFragLen: comma separated strand cross-correlation value(s) in decreasing order (col2 follows the same order) 
-- COL5: phantomPeak: Read length/phantom peak strand shift 
-- COL6: corr_phantomPeak: Correlation value at phantom peak 
-- COL7: argmin_corr: strand shift at which cross-correlation is lowest 
-- COL8: min_corr: minimum value of cross-correlation 
-- COL9: Normalized strand cross-correlation coefficient (NSC) = COL4 / COL8 
-- COL10: Relative strand cross-correlation coefficient (RSC) = (COL4 - COL8) / (COL6 - COL8) 
-- COL11: QualityTag: Quality tag based on thresholded RSC (codes: -2:veryLow,-1:Low,0:Medium,1:High,2:veryHigh)
-
-> **NOTE:** The most important metrics we are interested in are the values in columns 9 through 12, however these numbers are computed from values in the other columns.
-
-All samples have quite high NSC values indicating more enrichment, a good signal to noise and a fair number of peaks. Nanog-rep2 has a comparably higher NSC value which might explain the increased number of peaks for that sample compared to the others. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag. Based on these metrics, the samples look good for further analysis.
-
-
-### `ChIPQC`: quality metrics report
+## `ChIPQC`: quality metrics report
 
 
 
+## Sources of low quality ChiP-seq
+
+Once you have identified low quality samples, th next logical step is to troubleshoot what might be causing it.
+
+**The specifity of the antibody.** 
+
+The quality of a ChIP experiment is ultimately dictated by the specificity of the antibody and the degree of enrichment achieved in the affinity precipitation step [[1]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/). Antibody deficiencies are of two main types:
+
+1. Poor reactivity against the intended target
+2. Non-specific antibody, causing cross-reactivity with other DNA-associated proteins
+
+Antibodies directed against transcription factors must be characterized using both a primary (i.e immunoblot, immunofluorescence) and secondary characterization (i.e knockout of target protein, IP with multiple antibodies).
+
+* **Biases during library preparation:** 
+
+*PCR amplification:* Biases arise because DNA sequence content and length determine the kinetics of annealing and denaturing in each cycle of PCR. The combination of temperature profile, polymerase and buffer used during PCR can therefore lead to differential efficiencies in amplification between different sequences, which could be exacerbated with increasing PCR cycles. This is often manifest as a bias towards GC rich fragments [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4473780/). **Limited use of PCR amplification is recommended because bias increases with every PCR cycle.**
+
+*Fragment bias*: The way in which sonication is carried out can result in different fragment size distributions and, consequently, sample-specific chromatin configuration induced biases. As a result, it is not recommended to use a single input sample as a control for ChIP-seq peak calling if it is not sonicated together with the ChIP sample. 
 
 
+
+***
 
 > **NOTE:** Many of the plots that were generated in the ChIPQC report can also be generated using [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), a suite of python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. If you are interested in learning more we have a [lesson on quality assessment using deepTools](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/qc_deeptools.md).
 

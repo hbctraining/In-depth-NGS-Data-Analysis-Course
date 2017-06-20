@@ -10,9 +10,15 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
+* Discussing sources of low quality ChIP-seq data
 * Understanding strand cross-correlation
 * Using `phantompeakqualtools` to compute cross-correlation and associated QC metrics
 * Evaluating the cross-correlation plot
+
+## ChIP-Seq quality assessment
+
+Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. What we are looking for is good	quality	ChIP-seq enrichment over background.
+
 
 ## Strand cross-correlation
 
@@ -195,7 +201,28 @@ To visualize the quality metrics (.qual) files more easily, we will concatenate 
 ```
 $ cat qual/*qual > qual/phantompeaks_summary.xls
 ```
-Let's use Filezilla or `scp` move the summary file over to our local machine for viewing. Open up the file in Excel and take a look at our NSC and RSC values. **How do the values compare to the thresholds mentioned above?**
+Let's use Filezilla or `scp` move the summary file over to our local machine for viewing. Open up the file in Excel and take a look at our NSC and RSC values. 
+
+### `phantompeakqualtools`: quality metrics output
+
+The qual files are tab-delimited with the columns containing the following information:
+
+- COL1: Filename: tagAlign/BAM filename 
+- COL2: numReads: effective sequencing depth i.e. total number of mapped reads in input file 
+- COL3: estFragLen: comma separated strand cross-correlation peak(s) in decreasing order of correlation. (**NOTE:** The top 3 local maxima locations that are within 90% of the maximum cross-correlation value are output. In almost all cases, the top (first) value in the list represents the predominant fragment length.) 
+- COL4: corr_estFragLen: comma separated strand cross-correlation value(s) in decreasing order (col2 follows the same order) 
+- COL5: phantomPeak: Read length/phantom peak strand shift 
+- COL6: corr_phantomPeak: Correlation value at phantom peak 
+- COL7: argmin_corr: strand shift at which cross-correlation is lowest 
+- COL8: min_corr: minimum value of cross-correlation 
+- COL9: Normalized strand cross-correlation coefficient (NSC) = COL4 / COL8 
+- COL10: Relative strand cross-correlation coefficient (RSC) = (COL4 - COL8) / (COL6 - COL8) 
+- COL11: QualityTag: Quality tag based on thresholded RSC (codes: -2:veryLow,-1:Low,0:Medium,1:High,2:veryHigh)
+
+> **NOTE:** The most important metrics we are interested in are the values in columns 9 through 12, however these numbers are computed from values in the other columns.
+
+**How do the values compare to the thresholds mentioned above?** All samples have quite high NSC values indicating more enrichment, a good signal to noise and a fair number of peaks. Nanog-rep2 has a comparably higher NSC value which might explain the increased number of peaks for that sample compared to the others. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag. Based on these metrics, the samples look good for further analysis.
+
 
 
 ### Cross-correlation plots
