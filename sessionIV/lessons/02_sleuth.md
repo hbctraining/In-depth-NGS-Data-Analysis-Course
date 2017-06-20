@@ -1,7 +1,7 @@
 ---
 title: "Differential expression of transcripts using Sleuth"
 author: "Mary Piper"
-date: "Monday, November 28, 2016"
+date: "Wednesday, June 21, 2017"
 ---
 
 Contributors: Mary Piper
