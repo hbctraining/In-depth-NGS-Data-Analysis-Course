@@ -22,15 +22,15 @@ The cross-correlation metric is computed as the **Pearson's linear correlation b
 
 **At strand shift of zero, the Pearson correlation between the two vectors is 0.539.**
 
-<img src="../img/cross-corr-1.png"" width =500>
+<img src="../img/cross-corr-1.png" width =500>
 
 **At strand shift of 5bp, the Pearson correlation between the two vectors is 0.931**
 
-<img src="../img/cross-corr-2.png"" width =500>
+<img src="../img/cross-corr-2.png" width =500>
 
 **Keep shifting the vectors and for each strand shift compute a correlation value.** 
 
-<img src="../img/cross-corr-3.png"" width =500>
+<img src="../img/cross-corr-3.png" width =500>
 
 In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. This is computed per chromosome and values are multiplied by a scaling factor and then summed across all chromosomes. We can then **plot cross-correlation values (y-axis) against the shift value (x-axis)** to generate a cross-correlation plot.
 
