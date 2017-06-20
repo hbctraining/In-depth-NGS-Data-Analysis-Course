@@ -173,10 +173,10 @@ Now we can create a for loop to iterate over all FASTQ samples, and run Salmon o
 
 Next comes the Salmon command. Note, that we are adding a parameter called `--numBootstraps` to the Salmon command. Salmon has the ability to optionally compute bootstrapped abundance estimates. **Bootstraps are required for estimation of technical variance**. Bootstrapping essentially takes a different sub-sample of reads for each bootstapping run for estimating the transcript abundances. The technical variance is the variation in transcript abundance estimates calculated for each of the different sub-samplings (or bootstraps). We will discuss this in more detail in the next lesson.
 
-> *NOTE:* We are iterating over FASTQ files in the full dataset directory, located at `/groups/hbctraining/ngs-data-analysis2016/rnaseq/full_dataset/`
+> *NOTE:* We are iterating over FASTQ files in the full dataset directory, located at `/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/full_dataset/`
 
 ```bash
-for fq in /groups/hbctraining/ngs-data-analysis2016/rnaseq/full_dataset/*.fastq
+for fq in /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/full_dataset/*.fastq
  do 
    base=`basename $fq .fastq`
    bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J $base.mov10_salmon -o %J.$base.out -e %J.$base.err \
