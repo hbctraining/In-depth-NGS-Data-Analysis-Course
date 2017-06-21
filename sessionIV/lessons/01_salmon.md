@@ -79,6 +79,8 @@ The quasi-mapping approach estimates the numbers of reads mapping to each transc
 	- positional, sequence-specific, and GC content based on computed mappings
 
 	The model continuously learns and updates the transcript abundance estimates, and the the second phase of the algorithm refines the estimates by using the expectation maximization (EM) or variational Bayes optimization (VBEM)  [[5](http://biorxiv.org/content/biorxiv/early/2016/08/30/021592.full.pdf)]. The maximum likelihood estimates output from the EM or VBEM factorized likelihood function represent the estimated number of fragments derived from each transcript.
+	
+> *NOTE:* To have Salmon correct for these biases you will need to specify the appropriate parameters when you run it!
 
 ## Running Salmon on Orchestra
 
@@ -110,11 +112,17 @@ $ salmon index -t transcripts.fa -i transcripts_index --type quasi -k 31
 **Step 2: Quantification:**
 Get the transcript abundance estimates using the `quant` command and the parameters described below (more information on parameters can be found [here](http://salmon.readthedocs.io/en/latest/salmon.html#id5)):
 
-   * `-i`: specify the location of the index directory; for us it is `/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/`
-   * `-l SR`: library type - specify stranded single-end reads (more info available [here](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype))
-   * `-r`: list of files for sample
-   * `--useVBOpt`: use variational Bayesian EM algorithm rather than the ‘standard EM’ to optimize abundance estimates (more accurate) 
-   * `-o`: output quantification file name
+* `-i`: specify the location of the index directory; for us it is `/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/`
+* `-l SR`: library type - specify stranded single-end reads (more info available [here](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype))
+* `-r`: list of files for sample
+* `--useVBOpt`: use variational Bayesian EM algorithm rather than the ‘standard EM’ to optimize abundance estimates (more accurate) 
+* `-o`: output quantification file name
+   
+To correct for the various sample-specific biases we will add the following parameters to our command:
+
+* `--seqBias` will enable it to learn and correct for sequence-specific biases in the input data.
+* `--gcBias` to learn and correct for fragment-level GC biases in the input data
+* `--posBias` will enable modeling of a position-specific fragment start distribution
 
 To run the quantification step on a single sample we have the command provided below. Let's try running it on our subset sample for `Mov10_oe_1.subset.fq`:
 
@@ -124,7 +132,10 @@ $ salmon quant -i /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon
  -r ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq \
  -o Mov10_oe_1.subset.salmon \
  --writeMappings=salmon.out \
- --useVBOpt
+ --useVBOpt \
+ --seqBias \
+ --gcBias \
+ --posBias
 ```
 
 >**NOTE:** Paired-end reads require both sets of reads to be given in addition to a [paired-end specific library type](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype):
@@ -183,7 +194,7 @@ for fq in /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/full_dataset/*
    base=`basename $fq .fastq`
    bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J $base.mov10_salmon -o %J.$base.out -e %J.$base.err \
    salmon quant -i /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/ \
-   -p 6 -l SR -r $fq --useVBOpt --numBootstraps 30 -o $base.salmon
+   -p 6 -l SR -r $fq --useVBOpt --numBootstraps 30 -o $base.salmon --seqBias --posBias --gcBias
  done
 ```
 
