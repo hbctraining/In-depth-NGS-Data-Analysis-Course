@@ -14,7 +14,7 @@ Approximate time: 2 hours
 
 Let's step back and revisit the process of getting from fastqc to getting a count matrix...
 
-The easiest way to keep track of and repeat the process is to capture the steps that we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one that takes us from fastqc through trimming and a post-trimming fastqc run, and a second one that for running STAR. In this module we are going to make a new script that combines all the steps including featureCounts and learn a few new things along the way.
+The easiest way to keep track of and repeat the process is to capture the steps that we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one LSF submission script that performs the fastqc and a regular shell script using positional parameters that runs STAR. In this module we are going to make a new script that combines these 2 steps with featureCounts, and learn a few new things along the way.
 
 ***Before we get started, please log into Orchestra and start a new interactive session with 1 core.***
 
@@ -26,61 +26,64 @@ We already have a good understanding of positional parameters, vectors within sh
 
 This command will remove the full path of the file and just leave behind the filename, thus making our script more versatile. In addition, this command can make file names shorter. Let's try this out:
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
-	
+```bash
+$ basename ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq
+```
+
 What if we only wanted it to return the name of the file, but without the extension .fq?
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq
-	
+```bash
+$ basename ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq .fq
+```
+
 What if we only wanted it to return the name of the sample?
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq.qualtrim25.minlen35.fq	
-	
+```bash
+$ basename ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq .subset.fq	
+```
+
 If you wanted to store the output of this command in a variable, you can write it as follows:
 
-	$ base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)
-	$ echo $base
+```bash
+$ base=$(basename ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq .subset.fq)
+$ echo $base
+```
 
 **2.** `set`
 
 This command is essentially a debugging tool (`set -x`) that will display the command before executing it. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. This is useful in the case where the tool is not explicitly stated in the error message, or if the error message is unclear about which tool it was created by. 
 	
-	$ set -x
-	$ ls -lhtr ~/ngs_course/rnaseq/data/trimmed_fastq/
+```bash
+$ set -x
+$ ls -lhtr ~/ngs_course/rnaseq/raw_data/
 	
-	$ set +x  # turns it off
+$ set +x  # turns it off
+```
 
 ### Granting our Workflow even More Flexibility
 
 Several changes need to be made to the last 2 scripts we made used for trimming and alignment respectively, so let's start by writing a new script with excerpts from the older ones. 
 
-	$ cat ~/ngs_course/rnaseq/data/trimmomatic_mov10.lsf
-	$ cat ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh
-	
-We want to save the new script in a new directory called scripts.
-	
-	$ cd ~/ngs_course/rnaseq/
+```bash
+$ cd ~/ngs_course/rnaseq/scripts/
 
-	$ mkdir scripts
-	
-	$ cd scripts
-
-> When you get a chance move all your scripts to this new directory.
+$ cat mov10_fastqc.lsf
+$ cat star_analysis_on_input_file.sh
+```
 
 I find it easier to write a longer script in a text editor on my computer, and I suggest you do the same for this session.
 
-Let's start with the basics of the shell script. When you are writing a multi-step workflow that accepts command-line options (positional parameters), it is very important to have the usage right in the beginning of the script. In addition to the usage, it is a good practice to comment about the inputs, steps/tools and output briefly. It is easier to fill both of these in after your script is ready and you have done a test run. So even though this is at the top of the script, it may be the last few lines you add to the script.
+Let's start with the basics of the shell script. When you are writing a multi-step workflow that accepts command-line options (positional parameters), it is very important to have the usage right in the beginning of the script. In addition to the usage, it is a good practice to put in brief comments about the inputs, steps/tools and the expected output. It is easier to fill both of these in after your script is ready and you have done a test run. So even though this is at the top of the script, it may be the last thing you add to the script.
 
 Using the debugging command `set -x` is helpful, as alluded to before, when the tools/commands are not verbose when they run or when they fail. However, in our case all the tools are verbose and I find that the extra lines generated by `set -x` in the standard output are a distraction, and I have commented it out. *However, please note that this is a personal preference and you should try it for yourself and decide your preference.*
 
-```
+```bash
 #!/bin/bash
 
-# USAGE: sh rnaseq_analysis_on_input_file.sh <fastq files> <trimming MINLEN> <trimming TRAILING quality threshold> <number of cores>
-# This script will take the location and name of a fastq file and perform the following steps on it in a new directory. 
+# USAGE: sh rnaseq_analysis_on_input_file.sh <fastq files> <number of cores> <path and name of output directory>
+# This script will take a fastq file, number of cores (for STAR), and a path to the new analysis directory as input. It will perform the following steps on the fastq file and save all results to the specified directory.
 	## starting with fastqc, 
-	## followed by trimming with Trimmomatic, 
-	## splice-aware alignment with STAR, 
+	## followed by splice-aware alignment with STAR, 
 	## generation of counts associated with genes using featureCounts.
 
 # debugging with set -x [OPTIONAL]
@@ -90,12 +93,11 @@ Using the debugging command `set -x` is helpful, as alluded to before, when the 
 
 The next step is to make sure that the command-line input is stored in variables with names that make sense to you. In addition we are going to save the name of the sample (output of the `basename` command) into a new variable that we will be using to name the output files and directories. 
 
-```
+```bash
 # assign the command line input to new variables
 fq=$1
-minlen=$2
-trailing=$3
-cores=$4
+cores=$2
+output_dir=$3
 
 # shorten the name of the file
 
@@ -104,16 +106,15 @@ fname=$(basename $fq .fq)
 
 We need to add a few more commands to set up our environment: 
 1. Setting up the environment to run all the tools we want to run 
-2. Making all the directories to store the outputs of the tools
+2. Making all the sub-directories to store the outputs of the tools
 Having short messages at various stages of the script is a helpful to keep track of how far along the script is.
 
-```
+```bash
 echo "****Running rnaseq analysis on $fname****"
 
 # Loading all the modules and adding featureCounts to the PATH
 
-module load seq/Trimmomatic/0.33
-module load seq/STAR/2.4.0j
+module load seq/STAR/2.5.3a
 module load seq/fastqc/0.11.3
 
 export PATH=/opt/bcbio/local/bin:$PATH
@@ -121,60 +122,45 @@ export PATH=/opt/bcbio/local/bin:$PATH
 # make all of our output directories
 	## The -p option means mkdir will create the whole path if it does not exist, and refrain from complaining if it does exist
 
-mkdir -p ~/ngs_course/rnaseq/new_analysis
-mkdir -p ~/ngs_course/rnaseq/new_analysis/trimmed_fastq
-mkdir -p ~/ngs_course/rnaseq/new_analysis/STAR_alignment
-mkdir -p ~/ngs_course/rnaseq/new_analysis/counts
+mkdir -p $output_dir/trimmed_fastq $output_dir/STAR_alignment $output_dir/counts
 ```
 
 Next, we need to define some variables that store information that is likely to change more readily. These give your script a lot of versatility and enable quick modifications. 
 
-```
+```bash
 # define variables to make modifications easier
-
-## output of trimming, also input of alignment
-trim_out=~/ngs_course/rnaseq/new_analysis/trimmed_fastq/${fname}.qualtrim${trailing}.minlen${minlen}.fq
 
 # genome and gtf files that are likely to change
 genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
 gtf=~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf
 
 # output of alignment
-align_out=~/ngs_course/rnaseq/new_analysis/STAR_alignment/${fname}_
+align_out_prefix=$output_dir/STAR_alignment/${fname}_
 
 # input and output of counts
-counts_input_bam=~/ngs_course/rnaseq/new_analysis/STAR_alignment/${fname}_Aligned.sortedByCoord.out.bam
-counts=~/ngs_course/rnaseq/new_analysis/counts/${fname}.counts
+bam_file=$output_dir/STAR_alignment/${fname}_Aligned.sortedByCoord.out.bam
+counts=$output_dir/counts/${fname}.counts
 ```
 
-Let's start with the Trimmomatic run and the fastQC evaluation of the trimmed file.
+Let's start with the FastQC evaluation of the input fastq file.
 
-```
-#Trimmomatic run
-
-echo "****Trimming $fname with minimum length $minlen and trailing bases with quality threshold of $trailing****"
-
-java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads $cores -phred33 $fq \
-$trim_out ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:$trailing MINLEN:$minlen
-
+```bash
 # FastQC on trimmed file
 echo "****FastQC on trimmed fastq****"
-fastqc $trim_out
+fastqc $fq
 ```
 
 Next, set up to run STAR on the trimmed files. 
 
-At this stage you could load `samtools` and index the bam file as soon as it is made, if you like.
-
-```
+```bash
 # Alignment with STAR
 
 echo "****Running STAR alignment****"
 
 STAR --runThreadN $cores \
 --genomeDir $genome \
---readFilesIn $trim_out \
---outFileNamePrefix $align_out \
+--readFilesIn $fq \
+--outFileNamePrefix $align_out_prefix \
 --outFilterMultimapNmax 10 \
 --outReadsUnmapped Fastx \
 --outSAMtype BAM SortedByCoordinate \
@@ -182,34 +168,38 @@ STAR --runThreadN $cores \
 --outSAMattributes Standard 
 ```
 
-Finally, run feature counts on the one alignment file that is generated. The featureCounts output has only 2 columns were interested in, so we use the `awk` command to extract those 2 columns.
+Finally, run featureCounts on the one alignment file that is generated. The featureCounts output has only 2 columns we're interested in, so we use the `awk` command to extract those 2 columns.
 
-```
+```bash
 # Counting reads with featureCounts
 
 echo "****Running featureCounts****"
 
-featureCounts -T $cores -s 2 -a $gtf -o $counts $counts_input_bam
+featureCounts -T $cores -s 2 -a $gtf -o $counts $bam_file
 awk '{print $1"\t"$7}' $counts > $counts.txt
 ```
 
 Now that we have created the script on our text editor, let's copy it over to the cluster.
 
-	$ pwd		# check that you are in the `/home/eCommonsID/ngs_course/rnaseq/scripts/` directory
+```bash
+$ pwd		# check that you are in the `/home/eCommonsID/ngs_course/rnaseq/scripts/` directory
 
-	$ vim rnaseq_analysis_on_input_file.sh
-	
-Next, we want to create a submission script that has a `for` loop which will run the above script on all the fastq files in a given directory, *in parallel*. You can see the progress of the jobs submitted to LSF by using the `bjobs` command (note that there is a lag of about 60 seconds between what is happening and what is reported). Don't forget about the `bkill` command, should something go wrong and you need to cancel your jobs.
-	
-	$ vim submission_loop.sh
-
+$ vim rnaseq_analysis_on_input_file.sh
 ```
+
+Next, we want to create a submission script that has a `for` loop which will run the above script on all the fastq files in a given directory, *in parallel* like we did for the script we used to run R. You can see the progress of the jobs submitted to LSF by using the `bjobs` command (note that there is a lag of about 60 seconds between what is happening and what is reported). Don't forget about the `bkill` command, should something go wrong and you need to cancel your jobs.
+	
+```bash
+$ vim submission_loop.sh
+```
+
+```bash
 #!/bin/bash
 
-for fq in ~/ngs_course/rnaseq/data/untrimmed_fastq/*.fq
+for fq in ~/ngs_course/rnaseq/raw_data/*.fq
 do
 base=$(basename $fq .subset.fq)
-bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10.$base -o %J.out -e %J.err "sh ~/ngs_course/rnaseq/scripts/rnaseq_analysis_on_input_file.sh $fq 35 25 6"
+bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10.$base -o %J.out -e %J.err "sh ~/ngs_course/rnaseq/scripts/rnaseq_analysis_on_input_file.sh $fq 6 ~/ngs_course/rnaseq/new_analysis"
 sleep 1
 done
 ```
@@ -234,32 +224,39 @@ You can also run R scripts from the command prompt in Unix. These scripts are ju
 You can run an R script from the shell command prompt in several ways, 3 different ways are listed below for a script called `mean.R`:
 **Do not run this**
 	
-	$ R < mean.R
+```bash
+$ R < mean.R
 	
-	$ R CMD BATCH mean.R
+$ R CMD BATCH mean.R
 	
-	$ Rscript mean.R
+$ Rscript mean.R
+```
 
 ### R on Orchestra:
 
 R is available on Orchestra, and you can do all of the things we did on our laptops on the cluster instead. Let's try this out:
 
-	$ module avail stats/R
+```bash
+$ module avail stats/R
 	
-	$ module load stats/R/3.2.5
+$ module load stats/R/3.2.5
 	
-	$ R
+$ R
+```
 
 As you can see, various versions of R are available on Orchestra, but there is no RStudio-like GUI. You can quit R and get back to the `$` command prompt by typing `q()`, no need to save the workspace image.
 	
 You can use any of the above ways to run an Rscript on Orchestra. But, you will need a different shebang line:
 
-	#!/usr/bin/env Rscript
-
+```bash
+#!/usr/bin/env Rscript
+```
 And, you can also submit it as a job to the LSF queue as follows:
 
-	$ bsub -q short -W 12:00 -R "rusage[mem=16000]" "Rscript mean.R" 
-	# note the high memory usage above
+```bash
+$ bsub -q short -W 12:00 -R "rusage[mem=16000]" "Rscript mean.R" 
+# note the high memory usage above
+```
 
 Talk to the folks at HMS RC to find out which packages are already installed, and also about the best way to install R packages locally. They have a [how-to guide available online](https://wiki.med.harvard.edu/Orchestra/PersonalRPackages) for installing packages locally, if you feel comfortable trying it on your own.
 
