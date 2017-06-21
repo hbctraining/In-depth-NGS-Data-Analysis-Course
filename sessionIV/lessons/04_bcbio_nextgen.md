@@ -173,25 +173,38 @@ Before we actually run the analysis, let's talk a bit about the tools that will 
 
 ![bcbio-workflow](../img/bcbio_workflow2.png)
  
-For quality control, the FASTQC tool is used and we selected `standard` to indicate the **standard fastqsanger quality** encoding. [qualimap](http://qualimap.bioinfo.cipf.es/) and [MultiQC](http://multiqc.info/) are other tools that are run. These tools report QC according to the features of the mapped reads and provides an overall view of the data that helps to the detect biases in the sequencing and/or mapping of the data. 
+In our configuration, we specified the following:
 
-Trimming is not required unless you are using and aligner that doesn't perform soft-clipping. Adapter trimming is very slow, and aligners that soft clip the ends of reads such as STAR and HISAT2, or algorithms using pseudoalignments like Sailfish handle contaminant sequences at the ends properly. This makes trimming unnecessary, and since we have chosen `star` as our aligner we have also set `trim_reads: False`. 
+```
+    algorithm:
+      aligner: star
+      quality_format: standard
+      trim_reads: False
+      strandedness: firststrand
+ ```
 
-Counting of reads is done using featureCounts and does not need to be specfied in the config file. Also, Sailfish, which is an extremely fast alignment-free method of quantitation, is run. For each sample we get the `quant.sf` files and also a file of aggregated values across samples. In the outputs section you will find a more detail about the various quantitation files that are generated.
+* For quality control, the FASTQC tool is used and we selected `standard` to indicate the **standard fastqsanger quality** encoding. 
+* Trimming is not required unless you are using and aligner that doesn't perform soft-clipping. By default trimming is performed and you can specify other details for `adapter` trimming, however this is very slow. Aligners that soft clip the ends of reads such as STAR and HISAT2, or algorithms using pseudoalignments like Sailfish handle contaminant sequences at the ends properly. This makes trimming unnecessary, and since we have chosen `star` as our aligner we have also set `trim_reads: False`.
+* For RNA-seq libraries, if your library is strand specific, set the appropriate flag from [unstranded, firststrand, secondstrand]. The default is set to unstranded. For dUTP marked libraries, which we are working with, `firststrand` is correct.
+* Alignment QC is performed by [Qualimap](http://qualimap.bioinfo.cipf.es/) and then [MultiQC](http://multiqc.info/) is run to collate these results into a report which contains features of the mapped reads and provides an overall view of the data that helps to the detect biases in the sequencing and/or mapping of the data. 
+* Counting of reads is done using featureCounts and does not need to be specified in the configuration file. Also, Salmon which is an extremely fast alignment-free method of quantitation, is run. For each sample we get the `quant.sf` files and also a file of aggregated values across samples. In the outputs section we discuss in more detail the various quantitation files that are generated.
 
 
 ### Creating a job script to run `bcbio`
 
-Upon creation of the config file, you will have noticed two directories were created. The `work` directory is created because that is where `bcbio` expects you to run the job.
+Upon creation of the config file, you will have noticed two directories were created. **The `work` directory is created because that is where `bcbio` expects you to run the job.**
 
 Let's move into this directory:
 	
 	$ cd mov10_project/work
 
+**`bcbio` pipeline runs in parallel using the IPython parallel framework. This allows scaling beyond the cores available on a single machine, and requires multiple machines with a shared filesystem like standard cluster environments.** 
+Although, we will only ask for a single core in our job submission script `bcbio` will use the parameters provided in the command to spin up the appropriate number of cores required at each stage of the pipeline.
+
 To run `bcbio` we call the same python script that we used for creating the config file `bcbio_nextgen.py` but we add different parameters:
 
 * `../config/mov10_project.yaml`: specify path to config file relative to the `work` directory
-* `-n 64`: total number of cores to use on the cluster during processing. The framework will select the appropriate number of cores and type of cluster (single core versus multi-core) to use based on the pipeline stage.
+* `-n 64`: total number of cores to use on the cluster during processing. For distributed jobs, you want to set cores to match the available cores on a single node in your cluster, then use `-n` as a multiple of this to determine how many nodes to spin up. For example, cores: 16 and -n 64 would try to make four 16 core machines available for analysis.
 * `-t ipython`: use python for parallel execution
 * `-s lsf`: type of scheduler
 * `-q mcore`: queue to submit jobs to
@@ -199,9 +212,6 @@ To run `bcbio` we call the same python script that we used for creating the conf
 * `--retries 3`: number of times to retry a job on failure
 * `--timeout 380`: numbers of minutes to wait for a cluster to start up before timing out
 * `-rW=72:00`: specifies resource options to pass along to the underlying queue scheduler
-
-**`bcbio` pipeline runs in parallel using the IPython parallel framework. This allows scaling beyond the cores available on a single machine, and requires multiple machines with a shared filesystem like standard cluster environments.** 
-Although, we will only ask for a single core in our job submission script `bcbio` will use the parameters provided in the command to spin up the appropriate number of cores required at each stage of the pipeline.
 
 
 The job can take on the range of hours to days depending on the size of your dataset, and so rather than running interactively we will create a job submission script. 
