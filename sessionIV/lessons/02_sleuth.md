@@ -191,31 +191,49 @@ Similar to DESeq2, we need to tell Sleuth where to find the metadata (specifying
 
 #### Create a dataframe needed to generate Sleuth analysis object
 
-Read in the metadata file and use the `data.frame()` function to ensure it is a dataframe, then combine the metadata with the paths to the transcript abundance files to use as input for the Sleuth analysis. Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will create the dataframe based on the sleuth requirements for analysis.
+Read in the metadata file and use the `data.frame()` function to ensure it is a dataframe, then combine the metadata with the paths to the transcript abundance files to use as input for the Sleuth analysis. 
 
-```R
+First we need to read in the metadata file:
+
+```r
 # Read in metadata file
 
 summarydata <- data.frame(read.table("meta/Mov10_full_meta.txt", header=TRUE, row.names=1), check.rows=FALSE)
-summarydata
 
+summarydata
+```
+
+Then we make sure the metadata and count estimate sample names match:
+
+```r
 # Name the directory paths for the abundance files with their corresponding sample IDs
 
 ## Make sure the order of the `sfdirs` created above matches the order of samples in the `summarydata` rownames
 
 names(sf_dirs) <- rownames(summarydata)
-sf_dirs
 
+sf_dirs
+```
+
+Finally, we can generate the data frame containing the metadata:
+
+```r
 # Generate the dataframe
 
 sfdata <- summarydata
+```
+Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will create the dataframe based on the sleuth requirements for analysis. 
 
-# Sleuth requires a column entitled "sample" containing the sample names 
+Sleuth requires a column entitled "sample" containing the sample names:
 
+```r
+# Adding a column named 'sample'
 sfdata$sample <- rownames(sfdata)
+```
 
-# Sleuth requires a column entitled "path" containing the paths to the estimated counts files
+Now, we can include the path to the count estimate folders. Sleuth requires a column entitled "path" containing the paths to the estimated counts files stored in our `sf_dirs`:
 
+```r
 sfdata$path <- sf_dirs
 
 sfdata
@@ -223,7 +241,7 @@ sfdata
 
 #### Provide the model design
 
-Determine the covariates and/or confounders that should be included in your experimental design model. Sleuth can be used to analyze multiple conditions from complex experimental designs.
+Now that we have the metadata and location of the count estimates, we can input our design formula to determine the covariates and/or confounders that should be included in your experimental design model. Sleuth can be used to analyze multiple conditions from complex experimental designs.
 
 Within Sleuth, models are written similar to DESeq2. Since the only condition we plan to test is our sample type, our design formula is very simple:
 
@@ -235,7 +253,7 @@ More complex designs can be analyzed using Sleuth as well by adding additional c
 
 #### Create Biomart dataset to query
 
-Obtain the Ensembl transcript/gene IDs and gene names for annotation of results by using the biomaRt package to query the Ensembl genome database. BiomaRt allows extensive genome information to be accessible during an analysis.
+The last component to include for our analysis is the biomaRt Ensembl genome database to obtain the Ensembl transcript/gene IDs and gene names for annotation of results. BiomaRt allows extensive genome information to be accessible during an analysis.
 
 ```R
 # Using biomaRt, ensure host is the appropriate version since the main portal (www.ensembl.org) is not accessible from Orchestra
@@ -244,7 +262,7 @@ Obtain the Ensembl transcript/gene IDs and gene names for annotation of results 
 
 human_37 <- useDataset("hsapiens_gene_ensembl",
 				useMart(biomart = "ENSEMBL_MART_ENSEMBL", 
-					host = "dec2015.archive.ensembl.org")) #feb2014=build 37
+					host = "feb2014.archive.ensembl.org")) #feb2014=build 37
 
 ## Specify the information to return
 
@@ -254,6 +272,7 @@ t2g <- getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "externa
 ## Rename the columns for use in Sleuth
 
 t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+
 head(t2g)
 ```
 
