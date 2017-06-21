@@ -122,7 +122,7 @@ export PATH=/opt/bcbio/local/bin:$PATH
 # make all of our output directories
 	## The -p option means mkdir will create the whole path if it does not exist, and refrain from complaining if it does exist
 
-mkdir -p $output_dir/trimmed_fastq $output_dir/STAR_alignment $output_dir/counts
+mkdir -p $output_dir/STAR_alignment $output_dir/counts $output_dir/fastqc $output_dir/multiqc
 ```
 
 Next, we need to define some variables that store information that is likely to change more readily. These give your script a lot of versatility and enable quick modifications. 
