@@ -177,7 +177,7 @@ After performing all analysis steps, we will explore our results by transferring
 
 ![sleuth](../img/sleuth_workflow1.png)
 
-To run Sleuth, we not only need the transcript abundance files, but we also need the metadata file specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis. We also need the location of the estimated counts files, the model design, and a biomaRt database to easily convert between transcript IDs and associated gene names. To create this object we need to perform the following steps:
+Similar to DESeq2, we need to tell Sleuth where to find the metadata (specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis), estimated counts (output from Salmon) and the design formula. In addition, we also need a biomaRt database to easily convert between transcript IDs and associated gene names. To create this object there is no simple function like in DESeq2 (e.g. DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)). To create this Sleuth object, we need to perform the following steps:
 
 1. Create a dataframe containing metadata and locations of the estimated counts files:
 
@@ -197,12 +197,14 @@ Read in the metadata file and use the `data.frame()` function to ensure it is a 
 # Read in metadata file
 
 summarydata <- data.frame(read.table("meta/Mov10_full_meta.txt", header=TRUE, row.names=1), check.rows=FALSE)
+summarydata
 
 # Name the directory paths for the abundance files with their corresponding sample IDs
 
 ## Make sure the order of the `sfdirs` created above matches the order of samples in the `summarydata` rownames
 
 names(sf_dirs) <- rownames(summarydata)
+sf_dirs
 
 # Generate the dataframe
 
