@@ -227,7 +227,7 @@ library(tximport)
 library(readr)
 library(DESeq2)
 library(biomaRt) # tximport requires gene symbols as row names
-library(stringr)
+
 ```
 
 **Step 3:** Load the quantification data that was output from Salmon:
@@ -273,6 +273,7 @@ Our Salmon index was generated with transcript sequences listed by Ensembl IDs, 
 # Create a character vector of Ensembl IDs		
 ids <- read.delim(files[1], sep="\t", header=T)    # extract the transcript ids from one of the files
 ids <- as.character(ids[,1])
+require(stringr)
 ids.strip <- str_replace(ids, "([.][0-9])", "")
 
 # Create a mart object
