@@ -362,6 +362,12 @@ If using `scp`, you need to open the Terminal on the local machine and type:
 ```bash
 $ scp username@transfer.orchestra.med.harvard.edu:/home/username/ngs_course/rnaseq/sleuth/oe.RData Desktop
 ```
+
+> **NOTE:** If the oe.RData file didn't write, you can copy over a back-up we have created:
+> ```bash
+> $ scp username@transfer.orchestra.med.harvard.edu:/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/snapshots/sleuth/oe.RData Desktop
+> ```
+
 **Open up RStudio and create a new project called `sleuth`.**
 
 Within RStudio we need to install and load Sleuth similar to what we did on Orchestra:
@@ -409,7 +415,9 @@ Look at the expression levels of Mov10 for three different isoforms using the `a
 > **NOTE:** The expression levels can be explored manually as well. For example, to plot the transcript expression values for Mov10 transcript "ENST00000357443" we would need technical variation estimates for each sample. To attain the expression estimates for each bootstrap sampling for every sample using the `get_bootstraps()` function in sleuth:
 >
 >```r
->boot_mov10_443 <- get_bootstraps(oe, "ENST00000357443")
+> boot_mov10_443 <- get_bootstraps(oe, "ENST00000357443")
+>
+> boot_mov10_443
 >```
 >
 >If we view `boot_mov10_443`, we will see the estimated counts (est_counts) and Transcripts Per Million (tpm) values for each bootstrap of every sample. We can visualize the estimates and distributions:
