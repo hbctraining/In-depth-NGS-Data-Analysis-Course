@@ -193,7 +193,7 @@ for fq in /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/full_dataset/*
    base=`basename $fq .fastq`
    bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J $base.mov10_salmon -o %J.$base.out -e %J.$base.err \
    salmon quant -i /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/ \
-   -p 6 -l SR -r $fq --useVBOpt --numBootstraps 30 -o $base.salmon --seqBias --posBias --gcBias
+   -p 6 -l SR -r $fq --useVBOpt --numBootstraps 30 -o $base.salmon
  done
 ```
 
