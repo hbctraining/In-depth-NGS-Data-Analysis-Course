@@ -177,7 +177,9 @@ After performing all analysis steps, we will explore our results by transferring
 
 ![sleuth](../img/sleuth_workflow1.png)
 
-Similar to DESeq2, we need to tell Sleuth where to find the metadata (specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis), estimated counts (output from Salmon) and the design formula. In addition, we also need a biomaRt database to easily convert between transcript IDs and associated gene names. To create this object there is no simple function like in DESeq2 (e.g. DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)). To create this Sleuth object, we need to perform the following steps:
+Similar to DESeq2, we need to tell Sleuth where to find the **metadata** (specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis), **estimated counts** (output from Salmon) and the **design formula**. In addition, we also need a **biomaRt database** to easily convert between transcript IDs and associated gene names. To create this object there is no simple function like in DESeq2 (e.g. DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)). 
+
+To create this Sleuth object, we need to perform the following steps:
 
 1. Create a dataframe containing metadata and locations of the estimated counts files:
 
@@ -222,7 +224,8 @@ Finally, we can generate the data frame containing the metadata:
 
 sfdata <- summarydata
 ```
-Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will create the dataframe based on the sleuth requirements for analysis. 
+
+Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will need to name columns based on the sleuth requirements for the analysis. 
 
 Sleuth requires a column entitled "sample" containing the sample names:
 
@@ -266,12 +269,12 @@ human_37 <- useDataset("hsapiens_gene_ensembl",
 
 ## Specify the information to return
 
-t2g <- getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_name"), 
+t2g <- getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_id"), 
 			mart = human_37)
 
 ## Rename the columns for use in Sleuth
 
-t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_id)
 
 head(t2g)
 ```
@@ -297,7 +300,7 @@ so <- sleuth_fit(so)
 
 #### Check which models have been fit and which coefficients can be tested
 
-Ensure the design model and coefficients are correct for your analysis.
+Ensure the design model and coefficients are correct for your analysis. The level not shown is the base level.
 
 ```R
 models(so)
@@ -314,7 +317,9 @@ models(so)
 
 ![sleuth](../img/sleuth_workflow3.png)
 
-```R
+At this step in the workflow, we need to specify which level we want to compare against the base level (use the name given for the coefficients from `models(so)`):
+
+```r
 # Wald test for differential expression of isoforms
 
 oe <- sleuth_wt(so, 'sampletypeMOV10_overexpression')
