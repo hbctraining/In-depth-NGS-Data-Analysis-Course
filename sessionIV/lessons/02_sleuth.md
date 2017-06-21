@@ -248,7 +248,7 @@ Now that we have the metadata and location of the count estimates, we can input 
 
 Within Sleuth, models are written similar to DESeq2. Since the only condition we plan to test is our sample type, our design formula is very simple:
 
-```R
+```r
 design <- ~ sampletype
 ```
 
@@ -258,7 +258,7 @@ More complex designs can be analyzed using Sleuth as well by adding additional c
 
 The last component to include for our analysis is the biomaRt Ensembl genome database to obtain the Ensembl transcript/gene IDs and gene names for annotation of results. BiomaRt allows extensive genome information to be accessible during an analysis.
 
-```R
+```r
 # Using biomaRt, ensure host is the appropriate version since the main portal (www.ensembl.org) is not accessible from Orchestra
 
 ## Specify that the database to query is the human gene database
@@ -285,7 +285,7 @@ head(t2g)
 
 #### Fit the transcript abundance data to the Sleuth model
 
-```R
+```r
 # Create sleuth object for analysis 
 
 so <- sleuth_prep(sfdata, design, target_mapping = t2g) 
@@ -302,12 +302,12 @@ so <- sleuth_fit(so)
 
 Ensure the design model and coefficients are correct for your analysis. The level not shown is the base level.
 
-```R
+```r
 models(so)
 ```
 > **NOTE:** Sleuth will automatically use the first level (alphabetically) in the factor variable being tested to compare all other conditions against (in our metadata, this is 'control'). If you want to use a different condition to be the base level, then you would need to use the relevel() function to change the base level of the variable in step 1 above. For example, if we wanted the base level of `sampletype` to be "MOV10_knockdown", we could use the following code:
 >
->```R
+>```r
 > # DO NOT RUN!
 > summarydata$sampletype <- relevel(summarydata$sampletype, ref = "MOV10_knockdown")
 >```
@@ -333,7 +333,7 @@ sleuth_results_oe <- sleuth_results(oe, 'sampletypeMOV10_overexpression', show_a
 
 Now that we have all of the analyses performed, we need to bring the output to our local machines for further exploration. The `save()` function works to write an R object to file, and takes the files to include in the R object as arguments.
 
-```R
+```r
 save("oe", "summarydata", "sleuth_results_oe", file="sleuth/oe.RData")
 ```
 
@@ -366,7 +366,7 @@ $ scp username@transfer.orchestra.med.harvard.edu:/home/username/ngs_course/rnas
 
 Within RStudio we need to install and load Sleuth similar to what we did on Orchestra:
 
-```R
+```r
 # Install the sleuth package on your local machine
 
 source("http://bioconductor.org/biocLite.R")
@@ -382,7 +382,7 @@ library(dplyr)
 
 After the R object has successfully transferred, you can load the object into your new R project using `load()` or by double-clicking on the `oe.RData` object in the RStudio file directory:
 
-```R
+```r
 load("~/Desktop/oe.RData")
 ```
 
@@ -392,7 +392,7 @@ Move `oe.RData` into the `sleuth` folder.
 
 Now that we have our environment set up, we can perform some exploratory analyses. Sleuth offers us the option to explore the data and results interactively using a web interface. 
 
-```R
+```r
 sleuth_live(oe)
 ```
 
@@ -408,13 +408,13 @@ Look at the expression levels of Mov10 for three different isoforms using the `a
 
 > **NOTE:** The expression levels can be explored manually as well. For example, to plot the transcript expression values for Mov10 transcript "ENST00000357443" we would need technical variation estimates for each sample. To attain the expression estimates for each bootstrap sampling for every sample using the `get_bootstraps()` function in sleuth:
 >
->```
+>```r
 >boot_mov10_443 <- get_bootstraps(oe, "ENST00000357443")
 >```
 >
 >If we view `boot_mov10_443`, we will see the estimated counts (est_counts) and Transcripts Per Million (tpm) values for each bootstrap of every sample. We can visualize the estimates and distributions:
 >
->```
+>```r
 >ggplot(boot_mov10_443, aes(sample, est_counts + 1, fill = sampletype)) + 
 >        geom_boxplot() + 
 >        facet_wrap(~target_id, ncol = 1) + 
