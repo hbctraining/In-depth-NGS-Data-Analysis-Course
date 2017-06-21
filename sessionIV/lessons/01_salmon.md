@@ -264,7 +264,7 @@ Either of these methods will work, or even a combination of the two. The **main 
 
 Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**, so we need to use the `biomaRt` package to extract this information. However, since BiomaRt has been a little unreliable we are actually not going to use this code right now.
 
-> *NOTE:* Keep in mind that the Ensembl IDs listed in our Salmon output contained version numbers (i.e ENST00000632684.1). If we query biomaRt with those IDs it will not return anything. Therefore, before querying biomaRt do not forget to strip the version numbers from the Ensembl IDs before you query.
+> *NOTE:* Keep in mind that the Ensembl IDs listed in our Salmon output contained version numbers (i.e ENST00000632684.1). If we query biomaRt with those IDs it will not return anything. Therefore, before querying Biomart in R do not forget to strip the version numbers from the Ensembl IDs.
 
 
 ```R
