@@ -80,7 +80,15 @@ The quasi-mapping approach estimates the numbers of reads mapping to each transc
 
 	The model continuously learns and updates the transcript abundance estimates, and the the second phase of the algorithm refines the estimates by using the expectation maximization (EM) or variational Bayes optimization (VBEM)  [[5](http://biorxiv.org/content/biorxiv/early/2016/08/30/021592.full.pdf)]. The maximum likelihood estimates output from the EM or VBEM factorized likelihood function represent the estimated number of fragments derived from each transcript.
 	
-> *NOTE:* To have Salmon correct for these biases you will need to specify the appropriate parameters when you run it!
+> **NOTE:** To have Salmon correct for these biases you will need to specify the appropriate parameters when you run it. Before using these parameters it is advisable to assess your data using tools like [Qualimap](http://qualimap.bioinfo.cipf.es/) to look specifically for the presence of these biases in your data and decide on which parameters would be appropriate. 
+> 
+> To correct for the various sample-specific biases you could add the following parameters to the sailfisg command:
+>
+> * `--seqBias` will enable it to learn and correct for sequence-specific biases in the input data.
+> * `--gcBias` to learn and correct for fragment-level GC biases in the input data
+> * `--posBias` will enable modeling of a position-specific fragment start distribution
+>
+
 
 ## Running Salmon on Orchestra
 
@@ -118,12 +126,6 @@ Get the transcript abundance estimates using the `quant` command and the paramet
 * `--useVBOpt`: use variational Bayesian EM algorithm rather than the ‘standard EM’ to optimize abundance estimates (more accurate) 
 * `-o`: output quantification file name
    
-To correct for the various sample-specific biases we will add the following parameters to our command:
-
-* `--seqBias` will enable it to learn and correct for sequence-specific biases in the input data.
-* `--gcBias` to learn and correct for fragment-level GC biases in the input data
-* `--posBias` will enable modeling of a position-specific fragment start distribution
-
 To run the quantification step on a single sample we have the command provided below. Let's try running it on our subset sample for `Mov10_oe_1.subset.fq`:
 
 ```bash
@@ -132,10 +134,7 @@ $ salmon quant -i /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon
  -r ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq \
  -o Mov10_oe_1.subset.salmon \
  --writeMappings=salmon.out \
- --useVBOpt \
- --seqBias \
- --gcBias \
- --posBias
+ --useVBOpt 
 ```
 
 >**NOTE:** Paired-end reads require both sets of reads to be given in addition to a [paired-end specific library type](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype):
