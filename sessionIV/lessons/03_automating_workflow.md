@@ -132,7 +132,7 @@ Next, we need to define some variables that store information that is likely to 
 
 # genome and gtf files that are likely to change
 genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
-gtf=~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf
+gtf=~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf
 
 # output of alignment
 align_out_prefix=$output_dir/STAR_alignment/${fname}_
