@@ -208,11 +208,11 @@ done
 
 Once all your jobs are completed, you can merge all the counts files using `paste` and `awk` together as follows:
 
-	# testing
-	$ paste ../new_analysis/counts/*.txt | head
-	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' | head
+	## testing
+	$ paste ../new_analysis/counts/*.txt | head   # check that gene names are matching for all samples
+	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' | head   # check that you are extracting the columns you want to extract
 	
-	# the final command
+	## the final command
 	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' > ../new_analysis/counts/all_counts.txt 		
 
 > **A better and faster alternative to running featureCounts for each file in the script, would be just run featurecounts on all the bam files together, once all the jobs have completed.**
