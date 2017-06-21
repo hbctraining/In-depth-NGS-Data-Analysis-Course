@@ -206,16 +206,26 @@ done
 
 > NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best. 
 
-Once all your jobs are completed, you can merge all the counts files using `paste` and `awk` together as follows:
+Once all your jobs are completed, there are 3 additional steps you will have to perform manually:
 
-	## testing
-	$ paste ../new_analysis/counts/*.txt | head   # check that gene names are matching for all samples
-	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' | head   # check that you are extracting the columns you want to extract
+(1) Merge all the counts files to generate a count matrix.
+
+You can do this using `paste` and `awk` together as follows:
+
+```bash
+## testing
+$ paste ../new_analysis/counts/*.txt | head   # check that gene names are matching for all samples
+$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' | head   # check that you are extracting the columns you want to extract
 	
-	## the final command
-	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' > ../new_analysis/counts/all_counts.txt 		
+## the final command
+$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' > ../new_analysis/counts/all_counts.txt 		
+```
 
 > **A better and faster alternative to running featureCounts for each file in the script, would be just run featurecounts on all the bam files together, once all the jobs have completed.**
+
+(2) Move the fastQC output into the `$output_dir/fastqc` directory
+
+(3) Run multiQC on the final outputs from fastqc, STAR and featureCounts
 
 ## Using R on a Unix system
 
