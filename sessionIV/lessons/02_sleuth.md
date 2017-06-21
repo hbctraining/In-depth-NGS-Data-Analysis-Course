@@ -270,11 +270,13 @@ human_37 <- useDataset("hsapiens_gene_ensembl",
 ## Specify the information to return
 
 t2g <- getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_id"), 
-			mart = human_37)
+		mart = human_37)
 
 ## Rename the columns for use in Sleuth
 
-t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_id)
+t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, 
+			ens_gene = ensembl_gene_id, 
+			ext_gene = external_gene_id)
 
 head(t2g)
 ```
