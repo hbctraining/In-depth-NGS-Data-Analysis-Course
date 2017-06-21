@@ -129,17 +129,23 @@ details:
       aligner: star
       quality_format: standard
       trim_reads: False
-      adapters: [truseq, polya]
       strandedness: firststrand 
 upload:
   dir: ../final
 ```
 
-You should observe indentation which is characteristic of the **YAML file format** (YAML Ain't Markup Language). YAML is a human friendly data serialization standard for all programming languages. It takes concepts from languages such as C, Perl, and Python and ideas from XML. The data structure hierarchy is maintained by **outline indentation**.
+You should observe **indentation which is characteristic of the YAML file format** (YAML Ain't Markup Language). YAML is a human friendly data serialization standard for all programming languages. It takes concepts from languages such as C, Perl, and Python and ideas from XML. The data structure hierarchy is maintained by **outline indentation**.
 
-The configuration template defines `details` of each sample to process, including : `analysis` (i.e. RNA-seq, chipseq, variant), `genome_build`, and `algorithm` specifics for each tool that is being used in the workflow. Other details include `metadata`, which will be added via the `.csv` when creating the final config file. At the end of the template we define `upload` which is for the final ouput from `bcbio`. To find out more on the details that can be added to your YAML, check out the [readthedocs](https://bcbio-nextgen.readthedocs.org/en/latest/contents/configuration.html#sample-information). 	
+The configuration template defines `details` of each sample to process, each described below:
+
+* `analysis`: the type of analysis we are running (i.e. RNA-seq, chipseq, variant)
+* `genome_build`: To find out which genomes are available in bcbio and how to specify it, you can type `bcbio_setup_genome.py` into the terminal. This will return to you a list of all current genomes.
+* `algorithm`: provide the specifics for each tool that is being used in the workflow. This space is used to customize your run and tweak any of the tools/parameters from the preset defaults. 
+* `metadata`: additional descriptive metadata about the sample. This will be added via the `.csv` when creating the final config file, so we don't need to add it here.
+
+At the end of the template we define `upload` which is for the final ouput from `bcbio`. To find out more on the details that can be added to your YAML, check out the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/contents/configuration.html#algorithm-parameters). 	
 	 
-We can now apply this template to all samples in our dataset. To do this we use the	template workflow command, which takes in the template, the metadata and the samples:  
+We can now apply this template to all samples in our dataset. To do this we use the `template` workflow (`-w`), which takes in the template YAML, the metadata and the samples and outputs a configuration file. 
 
 	$ bcbio_nextgen.py -w template mov10-template.yaml mov10_project.csv *.fq
 	
