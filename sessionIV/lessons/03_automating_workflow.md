@@ -62,7 +62,7 @@ $ set +x  # turns it off
 
 ### Granting our Workflow even More Flexibility
 
-Several changes need to be made to the last 2 scripts we made used for trimming and alignment respectively, so let's start by writing a new script with excerpts from the older ones. 
+Several changes need to be made to the last 2 scripts we made used for fastqc and alignment respectively, so let's start by writing a new script with excerpts from the older ones. 
 
 ```bash
 $ cd ~/ngs_course/rnaseq/scripts/
@@ -145,12 +145,12 @@ counts=$output_dir/counts/${fname}.counts
 Let's start with the FastQC evaluation of the input fastq file.
 
 ```bash
-# FastQC on trimmed file
-echo "****FastQC on trimmed fastq****"
+# FastQC 
+echo "****FastQC****"
 fastqc $fq
 ```
 
-Next, set up to run STAR on the trimmed files. 
+Next, set up to run STAR. 
 
 ```bash
 # Alignment with STAR
