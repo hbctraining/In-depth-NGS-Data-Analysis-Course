@@ -11,7 +11,7 @@ Approximate time: 1.5 hours
 ## Learning Objectives
 
 * Discuss other quality metrics for evaluating ChIP-Seq data
-* Generate a report containing quality metrics and diagnostic plots
+* Generate a report containing quality metrics using `ChIPQC`
 * Identify sources of low quality data
 
 
@@ -20,11 +20,31 @@ Approximate time: 1.5 hours
 
 The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. In this section we will provide descriptions of what some of these metrics are, and what they are measuring. Then, we will introduce the tools to be able to compute these metrics on your own ChIP-seq data.
 
-#### FRIP: Fraction of reads in peaks
-A useful	first-pass to evaluate	the	success	of	the	immunoprecipita)on
-• A good	quality	TF	>	5%	-- but also known	examples	of	good	data	with	FRiP	<	1%	RNAPIII	and	ZNF274
 
-#### REGI: Relative enrichment in genomic intervals
+### SSD
+
+The SSD score, as implemented in htSeqTools, is another indication of evidence of enrichment. It is computed by
+looking at the standard deviation of signal pile-up along the genome normalised to the total number of reads. An
+enriched sample typically has regions of significant pile-up so a higher SSD is more indicative of better enrichment. SSD
+scores are dependent on the degree of total genome wide signal pile-up and so are sensitive to regions of high signal found
+with Blacklisted regions as well as genuine ChIP enrichment. Here the first CTCF replicate shows the highest SSD score
+and so greatest enrichment for depth of signal.
+The final two metrics report the percentage of reads in different regions of interest. The first 
+
+### FRiP: Fraction of reads in peaks
+
+This value reports the percentage of reads that overlap within called peaks.  This is another good indication of how ”enriched” the sample is, or the success of the immunoprecipitation. It can be considered a ”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads. FRiP values for ChIPs around 5% or higher generally reflect a successful enrichment, but there are also known	examples	of	good	data	with	FRiP	<	1% (i.e. RNAPIII).
+
+### RiBL: Reads overlappin blacklisted regions
+
+The final measure reports the percentage of reads that overlapped blacklisted regions (RiBL). The signal from blacklisted
+has been shown to contribute to confound peak callers and fragment length estimation as well as contribute to the read
+length peak in cross coverage and cross coverage read length peak ([2]). The RiBL score then may act as a guide for
+the level of background signal in a ChIP or input and is found to be correlated with SSD in input samples and the read
+length cross coverage score in both input and ChIP samples
+
+
+
 
 
 
