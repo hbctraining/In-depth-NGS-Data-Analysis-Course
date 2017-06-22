@@ -18,7 +18,7 @@ The pipeline we will be presenting here is [bcbio-nextgen](https://bcbio-nextgen
 
 ## `bcbio-nextgen`
 
-[bcbio-nextgen](https://bcbio-nextgen.readthedocs.io/en/latest/index.html) is a shared community resource for handling the data processing of various NGS experiments including variant calling, mRNA-seq, small RNA-seq and ChIP-seq. It is an open-source toolkit created by Brad Chapman with a lot of support (testing, bug reports etc.) and development from the large [user community](https://bcbio-nextgen.readthedocs.org/en/latest/contents/introduction.html#users).
+[bcbio-nextgen](https://bcbio-nextgen.readthedocs.io/en/latest/index.html) is a shared community resource for handling the data processing of various NGS experiments including variant calling, mRNA-seq, small RNA-seq and ChIP-seq. It is an open-source toolkit with a lot of support (testing, bug reports etc.) and development from the large [user community](https://bcbio-nextgen.readthedocs.org/en/latest/contents/introduction.html#users).
 
 > *"A piece of of software is being sustained if people are using it, fixing it, and improving it rather than replacing it"*
 > -[Software Carpentry](http://software-carpentry.org/blog/2014/08/sustainability.html)
@@ -32,7 +32,7 @@ bcbio-nextgen provides *best-practice* piplelines with the goal of being:
 * Reproducible: Tracks configuration, versions, provenance and command lines
 * Analyzable: Results feed into downstream tools to make it easy to query and visualize
 
-It is available for installation on most Linux systems (compute clusters), and also has instructions for setup on the Cloud. It is currently installed on on the Orchestra cluster, and so we will demonstrate `bcbio-nextgen` for RNA-seq data using our Mov10 dataset as input.
+It is available for installation on most Linux systems (compute clusters), and also has instructions for setup on the Cloud. It is currently installed on on the Orchestra cluster, and so **we will demonstrate `bcbio-nextgen` for RNA-seq data using our Mov10 dataset as input**.
 
 > *NOTE:* There is also a [simplified version of how to use bcbio](https://github.com/sorgerlab/rnaseq) for RNA-Seq analysis put together by the Sorger lab, as the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/index.html) can be sometimes be overwhelming with much more detail than you need to get started.
 
@@ -49,7 +49,7 @@ Let's get started by logging on to Orchestra and starting an interactive session
 
 	$ bsub -Is -q interactive bash
 	
-The first thing we need to do in order to run `bcbio`, is setup some environment variables. Rather than just modifying them in the command-line, we will be adding it to our `.bashrc` file which is  located in your home directory. The `.bashrc` is a shell script that Bash runs whenever it is started interactively. You can put any command in that file that you could type at the command prompt, and is generally used to set an environment and customize things to your preferences.
+The first thing we need to do in order to run `bcbio`, is **setup some environment variables**. Rather than just modifying them in the command-line, we will be adding it to our `.bashrc` file which is  located in your home directory. The `.bashrc` is a shell script that Bash runs whenever it is started interactively. You can put any command in that file that you could type at the command prompt, and is generally used to set an environment and customize things to your preferences.
 
 Open up your `.bashrc` using `vim` and add in the following:
 
@@ -67,7 +67,7 @@ Open up your `.bashrc` using `vim` and add in the following:
 > export LANGUAGE=en_US.UTF-8
 > ````
  
-Close and save the file. Finally, let's set up the project structure. **Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, we will use `/n/scratch2` space to make sure there is enough disk space to hold all of those files.** Your home directory on Orchestra will not be able to handle this amount of data. Another alternative is talking to the folks at HMS-RC to set up a directory in the `/groups` folder for your lab. 
+Close and save the file. Finally, let's set up the project structure. **Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, we will **use `/n/scratch2` space to make sure there is enough disk space to hold all of those files.** Your home directory on Orchestra will not be able to handle this amount of data. `/n/scratch2/` allows 10TB of space per user and it is ideal for running large scale workflows. Keep in mind that this is a temporary space and files will be purged in 30 days. Another alternative is talking to the folks at HMS-RC to set up a directory in the `/groups` folder for your lab. 
 
 Change directories into `/n/scratch2` and make a directory titled your Orchestra username (i.e. `mm573`). Since this is a shared space it is useful to make your own personal directory:
 
@@ -183,11 +183,11 @@ In our configuration, we specified the following:
       strandedness: firststrand
  ```
 
-* For quality control, the FASTQC tool is used and we selected `standard` to indicate the **standard fastqsanger quality** encoding. 
-* Trimming is not required unless you are using and aligner that doesn't perform soft-clipping. By default trimming is performed and you can specify other details for `adapter` trimming, however this is very slow. Aligners that soft clip the ends of reads such as STAR and HISAT2, or algorithms using pseudoalignments like Sailfish handle contaminant sequences at the ends properly. This makes trimming unnecessary, and since we have chosen `star` as our aligner we have also set `trim_reads: False`.
-* For RNA-seq libraries, if your library is strand specific, set the appropriate flag from [unstranded, firststrand, secondstrand]. The default is set to unstranded. For dUTP marked libraries, which we are working with, `firststrand` is correct.
-* Alignment QC is performed by [Qualimap](http://qualimap.bioinfo.cipf.es/) and then [MultiQC](http://multiqc.info/) is run to collate these results into a report which contains features of the mapped reads and provides an overall view of the data that helps to the detect biases in the sequencing and/or mapping of the data. 
-* Counting of reads is done using featureCounts and does not need to be specified in the configuration file. Also, Salmon which is an extremely fast alignment-free method of quantitation, is run. For each sample we get the `quant.sf` files and also a file of aggregated values across samples. In the outputs section we discuss in more detail the various quantitation files that are generated.
+* For quality control, the **FASTQC** tool is used and we selected `standard` to indicate the standard fastqsanger quality encoding. 
+* **Trimming** is not required unless you are using and aligner that doesn't perform soft-clipping. By default trimming is performed and you can specify other details for `adapter` trimming, however this is very slow. Aligners that soft clip the ends of reads such as STAR and HISAT2, or algorithms using pseudoalignments like Sailfish handle contaminant sequences at the ends properly. This makes trimming unnecessary, and since we have chosen `star` as our aligner we have also set `trim_reads: False`.
+* For **RNA-seq libraries**, if your library is strand specific, set the appropriate flag from [unstranded, firststrand, secondstrand]. The default is set to unstranded. For dUTP marked libraries, which we are working with, `firststrand` is correct.
+* **Alignment QC** is performed by [Qualimap](http://qualimap.bioinfo.cipf.es/) and then [MultiQC](http://multiqc.info/) is run to collate these results into a report which contains features of the mapped reads and provides an overall view of the data that helps to the detect biases in the sequencing and/or mapping of the data. 
+* **Counting** of reads is done using featureCounts and does not need to be specified in the configuration file. Also, Salmon which is an extremely fast alignment-free method of quantitation, is run. For each sample we get the `quant.sf` files and also a file of aggregated values across samples. In the outputs section we discuss in more detail the various **quantitation files** that are generated.
 
 
 ### Creating a job script to run `bcbio`
@@ -203,7 +203,7 @@ Let's move into this directory:
 To run `bcbio` we call the same python script that we used for creating the config file `bcbio_nextgen.py` but we add different parameters:
 
 * `../config/mov10_project.yaml`: specify path to config file relative to the `work` directory
-* `-n 64`: total number of cores to use on the cluster during processing. For distributed jobs, you want to set cores to match the available cores on a single node in your cluster, then use `-n` as a multiple of this to determine how many nodes to spin up. For example, cores: 16 and -n 64 would try to make four 16 core machines available for analysis.
+* `-n 64`: total number of cores to use on the cluster during processing
 * `-t ipython`: use python for parallel execution
 * `-s lsf`: type of scheduler
 * `-q mcore`: queue to submit jobs to
@@ -252,28 +252,56 @@ mov10_project/
 ├── work
 └── final
 ```
+Your results may not have populated so take a look in our most recent `final`:
 
-There is a run summary file inside the date-stamped folder called `project-summary` in YAML format. The content of this file describes various quality metrics for each sample post-alignment. You will also find a directory called `multiqc`. Inside here you will find an HTML file that summarizes QC metrics for all samples into a single report. This is an [example report](http://multiqc.info/examples/rna-seq/multiqc_report.html) to give you an idea of the type of information you will find. *NOTE: you will need to move this over to your local laptop in order to view and interpret QC metrics.*
+	$ ls -l /n/scratch2/mm573/bcbio-rnaseq-06-21-2017/mov10_project/final
+	
+There is a date-stamped folder in addition to several folders corresponding to each sample that was run.
+
+```
+total 28
+drwxrwxr-x 3 mm573 mm573 4096 Jun 21 22:56 2017-06-21_mov10_project
+drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Irrel_kd1
+drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Irrel_kd2
+drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Irrel_kd3
+drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Mov10_oe1
+drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Mov10_oe2
+drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Mov10_oe3
+```
+
+#### Sample-specific files
+
+Inside each of the sample directories we have results pertaining to each sample. Take a look at `Irrel_kd1`:
+
+	$ ls -l /n/scratch2/mm573/bcbio-rnaseq-06-21-2017/mov10_project/final/Irrel_kd1
+
+Here you will find the sorted BAM files along with an index, in addition to a file containing count values. The `transcriptome.bam` file....
+There is also a folder containing all of the `qc` results organized into sub-directories corresponding to the tool that was run (i.e. Qualimap, FASTQC, samtoolss). The `salmon` folder is the output from a Salmon run, as we had done in class.
+
 
 ### Quantitation files
 
-Inside the date-stamped directory you will also find a number of different quanitification files for your dataset. These files correspond to aggregated information from the different quantification methods that were applied in the workflow. For RNA-seq these are listed below and also detailed in the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/contents/outputs.html#rna-seq):
+Inside the **date-stamped directory** you will also find a number of different files that have aggregated information across all samples in your dataset.
+
+	$ ls -l /n/scratch2/mm573/bcbio-rnaseq-06-21-2017/mov10_project/final/2017-06-21_mov10_project/
+
+
+* There is a **`project-summary` file in YAML format**. The content of this file describes various quality metrics for each sample, post-alignment. 
+* In the **directory called `multiqc`** you will find an HTML file that summarizes QC metrics for all samples into a single report. *NOTE: you will need to move this over to your local laptop in order to view and interpret QC metrics.*
+
+The next set of files correspond expression matrices for your dataset generated using the different quantification methods that were applied in the workflow.  For RNA-seq these files are listed below and also detailed in the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/contents/outputs.html#rna-seq):
 
 * `annotated_combined.counts` – featureCounts counts matrix with gene symbol as an extra column.
 * `combined.counts` – featureCounts counts matrix with gene symbol as an extra column.
 * `combined.dexseq` – DEXseq counts matrix with exonID as first column.
-* `combined.gene.sf.tmp` – Sailfish gene count matrix normalized to TPM.
-* `combined.isoform.sf.tpm` – Sailfish transcript count matix normalized to TPM.
-* `combined.sf` – Sailfish raw output, all samples files are pasted one after another.
-* `tx2gene.csv` – Annotation file needed for DESeq2 to use Sailfish output.
+* `tx2gene.csv` – Annotation file needed for DESeq2 to use Salmon output.
 
-In the `final` directory there are also individual directories for each sample in your dataset. Within each of these folders you will find the final sorted BAM file and its associated index. There is also a `qc` folder which contains sub-directories that contain results from the different QC tools (FASTQC, qualimap). Finally, you should see a `sailfish` folder which contains the Sailfish output including `abundance.h5` files, which means these samples are ready for `sleuth` should you decide to run it.
 
 > #### Using bcbio output to run `DESeq2` or `sleuth`
 > 
-> * For **gene-level differential expression** analysis, the `quant.sf` files are found within the `final` directory in a subdirectory under each sample. For example, the Mov10_oe1 file can be found in `bcbio-rnaseq/mov10_project/final/Mov10_oe1/sailfish/quant/`. These files can be used as input to the **`tximport/DESeq2`** workflow as described in our [previous lesson](https://github.com/hbc/NGS-Data-Analysis-long-course/blob/Fall_2016/sessionIV/lessons/01_Salifish.md#performing-de-analysis-on-pseudocounts). 
-> * If you are interested in looking at **differential expression of splice isoform**s, you will want to use the `abundance.h5` files found at the same path listed above. These are the sleuth-compatible format which saves you having to run `wasabi`. These files can be used as input to the **`sleuth` workflow** as described in our [previous lesson](https://github.com/hbc/NGS-Data-Analysis-long-course/blob/Fall_2016/sessionIV/lessons/02_sleuth.md#sleuth-workflow)
-> * *NOTE: that you will need to setup a directory structure imialr to what we had in class in order to follow along. i.e you will need to make sure each directory is named after the sample data it contains.*
+> * For **gene-level differential expression** analysis, the `quant.sf` files are found within the `final` directory in a sub-directory under each sample. These files can be used as input to the **`tximport/DESeq2`** workflow as described in our [previous lesson](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionIV/lessons/01_salmon.md). 
+> * If you are interested in looking at **differential expression of splice isoforms**, you will want to use the `abundance.h5` files found at the same path listed above. These are the sleuth-compatible format which saves you having to run `wasabi`. These files can be used as input to the **`sleuth` workflow** as described in our [previous lesson](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionIV/lessons/02_sleuth.md)
+> * *NOTE: that you will need to setup a directory structure similar to what we had in class in order to follow along. i.e you will need to make sure each directory is named after the sample data it contains.*
 
 
 
