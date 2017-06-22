@@ -54,9 +54,11 @@ length cross coverage score in both input and ChIP samples
 ### Running `ChIPQC`
 
 > **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
-> `source("http://bioconductor.org/biocLite.R")
-> biocLite("ChIPQC")
-
+>
+```
+source("http://bioconductor.org/biocLite.R")
+biocLite("ChIPQC")
+```
 
 1. Before you begin copy over the BAM files and the corresponding indices (`*.bam*`) from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/bowtie2` to your local laptop using `FileZilla`. 
 
