@@ -72,6 +72,8 @@ biocLite("ChIPQC")
 
 6. Also, copy over your peak calls (`.narrowPeak`) from MACS2 for each file from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/macs2` to your local laptop using `FileZilla`.
 
+7. Move the BAMs into `data/bams` and move the narrowPeak files into `data/peakcalls` 
+
 *NOTE: students will be using alignment files and peak calls from in-class results in their HOME directories*.
 
 ```
