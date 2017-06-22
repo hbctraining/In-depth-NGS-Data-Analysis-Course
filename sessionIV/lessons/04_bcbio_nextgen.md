@@ -275,11 +275,10 @@ Inside each of the sample directories we have results pertaining to each sample.
 
 	$ ls -l /n/scratch2/mm573/bcbio-rnaseq-06-21-2017/mov10_project/final/Irrel_kd1
 
-Here you will find the sorted BAM files along with an index, in addition to a file containing count values. The `transcriptome.bam` file....
-There is also a folder containing all of the `qc` results organized into sub-directories corresponding to the tool that was run (i.e. Qualimap, FASTQC, samtoolss). The `salmon` folder is the output from a Salmon run, as we had done in class.
+Here you will find the **sorted BAM files** along with an index, in addition to a file containing **count values** from featureCounts. The `transcriptome.bam` file is generated from STAR, but is not something you are likely to use/need. There is also a folder containing all of the **`qc` results** organized into sub-directories corresponding to the tool that was run (i.e. Qualimap, FASTQC, samtools). The **`salmon` folder** is the output from a Salmon run, as we had done in class.
 
 
-### Quantitation files
+### Aggregated results
 
 Inside the **date-stamped directory** you will also find a number of different files that have aggregated information across all samples in your dataset.
 
@@ -289,7 +288,7 @@ Inside the **date-stamped directory** you will also find a number of different f
 * There is a **`project-summary` file in YAML format**. The content of this file describes various quality metrics for each sample, post-alignment. 
 * In the **directory called `multiqc`** you will find an HTML file that summarizes QC metrics for all samples into a single report. *NOTE: you will need to move this over to your local laptop in order to view and interpret QC metrics.*
 
-The next set of files correspond expression matrices for your dataset generated using the different quantification methods that were applied in the workflow.  For RNA-seq these files are listed below and also detailed in the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/contents/outputs.html#rna-seq):
+The next set of files correspond **expression matrices** for your dataset generated using the **different quantification methods** that were applied in the workflow.  For RNA-seq these files are listed below and also detailed in the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/contents/outputs.html#rna-seq):
 
 * `annotated_combined.counts` – featureCounts counts matrix with gene symbol as an extra column.
 * `combined.counts` – featureCounts counts matrix with gene symbol as an extra column.
@@ -309,7 +308,7 @@ The next set of files correspond expression matrices for your dataset generated 
 
 In the `final` folder there are also two log files:
 
-1. `bcbio-nextgen.log`: High level logging information about the analysis. This provides an overview of major processing steps and useful checkpoints for assessing run times.
+1. `bcbio-nextgen.log`: High level logging information about the analysis. This provides an **overview of major processing steps and useful checkpoints** for assessing run times.
 2. `bcbio-nextgen-commands.log`: Full command lines (including all parameters) for all third party software tools run.
 
 There is one more log file located in the `work` folder. Here, you will find that there are many new directories and files. For each step of pipeline, new job submission scripts were generated as were various intermediate files and directories. 
