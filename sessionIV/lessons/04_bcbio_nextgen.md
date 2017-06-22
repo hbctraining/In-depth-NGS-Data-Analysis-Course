@@ -314,6 +314,7 @@ In the `final` folder there are also two log files:
 There is one more log file located in the `work` folder. Here, you will find that there are many new directories and files. For each step of pipeline, new job submission scripts were generated as were various intermediate files and directories. 
 Since the important files were collated and placed in the `final` directory, the only other important directory is the `logs` directory. The last log file is `bcbio-nextgen-debug.log`. It contains detailed information about processes including stdout/stderr from third party software and error traces for failures. **Look here to identify the status of running pipelines or to debug errors.** It labels each line with the hostname of the machine it ran on to ease debugging in distributed cluster environments.
 
+> **NOTE: Coming soon!** We have an R package in development called [`bcbioRnaseq`](https://github.com/hbc/bcbioRnaseq) which can be used downstream of `bcbio` to perform quality control and differential expression for bcbio-nextgen RNA-seq. experiments.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
