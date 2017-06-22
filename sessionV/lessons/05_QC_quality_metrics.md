@@ -51,7 +51,36 @@ length cross coverage score in both input and ChIP samples
 
 ## `ChIPQC`: quality metrics report
 
+### Running `ChIPQC`
 
+> **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
+> `source("http://bioconductor.org/biocLite.R")
+> biocLite("ChIPQC")
+
+
+1. Before you begin copy over the BAM files and the corresponding indices (`*.bam*`) from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/bowtie2` to your local laptop using `FileZilla`. 
+
+2. Also, copy over your peak calls (`.narrowPeak`) from MACS2 for each file from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/macs2` to your local laptop.
+
+*NOTE: students will be using alignment files and peak calls from in-class results in their HOME directories*.
+
+Download the sample data sheet available from [this link](../samplesheet_chr12.csv).
+
+```
+## Load libraries
+library(ChIPQC)
+
+## Load sample data
+samples <- read.csv('meta/samplesheet_chr12.csv')
+
+## Create ChIPQC object
+chipObj <- ChIPQC(samples, annotation="hg19") 
+
+## Create ChIPQC report
+ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolder="ChIPQCreport")
+
+```
+An example report can be found [here](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport/ChIP%20QC%20report%3A%20Nanog%20and%20Pou5f1.html).
 
 ## Sources of low quality ChiP-seq
 
