@@ -1,0 +1,5 @@
+SampleID,Factor,Replicate,bamReads,ControlID,bamControl,Peaks,PeakCaller,Tissue,Condition
+Nanog.Rep1,Nanog,1,data/chr12-bam/H1hesc_Nanog_Rep1_chr12_aln.bam,Nanog-Input1,data/chr12-bam/H1hesc_Input_Rep1_chr12_aln.bam,data/chr12-bed/Nanog-rep1_peaks.narrowPeak,narrow,NA,NA
+Nanog.Rep2,Nanog,2,data/chr12-bam/H1hesc_Nanog_Rep2_chr12_aln.bam,Nanog-Input2,data/chr12-bam/H1hesc_Input_Rep2_chr12_aln.bam,data/chr12-bed/Nanog-rep2_peaks.narrowPeak,narrow,NA,NA
+Pou5f1.Rep1,Pou5f1,1,data/chr12-bam/H1hesc_Pou5f1_Rep1_chr12_aln.bam,Pou5f1-Input1,data/chr12-bam/H1hesc_Input_Rep1_chr12_aln.bam,data/chr12-bed/Pou5f1-rep1_peaks.narrowPeak,narrow,NA,NA
+Pou5f1.Rep2,Pou5f1,2,data/chr12-bam/H1hesc_Pou5f1_Rep2_chr12_aln.bam,Pou5f1-Input2,data/chr12-bam/H1hesc_Input_Rep2_chr12_aln.bam,data/chr12-bed/Pou5f1-rep2_peaks.narrowPeak,narrow,NA,NA
