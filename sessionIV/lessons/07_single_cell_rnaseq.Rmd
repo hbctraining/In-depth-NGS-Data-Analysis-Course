@@ -13,16 +13,19 @@ bibliography: bcbioSinglecell.bib
 # source("https://bioconductor.org/biocLite.R")
 # biocLite(c("import", "tidyverse", "satijalab/seurat", "hbc/bcbioSinglecell"))
 
+# Download references
+bcbioSinglecell::downloads("bcbioSinglecell.bib")
+
 library(tidyverse)
 library(Seurat)
 import::from(Matrix, colSums)
 import::from(plyr, mapvalues)
 
 # Knitr options
-knitr::opts_chunk$set(cache = TRUE)
-
-# Download references
-bcbioSinglecell::downloads("bcbioSinglecell.bib")
+knitr::opts_chunk$set(
+    cache = TRUE,
+    cache.lazy = FALSE,
+    message = FALSE)
 ```
 
 All features in [Seurat][] have been configured to work with both regular and sparse matrices. We prefer to use sparse matrices from the [Matrix][] package, as they result in significant memory and speed savings.
@@ -189,9 +192,8 @@ PCAPlot(pbmc, 1, 2)
 
 In particular, `PCHeatmap()` allows for easy exploration of the primary sources of heterogeneity in a dataset, and can be useful when trying to decide which PCs to include for further downstream analyses. Both cells and genes are ordered according to their PCA scores. Setting `cells.use` to a number plots the "extreme" cells on both ends of the spectrum, which dramatically speeds plotting for large datasets. Though clearly a supervised analysis, we find this to be a valuable tool for exploring correlated gene sets.
 
-```{r PCHeatmap, message=FALSE, warning=FALSE}
+```{r PCHeatmap, fig.height=8, fig.width=5, message=FALSE, warning=FALSE}
 ?PCHeatmap
-PCHeatmap(pbmc, pc.use = 1, cells.use = 100, do.balanced = TRUE)
 PCHeatmap(pbmc, pc.use = 1:12, cells.use = 500, do.balanced = TRUE,
           label.columns = FALSE, use.full = FALSE)
 ```
@@ -286,7 +288,7 @@ FeaturePlot(
 
 Heatmaps can also be a good way to examine heterogeneity within/between clusters. The `DoHeatmap()` function will generate a heatmap for given cells and genes. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.
 
-```{r marker_DoHeatmap, fig.height=10, fig.width=5, warning=FALSE}
+```{r marker_DoHeatmap, fig.height=8, fig.width=5, warning=FALSE}
 ?DoHeatmap
 pbmc.markers %>% group_by(cluster) %>% top_n(10, avg_diff) -> top10
 DoHeatmap(pbmc, genes.use = top10$gene, order.by.ident = TRUE,
