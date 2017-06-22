@@ -66,7 +66,11 @@ biocLite("ChIPQC")
 
 *NOTE: students will be using alignment files and peak calls from in-class results in their HOME directories*.
 
-Download the sample data sheet available from [this link](../samplesheet_chr12.csv).
+Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv).
+
+3. Open up RStudio. File --> 'New Project' --> New directory --> chipqc
+
+4. Create directories for `data` and `meta`. In `data` create subdirectories for `bams` and `peakcalls`.
 
 ```
 ## Load libraries
