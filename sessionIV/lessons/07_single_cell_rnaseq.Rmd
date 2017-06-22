@@ -31,7 +31,7 @@ All features in [Seurat][] have been configured to work with both regular and sp
 
 # Download example data
 
-```{r download.file}
+```{r download_file}
 download.file(
     file.path("https://s3-us-west-2.amazonaws.com",
               "10x.files",
