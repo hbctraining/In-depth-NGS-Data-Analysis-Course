@@ -11,7 +11,7 @@ bibliography: bcbioSinglecell.bib
 # https://github.com/satijalab/satijalab.github.io/blob/master/seurat/pbmc-tutorial.Rmd
 
 # source("https://bioconductor.org/biocLite.R")
-# biocLite(c("import", "tidyverse", "satijalab/seurat"))
+# biocLite(c("import", "tidyverse", "satijalab/seurat", "hbc/bcbioSinglecell"))
 
 library(tidyverse)
 library(Seurat)
