@@ -26,7 +26,7 @@ We also need to order our results by log2 fold changes:
 
 ```r
 # Order results by `Log2FoldChange`
-all_results_gsea[order(all_results_gsea$log2FoldChange, decreasing = T), ]
+all_results_gsea <- all_results_gsea[order(all_results_gsea$log2FoldChange, decreasing = T), ]
 ```
 
 Finally, extract and name the fold changes:
