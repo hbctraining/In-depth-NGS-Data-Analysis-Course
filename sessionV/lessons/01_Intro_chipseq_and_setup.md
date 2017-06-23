@@ -102,7 +102,7 @@ Now let's setup the directory structure. In one command create folders for `raw_
 
 We'll also create a folder for `results` and within that folder create folders for `untrimmed_fastqc`, `trimmed`, `trimmed_fastqc`, and `bowtie2`:
 
-`$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/results/bowtie2`
+`$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/bowtie2`
 
 Finally, we will need directories for our `scripts`, `logs`, and `meta`:
 
