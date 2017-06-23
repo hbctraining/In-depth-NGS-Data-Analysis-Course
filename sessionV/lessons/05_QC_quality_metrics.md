@@ -18,9 +18,9 @@ Approximate time: 1.5 hours
 
 ## Additional Quality Metrics for ChIP-seq data
 
-The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. We have already discussed mertics related to strand cross-correlation such as NSC and RSC. In this section we will provide descriptions of addiotional metrics and what they are measuring. Then, we will introduce the tools to be able to compute these metrics on your own ChIP-seq data. 
+The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. We have already discussed metrics related to strand cross-correlation such as NSC and RSC. In this section, we will provide descriptions of additional metrics that **assess the distribution of signal within enriched regions, within/across expected annotations, across the whoel genome, and within known artefact regions.**
 
-> ***NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure! These are simply metrics that can help troubleshoot.*
+> **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!
 
 
 ### SSD
@@ -30,8 +30,13 @@ The SSD score is a measure used to indicate evidence of enrichment. It provides 
 
 ### FRiP: Fraction of reads in peaks
 
-This value reports the percentage of reads that overlap within called peaks.  This is another good indication of how ”enriched” the sample is, or the success of the immunoprecipitation. It can be considered a **”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads**. FRiP values will vary depending on the protein of interest. A typical good quality TF with successful enrichment would exhibit a FRiP around 5% or higher. A good quality PolII would exhibit a FRiP of 30% or higher. There are also known examples of	good data with FRiP	< 1% (i.e. RNAPIII).
+This value reports the percentage of reads that overlap within called peaks.  This is another good indication of how ”enriched” the sample is, or the success of the immunoprecipitation. It can be considered a **”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads**. FRiP values will vary depending on the protein of interest. A typical good quality TF with successful enrichment would exhibit a FRiP around 5% or higher. A good quality PolII would exhibit a FRiP of 30% or higher. There are also known examples of	good data with FRiP < 1% (i.e. RNAPIII).
 	
+
+### Relative Enrichment of Genomic Intervals (REGI)
+
+Using the genomic regions identified as called peaks, we can obtain genomic annotation to show where reads map in terms of various genomic features. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
+
 
 ### RiBL: Reads overlapping in Blacklisted Regions
 
@@ -45,14 +50,23 @@ These regions tend to have a very high ratio of multi-mapping to unique mapping 
 
 
 
-
-
-
-
-
 ## `ChIPQC`: quality metrics report
 
-### Running `ChIPQC`
+`ChIPQC` is a Bioconductor package that takes as input BAM files and peak calls to automatically compute a number of quality metrics and generates a ChIPseq
+experiment quality report. We are going to use this package to generate a report for our Nanog and Pou5f1 samples.
+
+### Setting up 
+
+Let's first move over the appropriate files to our laptop.
+
+5. Copy over the BAM files and the corresponding indices (`*.bam*`) from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/bowtie2` to your local laptop using `FileZilla`. 
+
+6. Also, copy over your peak calls (`.narrowPeak`) from MACS2 for each file from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/macs2` to your local laptop using `FileZilla`.
+
+Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv).
+
+
+
 
 > **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
 >
@@ -61,7 +75,10 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("ChIPQC")
 ```
 
-1. Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv).
+
+### Running `ChIPQC` 
+
+
 
 2. Open up RStudio. File --> 'New Project' --> New directory --> `ChIPQC`
 
@@ -69,9 +86,6 @@ biocLite("ChIPQC")
 
 4. Put the samplesheet into the `meta` folder.
 
-5. Copy over the BAM files and the corresponding indices (`*.bam*`) from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/bowtie2` to your local laptop using `FileZilla`. 
-
-6. Also, copy over your peak calls (`.narrowPeak`) from MACS2 for each file from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/macs2` to your local laptop using `FileZilla`.
 
 7. Move the BAMs into `data/bams` and move the narrowPeak files into `data/peakcalls` 
 
@@ -93,11 +107,11 @@ ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolde
 ```
 An example report can be found [here](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport/ChIP%20QC%20report%3A%20Nanog%20and%20Pou5f1.html).
 
-## Sources of low quality ChiP-seq
+## Experimental biases: sources of low quality ChIP-seq data
 
 Once you have identified low quality samples, th next logical step is to troubleshoot what might be causing it.
 
-**The specifity of the antibody.** 
+* **Strength/efficiency and specificity of the immunoprecipitation** 
 
 The quality of a ChIP experiment is ultimately dictated by the specificity of the antibody and the degree of enrichment achieved in the affinity precipitation step [[1]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/). Antibody deficiencies are of two main types:
 
@@ -106,11 +120,14 @@ The quality of a ChIP experiment is ultimately dictated by the specificity of th
 
 Antibodies directed against transcription factors must be characterized using both a primary (i.e immunoblot, immunofluorescence) and secondary characterization (i.e knockout of target protein, IP with multiple antibodies).
 
+* **Fragmentation/digestion**
+
+The way in which sonication is carried out can result in different fragment size distributions and, consequently, sample-specific chromatin configuration induced biases. As a result, it is not recommended to use a single input sample as a control for ChIP-seq peak calling if it is not sonicated together with the ChIP sample. 
+
 * **Biases during library preparation:** 
 
 *PCR amplification:* Biases arise because DNA sequence content and length determine the kinetics of annealing and denaturing in each cycle of PCR. The combination of temperature profile, polymerase and buffer used during PCR can therefore lead to differential efficiencies in amplification between different sequences, which could be exacerbated with increasing PCR cycles. This is often manifest as a bias towards GC rich fragments [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4473780/). **Limited use of PCR amplification is recommended because bias increases with every PCR cycle.**
 
-*Fragment bias*: The way in which sonication is carried out can result in different fragment size distributions and, consequently, sample-specific chromatin configuration induced biases. As a result, it is not recommended to use a single input sample as a control for ChIP-seq peak calling if it is not sonicated together with the ChIP sample. 
 
 
 
