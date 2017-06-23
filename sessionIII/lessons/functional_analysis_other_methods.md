@@ -7,19 +7,19 @@ ClusterProfiler is a versatile tool allowing for over-representation analysis an
 
 ```r
 # Return all genes with Entrez IDs
-sig_genes_entrez <- getBM(filters = "external_gene_name", 
+all_results_entrez <- getBM(filters = "external_gene_name", 
                    values = rownames(res_tableOE),
                    attributes = c("entrezgene","external_gene_name")
                    mart = human)
                    
-merged_sig_genes_entrez <- merge(data.frame(res_tableOE), sig_genes_entrez, by.x="row.names", by.y="external_gene_name") 
+merged_all_results_entrez <- merge(data.frame(res_tableOE), all_results_entrez, by.x="row.names", by.y="external_gene_name") 
 ```
 
 When performing our analysis, we need to remove the NA values prior to the analysis:
 
 ```r
 # Remove any NA values
-all_results_gsea <- subset(sig_genes_entrez, entrezgene != "NA")
+all_results_gsea <- subset(merged_all_results_entrez, entrezgene != "NA")
 ```
 
 We also need to order our results by log2 fold changes:
