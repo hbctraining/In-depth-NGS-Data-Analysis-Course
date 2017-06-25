@@ -57,15 +57,15 @@ experiment quality report. We are going to use this package to generate a report
 
 ### Setting up 
 
-Let's first move over the appropriate files to our laptop.
 
-5. Copy over the BAM files and the corresponding indices (`*.bam*`) from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/bowtie2` to your local laptop using `FileZilla`. 
+1. Open up RStudio and create a new project for your ChIP-seq analyses on your Desktop. Select 'File' -> 'New Project' -> 'New directory' and call the new directory `chipseq-project`.
+2. Create a directory structure for your analyses. You will want to create four directories: `data`, `meta`, `results`, and `figures`.
+3. Inside `data` create two subdirectories: one for your BAM files called `bams` and one for the MACS2 peak calls called `peakcalls`.
+4. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as chipseq.R
 
-6. Also, copy over your peak calls (`.narrowPeak`) from MACS2 for each file from `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq-trimmed/results/macs2` to your local laptop using `FileZilla`.
+Your Rstudio interface should look something like the screenshot below:
 
-Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv).
-
-
+<img src="../img/rstudio-screenshot.png" width=500>
 
 
 > **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
@@ -75,21 +75,21 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("ChIPQC")
 ```
 
+### Getting data 
+
+Now let's move over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
+
+1. Move over the **BAM files (`.bam`)** and the corresponding **indices (`.bai`)** from `~/ngs_course/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
+
+
+2. Move over the **narrowPeak files (`.narrowPeak`)** `~/ngs_course/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
+
+3. Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
+
 
 ### Running `ChIPQC` 
 
-
-
-2. Open up RStudio. File --> 'New Project' --> New directory --> `ChIPQC`
-
-3. Create directories for `data` and `meta`. In `data` create subdirectories for `bams` and `peakcalls`.
-
-4. Put the samplesheet into the `meta` folder.
-
-
-7. Move the BAMs into `data/bams` and move the narrowPeak files into `data/peakcalls` 
-
-*NOTE: students will be using alignment files and peak calls from in-class results in their HOME directories*.
+Let's start by loading the `ChIPQC` library and the samplesheet into R. Use the `View()` function to take a look at what the samplesheet contains.
 
 ```
 ## Load libraries
@@ -97,15 +97,44 @@ library(ChIPQC)
 
 ## Load sample data
 samples <- read.csv('meta/samplesheet_chr12.csv')
+View(samples)
+```
+
+The **sample sheet** contains metadata information for our dataset.Each row represents a peak set (which in most cases is every ChIP sample) and several columns of required information, which allows us to easily load the associated data in one single command. _NOTE: The column headers have specific names that are expected by ChIPQC!!_. 
+
+* **SampleID**: Identifier string for sample
+* **Tissue, Factor, Condition**: Identifier strings for up to three different factors (You will need to have all columns listed. If you don't have infomation, then set values to NA)
+* **Replicate**: Replicate number of sample
+* **bamReads**: file path for BAM file containing aligned reads for ChIP sample
+* **ControlID**: an identifier string for the control sample
+* **bamControl**: file path for bam file containing aligned reads for control sample
+* **Peaks**: path for file containing peaks for sample
+* **PeakCaller**: Identifier string for peak caller used. Possible values include “raw”, “bed”, “narrow”, “macs”
+
+Next we will create a ChIPQC object which might take a few minutes to run. `ChIPQC` will use the samplesheet read in the data for each sample (BAMs and narrowPeak files) and compute quality metrics. The results will be stored into the object. 
+
+```
 
 ## Create ChIPQC object
 chipObj <- ChIPQC(samples, annotation="hg19") 
+
+```
+
+Now let's take those quality metrics and summarize information into an HTML report with tables and figures.
+
+```
 
 ## Create ChIPQC report
 ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolder="ChIPQCreport")
 
 ```
-An example report can be found [here](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport/ChIP%20QC%20report%3A%20Nanog%20and%20Pou5f1.html).
+
+If you were unable to run the code successfully you can take a look an example report found [here](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport/ChIP%20QC%20report%3A%20Nanog%20and%20Pou5f1.html).
+
+
+### `ChIPQC report
+
+
 
 ## Experimental biases: sources of low quality ChIP-seq data
 
