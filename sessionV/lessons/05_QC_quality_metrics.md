@@ -52,8 +52,8 @@ These regions tend to have a very high ratio of multi-mapping to unique mapping 
 
 ## `ChIPQC`: quality metrics report
 
-`ChIPQC` is a Bioconductor package that takes as input BAM files and peak calls to automatically compute a number of quality metrics and generates a ChIPseq
-experiment quality report. We are going to use this package to generate a report for our Nanog and Pou5f1 samples.
+`ChIPQC` is a Bioconductor package that takes as input BAM files and peak calls to automatically **compute a number of quality metrics and generates a ChIPseq
+experiment quality report**. We are going to use this package to generate a report for our Nanog and Pou5f1 samples.
 
 ### Setting up 
 
@@ -65,10 +65,10 @@ experiment quality report. We are going to use this package to generate a report
 
 Your Rstudio interface should look something like the screenshot below:
 
-<img src="../img/rstudio-screenshot.png" width=500>
+<img src="../img/rstudio-screenshot.png">
 
 
-> **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
+> **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3 or higher) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
 >
 ```
 source("http://bioconductor.org/biocLite.R")
@@ -132,7 +132,17 @@ ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolde
 If you were unable to run the code successfully you can take a look an example report found [here](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport/ChIP%20QC%20report%3A%20Nanog%20and%20Pou5f1.html).
 
 
-### `ChIPQC report
+### `ChIPQC` report
+
+
+Since our report is based only on a small suubset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** [Open up the report]() in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+
+Let's start with the **QC summary table**:
+
+<img src="../img/QCsummary.png" width=500>
+
+Here, we see the metrics mentioned above (SSD, RiP and RiBL) in addition to other statistics related to the strand cross-correlation (FragLength and RelCC).
+
 
 
 
