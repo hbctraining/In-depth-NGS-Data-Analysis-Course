@@ -135,7 +135,7 @@ If you were unable to run the code successfully you can take a look an example r
 ### `ChIPQC` report
 
 
-Since our report is based only on a small suubset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** [Open up the report]() in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+Since our report is based only on a small suubset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** [Open up the report](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport-full/ChIP%20QC%20report%20full%3A%20Nanog%20and%20Pou5f1.html) in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
 Let's start with the **QC summary table**:
 
