@@ -150,7 +150,8 @@ Now that we have a feel for the different ways we can tweak our command, let's s
 $ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 	-c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
  	-f BAM -g 1.3e+8 \
-	-n Nanog-rep1
+	-n Nanog-rep1 \
+	--outdir macs2
 ```
 
 The tool is quite verbose so you should see lines of text being printed to the terminal, describing each step that is being carried out. If that runs successfully, go ahead and **run the same command on the remaining samples**:
