@@ -93,14 +93,6 @@ Then we can use the `degPatterns` function from the 'DEGreport' package to deter
 clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
 ```
 
-If we would like the order to be more intuitive we can reorder the levels and run the clustering again:
-
-```r
-meta$sampletype <- factor(meta$sampletype, levels=c("MOV10_knockdown", "control", "MOV10_overexpression"))
-
-clusters <- degPatterns(cluster_rlog, metadata = meta, time = "sampletype", col=NULL)
-```
-
 Let's explore the output:
 
 ```r
