@@ -124,12 +124,13 @@ Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to y
 
 ## Alignment
 
+![workflow_align](../img/chipseq_workflow_align_partial.png)
+
 Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. Most ChIP-seq experiments do not require gapped alignments because the sequenced reads do not contain them, unlike exon junctions in RNA-seq analyses. 
 
 [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes. It works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1), and it can perform soft-clipping to remove poor quality bases [[2](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should use Bowtie1. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
-![workflow_align](../img/chipseq_workflow_align_partial.png)
 
 ### Creating Bowtie2 index
 
