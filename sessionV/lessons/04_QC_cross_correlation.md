@@ -24,9 +24,9 @@ A very useful ChIP-seq quality metric that is independent of peak calling is str
 
 The bimodal enrichment of reads is due to the following:
 
-- During the ChIP-seq experiment, the DNA is fragmented and the protein-bound fragments are immunoprecipitated. This generates **DNA fragments containing the protein-bound region**. 
-- The **+ strand of DNA is sequenced from the 5' end**, generating the red reads in the figure below, and the **- strand of DNA is sequenced from the 5' end**, generating the blue reads in the figure below. 
-- Due to the sequencing of the 5' ends of the fragments, this results in an **enrichment of reads from the + strand being slightly offset from the enrichment of reads from the - strand**.
+- During the ChIP-seq experiment, the DNA is fragmented and the protein-bound fragments are immunoprecipitated. This generates DNA fragments containing the protein-bound region. 
+- The + strand of DNA is sequenced from the 5' end, generating the red reads in the figure below, and the - strand of DNA is sequenced from the 5' end, generating the blue reads in the figure below. 
+- Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand being slightly offset from the enrichment of reads from the - strand.
 
 <img src="../img/chip-fragments.png" width =300>
 
