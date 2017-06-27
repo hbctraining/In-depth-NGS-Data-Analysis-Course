@@ -15,15 +15,28 @@ Approximate time: 90 minutes
 * Evaluating consensus diff peaks between two different tools
 
 
-## Differential peak enrichment 
+## Detecting differences in ChIP signal between two conditions 
 
-Increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Hence, identifying differential binding sites across multiple conditions is of practical importance in biological and medical research. 
+An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.
 
-There are various methods/tools available when investigating narrow peaks, and the choice of tool will depend heavily on your experimental design. 
+<img src="../img/diffpeaks-software.png" width=800> 
+
+When choosing which tool to use there are several criterion to consider. 
+
+1. You want software that can be **implemented without the need for extensive efforts** for porting the code. Also, keep track of whether this tool is being maintained and frequently updated.
+
+2. What **inputs** are required by the user? Some tools  require preliminary detection of enriched regions by external peak-calling algorithms, while others implement their own detection method.
+
+3. What is the underlying **statistical model** used for signal distribution? Is it based either on the Poisson distribution or on a more flexible negative binomial distribution.
+
+4. Some tools have been specifically designed for particular ChIP-seq data (**signal type**), such as histone modifications or transcription factor (TF) binding.
+
+
+Which tool you need will depend heavily on your experimental design, and so the **decision tree** below can be helpful in narrowing down your choice.
 
 <img src="../img/diff-peaks.png" width=600>
 
-In our case, we are interested in identifying differences in binding between two transcription factors. For each group we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html), [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. 
+In our case, we are interested in identifying differences in binding between two transcription factors. For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. 
 
 
 ## DiffBind
