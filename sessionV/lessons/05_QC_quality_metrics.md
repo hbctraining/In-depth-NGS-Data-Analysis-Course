@@ -61,7 +61,7 @@ experiment quality report**. We are going to use this package to generate a repo
 1. Open up RStudio and create a new project for your ChIP-seq analyses on your Desktop. Select 'File' -> 'New Project' -> 'New directory' and call the new directory `chipseq-project`.
 2. Create a directory structure for your analyses. You will want to create four directories: `data`, `meta`, `results`, and `figures`.
 3. Inside `data` create two subdirectories: one for your BAM files called `bams` and one for the MACS2 peak calls called `peakcalls`.
-4. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as chipseq.R
+4. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as chipQC.R
 
 Your Rstudio interface should look something like the screenshot below:
 
