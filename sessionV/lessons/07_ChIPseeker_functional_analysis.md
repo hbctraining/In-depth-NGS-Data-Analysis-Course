@@ -293,9 +293,25 @@ dotplot(kk)
 
 ### Multiple samples
 
-We can also use the `compareCluster` function 
+Our dataset consist of two different transcription factor peak calls, so it would be useful to compare functional enrichment results from both. We will do this using the `compareCluster` function. We see similar terms showing up, and in particular the stem cell term is more significant (and a higher gene ratio) in the Pou5f1 data.
+
+```
+# Create a list with genes from each sample
+genes = lapply(peakAnnoList, function(i) as.data.frame(i)$geneId)
+
+# Run KEGG analysis
+compKEGG <- compareCluster(geneCluster = genes, 
+                         fun = "enrichKEGG",
+                         organism = "human",
+                         pvalueCutoff  = 0.05, 
+                         pAdjustMethod = "BH")
+plot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
+```
+
+<img src="../img/compareCluster.png"> 
 
 
+We have only scratched the surface here with functional analyses. Since the data is compatible with many current R packages for functional enrichment the possibilities there is alot of flexibility and room for customization. For more detailed analysis we encourage you to browse through the [ChIPseeker vignette](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) and the [clusterProfiler vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html).
 
 
 ***
