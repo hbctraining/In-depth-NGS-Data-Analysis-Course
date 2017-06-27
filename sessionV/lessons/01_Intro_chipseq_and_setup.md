@@ -37,7 +37,7 @@ Within the DNA fragments enriched for the regions binding to a protein of intere
 In addition, when performing ChIP-Seq, some sequences may appear enriched due to the following:
 
 - Open chromatin regions are fragmented more easily than closed regions
-- Repetitive sequences might seem to be enriched (inaccurately assessed copy numbers in the assembled genome)
+- Repetitive sequences might seem to be enriched (copy number inaccuracies in genome assembly)
 - Uneven distribution of sequence reads across the genome
 
 Therefore, proper controls are essential. A ChIP-Seq peak should be compared with the same region of the genome in a matched control.
@@ -52,29 +52,29 @@ The same starting material should be divided to be used for both the protein-spe
 
 ![controls](../img/chipseq_exp_controls.png)
 
-## Experimental Design
+## Introduction to example data
 
-We will ultimately be comparing the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4) from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/) that have been ChIP-sequenced with Illumina in H1 human embryonic stem cell line (h1-ESC) cells. **Nanog and Pou5f1 are both TFs that are involved in stem cell pluripotency.**
+Our goal for this session is to compare the the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4). The ChIP was performed on H1 human embryonic stem cell line (h1-ESC) cells, and sequenced using Illumina GAII the data was obtained from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/). These 2 transcription factors are involved in **stem cell pluripotency** and one of the goals is to understand their roles, individually and together, in transriptional regulation. 
 
-The experimental design used two replicates, with each replicate divided into three samples:
+Two replicates were collected and each was divided into 3 aliquots for the following:
 
-- Control input DNA
 - Nanog IP
 - Pou5f1 IP
+- Control input DNA
 
 <img src="../img/chipseq_exp_design.png" width=500>
 
-To keep things manageable and allow algorithms to finish within a few minutes we will be using reads from 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000) for all samples. 
+For these 6 samples, we will be using reads from only a 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000), so we can get through the workflow in class. 
 
-The workflow for the ChIP-Seq analysis will start with quality control and alignment, proceed to peak calling and comparing peaks between samples, and finish with motif discovery and functional enrichment analyses. Similar to RNA-Seq, each step in the workflow will require the data to be in a specific type of standardized format.
+Below is the workflow that we will be using today, similar to RNA-Seq, each step in the workflow will require the data to be in a specific type of standardized format.
 
 <img src="../img/chip_workflow_june2017.png" width="700">	
 
 ## Set-up
 
-Before we get started with the ChIP-Seq analysis, we need to set up our directory structure.
+Before we get started with the analysis, we need to set up our directory structure.
 
-Login to Orchestra and start an interactive session with four cores:
+Login to Orchestra and start an interactive session with two cores:
 
 ```bash
 $ bsub -Is -n 2 -q interactive bash
