@@ -89,7 +89,7 @@ Using a window of +/- 1000bp around the TSS of genes we can plot the **density o
 # Prepare the promotor regions
 promoter <- getPromoters(TxDb=txdb, upstream=1000, downstream=1000)
 
-# Calculate the tag matrx
+# Calculate the tag matrix
 tagMatrixList <- lapply(as.list(samplefiles), getTagMatrix, windows=promoter)
 
 ## Profile plots
@@ -100,6 +100,9 @@ plotAvgProf(tagMatrixList, xlim=c(-1000, 1000), conf=0.95,resample=500, facet="r
 With these plots the confidence interval is estimated by bootstrap method (500 iterations) and is shown in the grey shading that follows each curve. The Nanog peaks exhibit a nice narrow peak at the TSS with small confidence intervals. Whereas the Pou5f1 peaks display a bit wider peak suggesting binding around the TSS with larger confidence intervals.
 
 The **heatmap is another method of visualizing the read count frequency** relative to the TSS.
+
+	# Plot heatmap
+	tagHeatmap(tagMatrixList, xlim=c(-1000, 1000), color=NULL)
 
 <img src="../img/Rplot.png" width=500>
 
