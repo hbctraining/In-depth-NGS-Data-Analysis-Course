@@ -167,7 +167,7 @@ To visualize this annotation data ChIPseeker provides several functions. We will
 plotAnnoPie(peakAnnoList[["Nanog"]])
 ```
 
-<img src="../img/">
+<img src="../img/pie.png" width=500>
 
 ### Vennpie of genomic region annotation
 
@@ -250,8 +250,50 @@ Once we have obtained gene annotations for our peak calls, we can perform functi
 Enrichment analysis is a widely used approach to identify biological themes, and we talked about this in great detail during our RNA-seq analysis. Once we have the gene list, it can be used as input to functional enrichment tools such as clusterProfiler (Yu et al., 2012), DOSE (Yu et al., 2015) and ReactomePA. We will go through a few examples here.
 
 
+### Single sample analysis
+
+Let's start with something we have seen before with RNA-seq functional analysis. We will take our gene list from **Nanog annotations** and use them as input for a **GO enrichment analysis**.
+
+```
+# Run GO enrichment analysis 
+ego <- enrichGO(gene = entrez, 
+                    keytype = "ENTREZID", 
+                    OrgDb = org.Hs.eg.db, 
+                    ont = "BP", 
+                    pAdjustMethod = "BH", 
+                    qvalueCutoff = 0.05, 
+                    readable = TRUE)
+
+# Output results from GO analysis to a table
+cluster_summary <- data.frame(ego)
+write.csv(cluster_summary, "results/clusterProfiler_Nanog.csv")
+```
+
+We can visualize the results using the `dotplot` function. We find many terms related to **development and differentiation** and amongst those in the bottom half of the list we see 'stem cell population maintenance'. Functionally, Nanog blocks differentiation. Thus, negative regulation of Nanog is required to promote differentiation during embryonic development. Recently, Nanog has been shown to be involved in neural stem cell differentiation which might explain the abundance of neuro terms we observe.
+
+```
+# Dotplot visualization
+dotplot(ego, showCategory=50)
+```
+
+<img src="../img/dotplot.png">
 
 
+Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
+
+```
+ekegg <- enrichKEGG(gene = entrez,
+                 organism = 'hsa',
+                 pvalueCutoff = 0.05)
+
+dotplot(kk)
+```
+
+<img src="../img/kegg-dotplot.png">
+
+### Multiple samples
+
+We can also use the `compareCluster` function 
 
 
 
