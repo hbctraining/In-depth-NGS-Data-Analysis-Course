@@ -12,14 +12,14 @@ Approximate time: 1.5 hours
 
 
 
-## ChIPseeker
+# ChIPseeker
 
 Now that we have a set of high confidence peaks for our samples, the next step is to **annotate our peaks to identify relative location relationship information between query peaks and genes/genomic features** to obtain some biological context. 
 
 [ChIPseeker](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) is an R package for annotating ChIP-seq data analysis. It supports annotating ChIP peaks and provides functions to visualize ChIP peaks coverage over chromosomes and profiles of peaks binding to TSS regions. Comparison of ChIP peak profiles and annotation are also supported, and can be useful to estimate how well biological replications are. Several visualization functions are implemented to visualize the peak annotation and statistical tools for enrichment analyses of functional annotations.
 
 
-### Setting up 
+## Setting up 
 
 1. Open up RStudio and open up the `chipseq-project` that we created previously.
 2. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `chipseeker.R`
@@ -32,7 +32,7 @@ biocLite("ChIPseeker")
 biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
 ```
 
-### Getting data 
+## Getting data 
 
 As mentioned previously, these donwstream steps should be performed on your high confidence peak calls. While we have a set for our subsetted data, this set is rather small and will not result in anything meaningful in our functional analyses. **We have generated a set of high confidence peak calls using the full dataset.** These were obtained post-IDR analysis, (i.e. concordant peaks between replicates) and are provided in BED format which is optimal input for the ChIPseeker package. 
 
@@ -107,13 +107,15 @@ The **heatmap is another method of visualizing the read count frequency** relati
 
 <img src="../img/Rplot.png" width=500>
 
-### Annotation
+## Annotation
 
 ChIPseeker implements the `annotatePeak` function for annotating peaks with nearest gene and genomic region where the peak is located. Many annotation tools calculate the distance of a peak to the nearest TSS and annotates the peak to that gene. This can be misleading as binding sites might be located between two start sites of different genes or hit different genes, which have the same TSS location in the genome. 
 
 <img src="../img/annotate-genes.png" width=800>
 
 The **`annotatePeak` function provides parameters to annotate genes with a max distance cutoff and all genes within this distance will be reported for each peak**. For annotating genomic regions, annotatePeak function reports detail information when genomic region is Exon or Intron. For instance, ‘Exon (uc002sbe.3/9736, exon 69 of 80)’, means that the peak overlaps with the 69th exon of the 80 exons that transcript uc002sbe.3 possess and the corresponding Entrez gene ID is 9736. 
+
+> **NOTE:** *ChIPseeker supports annotating ChIP-seq data of a wide variety of species if they have transcript annotation TxDb object available.*
 
 Let's start by retrieving annotations for our Nanog and Pou5f1 peaks calls:
 
@@ -159,7 +161,7 @@ Genomic Annotation Summary:
 
 To visualize this annotation data ChIPseeker provides several functions. We will demonstrate a few using the Nanog sample only. We will also show how some of the functions can also support comparing across samples.
 
-#### Pie chart of genomic region annotation
+### Pie chart of genomic region annotation
 
 ```
 plotAnnoPie(peakAnnoList[["Nanog"]])
@@ -167,7 +169,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 
 <img src="../img/">
 
-#### Vennpie of genomic region annotation
+### Vennpie of genomic region annotation
 
 ```
 vennpie(peakAnnoList[["Nanog"]])
@@ -175,7 +177,7 @@ vennpie(peakAnnoList[["Nanog"]])
 
 <img src="../img/">
 
-#### Barchart (multiple samples for comparison)
+### Barchart (multiple samples for comparison)
 
 **Here, we see that Nanog has a much larger percentage of peaks in promotor regions.**
 
@@ -185,7 +187,7 @@ plotAnnoBar(peakAnnoList)
 ```
 <img src="../img/feature-distribution.png">
 
-#### Distribution of TF-binding loci relative to TSS (multiple samples)
+### Distribution of TF-binding loci relative to TSS (multiple samples)
 
 **Nanog has also majority of binding regions falling in closer proximity to the TSS (0-10kb).**
 
@@ -195,15 +197,23 @@ plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding 
 <img src="../img/tss-dist.png">
 
 
-#### Writing annotations to file 
+### Writing annotations to file 
 
 It would be nice to have the annotations for each peak call written to file, as it can be useful to browse the data and subset calls of interest. The **annotation information** is stored in the `peakAnnoList` object. To retrieve it we use the following syntax:
 
 	nanog_annot <- as.data.frame(peakAnnoList[["Nanog"]]@anno)
 
-Take a look at this dataframe. You should see columns corresponding to your input BED file and addditional columns containing annotation (gene, geneStrand, transcriptId, distanceToTSS etc.)
+Take a look at this dataframe. You should see columns corresponding to your input BED file and addditional columns containing nearest gene(s), the distance from peak to the TSS of its nearest gene, genomic region of the peak and other information. Since some annotation may overlap, ChIPseeker has adopted the following priority in genomic annotation.
 
-We **don't have gene symbols** listed in there, but we can fetch them using **Biomart** and add them to the table before we write to file. This makes it easier to browse through the results.
+* Promoter
+* 5’ UTR
+* 3’ UTR
+* Exon
+* Intron
+* Downstream (defined as the downstream of gene end)
+* Intergenic
+
+One thing we **don't have is gene symbols** listed in table, but we can fetch them using **Biomart** and add them to the table before we write to file. This makes it easier to browse through the results.
 
 ```
 # Get entrez gene Ids
@@ -233,7 +243,12 @@ write.table(out, file="results/Nanog_annotation.txt", sep="\t", quote=F, row.nam
 
 
 
-### Functional enrichment analysis
+## Functional enrichment analysis
+
+Once we have obtained gene annotations for our peak calls, we can perform functional enrichment analysis to **identify predominant biological themes among these genes** by incorporating knowledge from biological ontologies such as Gene Ontology, KEGG and Reactome.
+
+Enrichment analysis is a widely used approach to identify biological themes, and we talked about this in great detail during our RNA-seq analysis. Once we have the gene list, it can be used as input to functional enrichment tools such as clusterProfiler (Yu et al., 2012), DOSE (Yu et al., 2015) and ReactomePA. We will go through a few examples here.
+
 
 
 
