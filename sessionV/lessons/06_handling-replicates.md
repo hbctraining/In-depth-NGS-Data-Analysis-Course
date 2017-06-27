@@ -1,5 +1,5 @@
 ---
-title: "Assessing reproducibility between replicates"
+title: "Handling replicates"
 author: "Meeta Mistry"
 date: "Monday, June 27th, 2017"
 ---
