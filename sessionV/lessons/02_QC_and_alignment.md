@@ -10,16 +10,17 @@ Approximate time: 1 hour
 
 ## Learning Objectives
 
-* to use previous knowledge of quality control steps to perform FastQC and trimming
+* to use previous knowledge of quality control steps to perform FastQC
+* to learn how to use Trimmomatic to perform quality trimming
 * to understand parameters and perform alignment using Bowtie2
 
 # ChIP-Seq analysis 
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. 
 
-![workflow_QC](../img/chipseq_workflow_QC_partial.png)
-
 ## Quality control of sequence reads
+
+![workflow_QC](../img/chipseq_workflow_QC_partial.png)
 
 For any NGS analysis method, our first step is ensuring our reads are of good quality prior to aligning them to the reference genome. We will use FastQC to get a good idea of the overall quality of our data, to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
 
@@ -27,11 +28,9 @@ For any NGS analysis method, our first step is ensuring our reads are of good qu
 
 Let's run FastQC on all of our files. 
 
-Start an interactive session with 4 cores if don't have one going, and change directories to the `raw_data` folder.
+Start an interactive session with 2 cores if don't have one going, and change directories to the `raw_data` folder.
 
-```
-$ bsub -Is -n 4 -q interactive bash
-
+```bash
 $ cd ~/ngs_course/chipseq/raw_data 
 
 $ module load seq/fastqc/0.11.3 
@@ -41,7 +40,9 @@ $ fastqc H1hesc_Input_Rep1_chr12.fastq
 
 Now, move all of the `fastqc` files to the `results/untrimmed_fastqc` directory:
 
-`$ mv *fastqc* ../results/untrimmed_fastqc/`
+```bash
+$ mv *fastqc* ../results/untrimmed_fastqc/
+```
 
 Transfer the FastQC zip file for Input replicate 1 to your local machine using FileZilla and view the report.
 
@@ -58,14 +59,14 @@ We will use Trimmomatic to trim the reads from both ends of the sequence.
 
 Let's check for the *Trimmomatic* module and load it:
 
-``` bash
+```bash
 $ module avail seq/
 $ module load seq/Trimmomatic/0.33
 ```
 
 By loading the *Trimmomatic* module, the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
 
-``` bash
+```bash
 $ echo $PATH
 ```
 
@@ -94,9 +95,9 @@ Now that we know what parameters  we can set up our command. Since we are only t
 
 > *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. 
 
-```
+```bash
 $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
--threads 4 \
+-threads 2 \
 -phred33 \
 H1hesc_Input_Rep1_chr12.fastq \
 ../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
@@ -107,11 +108,15 @@ MINLEN:36
 
 Let's see how much trimming improved our reads by running FastQC again:
 
-`$ fastqc ../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`
+```bash
+$ fastqc ../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq
+```
 
 Move the FastQC folders to the results directory for trimmed FastQC results:
 
-`$ mv ../results/trimmed/*fastqc* ../results/trimmed_fastqc/`
+```bash
+$ mv ../results/trimmed/*fastqc* ../results/trimmed_fastqc/
+```
 
 Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to your computer.
 
@@ -126,31 +131,26 @@ Now that we have removed the poor quality sequences from our data, we are ready 
 > _**NOTE:** Our reads are only 36 bp, so technically we should use Bowtie1. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 ![workflow_align](../img/chipseq_workflow_align_partial.png)
 
-
-
 ### Creating Bowtie2 index
 
 To perform the Bowtie2 alignment, a genome index is required. **We previously generated the genome indexes for you**, and they exist in the `reference_data` directory.
 
 However, if you needed to create a genome index yourself, you would use the following command:
 
-```
+```bash
 # DO NOT RUN
 
 bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
 
 # Can find indexes for the entire genome on Orchestra using following path: /groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/
-
 ```
 
 ### Aligning reads with Bowtie2
 
 Since we have our indexes already created, we can get started with read alignment. Change directories to the `bowtie2` folder:
 
-```
-
+```bash
 $ cd ~/ngs_course/chipseq/results/bowtie2
-
 ```
 
 We will perform alignment on our single trimmed sample, `H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`. Details on Bowtie2 and its functionality can be found in the [user manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml); we encourage you to peruse through to get familiar with all available options.
@@ -163,14 +163,14 @@ The basic options for aligning reads to the genome using Bowtie2 are:
 * `-U`: /path/to/FASTQ_file
 * `-S`: /path/to/output/SAM_file
 
-```
-$ bowtie2 -p 4 -q \
+```bash
+$ bowtie2 -p 2 -q \
 -x ~/ngs_course/chipseq/reference_data/chr12 \
 -U ~/ngs_course/chipseq/results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
 -S ~/ngs_course/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
 ```
-> _**NOTE:** If you had added the bcbio path ino your `.bashrc` file last session you should be able to use bowtie2 without loading a module. If not, load the module using `module load seq/bowtie/2.2.4`_
+> _**NOTE:** If you had added the bcbio path to your `.bashrc` file you should be able to use bowtie2 without loading a module. If not, load the module using `module load seq/bowtie/2.2.4`_
 >
 
 ## Filtering reads
@@ -191,7 +191,7 @@ While the SAM alignment file output by Bowtie2 is human readable, we need a BAM 
 * `-b`: output BAM format
 * `-o`: /path/to/output/file
 
-```
+```bash
 $ samtools view -h -S \
 -b H1hesc_Input_Rep1_chr12_aln_unsorted.sam \
 -o H1hesc_Input_Rep1_chr12_aln_unsorted.bam
@@ -205,8 +205,8 @@ The command we will use is `sambamba sort` with the following parameters:
 * `-t`: number of threads / cores
 * `-o`: /path/to/output/file
 
-```
-$ sambamba sort -t 4 \
+```bash
+$ sambamba sort -t 2 \
 -o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
 H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
 ```
@@ -220,8 +220,8 @@ Finally, we can filter the uniquely mapped reads. We will use the `sambamba view
 * `-f`: format of output file (default is SAM)
 * `-F`: set [custom filter](https://github.com/lomereiter/sambamba/wiki/%5Bsambamba-view%5D-Filter-expression-syntax) - we will be using the filter to remove multimappers and unmapped reads.
 
-```
-$ sambamba view -h -t 4 -f bam \
+```bash
+$ sambamba view -h -t 2 -f bam \
 -F "[XS] == null and not unmapped " H1hesc_Input_Rep1_chr12_aln_sorted.bam > H1hesc_Input_Rep1_chr12_aln.bam
 ```
 We filtered out unmapped reads by specifying in the filter `not unmapped`. Also, among the reads that were aligned, we filtered out multimappers by specifying `[XS] == null`. 'XS' is a tag generated by Bowtie2 that gives an alignment score for the second-best alignment, and it is only present if the read is aligned and more than one alignment was found for the read [[1](http://computing.bio.cam.ac.uk/local/doc/bowtie2.html)].

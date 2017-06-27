@@ -1,7 +1,7 @@
 ---
 title: "Introduction to ChIP-Seq and directory setup"
 author: "Mary Piper, Radhika Khetani"
-date: "June 11, 2017"
+date: "June 28, 2017"
 ---
 
 Contributors: Mary Piper, Radhika Khetani
@@ -82,15 +82,19 @@ Before we get started with the ChIP-Seq analysis, we need to set up our director
 
 Login to Orchestra and start an interactive session with four cores:
 
-`$ bsub -Is -n 4 -q interactive bash`
+```bash
+$ bsub -Is -n 2 -q interactive bash
+```
 
 Change directories to the `ngs_course` directory:
 
-`$ cd ~/ngs_course`
+```bash
+$ cd ~/ngs_course
+```
 
 Create a `chipseq` directory and change directories into it:
 
-```
+```bash
 $ mkdir chipseq
 
 $ cd chipseq
@@ -98,20 +102,25 @@ $ cd chipseq
 
 Now let's setup the directory structure. In one command create folders for `raw_data`and `reference_data`:
 
-`$ mkdir -p raw_data reference_data`
+```bash
+$ mkdir -p raw_data reference_data
+```
 
 We'll also create a folder for `results` and within that folder create folders for `untrimmed_fastqc`, `trimmed`, `trimmed_fastqc`, and `bowtie2`:
 
-`$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/bowtie2`
+```bash
+$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/bowtie2
+```
 
 Finally, we will need directories for our `scripts`, `logs`, and `meta`:
 
-`$ mkdir scripts logs meta` 
+```bash
+$ mkdir scripts logs meta
+``` 
 
 Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our FASTQ files and reference data files:
 
-```
-
+```bash
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq raw_data/
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/reference_data/chr12* reference_data/
@@ -119,12 +128,12 @@ $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/reference_data/chr
 
 We will be using tools within the bcbio pipeline, so please make sure bcbio is in your PATH:
 
-```
+```bash
 $ PATH=/opt/bcbio/centos/bin:$PATH
 ```
 or within your `.bashrc` file:
 
-```
+```bash
 export PATH=/opt/bcbio/centos/bin:$PATH
 ```
 ***
