@@ -222,7 +222,7 @@ Let's use Filezilla or `scp` move the summary file over to our local machine for
 The qual files are tab-delimited with the columns containing the following information:
 
 - COL1: Filename: tagAlign/BAM filename 
-- COL2: numReads: effective sequencing depth i.e. total number of mapped reads in input file 
+- COL2: numReads: effective sequencing depth (i.e. total number of mapped reads in input file)
 - COL3: estFragLen: comma separated strand cross-correlation peak(s) in decreasing order of correlation. (**NOTE:** The top 3 local maxima locations that are within 90% of the maximum cross-correlation value are output. In almost all cases, the top (first) value in the list represents the predominant fragment length.) 
 - COL4: corr_estFragLen: comma separated strand cross-correlation value(s) in decreasing order (col2 follows the same order) 
 - COL5: phantomPeak: Read length/phantom peak strand shift 
