@@ -72,10 +72,6 @@ The workflow for the ChIP-Seq analysis will start with quality control and align
 
 ![workflow](../img/chip_workflow_combined.png)
 
-In the interest of time, we will not be using all samples in every step:
-
-![workflow](../img/chipseq_analysis_workflow_samples.png)}}
-
 ## Set-up
 
 Before we get started with the ChIP-Seq analysis, we need to set up our directory structure.
