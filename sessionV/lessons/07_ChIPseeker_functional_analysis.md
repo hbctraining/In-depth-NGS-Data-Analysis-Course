@@ -182,7 +182,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 vennpie(peakAnnoList[["Nanog"]])
 ```
 
-<img src="../img/vennpie.png">
+<img src="../img/vennpie.png" width=500>
 
 ### Barchart (multiple samples for comparison)
 
