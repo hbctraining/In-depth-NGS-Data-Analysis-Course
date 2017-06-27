@@ -178,7 +178,7 @@ Let's first obtain a summary of how many peaks were called in each sample. We ca
 
 	$ wc -l *.narrowPeak
 
-We can also take a look at the plots, but first we will have to generate it. We can use the `Rscript` command to do this, but will first need to load the R module:
+We can also generate plots using the R script file that was output by MACS2. There is a `_model.R` script in the directory. Let's load the R module and run the R script in the command line using the `Rscript` command as demonstrated below:
 
 	$ module load stats/R/3.2.1
 	$ Rscript Nanog-rep1_model.r
@@ -189,7 +189,7 @@ Open up the pdf file for Nanog-rep1. The first plot illustrates the distance bet
 
 <img src="../img/model-macs.png" width="400">
 
-The second plot is the cross-correlation plot, and we will be discussing that in a little more detail in the next (SPP) lesson.
+The second plot is the cross-correlation plot, and we will be discussing that in a little more detail in the next lesson.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
