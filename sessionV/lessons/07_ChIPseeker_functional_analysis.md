@@ -50,6 +50,7 @@ Let's start by loading the libraries:
 library(ChIPseeker)
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 library(clusterProfiler)
+library(biomaRt)
 ```
 
 Now let's load all of the data. As input we need to provide the names of our BED files in a list format.
@@ -158,6 +159,38 @@ Genomic Annotation Summary:
 
 To visualize this annotation data ChIPseeker provides several functions. We will demonstrate a few using the Nanog sample only. We will also show how some of the functions can also support comparing across samples.
 
+#### Pie chart of genomic region annotation
+
+```
+plotAnnoPie(peakAnnoList[["Nanog"]])
+```
+
+<img src="../img/">
+
+#### Vennpie of genomic region annotation
+
+```
+vennpie(peakAnnoList[["Nanog"]])
+```
+
+<img src="../img/">
+
+#### Barchart (multiple samples for comparison)
+
+**Here, we see that Nanog has a much larger percentage of peaks in promotor regions.**
+
+```
+plotAnnoBar(peakAnnoList)
+
+```
+<img src="../img/feature-distribution.png">
+
+#### Distribution of TF-binding loci relative to TSS (multiple samples)
+
+```
+plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding loci \n relative to TSS")
+```
+<img src="../img/tss-dist.png">
 
 
 
