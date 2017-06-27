@@ -70,7 +70,7 @@ To keep things manageable and allow algorithms to finish within a few minutes we
 
 The workflow for the ChIP-Seq analysis will start with quality control and alignment, proceed to peak calling and comparing peaks between samples, and finish with motif discovery and functional enrichment analyses. Similar to RNA-Seq, each step in the workflow will require the data to be in a specific type of standardized format.
 
-![workflow](../img/chip_workflow_june2017.png)
+<img src="../img/chip_workflow_june2017.png" width="500">	
 
 ## Set-up
 
