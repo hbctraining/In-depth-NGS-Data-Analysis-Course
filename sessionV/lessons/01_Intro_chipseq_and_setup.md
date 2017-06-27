@@ -103,6 +103,7 @@ $ cd chipseq
 Now let's setup the directory structure, we are looking for the following structure within the `chipseq` directory:
 
 ```bash
+chipseq/
 ├── data
 │   ├── reference_data
 │   ├── trimmed_fastq
