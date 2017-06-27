@@ -79,7 +79,9 @@ biocLite("ChIPQC")
 
 Now let's move over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
 
-1. Move over the **BAM files (`.bam`)** and the corresponding **indices (`.bai`)** from `~/ngs_course/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
+1. Move over the **BAM files (`chr12_aln.bam`)** and the corresponding **indices (`chr12_aln.bam.bai`)** from `~/ngs_course/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
+
+> *NOTE*: Do not copy over the input file that we initially ran QC and alignment on (i.e `H1hesc_Input_Rep1_chr12_aln_sorted.bam`). Only the files you had copied over to your home directory is what you need.
 
 
 2. Move over the **narrowPeak files (`.narrowPeak`)** `~/ngs_course/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
