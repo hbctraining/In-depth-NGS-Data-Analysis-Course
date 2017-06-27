@@ -61,14 +61,15 @@ Let's check for the *Trimmomatic* module and load it:
 
 ```bash
 $ module avail seq/
+
 $ module load seq/Trimmomatic/0.33
-```
 
-By loading the *Trimmomatic* module, Java was loaded, but only the path to use Trimmomoatic is the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
+$ module list
 
-```bash
 $ echo $PATH
 ```
+
+By loading the *Trimmomatic* module, Java and Trimmomatic are loaded and appear in our PATH. 
 
 We will run Trimmomatic using the following parameters:
 
@@ -90,10 +91,9 @@ We will run Trimmomatic using the following parameters:
 * **_TOPHRED33_** Convert quality scores to Phred-33.
 * **_TOPHRED64_** Convert quality scores to Phred-64.
 
-
 Now that we know what parameters  we can set up our command. Since we are only trimming a single file, we will run the command in the interactive session rather than creating a script. Because *Trimmomatic* is java based, it is run using the `java -jar` command. In addition to the options as described above, we have two arguments specifying our input file and output file names. 
 
-> *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. 
+> *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. Even though *Trimmomatic* is in our PATH, we still need to specify the full path to the `.jar` file in the command.
 
 ```bash
 $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
