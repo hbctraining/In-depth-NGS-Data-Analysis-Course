@@ -24,7 +24,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is str
 
 During the ChIP-seq experiment, the DNA is fragmented and the protein-bound fragments are immunoprecipitated. This generates genome fragments that contain the protein-bound region. However, the protein-bound region is not necessarily in the middle of all of the fragments, and 
 
-<img src="../img/chip-fragments.png" width =500>
+<img src="../img/chip-fragments.png" width =300>
 
 The cross-correlation metric is computed as the **Pearson's linear correlation between the Crick strand and the Watson strand, after shifting Watson by k base pairs.** Using a small genomic window as an example, let's walk through the details of the cross-correlation below.
 
