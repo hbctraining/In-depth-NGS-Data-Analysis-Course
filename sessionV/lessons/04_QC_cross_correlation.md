@@ -74,7 +74,7 @@ A failed experiment will resemble a cross-correlation plot using **input only**,
 
 ### Cross-correlation quality metrics
 
-Using the cross-correlation plot we can compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. These metrics are described in more detail below:
+Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. These metrics are described in more detail below:
 
 #### Normalized strand cross-correlation coefficent (NSC):
 
