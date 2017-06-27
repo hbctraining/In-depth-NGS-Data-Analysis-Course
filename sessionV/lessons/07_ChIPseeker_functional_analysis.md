@@ -95,7 +95,7 @@ tagMatrixList <- lapply(as.list(samplefiles), getTagMatrix, windows=promoter)
 ## Profile plots
 plotAvgProf(tagMatrixList, xlim=c(-1000, 1000), conf=0.95,resample=500, facet="row")
 ```
-<img srce="../img/density_profileplots.png">
+<img src="../img/density_profileplots.png">
 
 With these plots the confidence interval is estimated by bootstrap method (500 iterations) and is shown in the grey shading that follows each curve. The Nanog peaks exhibit a nice narrow peak at the TSS with small confidence intervals. Whereas the Pou5f1 peaks display a bit wider peak suggesting binding around the TSS with larger confidence intervals.
 
