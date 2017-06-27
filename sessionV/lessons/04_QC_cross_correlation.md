@@ -22,7 +22,11 @@ Prior to performing any downstream analyses with the results from a peak caller,
 
 A very useful ChIP-seq quality metric that is independent of peak calling is strand cross-correlation. It is based on the fact that a high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags at locations bound by the protein of interest, that present as a bimodal enrichment of reads on the forward and reverse strands.
 
-During the ChIP-seq experiment, the DNA is fragmented and the protein-bound fragments are immunoprecipitated. This generates DNA fragments containing the protein-bound region. The + strand of DNA is sequenced from the 5' end, generating the red reads in the figure below, and the - strand of DNA is sequenced from the 5' end, generating the blue reads in the figure below. Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand being slightly offset from the enrichment of reads from the - strand.
+The bimodal enrichment of reads is due to the following:
+
+- During the ChIP-seq experiment, the DNA is fragmented and the protein-bound fragments are immunoprecipitated. This generates DNA fragments containing the protein-bound region. 
+- The + strand of DNA is sequenced from the 5' end, generating the red reads in the figure below, and the - strand of DNA is sequenced from the 5' end, generating the blue reads in the figure below. 
+- Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand being slightly offset from the enrichment of reads from the - strand.
 
 <img src="../img/chip-fragments.png" width =300>
 
