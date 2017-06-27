@@ -187,10 +187,49 @@ plotAnnoBar(peakAnnoList)
 
 #### Distribution of TF-binding loci relative to TSS (multiple samples)
 
+**Nanog has also majority of binding regions falling in closer proximity to the TSS (0-10kb).**
+
 ```
 plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding loci \n relative to TSS")
 ```
 <img src="../img/tss-dist.png">
+
+
+#### Writing annotations to file 
+
+It would be nice to have the annotations for each peak call written to file, as it can be useful to browse the data and subset calls of interest. The **annotation information** is stored in the `peakAnnoList` object. To retrieve it we use the following syntax:
+
+	nanog_annot <- as.data.frame(peakAnnoList[["Nanog"]]@anno)
+
+Take a look at this dataframe. You should see columns corresponding to your input BED file and addditional columns containing annotation (gene, geneStrand, transcriptId, distanceToTSS etc.)
+
+We **don't have gene symbols** listed in there, but we can fetch them using **Biomart** and add them to the table before we write to file. This makes it easier to browse through the results.
+
+```
+# Get entrez gene Ids
+entrez <- nanog_annot$geneId
+
+# Choose Biomart database
+ensembl_genes <- useMart('ENSEMBL_MART_ENSEMBL',
+                        host =  'www.ensembl.org')
+
+# Create human mart object
+human <- useDataset("hsapiens_gene_ensembl", useMart('ENSEMBL_MART_ENSEMBL',
+                           host =  'www.ensembl.org'))
+
+# Get entrez to gene symbol mappings
+entrez2gene <- getBM(filters = "entrezgene",
+                     values = entrez,
+                     attributes = c("external_gene_name", "entrezgene"),
+                     mart = human)
+
+# Match the rows and add gene symbol as a column                   
+m <- match(nanog_annot$geneId, entrez2gene$entrezgene)
+out <- cbind(nanog_annot[,1:13], geneSymbol=entrez2gene$external_gene_name[m], nanog_annot[,14:ncol(nanog_annot)])
+
+# Write to file
+write.table(out, file="results/Nanog_annotation.txt", sep="\t", quote=F, row.names=F)
+```
 
 
 
