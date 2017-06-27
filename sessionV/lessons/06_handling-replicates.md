@@ -288,7 +288,7 @@ _We will not run this analysis, but have provided a bash script below if you wan
 * Be sure to also ask for enough memory in your `bsub` command.
 * Change the paths for output to the directories that are relevant to you
 
-> _NOTE: For the paths and directories we are using `/n/scratch2`. This script generates fairly lrge intermediate files which can quickly fill up your home directory. To avoid this you can make use of scratch space and once the analysis is complete move over only the relevant files._
+> _NOTE: For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files._
 
 ```bash
 #!/bin/sh
@@ -380,7 +380,7 @@ rm -r $tmpDir
 
 ### Self-consistency analysis
 
-An _optional step_ is to create pseudo-replicates for each replicate byrandomly splitting the reads and running them through the same workflow. Again, **if IDR analysis on the self-replicates for Replicate 1 results in a number of peaks that are similar (within a factor of 2) to self-replicates for Replicate 2 these are truly good replicates.**
+An _optional step_ is to create pseudo-replicates for each replicate by randomly splitting the reads and running them through the same workflow. Again, **if IDR analysis on the self-replicates for Replicate 1 results in a number of peaks that are similar (within a factor of 2) to self-replicates for Replicate 2 these are truly good replicates.**
 
 <img src="../img/idr-rep1-rep2.png" width=500>
 
