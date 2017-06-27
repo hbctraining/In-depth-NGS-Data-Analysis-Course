@@ -129,7 +129,7 @@ There are three main steps to the IDR pipeline:
 
 <img src=../img/idr_pipeline.png> 
 
-> This figures is taken from the [ENCODE ChIP-Seq Guidelines](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/#box3).
+> This figure is taken from the [ENCODE ChIP-Seq Guidelines](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/#box3).
 
 _We will only be running Step 1 in this lesson, but will discuss steps 2 and 3 in a bit more detail._
 
