@@ -1,10 +1,10 @@
 ---
 title: "Assessing reproducibility between replicates"
 author: "Meeta Mistry"
-date: "Monday, June 13th, 2016"
+date: "Monday, June 27th, 2017"
 ---
 
-Contributors: Meeta Mistry, 
+Contributors: Meeta Mistry, Radhika Khetani 
 
 Approximate time: 75 minutes
 
