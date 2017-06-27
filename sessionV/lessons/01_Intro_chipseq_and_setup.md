@@ -97,16 +97,16 @@ $ cd chipseq
 Now let's setup the directory structure, we are looking for the following structure within the chipseq directory:
 ```bash
 chipseq/
-├── logs
-├── meta
-├── raw_data
-├── reference_data
-├── results
-│   ├── bowtie2
-│   ├── trimmed
-│   ├── trimmed_fastqc
-│   └── untrimmed_fastqc
-└── scripts
+├── logs/
+├── meta/
+├── raw_data/
+├── reference_data/
+├── results/
+│   ├── bowtie2/
+│   ├── trimmed/
+│   ├── trimmed_fastqc/
+│   └── untrimmed_fastqc/
+└── scripts/
 ```
 ```bash
 $ mkdir -p raw_data reference_data scripts logs meta
@@ -127,7 +127,7 @@ You should have bcbio in you path, but please check that it is:
 ```bash
 $ echo $PATH
 ```
-If /opt/bcbio/centos/bin is not part of $PATH, add it by adding the following line within your .bashrc file and then run `source ~/.bashrc`:
+If `/opt/bcbio/centos/bin` is not part of `$PATH`, add it by adding the following line within your `~/.bashrc` file and then run `source ~/.bashrc`:
 
 ```bash
 export PATH=/opt/bcbio/centos/bin:$PATH
