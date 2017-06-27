@@ -185,7 +185,7 @@ An important issue concerns the inclusion of multiple mapped reads (reads mapped
 
 ### 1. Changing file format from SAM to BAM
 
-While the SAM alignment file output by Bowtie2 is human readable, we need a BAM alignment file for downstream tools. Therefore, we will use [Samtools](http://samtools.github.io) to convert the file formats. The command we will use is `samtools view` with the following parameters
+While the SAM alignment file output by Bowtie2 is human readable, we need a BAM alignment file for downstream tools. Therefore, we will use [Samtools](http://samtools.github.io) to convert the file formats. The command we will use is `samtools view` with the following parameters:
 
 * `-h`: include header in output
 * `-S`: input is in SAM format
@@ -197,6 +197,8 @@ $ samtools view -h -S -b \
 H1hesc_Input_Rep1_chr12_aln_unsorted.sam \
 -o H1hesc_Input_Rep1_chr12_aln_unsorted.bam
 ```
+
+You can find additional parameters for the samtools functions in the [manual](http://www.htslib.org/doc/samtools-1.2.html).
 
 ### 2. Sorting BAM files by genomic coordinates
 
