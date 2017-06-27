@@ -66,11 +66,41 @@ We need to assign annotation databases generated from UCSC to a variable:
 
 ### Visualization
 
+First, let's take a look at peak locations across the genome. The `covplot` function calculates **coverage of peak regions** across the genome and generates a figure to visualize this across chromosomes. We will do this for the Nanog peaks.
+
+```
+# Assign peak data to variables
+nanog <- readPeakFile(samplefiles[[1]])
+pou5f1 <- readPeakFile(samplefiles[[2]])
+
+# Plot covplot
+covplot(nanog, weightCol="V5")
+
+```
+
+<img src="../img/covplot.png">
+
+
+Using a window of +/- 1000bp around the TSS of genes we can plot the **density of read count frequency to see where binding is realtive to the TSS** or each sample. This is similar to the plot in the ChIPQC report but with the flexibility to customize the plot a bit. We will plot both Nanog and Pou5f1 together to compare the two.
+
+```
+# Prepare the promotor regions
+promoter <- getPromoters(TxDb=txdb, upstream=1000, downstream=1000)
+
+# Calculate the tag matrx
+tagMatrixList <- lapply(as.list(samplefiles), getTagMatrix, windows=promoter)
+
+## Profile plots
+plotAvgProf(tagMatrixList, xlim=c(-1000, 1000), conf=0.95,resample=500, facet="row")
+```
+
+
+With these plots the confidence interval is estimated by bootstrap method (500 iterations) and is shown in the grey shading that follows each curve. The Nanog replicates appear to be binding close to the TSS, whereas the Pou5f1 exhbit a shift from the TSS although the direction of shift is not concordant across replicates.
 
 ### Annotation
 
 
-### Fucntional enrichment analysis
+### Functional enrichment analysis
 
 
 
