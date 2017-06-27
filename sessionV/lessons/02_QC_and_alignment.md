@@ -1,7 +1,7 @@
 ---
 title: "FastQC and alignment"
 author: "Mary Piper, Radhika Khetani"
-date: "June 11th, 2017"
+date: "June 28th, 2017"
 ---
 
 Contributors: Mary Piper, Radhika Khetani
@@ -14,15 +14,15 @@ Approximate time: 1 hour
 * to learn how to use Trimmomatic to perform quality trimming
 * to understand parameters and perform alignment using Bowtie2
 
-# ChIP-Seq analysis 
-
-Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. 
-
 ## Quality control of sequence reads
 
-![workflow_QC](../img/chipseq_workflow_QC_partial.png)
+![workflow_QC](../img/chipseq_workflow_QC_partial.png) 
 
-For any NGS analysis method, our first step is ensuring our reads are of good quality prior to aligning them to the reference genome. We will use FastQC to get a good idea of the overall quality of our data, to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
+Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to ensure our reads are of good quality prior to aligning them to the reference genome and proceeding with downstream analyses. 
+
+We will use FastQC to get a good idea of the overall quality of our data, to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
+
+>**NOTE:** We will use trimming prior to alignment because that was the workflow previously used by ENCODE. However, we do not need to trim as the downstream alignment tool, Bowtie2, has an option for soft-clipping.
 
 ### FASTQC
 
