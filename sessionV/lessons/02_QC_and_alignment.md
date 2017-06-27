@@ -126,9 +126,9 @@ Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to y
 
 ![workflow_align](../img/chipseq_workflow_align_partial.png)
 
-Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. Most ChIP-seq experiments do not require gapped alignments because the sequenced reads do not contain them, unlike exon junctions in RNA-seq analyses. 
+Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. Most ChIP-seq experiments do not require gapped alignments because the sequenced reads do not contain them, unlike exon junctions in RNA-seq analyses; therefore, we do not need a splice-aware aligner. We can use a traditional short-read aligner to quickly and accurately align reads to the genome.
 
-[Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes. It works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1), and it can perform soft-clipping to remove poor quality bases [[2](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
+[Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal poor quality bases or adapters from untrimmed reads [[2](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should use Bowtie1. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
