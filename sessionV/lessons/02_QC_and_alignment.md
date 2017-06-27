@@ -194,8 +194,8 @@ While the SAM alignment file output by Bowtie2 is human readable, we need a BAM 
 
 ```bash
 $ samtools view -h -S -b \
-H1hesc_Input_Rep1_chr12_aln_unsorted.sam \
--o H1hesc_Input_Rep1_chr12_aln_unsorted.bam
+-o H1hesc_Input_Rep1_chr12_aln_unsorted.bam \
+H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 ```
 
 You can find additional parameters for the samtools functions in the [manual](http://www.htslib.org/doc/samtools-1.2.html).
