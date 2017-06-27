@@ -20,6 +20,8 @@ Approximate time: 1.5 hours
 
 Now that we have a set of high confidence peaks for our samples, the next step is to **annotate our peaks to identify relative location relationship information between query peaks and genes/genomic features** to obtain some biological context. 
 
+<img src="../img/chip_workflow_june2017.png" width="700">
+
 [ChIPseeker](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) is an R package for annotating ChIP-seq data analysis. It supports annotating ChIP peaks and provides functions to visualize ChIP peaks coverage over chromosomes and profiles of peaks binding to TSS regions. Comparison of ChIP peak profiles and annotation are also supported, and can be useful to estimate how well biological replications are. Several visualization functions are implemented to visualize the peak annotation and statistical tools for enrichment analyses of functional annotations.
 
 
@@ -70,6 +72,8 @@ names(samplefiles) <- c("Nanog", "Pou5f1")
 We need to assign annotation databases generated from UCSC to a variable:
 
 	txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+	
+> **NOTE:** *ChIPseeker supports annotating ChIP-seq data of a wide variety of species if they have transcript annotation TxDb object available.* To find out which genomes have the annotation available follow [this link](http://bioconductor.org/packages/3.5/data/annotation/) and scroll down to "TxDb". Also, if you are interested in creating your own TxDb object you will find [more information here](https://bioconductor.org/packages/devel/bioc/vignettes/GenomicFeatures/inst/doc/GenomicFeatures.pdf). 
 
 ### Visualization
 
@@ -119,7 +123,6 @@ ChIPseeker implements the `annotatePeak` function for annotating peaks with near
 
 The **`annotatePeak` function provides parameters to annotate genes with a max distance cutoff and all genes within this distance will be reported for each peak**. For annotating genomic regions, annotatePeak function reports detail information when genomic region is Exon or Intron. For instance, ‘Exon (uc002sbe.3/9736, exon 69 of 80)’, means that the peak overlaps with the 69th exon of the 80 exons that transcript uc002sbe.3 possess and the corresponding Entrez gene ID is 9736. 
 
-> **NOTE:** *ChIPseeker supports annotating ChIP-seq data of a wide variety of species if they have transcript annotation TxDb object available.*
 
 Let's start by retrieving annotations for our Nanog and Pou5f1 peaks calls:
 
@@ -179,7 +182,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 vennpie(peakAnnoList[["Nanog"]])
 ```
 
-<img src="../img/">
+<img src="../img/vennpie.png">
 
 ### Barchart (multiple samples for comparison)
 

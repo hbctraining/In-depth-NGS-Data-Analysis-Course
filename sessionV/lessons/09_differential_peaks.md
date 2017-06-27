@@ -10,7 +10,7 @@ Approximate time: 90 minutes
 
 ## Learning Objectives
 
-* Learning how to use the DiffBind workflow to assess differential enrichment of peaks between two sample classes
+* Learning how to use the DiffBind workflow to assess differential binding between two sample classes
 * Assessing relationship between samples using PCA
 * Evaluating consensus diff peaks between two different tools
 
