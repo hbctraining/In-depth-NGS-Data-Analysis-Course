@@ -10,6 +10,10 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
+* Visualizing peak locations with respect to the TSS
+* Generating gene annotations for peak calls and evaluating overall distributions across dataset
+* Functional enrichment of gene annotations obtained from peak calls
+
 
 
 # ChIPseeker
