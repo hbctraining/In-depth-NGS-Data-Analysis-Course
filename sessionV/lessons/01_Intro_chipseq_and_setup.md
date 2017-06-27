@@ -127,7 +127,7 @@ You should have bcbio in you path, but please check that it is:
 ```bash
 $ echo $PATH
 ```
-If /opt/bcbio/centos/bin is not part of $PATH, add it by adding the following line within your .bashrc file and then run `source ~/.bashrc`:
+If `/opt/bcbio/centos/bin` is not part of `$PATH`, add it by adding the following line within your `~/.bashrc` file and then run `source ~/.bashrc`:
 
 ```bash
 export PATH=/opt/bcbio/centos/bin:$PATH
