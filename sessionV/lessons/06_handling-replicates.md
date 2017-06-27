@@ -19,10 +19,9 @@ Approximate time: 75 minutes
  
 As with any high-throughput experiment, a single assay is often subject to a substantial amount of variability. Thus, it is highly recommended to setup your experimental design with a minimum of 2-3 biological replicates. Presumably, two replicates measuring the same underlying biology should have high consistency but that is not always the case. In order to evaluate consistency between replicates **we require metrics that objectively assess the reproducibility of high-throughput assays**.
 
-In our case, we have two replicates for each transcription factor. We want to consider the peaks that are consistent in both replicates before we can compare the peaks from the two transcription factors to one another.
+Since we have 2 replicates in this example, we want to consider only those peaks that are present in both replicates before we compare the peaks from the two transcription factors to one another.
 
 <img src=../img/idr_samples.png width=500> 
-
 
 Common methods for handling replicates includes taking overlapping peak calls across replicates and then assessing differences in binding regions. Additionally, there are more complex methods that employ statistical testing and evaluate the reproducibility between replicates. In this lesson we will cover both methods.
 
@@ -32,15 +31,15 @@ In this section, our goal is to determine what peaks are in common between the t
 
 ### `bedtools`
 
-The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc., to obtain all sorts of information. [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from [Aaron Quinlan's group](http://quinlanlab.org/) at University of Utah is an easy to use, extremely versatile tool that performs tasks of this nature. 
+The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc., to obtain all sorts of information. [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from [Aaron Quinlan's group](http://quinlanlab.org/) at University of Utah is easy to use, and an extremely versatile tool that performs tasks of this nature. 
 
 <img src="../img/bedtools.png" width="700">
 
-As the name implies, this suite of tools works with bed files; in addition it works with other file formats that have genome coordinate information. 
+As the name implies, this suite of tools works with **Bed** files, but it also works with other file formats that have genome coordinate information. 
 
 <img src="../img/bedtools-basic.png" width="600">
 
-> **NOTE:** When working with multiple files to perform arithmetic on genomic coordinates, it is essential that all files have coordinate information for the same exact version of the genome!
+> **NOTE:** When working with multiple files to perform arithmetic on genomic coordinates, it is essential that all files have coordinate information for the same exact version of the genome and the same coordinate system (0-based or 1-based)!
 
 ### Setting up
 
@@ -55,7 +54,7 @@ Let's start an interactive session and change directories and set up a space for
 	
 Load the modules for `bedtools` and `samtools`:
 	
-	$ module load seq/BEDtools/2.23.0
+	$ module load seq/BEDtools/2.26.0
 	
 	$ module load seq/samtools/1.3
 	
@@ -83,11 +82,9 @@ We'll do the same for the Pou5f1 replicates:
 
 	$ bedtools intersect -a macs2/Pou5f1-rep1_peaks.narrowPeak -b macs2/Pou5f1-rep2_peaks.narrowPeak -wo > bedtools/Pou5f1-overlaps.bed
 
-Note that we are working with subsetted data and so our list of peaks for each replicate is small. Thus, the overlapping peak set will be small as we found with both Nanog and Pou5f1. What is interesting though, is that although the individual peak lists are smaller for Pou5f1 samples, the overlapping replicates represent a higher proportion of overlap with respect to each replicate.
-
+Note that we are working with subsetted data and so our list of peaks for each replicate is small. Thus, the overlapping peak set will be small as we found with both Nanog and Pou5f1. What is interesting though, is that even though the individual peak lists are smaller for Pou5f1 samples, the overlapping replicates represent a higher proportion of overlap with respect to each replicate.
 
 > **_Historical Note_:** A simpler heuristic for establishing reproducibility was previously used as a standard for depositing ENCODE data and was in effect when much of the currently available data was submitted. According to this standard, either 80% of the top 40% of the targets identified from one replicate using an acceptable scoring method should overlap the list of targets from the other replicate, or target lists scored using all available reads from each replicate should share more than 75% of targets in common. As with the current standards, this was developed based on experience with accumulated ENCODE ChIP-seq data, albeit with a much smaller sample size.
-
 
 ## Irreproducibility Discovery Rate (IDR)
 
