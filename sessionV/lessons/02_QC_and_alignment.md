@@ -18,9 +18,9 @@ Approximate time: 1 hour
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. 
 
-![workflow_QC](../img/chipseq_workflow_QC_partial.png)
-
 ## Quality control of sequence reads
+
+![workflow_QC](../img/chipseq_workflow_QC_partial.png)
 
 For any NGS analysis method, our first step is ensuring our reads are of good quality prior to aligning them to the reference genome. We will use FastQC to get a good idea of the overall quality of our data, to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
 
