@@ -34,7 +34,9 @@ biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
 
 ### Getting data 
 
-As mentioned previously, these donwstream steps should be performed on your high confidence peak calls. While we have a set for our subsetted data, this set is rather small and will not result in anything meaningful in our functional analyses. **We have generated a set of high confidence peak calls using the full dataset.** These were obtained post-IDR analysis, (i.e. concordant peaks between replicates) and are provided in BED format which is optimal input for the ChIPseeker package.
+As mentioned previously, these donwstream steps should be performed on your high confidence peak calls. While we have a set for our subsetted data, this set is rather small and will not result in anything meaningful in our functional analyses. **We have generated a set of high confidence peak calls using the full dataset.** These were obtained post-IDR analysis, (i.e. concordant peaks between replicates) and are provided in BED format which is optimal input for the ChIPseeker package. 
+
+> **NOTE:** the number of peaks in these bed files are are significantly higher than what we observed with the subsetted data replicate analysis.
 
 We will need to copy over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
 
@@ -66,7 +68,7 @@ We need to assign annotation databases generated from UCSC to a variable:
 
 ### Visualization
 
-First, let's take a look at peak locations across the genome. The `covplot` function calculates **coverage of peak regions** across the genome and generates a figure to visualize this across chromosomes. We will do this for the Nanog peaks.
+First, let's take a look at peak locations across the genome. The `covplot` function calculates **coverage of peak regions** across the genome and generates a figure to visualize this across chromosomes. We do this for the Nanog peaks and find a considerable number of peaks on all chromosomes.
 
 ```
 # Assign peak data to variables
@@ -81,7 +83,7 @@ covplot(nanog, weightCol="V5")
 <img src="../img/covplot.png">
 
 
-Using a window of +/- 1000bp around the TSS of genes we can plot the **density of read count frequency to see where binding is realtive to the TSS** or each sample. This is similar to the plot in the ChIPQC report but with the flexibility to customize the plot a bit. We will plot both Nanog and Pou5f1 together to compare the two.
+Using a window of +/- 1000bp around the TSS of genes we can plot the **density of read count frequency to see where binding is relative to the TSS** or each sample. This is similar to the plot in the ChIPQC report but with the flexibility to customize the plot a bit. We will plot both Nanog and Pou5f1 together to compare the two.
 
 ```
 # Prepare the promotor regions
@@ -93,9 +95,13 @@ tagMatrixList <- lapply(as.list(samplefiles), getTagMatrix, windows=promoter)
 ## Profile plots
 plotAvgProf(tagMatrixList, xlim=c(-1000, 1000), conf=0.95,resample=500, facet="row")
 ```
+<img srce="../img/density_profileplots.png">
 
+With these plots the confidence interval is estimated by bootstrap method (500 iterations) and is shown in the grey shading that follows each curve. The Nanog peaks exhibit a nice narrow peak at the TSS with small confidence intervals. Whereas the Pou5f1 peaks display a bit wider peak suggesting binding around the TSS with larger confidence intervals.
 
-With these plots the confidence interval is estimated by bootstrap method (500 iterations) and is shown in the grey shading that follows each curve. The Nanog replicates appear to be binding close to the TSS, whereas the Pou5f1 exhbit a shift from the TSS although the direction of shift is not concordant across replicates.
+The **heatmap is another method of visualizing the read count frequency** relative to the TSS.
+
+<img src="../img/Rplot.png" width=500>
 
 ### Annotation
 
