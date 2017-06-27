@@ -10,7 +10,8 @@ Approximate time: 1 hour
 
 ## Learning Objectives
 
-* to use previous knowledge of quality control steps to perform FastQC and trimming
+* to use previous knowledge of quality control steps to perform FastQC
+* to learn how to use Trimmomatic to perform quality trimming
 * to understand parameters and perform alignment using Bowtie2
 
 # ChIP-Seq analysis 
