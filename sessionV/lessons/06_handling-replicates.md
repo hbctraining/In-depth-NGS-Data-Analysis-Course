@@ -78,7 +78,10 @@ The intersect tool evaluates A (file 1) and finds regions that overlap in B (fil
 Let's start with the Nanog replicates: 
 
 ```bash
-$ bedtools intersect -a macs2/Nanog-rep1_peaks.narrowPeak -b macs2/Nanog-rep2_peaks.narrowPeak -wo > bedtools/Nanog-overlaps.bed
+$ bedtools intersect \
+-a macs2/Nanog-rep1_peaks.narrowPeak \
+-b macs2/Nanog-rep2_peaks.narrowPeak \
+-wo > bedtools/Nanog-overlaps.bed
 ```
 
 **How many overlapping peaks did we get?**
@@ -86,7 +89,10 @@ $ bedtools intersect -a macs2/Nanog-rep1_peaks.narrowPeak -b macs2/Nanog-rep2_pe
 We'll do the same for the Pou5f1 replicates:
 
 ```bash
-$ bedtools intersect -a macs2/Pou5f1-rep1_peaks.narrowPeak -b macs2/Pou5f1-rep2_peaks.narrowPeak -wo > bedtools/Pou5f1-overlaps.bed
+$ bedtools intersect \
+-a macs2/Pou5f1-rep1_peaks.narrowPeak \
+-b macs2/Pou5f1-rep2_peaks.narrowPeak \
+-wo > bedtools/Pou5f1-overlaps.bed
 ```
 Note that we are working with subsetted data and so our list of peaks for each replicate is small. Thus, the overlapping peak set will be small as we found with both Nanog and Pou5f1. What is interesting though, is that even though the individual peak lists are smaller for Pou5f1 samples, the overlapping replicates represent a higher proportion of overlap with respect to each replicate.
 
