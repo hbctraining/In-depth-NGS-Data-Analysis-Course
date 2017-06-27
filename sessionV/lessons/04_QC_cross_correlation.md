@@ -32,7 +32,7 @@ The + strand of DNA is sequenced from the 5' end, generating the red reads in th
 
 *Nat Biotechnol. 2008 Dec; 26(12): 1351–1359*
 
-Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yeild maximum correlation between the two peaks**. We can calculate this using the **cross-corrlation metric**.
+Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yeild maximum correlation between the two peaks**, which **should** correspond to the predominant **fragment length**. We can calculate shift yeilding maximum correlation this using the **cross-corrlation metric**.
 
 <img src="../img/model_shift.png" width =300>
 
