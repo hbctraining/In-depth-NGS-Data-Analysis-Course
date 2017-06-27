@@ -36,6 +36,8 @@ Due to the sequencing of the 5' ends of the fragments, this results in an enrich
 
 <img src="../img/model_shift.png" width =300>
 
+### Cross-correlation metric
+
 The cross-correlation metric is computed as the **Pearson's linear correlation between the Crick strand and the Watson strand, after shifting Watson by k base pairs.** Using a small genomic window as an example, let's walk through the details of the cross-correlation below.
 
 **At strand shift of zero, the Pearson correlation between the two vectors is 0.539.**
