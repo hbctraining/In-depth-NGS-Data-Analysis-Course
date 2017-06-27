@@ -31,8 +31,6 @@ Let's run FastQC on all of our files.
 Start an interactive session with 2 cores if don't have one going, and change directories to the `raw_data` folder.
 
 ```bash
-$ bsub -Is -n 2 -q interactive bash
-
 $ cd ~/ngs_course/chipseq/raw_data 
 
 $ module load seq/fastqc/0.11.3 
