@@ -171,7 +171,7 @@ $ bowtie2 -p 2 -q \
 -S ~/ngs_course/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
 ```
-> _**NOTE:** If you had untrimmed fastq files, you would want use local alignment to perform soft-clipping by including the option `--local`.
+> **NOTE:** If you had untrimmed fastq files, you would want use local alignment to perform soft-clipping by including the option `--local`.
 >
 
 ## Filtering reads
