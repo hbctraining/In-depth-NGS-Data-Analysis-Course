@@ -82,31 +82,46 @@ Before we get started with the ChIP-Seq analysis, we need to set up our director
 
 Login to Orchestra and start an interactive session with four cores:
 
-`$ bsub -Is -n 4 -q interactive bash`
+```bash
+$ bsub -Is -n 4 -q interactive bash
+```
 
 Change directories to the `ngs_course` directory:
 
-`$ cd ~/ngs_course`
+```bash
+$ cd ~/ngs_course
+```
 
 Create a `chipseq` directory and change directories into it:
 
-```
+```bash
 $ mkdir chipseq
 
 $ cd chipseq
 ```
 
-Now let's setup the directory structure. In one command create folders for `data`and `results` _and_ within the `data` folder create folders for `untrimmed_fastq`, `trimmed_fastq`, and `reference_data`:
+Now let's setup the directory structure, we are looking for the following structure within the `chipseq` directory:
 
-`$ mkdir -p data/untrimmed_fastq data/trimmed_fastq data/reference_data`
-
-Within the `results` folder create folders for untrimmed_fastqc, trimmed_fastqc, and bowtie2:
-
-`$ mkdir -p results/untrimmed_fastqc results/trimmed_fastqc results/bowtie2`
-
-Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our fastq files and reference data files:
-
+```bash
+├── data
+│   ├── reference_data
+│   ├── trimmed_fastq
+│   └── untrimmed_fastq
+└── results
+    ├── bowtie2
+    ├── trimmed_fastqc
+    └── untrimmed_fastqc
 ```
+
+```bash
+$ mkdir -p data/untrimmed_fastq data/trimmed_fastq data/reference_data
+
+$ mkdir -p results/untrimmed_fastqc results/trimmed_fastqc results/bowtie2
+```
+
+Now that we have the directory structure created, let's copy over the fastq files and reference data files to the appropriate folders to start with QC and alignment.
+
+```bash
 $ cd data
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq untrimmed_fastq/
@@ -114,16 +129,17 @@ $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq u
 $ cp /groups/hbctraining/ngs-data-analysis-longcoursechipseq/reference_data/chr12* reference_data/
 ```
 
-We will be using tools within the bcbio pipeline, so please make sure bcbio is in your PATH:
+You should have bcbio in you path, but please check that it is:
 
+```bash
+echo $PATH
 ```
-$ PATH=/opt/bcbio/centos/bin:$PATH
-```
-or within your `.bashrc` file:
+If `/opt/bcbio/centos/bin` is not part of $PATH, add it by adding the following line within your `.bashrc` file and then run `source ~/.bashrc`:
 
-```
+```bash
 export PATH=/opt/bcbio/centos/bin:$PATH
 ```
+
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
