@@ -97,16 +97,16 @@ $ cd chipseq
 Now let's setup the directory structure, we are looking for the following structure within the chipseq directory:
 ```bash
 chipseq/
-├── logs
-├── meta
-├── raw_data
-├── reference_data
-├── results
-│   ├── bowtie2
-│   ├── trimmed
-│   ├── trimmed_fastqc
-│   └── untrimmed_fastqc
-└── scripts
+├── logs/
+├── meta/
+├── raw_data/
+├── reference_data/
+├── results/
+│   ├── bowtie2/
+│   ├── trimmed/
+│   ├── trimmed_fastqc/
+│   └── untrimmed_fastqc/
+└── scripts/
 ```
 ```bash
 $ mkdir -p raw_data reference_data scripts logs meta
