@@ -16,7 +16,7 @@ Approximate time: 60 minutes
 
 ## Quality control of sequence reads
 
-![workflow_QC](../img/chipseq_workflow_QC_partial.png) 
+<img src="../img/chip_workflow_june2017_step1.png" width=700>
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. 
 
@@ -123,8 +123,6 @@ Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to y
 ![trimmed_fastqc](../img/chipseq_trimmed_fastqc.png)
 
 ## Alignment
-
-![workflow_align](../img/chipseq_workflow_align_partial.png)
 
 Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. Most ChIP-seq experiments do not require gapped alignments because the sequenced reads do not contain them, unlike exon junctions in RNA-seq analyses; therefore, we do not need a splice-aware aligner. We can use a traditional short-read aligner to quickly and accurately align reads to the genome.
 

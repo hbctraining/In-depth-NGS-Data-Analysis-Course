@@ -18,6 +18,8 @@ Approximate time: 1.5 hours
 
 ## Additional Quality Metrics for ChIP-seq data
 
+<img src="../img/chip_workflow_june2017_step3.png" width=700>
+
 The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. We have already discussed metrics related to strand cross-correlation such as NSC and RSC. In this section, we will provide descriptions of additional metrics that **assess the distribution of signal within enriched regions, within/across expected annotations, across the whoel genome, and within known artefact regions.**
 
 > **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!

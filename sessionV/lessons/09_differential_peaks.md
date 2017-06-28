@@ -1,5 +1,5 @@
 ---
-title: "Differenial Peak calling using DiffBind"
+title: "Differential Peak calling using DiffBind"
 author: "Meeta Mistry"
 date: "Thursday July 20th, 2016"
 ---
@@ -15,7 +15,7 @@ Approximate time: 90 minutes
 * Evaluating consensus diff peaks between two different tools
 
 
-## Tools for evaulating differential peak enrichment
+## Tools for evaluating differential peak enrichment
 
 An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.
 

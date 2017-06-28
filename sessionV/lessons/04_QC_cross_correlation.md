@@ -17,6 +17,7 @@ Approximate time: 1.5 hours
 
 Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. What we are looking for is good	quality	ChIP-seq enrichment over background.
 
+<img src="../img/chip_workflow_june2017_step3.png" width=700>
 
 ## Strand cross-correlation
 
