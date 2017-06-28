@@ -97,7 +97,7 @@ The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualto
 The `phantompeakqualtools` package is written as an R script, that uses `samtools` as a dependency. The package has various options that need to be specified when running from the command line. To get set up, we will need to start an interactive session, load the necessary modules and set up the directory structure:
 
 ```
-$ bsub -Is -n 6 -q interactive bash
+$ bsub -Is -n 2 -q interactive bash
 
 $ module load stats/R/3.2.1 seq/samtools/1.2
 
