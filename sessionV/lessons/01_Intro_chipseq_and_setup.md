@@ -54,7 +54,7 @@ The same starting material should be divided to be used for both the protein-spe
 
 ## Introduction to example data
 
-Our goal for this session is to compare the the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4). The ChIP was performed on H1 human embryonic stem cell line (h1-ESC) cells, and sequenced using Illumina GAII the data was obtained from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/). These 2 transcription factors are involved in **stem cell pluripotency** and one of the goals is to understand their roles, individually and together, in transriptional regulation. 
+Our goal for this session is to compare the the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4). The ChIP was performed on H1 human embryonic stem cell line (h1-ESC) cells, and sequenced using Illumina. The datasets were obtained from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/). These 2 transcription factors are involved in **stem cell pluripotency** and one of the goals is to understand their roles, individually and together, in transriptional regulation. 
 
 Two replicates were collected and each was divided into 3 aliquots for the following:
 
