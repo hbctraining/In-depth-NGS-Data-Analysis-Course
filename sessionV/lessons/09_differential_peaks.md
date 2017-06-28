@@ -221,9 +221,24 @@ The value columns are described below:
 
 ### Visualization
 
-**MA plots** are a useful way to visualize the effect of normalization on data, as well as seeing which of the datapoints are being identified as differentially bound. An MA plot can be obtained for the resistant-responsive contrast as follows:
+**MA plots** are a useful way to visualize the effect of normalization on data, as well as seeing which of the data points are being identified as differentially bound. 
+
+	dba.plotMA(dbObj, method=DBA_DESEQ2)
+	
+<img src="../img/maplot.png" width=600>
+
+Each point represents a binding site. Points in red representing sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the concentrations of each sample groups plotted against each other.
 
 
+	dba.plotMA(dbObj, bXY=TRUE)
+	
+<img src="../img/maplotXY.png" width=600>
+
+If we want to see how the reads are distributed amongst the different classes of differentially bound sites and sample groups, we can use a boxplot:
+
+	pvals <- dba.plotBox(dbObj)
+	
+	
 
 
 ### Writing results to file
