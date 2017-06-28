@@ -110,7 +110,7 @@ To see how well the samples cluster with one another, we can draw a **PCA plot**
 	dba.plotPCA(dbObj,  attributes=DBA_FACTOR, label=DBA_ID)
 	
 
-<img src="../img/pcaplot.png" width=400>
+<img src="../img/pcaplot.png" width=600>
 
 
 We can also plot a **correlation heatmap**, using only significantly differentially bound sites.
@@ -118,13 +118,13 @@ We can also plot a **correlation heatmap**, using only significantly differentia
 	plot(dbObj)
 	
 
-<img src="../img/db-heatmap.png" width=400>
+<img src="../img/db-heatmap.png" width=600>
 
 To evaluate how many peaks overlap between all samples we can plot a **Venn diagram**:
 
 	dba.plotVenn(dbObj, 1:4)
 	
-<img src="../img/venn-db.png" width=400> 
+<img src="../img/venn-db.png" width=600> 
 	
 
 ### Establishing a contrast
@@ -167,7 +167,7 @@ For a quick look at the overlapping peaks identified by the two different tools 
 
 	dba.plotVenn(dbObj,contrast=1,method=DBA_ALL_METHODS)
 	
-<img src="../img/venn-deseq-edgeR.png" width=400> 
+<img src="../img/venn-deseq-edger.png" width=600> 
 
 
 To extract the full results from each method we use `dba.report`:
