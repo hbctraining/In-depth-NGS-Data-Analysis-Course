@@ -75,7 +75,7 @@ We will run Trimmomatic using the following parameters:
 
 * `SE`: Single End reads
 * `-threads`: number of threads / cores
-* `-phread33`: quality score format
+* `-phred33`: quality score format
 * `LEADING`: cut bases off the start of a read, if below a threshold quality
 * `TRAILING`: cut bases off the end of a read, if below a threshold quality
 * `MINLEN`: drop an entire read if it is below a specified length
