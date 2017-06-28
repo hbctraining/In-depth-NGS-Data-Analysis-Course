@@ -79,7 +79,7 @@ Using the cross-correlation plot we can **compute metrics for assessing signal-t
 
 #### Normalized strand cross-correlation coefficent (NSC):
 
-The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). **Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment).** Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological eg.a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
+The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). **Higher values indicate more enrichment, values less than 1.1 are relatively low NSC scores, and the minimum possible value is 1 (no enrichment).** Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological, such as a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
 
 #### Relative strand cross-correlation coefficient (RSC):
 
