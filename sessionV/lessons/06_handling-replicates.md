@@ -240,7 +240,7 @@ $ idr --samples Pou5f1_Rep1_sorted_peaks.narrowPeak Pou5f1_Rep2_sorted_peaks.nar
 
 The output file format mimics the input file type, with some additional fields. Note that the **first 10 columns are a standard narrowPeak file**, pertaining to the merged peak across the two replicates. 
 
-**Column 5 contains the scaled IDR value, `min(int(log2(-125IDR), 1000)`** For example, peaks with an IDR of 0 have a score of 1000, peaks with an IDR of 0.05 have a score of int(-125log2(0.05)) = 540, and IDR of 1.0 has a score of 0. **Columns 11 and 12 correspond to the local and global IDR value, respectively.** The global IDR is used for thresholding, it _is analogous to a multiple hypothesis correction on a p-value to compute an FDR_. The local IDR is akin to the posterior probability of a peak belonging to the irreproducible noise component. You can read [this paper](http://projecteuclid.org/euclid.aoas/1318514284
+**Column 5 contains the scaled IDR value, `min(int(log2(-125IDR), 1000)`** For example, peaks with an IDR of 0 have a score of 1000, peaks with an IDR of 0.05 have a score of int(-125log2(0.05)) = 540, and IDR of 1.0 has a score of 0. **Columns 11 and 12 correspond to the local and global IDR value, respectively.** The global IDR is the value used to calculate the scaled IDR number in column 5, it _is analogous to a multiple hypothesis correction on a p-value to compute an FDR_. The local IDR is akin to the posterior probability of a peak belonging to the irreproducible noise component. You can read [this paper](http://projecteuclid.org/euclid.aoas/1318514284
 ) for more details. 
 
 The next four columns correspond to Replicate 1 peak data and the following four columns with Replicate 2 peak data.
