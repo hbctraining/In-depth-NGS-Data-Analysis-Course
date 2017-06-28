@@ -33,7 +33,7 @@ The + strand of DNA is sequenced from the 5' end, generating the red reads in th
 
 *Nat Biotechnol. 2008 Dec; 26(12): 1351–1359*
 
-Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yeild maximum correlation between the two peaks**, which **should** correspond to the predominant **fragment length**. We can calculate shift yeilding maximum correlation this using the **cross-corrlation metric**.
+Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yield maximum correlation between the two peaks**, which **should** correspond to the predominant **fragment length**. We can calculate the shift yielding the maximum correlation using the **cross-corrlation metric**.
 
 <img src="../img/model_shift.png" width =300>
 
@@ -53,7 +53,7 @@ The cross-correlation metric is computed as the **Pearson's linear correlation b
 
 <img src="../img/cross-corr-3.png" width =500>
 
-In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. This is computed per chromosome and values are multiplied by a scaling factor and then summed across all chromosomes. We can then **plot cross-correlation values (y-axis) against the shift value (x-axis)** to generate a cross-correlation plot.
+In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. This is computed for every peak for each chromosome and values are multiplied by a scaling factor and then summed across all chromosomes. We can then **plot cross-correlation values (y-axis) against the shift value (x-axis)** to generate a cross-correlation plot.
 
 The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak).
 
