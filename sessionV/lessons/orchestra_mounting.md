@@ -103,7 +103,7 @@ $ ll
 `ll` should not work for you, but it works on my computer, why? It's because I have set up an alias for my bash environment, using the `alias` command, such that it knows that I want to actually do `ls -l` when I say `ll`. Let's set it up for your environment.
 
 ```bash
-$ alias ll='ls -lhtr'
+$ alias ll='ls -l'
 
 $ ll
 ```
@@ -122,7 +122,7 @@ alias orchestra='ssh ecommonsID@orchestra.med.harvard.edu'
 alias orch_mount='sshfs ecommonsID@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks'
 ```
 
-Now, open a new Terminal window and try these out!
+Now, open a new Terminal window, or source the file you just modified, and try these out!
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
