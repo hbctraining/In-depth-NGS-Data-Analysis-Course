@@ -88,13 +88,10 @@ Once you are done with it, you can cancel the connection using `umount` and the 
 $ umount ~/Orchestra 
 ```
 
-### Write a shell script for mounting
-
-You can also create a shell script and anytime you want to mount Orchestra, you can run that script.
+### Create an "alias" for mounting and logging into orchestra
 
 ```bash
-# mount orchestra with the appropriate login
-sshfs USER@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
+alias orchestra='ssh username@orchestra.med.harvard.edu'
 
-# for unmounting use `umount ~/Orchestra`
+alias orch_mount='sshfs USER@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks'
 ```
