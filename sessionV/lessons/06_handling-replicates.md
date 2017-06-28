@@ -44,20 +44,21 @@ As the name implies, this suite of tools works with **Bed** files, but it also w
 ### Setting up
 
 Let's start an interactive session and change directories and set up a space for the resulting overlaps. 
+```bash
+$ bsub -Is -q interactive bash
 
-	$ bsub -Is -q interactive bash
-	
-	$ cd ~/ngs_course/chipseq/results/
+$ cd ~/ngs_course/chipseq/results/
 
-	$ mkdir bedtools
-	
+$ mkdir bedtools
+```
 	
 Load the modules for `bedtools` and `samtools`:
 	
-	$ module load seq/BEDtools/2.26.0
-	
-	$ module load seq/samtools/1.3
-	
+```bash
+$ module load seq/BEDtools/2.26.0
+
+$ module load seq/samtools/1.3
+```	
 	
 ### Finding overlapping peaks between replicates
 	
@@ -68,20 +69,31 @@ The `bedtools intersect` command only reports back the peaks that are overlappin
 
 To find out more information on the parameters available when intersecting, use the help flag:
 
-	$ bedtools intersect -h
-	
+```bash
+$ bedtools intersect -h
+```
+
 The intersect tool evaluates A (file 1) and finds regions that overlap in B (file 2). We will add the `-wo` which indicates to write the original A (file 1) and B (file 2) entries plus the number of base pairs of overlap between the two features.
 
 Let's start with the Nanog replicates: 
 
-	$ bedtools intersect -a macs2/Nanog-rep1_peaks.narrowPeak -b macs2/Nanog-rep2_peaks.narrowPeak -wo > bedtools/Nanog-overlaps.bed
+```bash
+$ bedtools intersect \
+-a macs2/Nanog-rep1_peaks.narrowPeak \
+-b macs2/Nanog-rep2_peaks.narrowPeak \
+-wo > bedtools/Nanog-overlaps.bed
+```
 
 **How many overlapping peaks did we get?**
 
 We'll do the same for the Pou5f1 replicates:
 
-	$ bedtools intersect -a macs2/Pou5f1-rep1_peaks.narrowPeak -b macs2/Pou5f1-rep2_peaks.narrowPeak -wo > bedtools/Pou5f1-overlaps.bed
-
+```bash
+$ bedtools intersect \
+-a macs2/Pou5f1-rep1_peaks.narrowPeak \
+-b macs2/Pou5f1-rep2_peaks.narrowPeak \
+-wo > bedtools/Pou5f1-overlaps.bed
+```
 Note that we are working with subsetted data and so our list of peaks for each replicate is small. Thus, the overlapping peak set will be small as we found with both Nanog and Pou5f1. What is interesting though, is that even though the individual peak lists are smaller for Pou5f1 samples, the overlapping replicates represent a higher proportion of overlap with respect to each replicate.
 
 > **_Historical Note_:** A simpler heuristic for establishing reproducibility was previously used as a standard for depositing ENCODE data and was in effect when much of the currently available data was submitted. According to this standard, either 80% of the top 40% of the targets identified from one replicate using an acceptable scoring method should overlap the list of targets from the other replicate, or target lists scored using all available reads from each replicate should share more than 75% of targets in common. As with the current standards, this was developed based on experience with accumulated ENCODE ChIP-seq data, albeit with a much smaller sample size.
@@ -117,8 +129,6 @@ The IDR approach creates a curve, from which it then quantitatively assesses whe
 3) **Irreproducible Discovery Rate (IDR)**: Derive a significance value from the inference procedure (#2) in a fashion similar to FDR, and can be used to control the level of irreproducibility rate when selecting signals.
 i.e. 0.05 IDR means that peak has a 5% chance of being an irreproducible discovery
 
-
-
 ### The IDR pipeline
 
 There are three main steps to the IDR pipeline:
@@ -136,22 +146,21 @@ _We will only be running Step 1 in this lesson, but will discuss steps 2 and 3 i
 
 ## Running IDR
 
-To run IDR *we should be using the full dataset*. The full BAM files can be downloaded from ENCODE, however for consistency we will continue with our subsetted data for this lesson.
+To run IDR *we should be using the full dataset*, and if you are interested the full BAM files can be downloaded from ENCODE, however for timeliness and consistency we will continue with our subsetted data for this lesson.
 
-Using MACS2, we used the chr12 BAM files and **called peaks using liberal cutoffs (p < 0.001)** than we would normally use for peak calling. This is recommended in the guidelines such that we have a larger set of peaks to begin with for each replicate. **Peaks were then sorted.** _You do NOT NEED TO RUN this code, we have already generated narrowPeak files for you!_
+To run IDR the recommendation is to **run MACS2 less stringently** to allow a larger set of peaks to be identified for each replicate. In addition the narrowPeak files have to be **sorted by the `-log10(p-value)` column**. We have already performed these 2 steps for the samples from both groups, and the commands we used for it as listed below. To reiterate, _you do NOT NEED TO RUN the following lines of code, we have already generated narrowPeak files for you!_
 
-```
-###DO NOT RUN THIS CODE###
+```bash
+###DO NOT RUN THIS###
 
-# Call peaks using liberal cutoffs
+# Call peaks using a liberal p-value cutoff
 macs2 callpeak -t treatFile.bam -c inputFile.bam -f BAM -g 1.3e+8 -n macs/NAME_FOR_OUPUT -B -p 1e-3  2> macs/NAME_FOR_OUTPUT_macs2.log
 
 #Sort peak by -log10(p-value)
 sort -k8,8nr NAME_OF_INPUT_peaks.narrowPeak > macs/NAME_FOR_OUPUT_peaks.narrowPeak 
-
 ```
 
-> Peak callers tested with IDR:
+> IDR will work with many different Peak callers, the following have been tested:
 > 
 > * SPP - Works out of the box
 > * MACS1.4 - DO NOT use with IDR
@@ -160,24 +169,28 @@ sort -k8,8nr NAME_OF_INPUT_peaks.narrowPeak > macs/NAME_FOR_OUPUT_peaks.narrowPe
 > * PeakSeq - Run with modified PeakSeq parameters to obtain large number of peaks
 > * HotSpot, MOSAiCS, GPS/GEM, …
 
-
 ### Setting up 
 
 IDR is an open source tool available on [GitHub](https://github.com/nboley/idr). It is a Python program that has already been installed on Orchestra. The first thing we need to do is load the module to run IDR:
 
-	$  module load seq/idr/2.0.2
+```bash
+$  module load seq/idr/2.0.2
+```
 
 > *NOTE:*  After loading the module, if your run the command `module list` you will notice that it has many dependencies which have also been loaded for you. 
 
 Now let's move into the `chipseq/results` directory and create a new directory for the results of our IDR analysis.
 
-	$ cd ngs_course/chipseq/results
-	$ mkdir IDR
+```bash
+$ cd ngs_course/chipseq/results
+$ mkdir IDR
+```
 
 Copy over the sorted narrowPeak files for each replicate for Nanog and Pou5f1:
 
-	$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/idr/macs/*sorted* IDR/
-	
+```bash
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/idr/macs/*sorted* IDR/
+```	
 
 ### Peak consistency between true replicates
 
@@ -187,36 +200,38 @@ The first step is taking our replicates and evaluating how consistent they are w
 
 To run IDR we use the `idr` command followed by any necessary parameters. To see what parameters we have available to us, we can use:
 
-	$ idr -h
-	
+```bash
+$ idr -h
+```
+
 For our run we will change only parameters associated with input and output files. We will also change the field on which we want to create ranks since the defaults are set for SPP peak calls. Parameters that pertain to the inference procedure are left as is, since the chosen defaults are what the developers believe are reasonable in the vast majority of cases. 
 
 Move into the IDR directory:
 
-	$ cd IDR
+```bash
+$ cd IDR
+```
 
 Let's start with the Nanog replicates:
 
-```
+```bash
 $ idr --samples Nanog_Rep1_sorted_peaks.narrowPeak Nanog_Rep2_sorted_peaks.narrowPeak \
 --input-file-type narrowPeak \
 --rank p.value \
 --output-file Nanog-idr \
 --plot \
 --log-output-file nanog.idr.log
-
 ``` 
 
 And now with the Pou5f1 replicates:
 
-```
+```bash
 $ idr --samples Pou5f1_Rep1_sorted_peaks.narrowPeak Pou5f1_Rep2_sorted_peaks.narrowPeak \
 --input-file-type narrowPeak \
 --rank p.value \
 --output-file Pou5f1-idr \
 --plot \
 --log-output-file pou5f1.idr.log
-
 ``` 
 
 #### Output files
@@ -233,13 +248,16 @@ More detail on the output can be [found in the user manual](https://github.com/n
 
 Let's take a look at our output files. _How many common peaks are considered for each TF?_
 
-	$ wc -l *-idr
-	
+```bash
+$ wc -l *-idr
+```
+
 To find out how may of those shared regions have an IDR < 0.05, we can take a look at the log files. Alternatively, since we requested all peaks and their IDR value as output we can also filter the file using an `awk` command.
 
-	$ awk '{if($5 >= 540) print $0}' Nanog-idr | wc -l
-	$ awk '{if($5 >= 540) print $0}' Pou5f1-idr | wc -l
-	
+```bash
+$ awk '{if($5 >= 540) print $0}' Nanog-idr | wc -l
+$ awk '{if($5 >= 540) print $0}' Pou5f1-idr | wc -l
+```	
 _Which of the two TFs show better reproducibility between replicates? How does this compare to the  `bedtools` overlaps?_
 
 
@@ -258,7 +276,6 @@ The plot for each quadrant is described below:
 **Bottom Row**: Peak rank versus IDR scores are plotted in black. The overlayed boxplots display the distribution of idr values in each 5% quantile. The IDR values are thresholded at the optimization precision - 1e-6 by default.
 
 
-
 ### Peak consistency between pooled pseudoreplicates
 
 Once you have IDR values for true replicates, you want to see how this compares to pooled replicates. This is a bit more involved, as it requires you to go back to the BAM files, merge the reads and randomly split them into two pseudo-replicates. If the original replicates are highly concordant, then shuffling and splitting them should result in pseudo-replicates that the reflect the originals. **Therefore, if IDR analysis on the pooled pseudo-replicates results in a number of peaks that are similar (within a factor of 2) these are truly good replicates.**
@@ -271,9 +288,9 @@ _We will not run this analysis, but have provided a bash script below if you wan
 * Be sure to also ask for enough memory in your `bsub` command.
 * Change the paths for output to the directories that are relevant to you
 
-> _NOTE: For the paths and directories we are using `/n/scratch2`. This script generates fairly lrge intermediate files which can quickly fill up your home directory. To avoid this you can make use of scratch space and once the analysis is complete move over only the relevant files._
+> _NOTE: For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files._
 
-```
+```bash
 #!/bin/sh
 
 # USAGE: sh pseudorep_idr.sh <input BAM rep1> <chip BAM rep1> <input BAM rep2> <chip BAM rep2> <NAME for IDR output>
@@ -359,14 +376,11 @@ idr --samples $macsDir/${NAME1}_pr_sorted.narrowPeak $macsDir/${NAME2}_pr_sorted
 
 # Remove the tmp directory
 rm -r $tmpDir
-
 ```
-
-
 
 ### Self-consistency analysis
 
-An _optional step_ is to create pseudo-replicates for each replicate byrandomly splitting the reads and running them through the same workflow. Again, **if IDR analysis on the self-replicates for Replicate 1 results in a number of peaks that are similar (within a factor of 2) to self-replicates for Replicate 2 these are truly good replicates.**
+An _optional step_ is to create pseudo-replicates for each replicate by randomly splitting the reads and running them through the same workflow. Again, **if IDR analysis on the self-replicates for Replicate 1 results in a number of peaks that are similar (within a factor of 2) to self-replicates for Replicate 2 these are truly good replicates.**
 
 <img src="../img/idr-rep1-rep2.png" width=500>
 
