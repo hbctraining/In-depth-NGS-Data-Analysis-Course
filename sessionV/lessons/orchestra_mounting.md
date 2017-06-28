@@ -61,12 +61,13 @@ $ cat ~/.ssh/id_rsa.pub | pbcopy
 
 # pbcopy puts the contents into the clipboard (in other words it is equivalent to copying with "ctrl + c") so you can just paste it as usual with "ctrl + v"
 ```
-Use vim to open `~/.ssh/authorized_keys` and copy the contents from your computer to this file and save it. 
+
+Log into Orchestra and use vim to open `~/.ssh/authorized_keys` and copy the contents from your computer to this file and save it. 
 
 
 ## Mount Orchestra using sshfs
 
-Now, let's set up for running `sshfs`, by creating a folder with an intuitive name for your home directory on the cluster to be mounted in.
+Now, let's set up for running `sshfs` on our laptops (local machines), by creating a folder with an intuitive name for your home directory on the cluster to be mounted in.
 
 ```bash
 $ mkdir ~/Orchestra
