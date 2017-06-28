@@ -219,6 +219,9 @@ The value columns are described below:
 * **Conc_Pou5f1**: mean concentration over the second (Pou5f1) group
 * **Fold**: shows the difference in mean concentrations between the two groups, with a positive value indicating increased binding affinity in the Nanog group and a negative value indicating increased binding affinity in the Pou5f1 group.
 
+### Visualization
+
+**MA plots** are a useful way to visualize the effect of normalization on data, as well as seeing which of the datapoints are being identified as differentially bound. An MA plot can be obtained for the resistant-responsive contrast as follows:
 
 
 
