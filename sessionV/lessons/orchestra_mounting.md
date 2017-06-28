@@ -1,3 +1,17 @@
+---
+title: "Easy access to Orchestra using sshfs"
+author: "Radhika Khetani"
+date: "Wednesday, July 28th, 2017"
+---
+
+Approximate time: 30 minutes
+
+## Learning Objectives
+
+* Access a remote server as a folder on a local computer
+
+## Installing sshfs
+
 To have orchestra accessible on your laptop/desktop as a folder, you need to use something called [sshfs](https://en.wikipedia.org/wiki/SSHFS) (ssh filesystem). This is a command that is not native to OSX or Windows and you need to go through several steps in order to get it. 
 
 Step 1. Install [Xcode](https://developer.apple.com/xcode/)
@@ -33,6 +47,8 @@ Step 5. Install sshfs from fuse
 $ brew install homebrew/fuse/sshfs
 ```
 
+## Set up "ssh keys"
+
 Now, we have installed `sshfs`, the next step is to connect Orchestra (or a remote server) to our laptops. To make this process seamless, we have to set up ssh keys which can be used to connect to the server without having to type in a password everytime.
 
 ```bash
@@ -46,6 +62,9 @@ $ cat ~/.ssh/id_rsa.pub | pbcopy
 # pbcopy puts the contents into the clipboard (in other words it is equivalent to copying with "ctrl + c") so you can just paste it as usual with "ctrl + v"
 ```
 Use vim to open `~/.ssh/authorized_keys` and copy the contents from your computer to this file and save it. 
+
+
+## Mount Orchestra using sshfs
 
 Now, let's set up for running `sshfs`, by creating a folder with an intuitive name for your home directory on the cluster to be mounted in.
 
@@ -67,6 +86,8 @@ Once you are done with it, you can cancel the connection using `umount` and the 
 ```bash
 $ umount ~/Orchestra 
 ```
+
+### Write a shell script for mounting
 
 You can also create a shell script and anytime you want to mount Orchestra, you can run that script.
 
