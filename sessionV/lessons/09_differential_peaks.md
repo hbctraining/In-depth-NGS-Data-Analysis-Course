@@ -43,7 +43,7 @@ In our case, we are interested in identifying differences in binding between two
 
 ## DiffBind
 
-DiffBind is an R package that is used for identifying sites that are differentially bound between two sample groups. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more information take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
+DiffBind is an R package that is used for identifying sites that are differentially bound between two sample groups. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including **overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites** based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more information take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
 
 
 ### Setting up
@@ -85,7 +85,9 @@ Take a look at what information gets summarized in the `dbObj`. *How many consen
 
 ### Affinity binding matrix
 
-The next step is to take the alignment files and **compute count information for each of the peaks/regions**. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. We use the `dba.count()` function with the following additional parameter:
+The next step is to take the alignment files and **compute count information for each of the peaks/regions**. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. The peaks in the consensus peakset may be re-centered and trimmed based on calculating their summits (point of greatest read overlap) in order to provide more standardized peak intervals.
+
+We use the `dba.count()` function with the following additional parameter:
 
 * `bUseSummarizeOverlaps`: to use a more standard counting procedure than the built-in one by default.
 
@@ -113,7 +115,7 @@ To see how well the samples cluster with one another, we can draw a **PCA plot**
 <img src="../img/pcaplot.png" width=600>
 
 
-We can also plot a **correlation heatmap**, using only significantly differentially bound sites.
+We can also plot a **correlation heatmap**, to evaluate the relationship between samples.
 
 	plot(dbObj)
 	
@@ -136,7 +138,7 @@ Before running the differential analysis, we need to tell DiffBind **which sampl
 ### Performing the differential analysis
 
 The core functionality of DiffBind is the differential binding affinity
-analysis, which enables binding sites to be identified that are statistically significantly differentially bound between sample groups. The core analysis routines are executed, by default using DESeq2 with an option to also use edgeR. Each tool will assign a p-value and FDR to each candidate binding site indicating confidence that they are differentially bound.
+analysis, which enables binding sites to be identified that are **statistically significantly differentially bound between sample groups**. The core analysis routines are executed, by default using **DESeq2** with an option to also use **edgeR**. Each tool will assign a p-value and FDR to each candidate binding site indicating confidence that they are differentially bound.
 
 The main differential analysis function is invoked as follows:
 
@@ -146,30 +148,34 @@ The main differential analysis function is invoked as follows:
 
 To see a summary of results for each tool we can use `dba.show`:
 
-	dba.show(dbObj, bContrasts=T)
-	
-**Note that the default threshold is padj < 0.05.** *How many regions are differentially bound between Nanog and Pou5f1? How does this change with a more stringent threshold of 0.01? (HINT: use `th=0.01`)*	
 ```
+dba.show(dbObj, bContrasts=T)	
+
   Group1 Members1 Group2 Members2 DB.edgeR DB.DESeq2
 1  Nanog        2 Pou5f1        2       11        36
 ```
 
-Try plotting a PCA but this time only use the regions that were identified as significant by DESeq2 using the code below.
+	
+**Note that the default threshold is padj < 0.05.** *How many regions are differentially bound between Nanog and Pou5f1? How does this change with a more stringent threshold of 0.01? (HINT: use `th=0.01`)*	
+
+Try plotting a PCA but this time **only use the regions that were identified as significant by DESeq2** using the code below.
 
 
-	dba.plotPCA(dbObj, contrast=1, method=DBA_EDGER, attributes=DBA_FACTOR, label=DBA_ID)
+	dba.plotPCA(dbObj, contrast=1, method=DBA_DESEQ2, attributes=DBA_FACTOR, label=DBA_ID)
+	
+<img src="../img/deseq2-pca.png" width=600> 
 
 *Modify the code above so that you only plot a PCA using the regions identified as significant by edgeR. Do the plots differ?*
 
-### Differential enrichment
+### Differential enrichment of peaks
 
-For a quick look at the overlapping peaks identified by the two different tools (DESeq2 and edgeR) we can plot a Venn diagram. Only two peaks are overlapping.
+For a quick look at the **overlapping peaks** identified by the two different tools (DESeq2 and edgeR) we can plot a Venn diagram. 
 
 	dba.plotVenn(dbObj,contrast=1,method=DBA_ALL_METHODS)
 	
 <img src="../img/venn-deseq-edger.png" width=600> 
 
-> *NOTE:* Normally, we would keep the list of consensus peaks from edgeR and DESeq2 to use as our high confidence set to move forward with. But since we have only two regions we will keep the results from both.
+> **NOTE:** Normally, we would keep the list of consensus peaks from edgeR and DESeq2 to use as our *high confidence set* to move forward with. But since we have an overlap of only two regions we will keep the results from both tools.
 
 To extract the full results from each method we use `dba.report`:
 
@@ -206,19 +212,30 @@ GRanges object with 6 ranges and 6 metadata columns:
 
 ```
 
+The value columns are described below:
+
+* **Conc**: mean read concentration over all the samples (the default calculation uses log2 normalized ChIP read counts with control read counts subtracted)
+* **Conc_Nanog**: mean concentration over the first (Nanog) group
+* **Conc_Pou5f1**: mean concentration over the second (Pou5f1) group
+* **Fold**: shows the difference in mean concentrations between the two groups, with a positive value indicating increased binding affinity in the Nanog group and a negative value indicating increased binding affinity in the Pou5f1 group.
+
+
+
+
+
 ### Writing results to file
 
-The full results from each of the tools will be written to file. In this way we have the statistics computed for each of the consensus sites and can change the thresholds as we see fit. Before writing to file we need to convert it to a data frame so that genomic coordinates get written as columns and not GRanges.
+The full results from each of the tools will be written to file. In this way we have the statistics computed for each of the consensus sites and can filter by changing the thresholds as we see fit. Before writing to file we need to convert it to a data frame so that genomic coordinates get written as columns and not GRanges.
 
 ```
 
 # EdgeR
 out <- as.data.frame(comp1.edgeR)
-write.table(out, file="DiffBind/Nanog_vs_Pou5f1_edgeR.txt", sep="\t", quote=F, col.names = NA)
+write.table(out, file="results/Nanog_vs_Pou5f1_edgeR.txt", sep="\t", quote=F, col.names = NA)
 
 # DESeq2
 out <- as.data.frame(comp1.deseq)
-write.table(out, file="DiffBind/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
+write.table(out, file="results/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
 
 ````
 
