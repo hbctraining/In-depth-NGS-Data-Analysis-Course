@@ -37,12 +37,12 @@ This value reports the percentage of reads that overlap within called peaks.  Th
 
 ### Relative Enrichment of Genomic Intervals (REGI)
 
-Using the genomic regions identified as called peaks, we can obtain genomic annotation to show where reads map in terms of various genomic features. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
+Using the genomic regions identified as called peaks, we can obtain **genomic annotation to show where reads map in terms of various genomic features**. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
 
 
 ### RiBL: Reads overlapping in Blacklisted Regions
 
-It is important to keep track of and filter artifact regions that tend to show artificially high signal (excessive unstructured anomalous reads mapping). As such the DAC Blacklisted Regions track was generated for the ENCODE modENCODE consortia. The blacklisted regions typically appear uniquely mappable so simple mappability filters do not remove them. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats. 
+It is important to keep track of and filter artifact regions that tend to show **artificially high signal** (excessive unstructured anomalous reads mapping). As such the DAC Blacklisted Regions track was generated for the ENCODE modENCODE consortia. The blacklisted regions **typically appear uniquely mappable so simple mappability filters do not remove them**. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats. 
 
 <img src="../img/blacklist.png" width=300>
 
