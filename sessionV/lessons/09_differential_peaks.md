@@ -85,14 +85,12 @@ Take a look at what information gets summarized in the `dbObj`. *How many consen
 
 ### Affinity binding matrix
 
-The next step is to take the alignment files and **compute count information for each of the peaks/regions**. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. We use the `dba.count()` function with the following additional parameters:
+The next step is to take the alignment files and **compute count information for each of the peaks/regions**. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. We use the `dba.count()` function with the following additional parameter:
 
 * `bUseSummarizeOverlaps`: to use a more standard counting procedure than the built-in one by default.
-* `bRemoveDuplicates`: remove duplicate reads
-
 
 ```
-dbObj <- dba.count(dbObj, bUseSummarizeOverlaps=TRUE, bRemoveDuplicatE)
+dbObj <- dba.count(dbObj, bUseSummarizeOverlaps=TRUE)
 ```
 
 Take a look at the `dbObj` again. You should know see a column that contains the FRiP values for each sample. 
@@ -107,12 +105,26 @@ Take a look at the `dbObj` again. You should know see a column that contains the
 4 Pou5f1-Rep2 Pou5f1         2 counts        83 0.02
 ```
 
-To see how well the samples cluster with one another, we can draw a PCA plot using all 83 consensus sites. You should see both Nanog and Pou5f1 replicates clustering together. 
+To see how well the samples cluster with one another, we can draw a **PCA plot** using all 83 consensus sites. You should see both Nanog and Pou5f1 replicates clustering together. 
 
 	dba.plotPCA(dbObj,  attributes=DBA_FACTOR, label=DBA_ID)
 	
 
 <img src="../img/pcaplot.png" width=400>
+
+
+We can also plot a **correlation heatmap**, using only significantly differentially bound sites.
+
+	plot(dbObj)
+	
+
+<img src="../img/db-heatmap.png" width=400>
+
+To evaluate how many peaks overlap between all samples we can plot a **Venn diagram**:
+
+	dba.plotVenn(dbObj, 1:4)
+	
+<img src="../img/venn-db.png" width=400> 
 	
 
 ### Establishing a contrast
@@ -137,23 +149,28 @@ To see a summary of results for each tool we can use `dba.show`:
 	dba.show(dbObj, bContrasts=T)
 	
 **Note that the default threshold is padj < 0.05.** *How many regions are differentially bound between Nanog and Pou5f1? How does this change with a more stringent threshold of 0.01? (HINT: use `th=0.01`)*	
-
 ```
   Group1 Members1 Group2 Members2 DB.edgeR DB.DESeq2
-1  Nanog        2 Pou5f1        2       33        43
+1  Nanog        2 Pou5f1        2       11        36
 ```
 
 Try plotting a PCA but this time only use the regions that were identified as significant by DESeq2 using the code below.
 
-	png('pcaplotDeseq2.png')
+
 	dba.plotPCA(dbObj, contrast=1, method=DBA_EDGER, attributes=DBA_FACTOR, label=DBA_ID)
-	dev.off()
 
 *Modify the code above so that you only plot a PCA using the regions identified as significant by edgeR. Do the plots differ?*
 
-### Differential enrichment consensus peaks
+### Differential enrichment
 
-Since the two tools identify a different number of differentially enriched regions, it can be useful to see if there is any consensus between them. To do so, we first need to extract the full set of results for each:
+For a quick look at the overlapping peaks identified by the two different tools (DESeq2 and edgeR) we can plot a Venn diagram. Only two peaks are overlapping.
+
+	dba.plotVenn(dbObj,contrast=1,method=DBA_ALL_METHODS)
+	
+<img src="../img/venn-deseq-edgeR.png" width=400> 
+
+
+To extract the full results from each method we use `dba.report`:
 
 ```
 comp1.edgeR <- dba.report(dbObj, method=DBA_EDGER, contrast = 1, th=1)
@@ -188,32 +205,6 @@ GRanges object with 6 ranges and 6 metadata columns:
 
 ```
 
-Now we can use the code below to loop through all of the regions and identify those that meet the FDR < 0.05 threshold *and* appear in both edgeR and DESeq2 results.
-
-```
-sets = list(edger=comp1.edgeR, deseq2=comp1.deseq)
-all_peaks = reduce(sort(c(comp1.edgeR, comp1.deseq, ignore.mcols=TRUE)))
-.v= lapply(names(sets), function(name){
-  de = sets[[name]]
-  keep = mcols(de)[,"FDR"]<=0.05
-  idx = findOverlaps(all_peaks, de[keep,])
-  cols =  rep(FALSE, nrow(mcols(all_peaks)))
-  cols[queryHits(idx)] = TRUE
-  cols
-})
-ma = as.matrix(do.call(cbind,.v))
-ma[ma] = 1
-colnames(ma) = names(sets)
-png('overlapsDE.png')
-UpSetR::upset(as.data.frame(ma),sets = names(sets))
-dev.off()
-```
-
-<img src="../img/upsetRhighes.png" width=500>
-
-*The verical bars correspond to (from left to right), the set of regions unique to DESeq2 (24), the set of regions unique to edgeR (14), and the regions shared between edgeR and DESeq2 (19).*
-
-
 ### Writing results to file
 
 The full results from each of the tools will be written to file. In this way we have the statistics computed for each of the consensus sites and can change the thresholds as we see fit. Before writing to file we need to convert it to a data frame so that genomic coordinates get written as columns and not GRanges.
@@ -222,34 +213,32 @@ The full results from each of the tools will be written to file. In this way we 
 
 # EdgeR
 out <- as.data.frame(comp1.edgeR)
-write.table(out, file="diffBind/Nanog_vs_Pou5f1_edgeR.txt", sep="\t", quote=F, col.names = NA)
+write.table(out, file="DiffBind/Nanog_vs_Pou5f1_edgeR.txt", sep="\t", quote=F, col.names = NA)
 
 # DESeq2
 out <- as.data.frame(comp1.deseq)
-write.table(out, file="diffBind/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
+write.table(out, file="DiffBind/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
 
 ````
 
-Additionally, we will want to keep only the significant regions that overlap between DESeq2 and edgeR. This list represents our most confident setof differentially enriched regions. For these we will only write to file the **first three columns (minimal BED format)**, in this way we can use it as **input for IGV visualization**.
+Additionally, we will want to create BED files for each set of significant regions identified by DESeq2 and edgeR. For these we will only write to file the **first three columns (minimal BED format)**, in this way we can use it as **input for IGV visualization**. 
 
 ```
-# Consensus diff peaks
-de_peaks = findOverlaps(comp1.edgeR, comp1.deseq)
-de_df = comp1.edgeR
-mcols(de_df) = cbind(mcols(de_df), mcols(comp1.deseq[subjectHits(de_peaks)])[,4:6])
-names(mcols(de_df))[4:9] =
-  apply(expand.grid(c("Fold", "pval", "FDR"), c("edgeR", "deseq")), 1, paste, collapse="_")
-de_df <- as.data.frame(de_df)
-de_df_filt <- de_df[which(de_df$FDR_edgeR < 0.05),]
-de_df_filt <- de_df_filt[which(de_df_filt$FDR_deseq < 0.05),]
+# Create bed files for each keeping only significant peaks (p < 0.05)
+# EdgeR
+out <- as.data.frame(comp1.edgeR)
+edge.bed <- out[ which(out$FDR < 0.05), 
+                 c("seqnames", "start", "end", "strand", "Fold")]
+write.table(edge.bed, file="DiffBind/Nanog_vs_Pou5f1_edgeR_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
 
-write.table(de_df_filt[,1:3], file="diffBind/Nanog_vs_Pou5f1.bed", row.names=F, sep="\t", quote=F, col.names=F)
-
+# DESeq2
+out <- as.data.frame(comp1.deseq)
+deseq.bed <- out[ which(out$FDR < 0.05), 
+                 c("seqnames", "start", "end", "strand", "Fold")]
+write.table(deseq.bed, file="DiffBind/Nanog_vs_Pou5f1_deseq2_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
 ```
 
-Now that you're done, don't forget to save your session, in case you need to come back at a future date!
 
-	save.image('diffBind/diffPeaks.RData')
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
