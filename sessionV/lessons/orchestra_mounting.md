@@ -91,7 +91,7 @@ $ umount ~/Orchestra
 ### Create an "alias" for mounting and logging into orchestra
 
 ```bash
-alias orchestra='ssh username@orchestra.med.harvard.edu'
+alias orchestra='ssh ecommonsID@orchestra.med.harvard.edu'
 
-alias orch_mount='sshfs USER@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks'
+alias orch_mount='sshfs ecommonsID@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks'
 ```
