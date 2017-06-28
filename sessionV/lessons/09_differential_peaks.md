@@ -169,6 +169,7 @@ For a quick look at the overlapping peaks identified by the two different tools 
 	
 <img src="../img/venn-deseq-edger.png" width=600> 
 
+> *NOTE:* Normally, we would keep the list of consensus peaks from edgeR and DESeq2 to use as our high confidence set to move forward with. But since we have only two regions we will keep the results from both.
 
 To extract the full results from each method we use `dba.report`:
 

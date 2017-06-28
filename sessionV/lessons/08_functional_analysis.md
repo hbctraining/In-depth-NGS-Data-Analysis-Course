@@ -14,7 +14,7 @@ Approximate time: 1 hour
 
 # Motif disovery and functional analysis
 
-![workflow](../img/chipseq_analysis_workflow_formats.png)
+<img src="../img/chip_workflow_june2017_step5.png" width=700>
 
 We have identified regions of the genome where the number of reads aligning to these areas differ significantly between our Nanog IP samples and the input controls. These enriched regions represent the likely locations of where Nanog binds to the genome. 
 

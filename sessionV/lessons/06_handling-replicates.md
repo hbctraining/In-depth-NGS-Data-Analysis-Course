@@ -19,6 +19,8 @@ Approximate time: 75 minutes
  
 As with any high-throughput experiment, a single assay is often subject to a substantial amount of variability. Thus, it is highly recommended to setup your experimental design with a minimum of 2-3 biological replicates. Presumably, two replicates measuring the same underlying biology should have high consistency but that is not always the case. In order to evaluate consistency between replicates **we require metrics that objectively assess the reproducibility of high-throughput assays**.
 
+<img src="../img/chip_workflow_june2017_step4.png" width=700>
+
 Since we have 2 replicates in this example, we want to consider only those peaks that are present in both replicates before we compare the peaks from the two transcription factors to one another.
 
 <img src=../img/idr_samples.png width=500> 
