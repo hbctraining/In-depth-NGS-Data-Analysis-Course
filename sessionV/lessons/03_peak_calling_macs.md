@@ -45,8 +45,8 @@ MACS provides different options for dealing with **duplicate tags** at the exact
 Reads with same start position considered duplicates. These duplicates can arise from experimental artefacts, but can also contribute to genuine ChIP-signal.
 >
 > * **The bad kind of duplicates:** If initial starting material is low this can lead to overamplification of this material before sequencing. Any biases in PCR will compound this problem and can lead to artificially enriched regions. Also blacklisted (repeat) regions with ultra high signal will also be high in duplicates. Masking these regions prior to analysis can help remove this problem.
-* **The good kind of duplicates:** Duplicates will also exist within highly efficient (or even inefficient ChIP) when deeply sequenced ChIP. Removal of these duplicates can lead to a saturation and so underestimation of the ChIP signal.
-* **Take-home:** Consider your enrichment efficiency and sequencing depth. But because we cannot distinguish between the good and the bad, best practice is to remove duplicates prior to peak calling.  Retain duplicates for differential binding analysis. Also if you are expecting binding in repetetive regions keep duplicates and multiple mappers.
+> * **The good kind of duplicates:** Duplicates will also exist within highly efficient (or even inefficient ChIP) when deeply sequenced ChIP. Removal of these duplicates can lead to a saturation and so underestimation of the ChIP signal.
+> * **Take-home:** Consider your enrichment efficiency and sequencing depth. But because we cannot distinguish between the good and the bad, best practice is to remove duplicates prior to peak calling.  Retain duplicates for differential binding analysis. Also if you are expecting binding in repetetive regions keep duplicates and multiple mappers.
 
 
 ### Modeling the shift size
