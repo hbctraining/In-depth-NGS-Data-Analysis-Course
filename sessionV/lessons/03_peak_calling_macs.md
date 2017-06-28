@@ -20,14 +20,13 @@ Peak calling, the next step in our workflow, is a computational method used to i
 
 <img src="../img/chip_workflow_june2017_step2.png" width=700>
 
-
 What we observe from the alignment files is a **strand asymmetry with read densities on the +/- strand, centered around the binding site**. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
 
 <img src="../img/chip-fragments.png" width="300" align="middle"></div>
 
 There are various tools that are available for peak calling. One of the more commonly used peack callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
 
-> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is also very commonly used for narrow peak calling. While we will not be going through the steps for this peak caller in this Session, we do have [a lesson on SPP](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md) that we encourage you to browse through if you are interested in learning more.
+> **NOTE:** Our dataset is looking at transcription factor binding and so our focus is on narrow peak signals. ChIP-seq analysis algorithms are specialized in identifying one of two types of enrichment (or have specific methods for each): broad domains (i.e. histone modifications that cover entire gene bodies) or narrow peaks (i.e. a transcription factor binding). Narrow peaks are easier to detect as we are looking for more punctate binding sites that have higher amplitude and easier to distinguish from background, compared to broad or dispersed marks. There are also 'mixed' binding profiles which can be hard for algorithms to discern. An example of this is is PolII which binds at promotor and across the length of the gene so we see more mixed signals (narrow and broad).
 
 ## MACS2
 
@@ -230,6 +229,7 @@ Open up the pdf file for Nanog-rep1. The first plot illustrates **the distance b
 
 The second plot is the  **cross-correlation plot**. This is a graphical representation of the Pearson correlation of positive- and negative- strand tag densities, shifting the strands relative to each other by increasing distance. We will talk about this in more detail in the next lesson.
 
+> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is also very commonly used for narrow peak calling. While we will not be going through the steps for this peak caller in this Session, we do have [a lesson on SPP](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md) that we encourage you to browse through if you are interested in learning more.
 
 
 ***
