@@ -41,8 +41,8 @@ $ cat ~/.ssh/id_rsa.pub | pbcopy
 ```bash
 # create a shell script on your laptop
 
-		# mount orchestra with the appropriate login
-		sshfs USER@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
-		
-		# for unmounting use `umount Orchestra` in `~/`
+# mount orchestra with the appropriate login
+sshfs USER@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
+
+# for unmounting use `umount Orchestra` in `~/`
 ```
