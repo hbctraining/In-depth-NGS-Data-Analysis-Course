@@ -15,7 +15,7 @@ Approximate time: 90 minutes
 * Evaluating consensus diff peaks between two different tools
 
 
-## Detecting differences in ChIP signal between two conditions 
+## Tools for evaulating differential peak enrichment
 
 An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.
 
@@ -38,6 +38,8 @@ Which tool you need will depend heavily on your experimental design, and so the 
 
 In our case, we are interested in identifying differences in binding between two transcription factors. For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. 
 
+> **NOTE:** The required input for DiffBind is all samples in the dataset and all peaks (not just the high confidence peaks) for each sample. Replicate peak calls are used individually, and not merged. 
+
 
 ## DiffBind
 
@@ -46,92 +48,21 @@ DiffBind is an R package that is used for identifying sites that are differentia
 
 ### Setting up
 
-#### X11 forwarding
+1. Open up RStudio and open up the `chipseq-project` that we created previously.
+2. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `diffbind.R`
 
-A number of programs with graphical user interfaces use the X11 system which lets the program **run on an Orchestra computer, but show the graphics on your desktop**. R is one of these programs. For this lesson we are going to want to plot diagnostic figures as we walk through the workflow, and be able to look at them interactively (instead of saving each to file and view locally).
+We do not need to download any data because everything we need is already in the current project. The **samplesheet** that we used for `ChIPQC` is also required here.
 
-To do this, you need to have an **X11 server running on your desktop**, and your SSH connection needs to **have X11 forwarding enabled on Orchestra**.
-
-> *NOTE:* the X11 server is the program on your laptop that drives the user's display and handles connections from X11 clients. If you are using a Mac, this will be [XQuartz](https://www.xquartz.org/) and for PC users this would be [Xming](https://sourceforge.net/projects/xming/). You should already have these installed on your laptops. 
-
-To set up X11 forwarding on Orchestra we need to log in to Orchestra using the `-X` parameter to enable X11 forwarding:
-
-	$ ssh -X ecommons_id@orchestra.med.harvard.edu
-
-Then start up an interactive session with 4 cores, and add `-XF` to indicate X11 forwarding to the compute nodes :
-
-	$ bsub -Is -n 4 -XF -q interactive bash
-
-Let's load the R module. We are going to use version 3.2.1 since it has DiffBind installed for us. 
-
-	$ module load stats/R/3.2.1
-
-Navigate to the `results` directory we have been working in and create a new directory for our DiffBind analysis:
-
-	$ cd ~/ngs_course/chipseq/results
-	$ mkdir diffBind
-
-
-Finally, you will need the **sample sheet** which contains metadata information. Copy this over to your `diffBind` directory and then we will take a quick look at what is contained in it.
-
-	$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/ENCODE/diffBind/samples_chr12_DiffBind.csv diffBind/
-
-	$ less diffBind/samples_chr12_DiffBind.csv
-
-
-The **sample sheet** contains a row for each peak set (which in most cases is every ChIP sample) and several columns of required information, which allows us to easily load the associated data in one single command. _The column headers have specific names that are expected by DiffBind_. 
-
-* SampleID: Identifier string for sample
-* Replicate: Replicate number of sample
-* Tissue, Factor, Condition, Treatment: Identifier strings for up to four different factors (need one of these at minimum)
-* bamReads: file path for bam file containing aligned reads for ChIP sample
-* bamControl: file path for bam file containing aligned reads for control sample
-* ControlID: Identifier string for control sample
-* Peaks: path for file containing peaks for sample
-* PeakCaller: Identifier string for peak caller used. Possible values include “raw”, “bed”, “narrow”, “macs”
-
-
-Finally, let's open up R and load the required libraries:
-
-	$ R
+Now that we are setup let's load the DiffBind library.
 
 ```
-R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
-Copyright (C) 2015 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
-> 
-
-```
-
-	> library(DiffBind)
-	> library(reshape)
-	
-
-We also need to install a package for plotting called `UpSetR`. Since this is a Bioconductor package we will first need to source the Biconductor installation script.
-
-	> source("http://bioconductor.org/biocLite.R")
-	> biocLite('UpSetR')
-
-
+library(DiffBind)
+```	
+> **NOTE:** You may not need to load this library since it was loaded as a dependency of the ChIPQC package.
 
 ### Reading in Peaksets
 
-The first step is to read in a set of peaksets and associated metadata. This is done using the sample sheet. Once the peaksets are read in, a merging function finds all overlapping peaks and derives a single set of unique genomic intervals covering all the supplied peaks (a consensus peakset for the experiment). *A region is considered for the consensus set if it appears in more than two of the samples.* This consensus set represents the overall set of candidate binding sites to be used in further analysis.
+The first step is to **read in a set of peaksets and associated metadata**. This is done using the sample sheet. Once the peaksets are read in, a merging function finds all overlapping peaks and derives a single set of unique genomic intervals covering all the supplied peaks (a consensus peakset for the experiment). *A region is considered for the **consensus set** if it appears in more than two of the samples.* This consensus set represents the overall set of candidate binding sites to be used in further analysis.
 
 ```
 samples <- read.csv('diffBind/samples_chr12_DiffBind.csv')
@@ -154,14 +85,14 @@ Take a look at what information gets summarized in the `dbObj`. *How many consen
 
 ### Affinity binding matrix
 
-The next step is to take the alignment files and compute count information for each of the peaks/regions. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. We use the `dba.count()` function with the following additional parameters:
+The next step is to take the alignment files and **compute count information for each of the peaks/regions**. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. We use the `dba.count()` function with the following additional parameters:
 
 * `bUseSummarizeOverlaps`: to use a more standard counting procedure than the built-in one by default.
 * `bRemoveDuplicates`: remove duplicate reads
-* `bParallel`: use multicore to get counts for each read file in parallel
+
 
 ```
-dbObj <- dba.count(dbObj, bUseSummarizeOverlaps=TRUE, bRemoveDuplicates = TRUE, bParallel = TRUE)
+dbObj <- dba.count(dbObj, bUseSummarizeOverlaps=TRUE, bRemoveDuplicatE)
 ```
 
 Take a look at the `dbObj` again. You should know see a column that contains the FRiP values for each sample. 
@@ -173,14 +104,12 @@ Take a look at the `dbObj` again. You should know see a column that contains the
 1  Nanog-Rep1  Nanog         1 counts        83 0.03
 2  Nanog-Rep2  Nanog         2 counts        83 0.04
 3 Pou5f1-Rep1 Pou5f1         1 counts        83 0.03
-4 Pou5f1-Rep2 Pou5f1         2 counts        83 0.03
+4 Pou5f1-Rep2 Pou5f1         2 counts        83 0.02
 ```
 
 To see how well the samples cluster with one another, we can draw a PCA plot using all 83 consensus sites. You should see both Nanog and Pou5f1 replicates clustering together. 
 
-	png('pcaplot.png')
 	dba.plotPCA(dbObj,  attributes=DBA_FACTOR, label=DBA_ID)
-	dev.off()
 	
 
 <img src="../img/pcaplot.png" width=400>
@@ -188,7 +117,7 @@ To see how well the samples cluster with one another, we can draw a PCA plot usi
 
 ### Establishing a contrast
 
-Before running the differential analysis, we need to tell DiffBind which samples we want to compare to one another. In our case we only have one factor of interest which is the different transcription factor IPs. Contrasts are set up using the `dba.contrast` function, as follows:
+Before running the differential analysis, we need to tell DiffBind **which samples we want to compare to one another**. In our case we only have one factor of interest which is the different transcription factor IPs. Contrasts are set up using the `dba.contrast` function, as follows:
 	
 	dbObj <- dba.contrast(dbObj, categories=DBA_FACTOR, minMembers = 2)
 	

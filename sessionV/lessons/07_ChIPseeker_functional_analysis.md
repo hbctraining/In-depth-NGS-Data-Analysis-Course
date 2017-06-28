@@ -42,7 +42,7 @@ biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
 
 As mentioned previously, these donwstream steps should be performed on your high confidence peak calls. While we have a set for our subsetted data, this set is rather small and will not result in anything meaningful in our functional analyses. **We have generated a set of high confidence peak calls using the full dataset.** These were obtained post-IDR analysis, (i.e. concordant peaks between replicates) and are provided in BED format which is optimal input for the ChIPseeker package. 
 
-> **NOTE:** the number of peaks in these bed files are are significantly higher than what we observed with the subsetted data replicate analysis.
+> **NOTE:** the number of peaks in these BED files are are significantly higher than what we observed with the subsetted data replicate analysis.
 
 We will need to copy over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
 
