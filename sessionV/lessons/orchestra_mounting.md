@@ -61,7 +61,7 @@ $ brew doctor
 
 Step 3. Install Cask from Homebrew's caskroom
 ```bash
-$ brew install caskroom/cask
+$ brew tap caskroom/cask
 ```
 
 Step 4. Install OSXfuse using Cask
