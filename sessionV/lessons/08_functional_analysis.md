@@ -30,7 +30,7 @@ Since the motif and functional enrichment analyses are unlikely to give reliable
 Start an interactive session:
 
 ```bash
-bsub -Is -q interactive bash
+$ bsub -Is -q interactive bash
 ```
 
 Extract the first three columns of the IDR peak calls for the whole genome of Nanog:
@@ -50,18 +50,20 @@ $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 Next we need to get the nucleotide sequences for the corresponding peak call genomic coordinates. We can do this using bedtools:
 
 ```bash
-module load seq/BEDtools/2.23.0
+$ module load seq/BEDtools/2.23.0
 
-bedtools getfasta -fi \
-/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Chromosomes/chr12.fa \
+$ bedtools getfasta -fi \
+/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
 -bed Nanog-idr-merged-great.bed \
 -fo Nanog-idr-merged-dreme.fasta
+
+/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Chromosomes/chr12.fa \
 ```
 
 Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
 
 ```bash
-scp -r username@transfer.orchestra.med.harvard.edu:~/ngs_course/chipseq/results/functional_analysis/ Desktop/
+$ scp -r username@transfer.orchestra.med.harvard.edu:~/ngs_course/chipseq/results/functional_analysis/ Desktop/
 ```
 
 ## Functional enrichment analysis
@@ -124,7 +126,7 @@ We will be using the `getfasta` command with the following parameters:
 
 ```
 bedtools getfasta -fi \
-/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Chromosomes/chr12.fa \
+
 -bed ../overlap_spp_macs2/Nanog_spp-macs_overlap.bed \
 -fo overlap-hesc-Nanog.fasta
 ```
