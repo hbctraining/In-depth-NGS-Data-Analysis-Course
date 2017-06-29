@@ -25,6 +25,9 @@ Since we have 2 replicates in this example, we want to consider only those peaks
 
 Common methods for handling replicates includes taking overlapping peak calls across replicates and then assessing differences in binding regions. Additionally, there are more complex methods that employ statistical testing and evaluate the reproducibility between replicates. In this lesson we will cover both methods.
 
+> *NOTE*: We have linked [here](https://hstalks.com/t/2679/accessing-and-using-encode-data/?biosci) a recent talk on "Accessing and using ENCODE data" where they talk about handling replicates and the similarities and differences when using an overlap versus IDR analysis.
+
+
 ## Overlapping peaks
 
 In this section, our goal is to determine what peaks are in common between the the two replicates for each factor (Nanog and Pou5f1). To perform this task we are going to use a suite of tools called `bedtools`.
