@@ -16,24 +16,27 @@ To have orchestra accessible on your laptop/desktop as a folder, you need to use
 
 ### Windows OPTIONS
 
-Download and run the following executables:
-
 > *Note that these are untested*
 
-* [http://www.sftpnetdrive.com/download-thanks](http://www.sftpnetdrive.com/download-thanks)
-* [https://github.com/dokan-dev/dokany/releases/tag/v0.7.4](https://github.com/dokan-dev/dokany/releases/tag/v0.7.4) followed by [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8)
+#### OPTION 1 (Try first)
+
+[http://www.sftpnetdrive.com/download-thanks](http://www.sftpnetdrive.com/download-thanks)
+
+#### OPTION 2 (Try only if Option 1 fails!)
+
+[https://github.com/dokan-dev/dokany/releases/tag/v0.7.4](https://github.com/dokan-dev/dokany/releases/tag/v0.7.4) followed by [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8)
 
 ### OSX OPTIONS
 
 Below are 2 ways to get sshfs on OSX or macs, and I am listing both since one might work better on some versions of OSX than others.
 
-### OPTION 1
+#### OPTION 1 (Try first)
 
 Download OSXfuse from [https://github.com/osxfuse/osxfuse/releases](https://github.com/osxfuse/osxfuse/releases/download/osxfuse-3.6.0/osxfuse-3.6.0.dmg), and install it.
 
 Download sshfs from [https://github.com/osxfuse/sshfs/releases](https://github.com/osxfuse/sshfs/releases/download/osxfuse-sshfs-2.5.0/sshfs-2.5.0.pkg), and install it.
 
-### OPTION 2
+#### OPTION 2 (Try only if Option 1 fails!)
 
 Step 1. Install [Xcode](https://developer.apple.com/xcode/)
 ```bash
