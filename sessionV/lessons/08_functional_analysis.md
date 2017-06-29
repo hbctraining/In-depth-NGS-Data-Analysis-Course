@@ -58,7 +58,7 @@ bedtools getfasta -fi \
 -fo Nanog-idr-merged-dreme.fasta
 ```
 
-Using `scp` or **FileZilla**, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
+Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
 
 ```bash
 scp -r username@transfer.orchestra.med.harvard.edu:~/ngs_course/chipseq/results/functional_analysis/ Desktop/
