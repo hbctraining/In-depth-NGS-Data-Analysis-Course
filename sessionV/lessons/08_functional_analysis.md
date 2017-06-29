@@ -131,7 +131,7 @@ You will be shown a status page describing the inputs and the selected parameter
 
 ![results_page](../img/dreme_processing.png)
 
-This may take some time depending on the server load and the size of the file. While you wait, take a look at the expected results:
+This may take some time depending on the server load and the size of the file. While you wait, take a look at the expected results from the [full dataset](http://meme-suite.org/info/status?service=DREME&id=appDREME_4.12.01498734583679762350802).
 
 ![dreme_output](../img/dreme_output.png)
 
