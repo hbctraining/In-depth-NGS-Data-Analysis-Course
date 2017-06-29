@@ -40,7 +40,8 @@ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input
 bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Pou5f1_Rep2_chr12.bw 2> visualization/Pou5f1_Rep2_bamcompare.log
 ```
 
-* Copy over the bigWig files to your laptop using filezilla or scp. Also copy over the BEDtools output files to your computer.
+* Copy over the bigWig files to your laptop using filezilla or scp. 
+* Copy over the BEDtools overlap/intersect files to your computer.
 
 * Start IGV and load the 2 rep1 files, and the overlap BED files. You will notice that there are positive and negative values on the track, what do you think this denotes in the context of normalization?
 
