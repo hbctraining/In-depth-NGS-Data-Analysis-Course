@@ -14,7 +14,7 @@ Approximate time: 45 minutes
 
 * We are going to generate some bigWig files to visualize our data using IGV. Instead of using BAM files that can be large and cannot be normalized, we generate bigWig files that have been normalized for read count relative to the input control. We will be using the `bamCompare` command within [deepTools](https://deeptools.github.io/) for this: [instructions to generate normalized bigwigs with deepTools](https://github.com/fidelram/deepTools/wiki/Normalizations).
 
-> "**The bigWig format** is useful for dense, continuous data that will be displayed in the Genome Browser as a graph. BigWig files are created from wiggle (wig) type files using the program wigToBigWig.
+> "**The bigWig format** is useful for dense, continuous data that will be displayed in the Genome Browser as a graph. BigWig files are created from [wiggle (wig)](https://genome.ucsc.edu/goldenpath/help/wiggle.html) type files using the program wigToBigWig.
 > 
 > The bigWig files are in an indexed binary format. The main advantage of this format is that only those portions of the file needed to display a particular region are transferred to the Genome Browser server. Because of this, bigWig files have considerably faster display performance than regular wiggle files when working with large data sets. The bigWig file remains on your local web-accessible server (http, https or ftp), not on the UCSC server, and only the portion needed for the currently displayed chromosomal position is locally cached as a "sparse file"."
 >
