@@ -10,13 +10,9 @@ Approximate time: 30 minutes
 
 * Access a remote server as a folder on a local computer
 
-## Installing sshfs
+## For Windows
 
-To have orchestra accessible on your laptop/desktop as a folder, you need to use something called [sshfs](https://en.wikipedia.org/wiki/SSHFS) (ssh filesystem). This is a command that is not native to OSX or Windows and you need to go through several steps in order to get it. 
-
-### Windows OPTIONS
-
-> *Note that these are untested*
+> *Note that these are untested*.
 
 #### OPTION 1 (Try first)
 
@@ -28,7 +24,12 @@ Download the .exe file for Dokan from [https://github.com/dokan-dev/dokany/relea
 
 Next, download the .zip file for win-sshfs [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8), unzip it and run the .exe file within.
 
-### OSX OPTIONS
+
+## For OSX
+
+To have orchestra accessible on your laptop/desktop as a folder, you need to use something called [`sshfs`](https://en.wikipedia.org/wiki/SSHFS) (ssh filesystem). This is a command that is not native to OSXand you need to go through several steps in order to get it. Once you have `sshfs`, then you need to set up ssh keys to connect Orchestra to your laptop without having to type in a password. 
+
+### 1. Installing sshfs on OSX
 
 Below are 2 ways to get sshfs on OSX or macs, and I am listing both since one might work better on some versions of OSX than others.
 
@@ -73,7 +74,7 @@ Step 5. Install sshfs from fuse
 $ brew install homebrew/fuse/sshfs
 ```
 
-## Set up "ssh keys"
+### 2. Set up "ssh keys"
 
 Now, we have installed `sshfs`, the next step is to connect Orchestra (or a remote server) to our laptops. To make this process seamless, we will first set up ssh keys which can be used to connect to the server without having to type in a password everytime.
 
@@ -103,7 +104,7 @@ $ cat ~/.ssh/id_rsa.pub | pbcopy
 Log into Orchestra and use vim to open `~/.ssh/authorized_keys` and copy the contents from your computer to this file and save it. 
 
 
-## Mount Orchestra using sshfs
+### 3. Mount Orchestra using sshfs
 
 Now, let's set up for running `sshfs` on our laptops (local machines), by creating a folder with an intuitive name for your home directory on the cluster to be mounted in.
 
@@ -126,7 +127,7 @@ Once you are done with it, you can cancel the connection using `umount` and the 
 $ umount ~/Orchestra 
 ```
 
-### Create an "alias" for mounting and logging into orchestra
+#### Create an "alias" for mounting and logging into orchestra
 
 On your local machine do the following:
 
