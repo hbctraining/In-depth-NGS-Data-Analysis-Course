@@ -12,7 +12,7 @@ Approximate time: 45 minutes
 
 ## Visualization of ChIP-seq data
 
-We are going to generate some bigWig files to visualize our data using IGV. Instead of using BAM files that can be large and cannot be normalized, we generate bigWig files that have been normalized for read count relative to the input control. We will be using the `bamCompare` command within [deepTools](https://deeptools.github.io/) for this: [instructions to generate normalized bigwigs with deepTools](https://github.com/fidelram/deepTools/wiki/Normalizations).
+* We are going to generate some bigWig files to visualize our data using IGV. Instead of using BAM files that can be large and cannot be normalized, we generate bigWig files that have been normalized for read count relative to the input control. We will be using the `bamCompare` command within [deepTools](https://deeptools.github.io/) for this: [instructions to generate normalized bigwigs with deepTools](https://github.com/fidelram/deepTools/wiki/Normalizations).
 
 > "**The bigWig format** is useful for dense, continuous data that will be displayed in the Genome Browser as a graph. BigWig files are created from wiggle (wig) type files using the program wigToBigWig.
 > 
@@ -40,15 +40,15 @@ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input
 bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Pou5f1_Rep2_chr12.bw 2> visualization/Pou5f1_Rep2_bamcompare.log
 ```
 
-Copy over the bigWig files to your laptop using filezilla or scp. Also copy over the BEDtools output files to your computer.
+* Copy over the bigWig files to your laptop using filezilla or scp. Also copy over the BEDtools output files to your computer.
 
-Start IGV and load the 2 rep1 files, and the overlap BED files. You will notice that there are positive and negative values on the track, what do you think this denotes in the context of normalization?
+* Start IGV and load the 2 rep1 files, and the overlap BED files. You will notice that there are positive and negative values on the track, what do you think this denotes in the context of normalization?
 
 > You can generate a simple, non-normalized bigWig with `bamCoverage` and you won't see any negative values. 
 
-Now load the `Nanog_vs_Pou5f1_edgeR_sig.bed` and `Nanog_vs_Pou5f1_deseq2_sig.bed` into IGV.
+* Now load the `Nanog_vs_Pou5f1_edgeR_sig.bed` and `Nanog_vs_Pou5f1_deseq2_sig.bed` into IGV.
 
-Finally, we are going to visually compare our output to the output from the full dataset from ENCODE, by loading that data from the IGV server.
+* Finally, we are going to visually compare our output to the output from the full dataset from ENCODE, by loading that data from the IGV server.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
