@@ -123,7 +123,7 @@ DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleot
 
 Visit the [DREME website](http://meme-suite.org/tools/dreme) and perform the following steps:
 
-1. Select the downloaded `overlap-hesc-Nanog.fasta` as input to DREME
+1. Select the downloaded `Nanog-idr-merged-dreme.fasta` as input to DREME
 2. Enter your email address so that DREME can email you once the analysis is complete
 3. Enter a job description so you will recognize which job has been emailed to you and then start the search
 
