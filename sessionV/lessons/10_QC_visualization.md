@@ -47,7 +47,7 @@ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input
 
 > You can generate a simple, non-normalized bigWig with `bamCoverage` and you won't see any negative values. 
 
-* Now load the `Nanog_vs_Pou5f1_edgeR_sig.bed` and `Nanog_vs_Pou5f1_deseq2_sig.bed` into IGV.
+* Now load the `Nanog_vs_Pou5f1_edgeR_sig.bed` and `Nanog_vs_Pou5f1_deseq2_sig.bed` (output of DiffBind, in your chipseq R project) into IGV.
 
 * Finally, we are going to visually compare our output to the output from the full dataset from ENCODE, by loading that data from the IGV server.
 
