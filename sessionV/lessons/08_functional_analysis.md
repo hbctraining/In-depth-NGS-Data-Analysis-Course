@@ -47,7 +47,7 @@ $ cp /groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
 $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 ```
 
-To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [BEDtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools.  *BEDtools* contains many tools for performing operations on genomic intervals within BED files. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. We are going to only include the sequences on chromosome 12 so that the motif discovery tool will finish quickly.
+To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. We are going to only include the sequences on chromosome 12 so that the motif discovery tool will finish quickly.
 
 ```bash
 $ module load seq/BEDtools/2.23.0
