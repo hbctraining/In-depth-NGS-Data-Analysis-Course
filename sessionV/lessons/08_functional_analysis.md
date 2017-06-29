@@ -57,15 +57,14 @@ $ bedtools getfasta -fi \
 -bed Nanog-idr-merged-great.bed \
 -fo Nanog-idr-merged-dreme.fasta
 ```
-
-If we wanted to perform motif discovery on the peak calls for the entire genome, we could change our `.fa` file to the whole genome:
-
-```bash
-$ bedtools getfasta -fi \
-/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
--bed Nanog-idr-merged-great.bed \
--fo Nanog-idr-merged-dreme.fasta
-```
+>**NOTE:**If we wanted to perform motif discovery on the peak calls for the entire genome, we could change our `.fa` file to the whole genome:
+>
+>```bash
+>$ bedtools getfasta -fi \
+>/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
+>-bed Nanog-idr-merged-great.bed \
+>-fo Nanog-idr-merged-dreme.fasta
+>```
 
 Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
 
