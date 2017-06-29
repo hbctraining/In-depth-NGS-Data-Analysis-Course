@@ -23,7 +23,7 @@ After identifying likely binding sites, downstream analyses will often include:
 
 We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.
 
-Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12.  we will use the **full set of peak calls output from the IDR analysis** for functional enrichment analyses and **all of chr12 IDR peaks** for motif discovery. 
+Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12,  we will use the **full set of peak calls output from the IDR analysis**.
 
 ## Set-up
 
@@ -47,25 +47,16 @@ $ cp /groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
 $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 ```
 
-To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. We are going to only include the sequences on chromosome 12 so that the motif discovery tool will finish quickly.
+To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. 
 
 ```bash
 $ module load seq/BEDtools/2.23.0
 
 $ bedtools getfasta -fi \
-/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Chromosomes/chr12.fa \
+/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
 -bed Nanog-idr-merged-great.bed \
 -fo Nanog-idr-merged-dreme.fasta
 ```
-
->**NOTE:** If we wanted to perform motif discovery on the peak calls for the entire genome, we could change our `.fa` file to the whole genome:
->
->```bash
->$ bedtools getfasta -fi \
->/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
->-bed Nanog-idr-merged-great.bed \
->-fo Nanog-idr-merged-dreme.fasta
->```
 
 Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
 
