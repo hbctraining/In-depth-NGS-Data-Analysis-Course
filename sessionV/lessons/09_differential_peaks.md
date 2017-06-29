@@ -227,19 +227,20 @@ The value columns are described below:
 	
 <img src="../img/maplot.png" width=600>
 
-Each point represents a binding site. Points in red representing sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the concentrations of each sample groups plotted against each other.
+Each point represents a binding site. Points in red representing sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the **concentrations of each sample groups plotted against each other**.
 
 
 	dba.plotMA(dbObj, bXY=TRUE)
 	
 <img src="../img/maplotXY.png" width=600>
 
-If we want to see how the reads are distributed amongst the different classes of differentially bound sites and sample groups, we can use a boxplot:
+If we want to see **how the reads are distributed amongst the different classes of differentially bound sites and sample group**s, we can use a boxplot:
 
 	pvals <- dba.plotBox(dbObj)
 	
-	
+<img src="../img/boxplot-db.png" width=600>
 
+The left two boxes show distribution of reads over all differentially bound sites in the Nanog and Pou5f1 groups. Samples have a somewhat higher mean read concentration in Nanog samples. The next two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Pou5f1 samples, while the final two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Nanog samples. `dba.plotBox()` returns a matrix of p-values (computed using a two-sided Wilcoxon Mann-Whitney test and are stored in the `pvals` variable. 
 
 ### Writing results to file
 
