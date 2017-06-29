@@ -10,10 +10,8 @@ Approximate time: 75 minutes
 
 ## Learning Objectives
 
-* Understanding the need for biological replicates
-* Learning about the Irreproducibility Discovery Rate (IDR)
-* Using the IDR pipeline to evaluate consistency between replicates
-
+* Combining replicates using simple overlap with Bedtools
+* Combining replicates to only get the highly reproducible peaks using the IDR method
 
 ## Handling replicates in ChIP-Seq
  
