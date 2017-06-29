@@ -47,7 +47,7 @@ $ cp /groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
 $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 ```
 
-Next we need to get the nucleotide sequences for the corresponding peak call genomic coordinates. We are going to only include the sequences on chromosome 12 so that the motif discovery tool will finish quickly. We can do this using bedtools:
+To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [BEDtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools.  *BEDtools* contains many tools for performing operations on genomic intervals within BED files. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. We are going to only include the sequences on chromosome 12 so that the motif discovery tool will finish quickly.
 
 ```bash
 $ module load seq/BEDtools/2.23.0
@@ -57,6 +57,7 @@ $ bedtools getfasta -fi \
 -bed Nanog-idr-merged-great.bed \
 -fo Nanog-idr-merged-dreme.fasta
 ```
+
 >**NOTE:**If we wanted to perform motif discovery on the peak calls for the entire genome, we could change our `.fa` file to the whole genome:
 >
 >```bash
@@ -117,27 +118,6 @@ To identify over-represented motifs, we will use DREME from the MEME suite of se
 
 DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes.
 
-To discover DNA-binding motifs, DREME requires the nucleotide sequences corresponding to the peak call coordinates defined in the `NarrowPeak` files. To extract the sequences corresponding to the peak coordinates, we will use the [BEDtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools.  *BEDtools* contains many tools for performing operations on genomic intervals within BED files. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file.
-
-```
-module load seq/BEDtools/2.23.0
-```
-
-We will be using the `getfasta` command with the following parameters:
-
-* `-fi`: path/to/input_fasta_file
-* `-bed`: path/to/peak_calls_narrowpeak
-* `-fo`: path/to/output_file
-
-
-```
-bedtools getfasta -fi \
-
--bed ../overlap_spp_macs2/Nanog_spp-macs_overlap.bed \
--fo overlap-hesc-Nanog.fasta
-```
-
-Use **FileZilla** to transfer `overlap-hesc-Nanog.fasta` to your local computer.
 
 ### DREME
 
