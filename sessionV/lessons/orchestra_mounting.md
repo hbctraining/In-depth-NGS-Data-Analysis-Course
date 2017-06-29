@@ -24,7 +24,9 @@ To have orchestra accessible on your laptop/desktop as a folder, you need to use
 
 #### OPTION 2 (Try only if Option 1 fails!)
 
-[https://github.com/dokan-dev/dokany/releases/tag/v0.7.4](https://github.com/dokan-dev/dokany/releases/tag/v0.7.4) followed by [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8)
+Download the .exe file for Dokan from [https://github.com/dokan-dev/dokany/releases/tag/v0.7.4](https://github.com/dokan-dev/dokany/releases/tag/v0.7.4) and run it.
+
+Next, download the .zip file for win-sshfs [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8), unzip it and run the .exe file within.
 
 ### OSX OPTIONS
 
@@ -77,14 +79,26 @@ Now, we have installed `sshfs`, the next step is to connect Orchestra (or a remo
 
 ```bash
 # set up ssh keys
-$ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "EMAIL"
+$ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "ecommonsID"
 $ ssh-add -K ~/.ssh/id_rsa
+```
 
+Arguments for `ssh-keygen`:
+* `-t` = Specifies the type of key to create. The possible values are "rsa1" for protocol version 1 and "rsa" or "dsa" for protocol version 2. *We want rsa.*
+* `-b` = Specifies the number of bits in the key to create. For RSA keys, the minimum size is 768 bits and the default is 2048 bits. *We want 4096*
+* `-f` = name of output "keyfile"
+* `-C` = Provides a new comment
+
+Arguments for `ssh-add`:
+* `-K` = Store passphrases in your keychain
+
+```bash
 # copy the contents of `id_rsa.pub` to ~/.ssh/authorized_keys on Orchestra
 $ cat ~/.ssh/id_rsa.pub | pbcopy
-
-# pbcopy puts the contents into the clipboard (in other words it is equivalent to copying with "ctrl + c") so you can just paste it as usual with "ctrl + v"
 ```
+
+> `pbcopy` puts the output of `cat` into the clipboard (in other words, it is equivalent to copying with <kbd>ctrl + c</kbd>) so you can just paste it as usual with <kbd>ctrl + v</kbd>.
+
 
 Log into Orchestra and use vim to open `~/.ssh/authorized_keys` and copy the contents from your computer to this file and save it. 
 
@@ -99,7 +113,7 @@ $ mkdir ~/Orchestra
 
 Finally, let's run the `sshfs` command to have Orchestra mount as a folder in the above space.
 ```bash
-$ sshfs USER@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
+$ sshfs ecommonsID@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
 ```
 
 Now we can browse through our home directory on Orchestra as though it was a folder on our laptop. 
