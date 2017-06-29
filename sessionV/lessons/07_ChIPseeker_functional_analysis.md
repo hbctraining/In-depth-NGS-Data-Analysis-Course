@@ -69,7 +69,7 @@ names(samplefiles) <- c("Nanog", "Pou5f1")
 
 ```
 
-We need to assign annotation databases generated from UCSC to a variable:
+We need to **assign annotation databases** generated from UCSC to a variable:
 
 	txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
 	
@@ -121,7 +121,7 @@ ChIPseeker implements the `annotatePeak` function for annotating peaks with near
 
 <img src="../img/annotate-genes.png" width=800>
 
-The **`annotatePeak` function provides parameters to annotate genes with a max distance cutoff and all genes within this distance will be reported for each peak**. For annotating genomic regions, annotatePeak function reports detail information when genomic region is Exon or Intron. For instance, ‘Exon (uc002sbe.3/9736, exon 69 of 80)’, means that the peak overlaps with the 69th exon of the 80 exons that transcript uc002sbe.3 possess and the corresponding Entrez gene ID is 9736. 
+The **`annotatePeak` function provides parameters to annotate genes with a max distance cutoff and ALL genes within this distance will be reported for each peak**. For annotating genomic regions, annotatePeak function reports detail information when genomic region is Exon or Intron. For instance, ‘Exon (uc002sbe.3/9736, exon 69 of 80)’, means that the peak overlaps with the 69th exon of the 80 exons that transcript uc002sbe.3 possess and the corresponding Entrez gene ID is 9736. 
 
 
 Let's start by retrieving annotations for our Nanog and Pou5f1 peaks calls:
