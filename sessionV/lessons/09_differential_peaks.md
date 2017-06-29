@@ -266,13 +266,13 @@ Additionally, we will want to create BED files for each set of significant regio
 out <- as.data.frame(comp1.edgeR)
 edge.bed <- out[ which(out$FDR < 0.05), 
                  c("seqnames", "start", "end", "strand", "Fold")]
-write.table(edge.bed, file="DiffBind/Nanog_vs_Pou5f1_edgeR_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
+write.table(edge.bed, file="results/Nanog_vs_Pou5f1_edgeR_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
 
 # DESeq2
 out <- as.data.frame(comp1.deseq)
 deseq.bed <- out[ which(out$FDR < 0.05), 
                  c("seqnames", "start", "end", "strand", "Fold")]
-write.table(deseq.bed, file="DiffBind/Nanog_vs_Pou5f1_deseq2_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
+write.table(deseq.bed, file="results/Nanog_vs_Pou5f1_deseq2_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
 ```
 
 
