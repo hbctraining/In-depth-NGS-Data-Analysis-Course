@@ -16,14 +16,16 @@ To have orchestra accessible on your laptop/desktop as a folder, you need to use
 
 ### Windows OPTIONS
 
-> Note that these are untested
+Download and run the following executables:
 
-* [http://www.sftpnetdrive.com/](http://www.sftpnetdrive.com/)
-* [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8)
+> *Note that these are untested*
 
-Below are 2 ways to get sshfs on OSX or macs, and I am listing both since one might work better on some versions of OSX than others.
+* [http://www.sftpnetdrive.com/download-thanks](http://www.sftpnetdrive.com/download-thanks)
+* [https://github.com/dokan-dev/dokany/releases/tag/v0.7.4](https://github.com/dokan-dev/dokany/releases/tag/v0.7.4) followed by [https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8](https://github.com/Foreveryone-cz/win-sshfs/releases/tag/1.5.12.8)
 
 ### OSX OPTIONS
+
+Below are 2 ways to get sshfs on OSX or macs, and I am listing both since one might work better on some versions of OSX than others.
 
 ### OPTION 1
 
