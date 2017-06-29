@@ -23,7 +23,7 @@ After identifying likely binding sites, downstream analyses will often include:
 
 We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.
 
-Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12. In order to be able to identify functional enrichment we need to look at genome wide signals, so we will use the **full set of peak calls output from the IDR analysis**. 
+Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12.  we will use the **full set of peak calls output from the IDR analysis** for functional enrichment analyses and all of chr12 IDR peaks for motif discovery. 
 
 ## Set-up
 
