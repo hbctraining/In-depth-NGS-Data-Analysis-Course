@@ -135,7 +135,7 @@ Clicking on `More` displays the number of times the motif was identified in the 
 ### Tomtom
 To determine if the identified motifs resemble the binding motifs of known transcription factors, we can submit the motifs to Tomtom, which searches a database of known motifs to find potential matches and provides a statistical measure of motif-motif similarity. We can run the analysis individually for each motif prediction by performing the following steps:
 
-1. Click on the `Submit / Download` button for motif `ACAAWG` in the DREME output
+1. Click on the `Submit / Download` button for motif `ATGYWAAT` in the DREME output
 2. A dialog box will appear asking you to Select what you want to do or Select a program. Select `Tomtom` and click `Submit`. This takes you to the input page. 
 3. Tomtom allows you to select the database you wish to search against. Keep the default parameters selected, but keep in mind that there are other options when performing your own analyses.
 4. Enter your email address and job description and start the search.
