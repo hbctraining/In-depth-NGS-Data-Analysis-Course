@@ -58,7 +58,7 @@ $ bedtools getfasta -fi \
 -fo Nanog-idr-merged-dreme.fasta
 ```
 
->**NOTE:**If we wanted to perform motif discovery on the peak calls for the entire genome, we could change our `.fa` file to the whole genome:
+>**NOTE:** If we wanted to perform motif discovery on the peak calls for the entire genome, we could change our `.fa` file to the whole genome:
 >
 >```bash
 >$ bedtools getfasta -fi \
