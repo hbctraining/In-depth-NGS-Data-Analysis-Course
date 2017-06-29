@@ -12,7 +12,11 @@ Approximate time: 30 minutes
 
 ## Installing sshfs
 
-To have orchestra accessible on your laptop/desktop as a folder, you need to use something called [sshfs](https://en.wikipedia.org/wiki/SSHFS) (ssh filesystem). This is a command that is not native to OSX or Windows and you need to go through several steps in order to get it. Below are 2 ways to get sshfs, and I am listing both since one might work better on some versions of OSX than others.
+To have orchestra accessible on your laptop/desktop as a folder, you need to use something called [sshfs](https://en.wikipedia.org/wiki/SSHFS) (ssh filesystem). This is a command that is not native to OSX or Windows and you need to go through several steps in order to get it. 
+
+For Windows there are directions here: [https://linhost.info/2012/09/sshfs-in-windows/](https://linhost.info/2012/09/sshfs-in-windows/), but we have not been able to test it.
+
+Below are 2 ways to get sshfs on OSX or macs, and I am listing both since one might work better on some versions of OSX than others.
 
 ### OPTION 1
 
