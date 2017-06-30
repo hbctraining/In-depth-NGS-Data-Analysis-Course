@@ -1,6 +1,6 @@
 ---
 title: "Easy access to Orchestra using sshfs"
-author: "Radhika Khetani"
+author: "Michael Steinbaugh, Lorena Pantano, Radhika Khetani"
 date: "Wednesday, July 28th, 2017"
 ---
 
