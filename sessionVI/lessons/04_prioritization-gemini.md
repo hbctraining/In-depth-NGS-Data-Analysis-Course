@@ -221,7 +221,7 @@ We can filter based on sample information by adding this to our `--gt-filter` ru
 $ gemini query -q "select count (*) \
 	from variants \
 	where is_conserved=1" \
-	--gt-filter “(gt_depths).(phenotype == 2).(>=20).(all)" \
+	--gt-filter "(gt_depths).(phenotype == 2).(>=20).(all)" \
 	--header \
 	na12878_q20.db 
 ```
