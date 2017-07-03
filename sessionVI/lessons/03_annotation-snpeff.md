@@ -96,7 +96,7 @@ $ tabix ../variants/na12878_q20.recode.vcf.gz
 When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
 
 ```
-$ bcftools annotate -c ID -a ../../data/reference_data/dbsnp.138.chr20.vcf.gz \
+$ bcftools annotate -c ID -a ../../reference_data/dbsnp.138.chr20.vcf.gz \
     ../variants/na12878_q20.recode.vcf.gz \
     > na12878_q20_annot.vcf
 ```
