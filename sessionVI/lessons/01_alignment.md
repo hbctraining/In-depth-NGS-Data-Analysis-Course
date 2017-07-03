@@ -52,7 +52,7 @@ With the `-p` option of the `mkdir` command, we create the above structure very 
 ```bash
 mkdir -p raw_data reference_data scripts logs meta
 
-mkdir -p var-calling/results/bwa
+mkdir -p results/bwa
 ```
 
 Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our fastq files and reference data files:
