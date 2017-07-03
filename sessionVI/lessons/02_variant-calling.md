@@ -44,7 +44,7 @@ Some of the more popular tools for calling variants include [SAMtools mpileup](h
 > *If you don't have `freebayes` available, please add `/opt/bcbio/centos/bin` to your path.*
 	
 	$ freebayes -h
-	$ freebayes -f ../../data/reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
+	$ freebayes -f ../../reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
 	
 ### Variant Call Format (VCF)
 
