@@ -48,7 +48,7 @@ $ cd results/annotation
 ```
 Your directory structure should now look something like this:
 
-```
+```bash
 ~/
 ├── ngs_course/
     ├── var-calling/
@@ -82,23 +82,23 @@ To annotate our data with dbSNP information we wil be using [`bcftools`](https:/
 
 The `bcftools annotate` command allows the user to **add or remove annotations**. 
 
-```
+```bash
 $ bcftools annotate --help
 ```
 
 The annotation we wish to add and the file we are annotating must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format). Tabix indexes a tab-delimited genome position file and creates an index file (.tbi), which facilitates quick retrieval of data lines overlapping regions. *NOTE: this has already been done for our dbSNP file*
 
-```
+```bash
 $ bgzip ../variants/na12878_q20.recode.vcf 
 $ tabix ../variants/na12878_q20.recode.vcf.gz
 ```
 
 When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
 
-```
+```bash
 $ bcftools annotate -c ID -a ../../reference_data/dbsnp.138.chr20.vcf.gz \
-    ../variants/na12878_q20.recode.vcf.gz \
-    > na12878_q20_annot.vcf
+	../variants/na12878_q20.recode.vcf.gz \
+	> na12878_q20_annot.vcf
 ```
 Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants that are not known, you will find the `.` in place of an ID indicating novelty of that sequence change.
 
@@ -112,7 +112,7 @@ Our understanding of the protein-coding sequences in the genome is summarised in
 
 <img src="../img/snpeff.png" width="700">
 
-```
+```bash
 $ snpEff -h
 ```
 To run the snpEff command we will need to specify two things:
@@ -122,17 +122,19 @@ To run the snpEff command we will need to specify two things:
 
 By default snpEff downloads and install databases automatically (since version 4.0). To see what databases are available you can use the `databases` command. Be sure to pipe this to `less`, as there is a long list of options:
 
-	$ snpEff databases | less
-	
+```bash
+$ snpEff databases | less
+```	
 An additional parameter to add to our command is `Xmx2G`, a Java parameter to define available memory. Since we are in an interactive session by default we have 2GB available to us, if we had requested more before starting the session we could increase the number here.
 
 The final command will look like this:
 
-	## DO NOT RUN THIS CODE
+```bash
+## DO NOT RUN THIS CODE
 
-	$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
-	     > results/annotation/na12878_q20_annot_snpEff.vcf
-	    
+$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
+     > results/annotation/na12878_q20_annot_snpEff.vcf
+```	    
 	    
 > *NOTE:* SnpEff is a Java program and is normally run using JAR files (Java Archive), a package file format which requires the use of `java -jar snpEff.jar` notation. You will see this when reading through the [documentation](http://snpeff.sourceforge.net/SnpEff_manual.html). Because this is a bcbio install, similar to `picard`, the program has been setup with an alias and typing in `snpEff` alone works.
 
@@ -149,14 +151,14 @@ There are two steps in the pre-processing. We will use an example presented in t
 
 Suppose in your data you find a a patient with a potentially interesting frameshift:
 
-```
+```bash
 #CHROM	POS	ID	REF	ALT
 1	1001	.	CT	C
 ```
 
 To check the rarity of this variant it is common to cross-reference against reference populations (i.e. 1000 genomes, ESP), however our comparison shows that this allele does not exist. If we look a bit closer we find there is an individual with the variant, but due to joint calling it looks more like this:
 
-```
+```bash
 #CHROM	POS	ID	REF	ALT
 1	1001	.	CTCC	CCC,C,CCCC
 ```
@@ -165,7 +167,7 @@ This where the pre-processing comes in to play.
 
 1)  **Decomposing**: this step takes multiallelic variants and expands them into distinct variant records; one record for each REF/ALT combination. So our exmaple above now becomes:
  
-```
+```bash
 POS	REF	ALT
 1001	CTCC	CCC
 1001	CTCC	C
@@ -174,7 +176,7 @@ POS	REF	ALT
 
 2) **Normalize**: this step is to left-aligns indels. Aligning requires first removing any suffix shared between the REF and ALT alleles,then remove any prefix shared between the REF and ALT alleles. Finally, increment POS by the number of characters you removed from each.
 
-```
+```bash
 POS	REF	ALT	→	POS	REF	ALT
 1001	CTCC	CCC	→	1001	CT	C
 1001	CTCC	C	→	1001	CTCC	C
@@ -187,15 +189,15 @@ For both steps we will be using the `vt` toolset. First, the command to decompos
 	
 We then apply the `normalize` command, providing the path to the reference genome:
 
-```
+```bash
 $ vt normalize -r ~/ngs_course/var-calling/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
       na12878_q20_annot_decompose.vcf  	
 ```
 
 **Now we are ready to run SnpEff**. We can modify the command above to specify the relevant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses `ANN` (as described above), but GEMINI is expecting information to be written in `EFF`. By adding the `-classic` and `-formatEff` the results are written using the old format with EFF.
 
-```
-snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
+```bash
+$ snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
      > na12878_q20_annot_snpEff.vcf
 ```
 
@@ -210,8 +212,9 @@ SnpEff produces three output files:
 
 In your current directory you will find that the two additional files (#2, #3) that were generated in addition to the newly annotated VCF. Let's take a look at the **text file**:
 
-	$ less snpEff_genes.txt
-
+```bash
+$ less snpEff_genes.txt
+```
 Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they harbour, if any.
 
 To look at the **HTML file**, we will need to move it over to our laptop. You can do this by using `FileZilla` or the `scp` command if you are more comfortable with the command line.
@@ -252,11 +255,5 @@ Use the HTML report to answer the following questions:
 3. How many variants were found in exonic regions?
 4. The Ts/Tv ratio (the transition/transversion rate) tends to be around 2-2.1 for the human genome, although it changes between different genomic regions. What is the ratio reported for our sample? 
 
-
-
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-
-
-
