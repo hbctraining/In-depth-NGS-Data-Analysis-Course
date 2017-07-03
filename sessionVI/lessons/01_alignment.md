@@ -121,8 +121,8 @@ Depending on read length, BWA has different modes optimized for different sequen
 
 Change directories into the `reference_data` directory:
 
-```
-$ cd ~/ngs_course/var-calling/data/reference_data
+```bash
+$ cd ~/ngs_course/var-calling/reference_data
 ```
 
 #### Creating BWA-MEM index
@@ -133,15 +133,15 @@ The basic options for indexing the genome using BWA are:
 
 * `-p`: prefix for all index files
 
-```
+```bash
 $ bwa index -p chr20 chr20.fa
 ```
 
 #### Aligning reads with BWA-MEM
 
-Now that we have our indexes created, we can get started with read alignment. Change directories to the `data` folder:
+Now that we have our indexes created, we can get started with read alignment. Change directories to the `var-calling` folder:
 
-```
+```bash
 $ cd ../
 ```
 
@@ -161,14 +161,14 @@ Additionally we will specify:
 
 **NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
 
-```
+```bash
 $ bwa mem -M -t 4  \
 reference_data/chr20 \
-untrimmed_fastq/na12878_1.fq untrimmed_fastq/na12878_2.fq \
-2> ../results/bwa/bwa.err \
-> ../results/bwa/na12878.sam
-
+raw_data/na12878_1.fq raw_data/na12878_2.fq \
+2> logs/bwa.err \
+> results/bwa/na12878.sam
 ```
+
 ### Alignment clean-up
 
 The last stage of the alignment phase is marking duplicates, and it is usually only required for variant calling. We need to find reads that are likely artifacts from the PCR amplification as they can bias variant calls.
@@ -189,8 +189,10 @@ We will be using the [Picard](http://broadinstitute.github.io/picard/) suite of 
 
 The latest version of Picard [requires Java 1.8](http://gatkforums.broadinstitute.org/gatk/discussion/6624/latest-picard-version-error), and so before we run it we need to load the Java module:
 
-	$ module load dev/java/jdk1.8
- 
+```bash
+$ module load dev/java/jdk1.8
+```
+
 #### Sorting SAM by coordinates
 The *Picard* tool, `SortSam`, sorts an input SAM or BAM file by coordinate, queryname, etc. Input and output formats (SAM or BAM) are determined by the file extension.
 
@@ -203,8 +205,8 @@ The description of base options for the `SortSam` tool:
 	
 > **NOTE:** BWA can produce SAM records that are marked as unmapped but have non-zero MAPQ and/or non-"*" CIGAR. Typically this is because BWA found an alignment for the read that hangs off the end of the reference sequence. Picard considers such input to be invalid. In general, this error can be suppressed in Picard programs by passing VALIDATION_STRINGENCY=LENIENT or VALIDATION_STRINGENCY=SILENT [[3](https://sourceforge.net/p/picard/wiki/Main_Page/)]. 
 
-```
-$ cd ../results/bwa
+```bash
+$ cd results/bwa
 
 $ picard SortSam \
 INPUT=na12878.sam \
@@ -225,7 +227,7 @@ The basic options for marking duplicates are:
 * `ASSUME_SORTED`: If true, assume that the input file is coordinate sorted even if the header says otherwise. Default value: false. Possible values: {true, false}
 * `VALIDATION_STRINGENCY`: Validation stringency for all SAM files read by this program. Default value: STRICT. Possible values: {STRICT, LENIENT, SILENT}
 
-```
+```bash
 $ picard MarkDuplicates \
 INPUT=na12878_sorted.sam \
 OUTPUT=na12878_sorted_marked.bam \
@@ -233,11 +235,12 @@ METRICS_FILE=metrics.txt \
 ASSUME_SORTED=true \
 VALIDATION_STRINGENCY=SILENT
 ```
+
 #### Creating index for BAM file
 
 Now that we have a sorted BAM file that has duplicates marked, let's index it for visualization with IGV. As we have done in previous sessions, we will use *Samtools* to create the index:
 
-```
+```bash
 samtools index na12878_sorted_marked.bam
 ```
 ---
@@ -258,7 +261,6 @@ $ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
          SORT_ORDER=coordinate \
          VALIDATION_STRINGENCY=SILENT`
 ```
----
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
