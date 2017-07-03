@@ -178,7 +178,7 @@ Because of the way genotype information is stored in GEMINI, we **cannot directl
 We can still include the fields/columns of information that we want to retrieve by specifying in our `select` statement. We would also want to add a header to keep track of what information is being tracked in each column, using `--header`. Take a look at what is returned when querying for variants that have a genotype depth greater than 20: 
 
 ```bash
-gemini query -q "select chrom, start, end, gt_depths \
+$ gemini query -q "select chrom, start, end, gt_depths \
 	from variants" \
 	--gt-filter "(gt_depths.unknown >=20)" \
 	--header na12878_q20.db | less
