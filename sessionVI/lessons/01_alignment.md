@@ -251,16 +251,16 @@ samtools index na12878_sorted_marked.bam
 > If you are not using the bcbio-nextgen tools you will have to load the necessary modules:
 > 
 > 	`$ module load seq/samtools/1.3 seq/bwa/0.7.8  seq/picard/1.138`
-	
+>	
 > And, the command will be slightly different for running `picard`, which is a java program and is normally run using JAR files (Java Archive), in a manner similar to `trimmomatic` (see example below). We did not have to use it earlier because we were using the version installed for bcbio, which has been setup with an alias such that just `picard` works.
-
-```      
-$ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
-         INPUT=na12878.sam \
-         OUTPUT=na12878_sorted.sam \
-         SORT_ORDER=coordinate \
-         VALIDATION_STRINGENCY=SILENT`
-```
+>
+>```bash 
+>$ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
+>         INPUT=na12878.sam \
+>         OUTPUT=na12878_sorted.sam \
+>         SORT_ORDER=coordinate \
+>         VALIDATION_STRINGENCY=SILENT`
+>```
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
