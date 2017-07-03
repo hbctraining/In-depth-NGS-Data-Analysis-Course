@@ -188,7 +188,7 @@ For both steps we will be using the `vt` toolset. First, the command to decompos
 We then apply the `normalize` command, providing the path to the reference genome:
 
 ```
-$ vt normalize -r ~/ngs_course/var-calling/data/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
+$ vt normalize -r ~/ngs_course/var-calling/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
       na12878_q20_annot_decompose.vcf  	
 ```
 
