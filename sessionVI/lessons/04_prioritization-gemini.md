@@ -144,9 +144,9 @@ Queries can also be combined by using `and` to separate multiple `where` clauses
 For example, supposed we wanted to ask how many of our SNP variants are located within coding regions?
 
 ```bash
-$ gemini query -q "select count(*)
-	from variants 
-	where is_exonic=1 and type='snp'" 
+$ gemini query -q "select count(*) \
+	from variants \
+	where is_exonic=1 and type='snp'" \
 	na12878_q20.db
 ```
 
