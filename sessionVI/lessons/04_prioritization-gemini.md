@@ -96,7 +96,7 @@ Rather than printing matching rows from the table, you can also query GEMINI to 
 
 You can also request the **count be broken down by category**. To do so, the `count()` operation is combined with `group by` so rather than providing a total count, GEMINI will give us a breakdown of numbers per category. Let's query for the distribution of our variants across the different types:
 
-	$ gemini query -q “select type, count(*) \
+	$ gemini query -q "select type, count(*) \
                        from variants \
                        group by type" \
                        na12878_q20.db
