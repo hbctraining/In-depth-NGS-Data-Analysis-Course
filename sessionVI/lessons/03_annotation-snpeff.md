@@ -33,10 +33,10 @@ For this section we are going to need to copy over some reference data required 
 ```
 $ bsub -Is -q interactive bash
 
-$ cd ngs_course/var-calling
+$ cd ~/ngs_course/var-calling
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* \
-data/reference_data/
+reference_data/
 
 ```
 
@@ -53,20 +53,21 @@ Your directory structure should now look something like this:
 ~/
 ├── ngs_course/
     ├── var-calling/
-        ├── data/
-            ├── untrimmed_fastq/
-            ├── reference_data
-        	    ├── chr20.fa
-        	    ├── dbsnp.138.chr20.vcf.gz
-                └── snpeff
+	├── reference_data/
+        	├── chr20.amb
+		├── chr20.ann
+		├── chr20.bwt
+		├── chr20.fa
+		├── chr20.fa.fai
+		├── chr20.pac
+		├── chr20.sa
+		├── dbsnp.138.chr20.vcf.gz
+		└── dbsnp.138.chr20.vcf.gz.tbi
         ├── results/
-     		├── bwa
-     		├── variants
-            └── annotation
-
+     		├── bwa/
+     		├── variants/
+            	└── annotation/
 ```
-
-
 
 ## Annotation with known variants 
 
