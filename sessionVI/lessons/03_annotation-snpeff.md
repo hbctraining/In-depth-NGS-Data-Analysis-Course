@@ -112,6 +112,17 @@ Our understanding of the protein-coding sequences in the genome is summarised in
 
 <img src="../img/snpeff.png" width="700">
 
+Some **common annotations** are listed below, but [the manual](http://snpeff.sourceforge.net/SnpEff_manual.html#input)
+provides a more comprehensive list.
+
+* Putative_impact/impact: A simple estimation of putative impact / deleteriousness : (HIGH, MODERATE, LOW, MODIFIER)
+* Gene Name: Common gene name (HGNC). Optional: use closest gene when the variant is “intergenic”.
+* Feature type: Which type of feature (e.g. transcript, motif, miRNA, etc.). It is preferred to use Sequence Ontology (SO) terms, but ‘custom’ (user defined) are allowed. 
+* Feature ID: Depending on the annotation sources, this may be: Transcript ID (preferably using version number), Motif ID, miRNA, ChipSeq peak, Histone mark, etc. Note: Some features may not have ID (e.g. histone marks from custom Chip-Seq experiments may not have a unique ID).
+* Biotype: The bare minimum is at least a description on whether the transcript is (“Coding”, “Noncoding”). Whenever possible, use ENSEMBL biotypes.
+
+Take a look at the options available. We will be using `snpEff` to annotate our variants.
+
 ```bash
 $ snpEff -h
 ```
