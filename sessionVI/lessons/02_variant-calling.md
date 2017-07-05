@@ -83,7 +83,7 @@ Today we are going to use `vcftools` to remove entries that have calls with a qu
 
 	$ module avail seq/vcf
 
-	$ module load seq/vcftools/0.1.12
+	$ module load seq/vcftools/0.1.14
 
 The manual for `vcftools` is [available here](https://vcftools.github.io/man_latest.html), let's take a quick look at it.
 
