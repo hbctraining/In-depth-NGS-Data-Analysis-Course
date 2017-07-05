@@ -22,23 +22,25 @@ GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (milli
 <img src="../img/Gemini.png" width="600">
 
 
-Let's start by opening an interactive session with 4 cores:
+Let's start by opening an interactive session:
 	
 ```bash
-$ bsub -Is -n 4 -q interactive bash
+$ bsub -Is -q interactive bash
 ```
 
-Next we will load our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses and for this file can take up to 30 minutes on a single core. We have the resources so let's use them by adding `--cores 4`. You will first need to move into the annotation directory:
+The next step is to load our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as specified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses and for this file can take up to 30 minutes on a single core. In the interest of time **we have loaded the VCF file into a database for you**. 
 
 ```bash
-$ cd ~/ngs_course/var-calling/results/annotation
+### DO NOT RUN
 
 $ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff --cores 4 na12878_q20.db
 ```
 
-> If this does not work, copy over the database:
->
-> `cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .`
+Since we are not running the above, we will need to copy over the database:
+
+```bash
+$ cd ~/mm573/ngs_course/var-calling/results/annotation
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .
 
 ### Constructing a query in GEMINI
 
