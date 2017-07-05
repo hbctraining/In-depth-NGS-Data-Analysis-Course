@@ -98,15 +98,13 @@ GIAB was initiated in 2011 by the National Institute of Standards and Technology
 
 The human WGS dataset completed by GIAB is "essentially the **first complete human genome to have been extensively sequenced and re-sequenced by multiple techniques**, with the results weighted and analyzed to eliminate as much variation and error as possible" [[2](http://www.nist.gov/mml/bbd/dna-022514.cfm)]. To minimize bias from any specific DNA sequencing method, the dataset was sequenced separately by 14 different sequencing experiments and 5 different platforms [[3](http://www.nature.com/nbt/journal/v32/n3/full/nbt.2835.html)]. 
 
-**The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.** Additionally, the DNA is available for validating new sequencing technologies / analysis methods, and ~8300 vials of DNA from a homogenized large batch of the sample cells is available for distribution to other labs [[2](http://www.nist.gov/mml/bbd/ppgenomeinabottle2.cfm)].
+**The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.** Additionally, the DNA is available for validating new sequencing technologies / analysis methods, and ~8300 vials of DNA from a homogenized large batch of the sample cells is [available](https://www-s.nist.gov/srmors/view_detail.cfm?srm=8398) for distribution to other labs [[2](http://www.nist.gov/mml/bbd/ppgenomeinabottle2.cfm)]. The NIST Reference Materials are availabe, and detailed information on the data and methods have been published, and the project information, data and analyses are available on Github (https://github.com/genome-in-a-bottle) [[1](http://jimb.stanford.edu/giab/), [5](http://www.nature.com/articles/sdata201625)].
 
-The source DNA, known as NA12878, was taken from a single person: the daughter in a father-mother-child 'trio' (she is also mother to 11 children of her own) [[4](http://www.nature.com/nmeth/journal/v12/n10/fig_tab/nmeth.3505_SF4.html)]. Father-mother-child 'trios' are often sequenced to utilize genetic links between family members.
 
+The source DNA, known as NA12878, was taken from a single person: the daughter in a father-mother-child 'trio' (she is also mother to 11 children of her own) [[4](http://www.nature.com/nmeth/journal/v12/n10/fig_tab/nmeth.3505_SF4.html)]. Father-mother-child 'trios' are often sequenced to utilize genetic links between family members. 
 <img src="../img/na12878_tree.jpg" width=700>
 
-"The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequencing results from father-mother-child 'trios'" [[2](http://www.nist.gov/mml/bbd/dna-022514.cfm)]. The NIST Reference Materials are expected to be released in September 2016, but detailed information on the data and methods have been published, and the project information, data and analyses are available on Github (https://github.com/genome-in-a-bottle) [[1](http://jimb.stanford.edu/giab/), [5](http://www.nature.com/articles/sdata201625)].
-
-While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~4 million paired-end reads.
+While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~4 million paired-end reads. 
 
 ## QC and Alignment
 
