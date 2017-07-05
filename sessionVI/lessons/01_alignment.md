@@ -24,7 +24,7 @@ Before we start with variant calling, we need to set-up our directory structure,
 Login to Orchestra and start an interactive session with four cores:
 
 ```
-$ bsub -Is -n 4 -q interactive bash
+$ bsub -Is -n 2 -q interactive bash
 ```
 
 Create a project directory for variant calling and change directories into it:
