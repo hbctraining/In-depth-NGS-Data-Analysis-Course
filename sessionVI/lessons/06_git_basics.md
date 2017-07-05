@@ -592,8 +592,9 @@ repository (`git commit`):
 
 What if we have files that we do not want Git to track for us,
 like backup files created by our editor
-or intermediate files created during data analysis. Really large files and binary files should generally be avoided when using Git; however, Git does have an [extension](https://git-lfs.github.com/) you can download if you need to version large files.
-Let's create a few dummy files:
+or intermediate files created during data analysis. Generally, it's a good idea to avoid versioning really large files and binary files; however, Git does have an [extension](https://git-lfs.github.com/) you can download if you need to version these types of files.
+
+Let's practice with ignoring files by creating a few dummy files:
 
 ~~~ {.bash}
 $ mkdir results
