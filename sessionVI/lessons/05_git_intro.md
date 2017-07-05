@@ -28,15 +28,15 @@ Some word processors let us deal with this a little better, without creating a n
 
 Version control systems start with a base version of the document and then save just the changes you made at each step of the way by taking a so-called "snapshot". A snapshot records information about when the it was taken, but also about what changes occurred between different snapshots. You decide when these snapshots are collected, and this allows you to ‘rewind’ your file to an older version. 
 
-<img src="img/play-changes.png" width="600" align="center">
+<img src="../img/play-changes.png" width="600" align="center">
 
 Once you think of changes as separate from the document itself, you can then think about "playing back" different sets of changes onto the base document and getting different versions of the document. For example, two users can make independent sets of changes based on the same document.
 
-<img src="img/versions.png" width="400" align="center">
+<img src="../img/versions.png" width="400" align="center">
 
 If there aren't conflicts, you can even play two sets of changes onto the same base document.
 
-<img src="img/merged_example.png" width="400" align="center">
+<img src="../img/merged_example.png" width="400" align="center">
 
 A Version Control system is a tool that keeps track of these changes for us and helps us version and merge our files.
 
