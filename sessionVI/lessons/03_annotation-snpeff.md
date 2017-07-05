@@ -233,7 +233,7 @@ To look at the **HTML file**, we will need to move it over to our laptop. You ca
 
 The first part of the report is a summary, which outlines what was run and what was found.
 
-![summary](../img/snpeff_summary2.png)
+![summary](../img/snpeff_summary3.png)
 
 As we scroll through the report, we can obtain more details on the categories of variants in our file. 
 
