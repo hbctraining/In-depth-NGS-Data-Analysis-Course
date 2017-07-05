@@ -71,3 +71,9 @@ across different computers facilitating collaboration among different people.
 Git is a widely-used, free and open-source version control system. The basic command structure for saving versions of files in Git is relatively easy to learn, with features allowing you to examine the new versions of your files prior to saving. In addition, Git has more powerful features to aid in group project work. [Git user documentation](https://git-scm.com/book) is accessible and thorough, and simple guides for quick command look-ups are widely available, such as [Git - the simple guide](http://rogerdudler.github.io/git-guide/) and [Bitbucket's Basic Git command documentation](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html). So while the intricacies of Git may be a bit overwhelming at first, there is a lot of documentation to help you along the way. 
 
 While Git is fast, with most actions being performed on your local computer, we often use Git with a web-based Git repository hosting service such [Github](https://github.com) or [Bitbucket](https://bitbucket.org) to store our file repositories and to share them with others. By the end of these lessons, you should be able to perform routine file version back-ups and collaborate simply with collaborators using Git and Github.
+
+***
+
+*These materials were adapted from [Software Carpentry](https://software-carpentry.org/lessons/), the Licensing information can be [found here](LICENSE_SWC_git_materials.md).*
+
+***
