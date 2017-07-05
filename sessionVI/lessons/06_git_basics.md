@@ -737,15 +737,6 @@ nothing to commit, working directory clean
 	
 	What will be the result?
 
-5. You wrote a script that creates many intermediate log-files of the form log_01, log_02, log_03, etc. You want to keep them but you do not want to track them through `git`.
-
-	a. Write **one** `.gitignore` entry that excludes files of the form `log_01`, `log_02`, etc.
-	
-	b. Test your "ignore pattern" by creating some dummy files of the form `log_01`, etc.
-	
-	c. You find that the file `log_01` is very important after all, add it to the tracked files without changing the `.gitignore` again.
-	
-	d. Discuss with your neighbor what other types of files could reside in your directory that you do not want to track and thus would exclude via `.gitignore`.
 
 ## Comparing differences between files
 
