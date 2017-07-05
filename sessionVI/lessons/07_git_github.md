@@ -555,6 +555,6 @@ or find a way to divide the work up differently.
 ***
 **Exercises**
 
-1. On Github "Fork" the NGS Analysis course repo to your account.
+On Github "Fork" the NGS Analysis course repo to your account.
  
  ***
