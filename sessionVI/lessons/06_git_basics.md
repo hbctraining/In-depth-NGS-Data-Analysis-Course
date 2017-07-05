@@ -38,7 +38,9 @@ Dracula sets up his new laptop:
 
 ~~~ {.bash}
 $ git config --global user.name "Vlad Dracula"
+
 $ git config --global user.email "vlad@tran.sylvan.ia"
+
 $ git config --global color.ui "auto"
 ~~~
 
@@ -79,6 +81,7 @@ Let's create a directory for our work and then move into that directory:
 
 ~~~ {.bash}
 $ mkdir planets
+
 $ cd planets
 ~~~
 
