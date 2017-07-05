@@ -22,7 +22,7 @@ Variant annotation is a crucial step in linking sequence variants with changes i
 
 At this stage, we have a large tab-delimited file containing loci at which a variation was found in the sample DNA sequence relative to the reference. We have filtered out these variations (also referred to as 'variant calls') to keep only those we are highly confident in, and now need to find out more. We can do this by **comparing our variants against known variants, and also use genome annotations to help predict information about our variants.** 
 
-<img src="../img/prioritize.png" width="300">
+<img src="../img/prioritize.png" width="200">
 
 
 
@@ -130,12 +130,7 @@ To run the snpEff command we will need to specify two things:
 
 1. The appropriate genome
 2. The VCF file we want to annotate
-
-By default snpEff downloads and install databases automatically (since version 4.0). To see what databases are available you can use the `databases` command. Be sure to pipe this to `less`, as there is a long list of options:
-
-```bash
-$ snpEff databases | less
-```	
+	
 An additional parameter to add to our command is `Xmx2G`, a Java parameter to define available memory. Since we are in an interactive session by default we have 2GB available to us, if we had requested more before starting the session we could increase the number here.
 
 The final command will look like this:
@@ -145,7 +140,13 @@ The final command will look like this:
 
 $ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
      > results/annotation/na12878_q20_annot_snpEff.vcf
-```	    
+```	
+
+By default snpEff downloads and install databases automatically (since version 4.0) for the organism that is specified. To see what databases are available for human you can use the `databases` command:
+
+```bash
+$ snpEff databases | grep Homo_sapiens | less
+```
 	    
 > *NOTE:* SnpEff is a Java program and is normally run using JAR files (Java Archive), a package file format which requires the use of `java -jar snpEff.jar` notation. You will see this when reading through the [documentation](http://snpeff.sourceforge.net/SnpEff_manual.html). Because this is a bcbio install, similar to `picard`, the program has been setup with an alias and typing in `snpEff` alone works.
 
