@@ -965,3 +965,7 @@ Luckily, she has been keeping track of her project's versions using Git!
 	d. Error because you have changed venus.txt without committing the changes
      	
 ***
+
+*These materials were adapted from [Software Carpentry](https://software-carpentry.org/lessons/), the Licensing information can be [found here](LICENSE_SWC_git_materials.md).*
+
+***
