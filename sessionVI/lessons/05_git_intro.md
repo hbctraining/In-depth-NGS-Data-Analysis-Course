@@ -7,8 +7,6 @@ output: html_document
 
 #  Versioning your Data and Scripts
 
->> NOTE: Materials used in these lessons are derived/adapted from [Daniel van Strien's "An Introduction to Version Control Using GitHub Desktop," Programming Historian, (17 June 2016)](http://programminghistorian.org/lessons/getting-started-with-github-desktop). Licensing information available at the bottom of this page.
-
 ## What is Version Control?
 
 We'll start by exploring how version control can be used to keep track of what one person did and when. Even if you aren't collaborating with other people, it is better than the scenario like this:
