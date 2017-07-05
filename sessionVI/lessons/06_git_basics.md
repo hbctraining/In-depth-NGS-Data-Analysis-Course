@@ -15,7 +15,7 @@ duration: 90
 
 To learn about version control with Git, we are going to use the following scenario:
 
-*Wolfman and Dracula have been hired by Universal Missions to investigate if it is possible to send their next planetary lander to Mars. They want to be able to work on the plans at the same time, but they have run into problems doing this in the past. If they take turns, each one will spend a lot of time waiting for the other to finish, but if they work on their own copies and email changes back and forth things will be lost, overwritten, or duplicated. Therefore, they are going to use Git with Github to work on their plans at the same time, then merge their changes.*
+*Wolfman and Dracula have been hired by Universal Missions to investigate if it is **possible to send their planetary lander to Mars**. They want to be able to work on the plans at the same time, but they have run into problems doing this in the past. If they take turns, each one will spend a lot of time waiting for the other to finish, but if they work on their own copies and email changes back and forth things will be lost, overwritten, or duplicated. Therefore, they are going to use Git with Github to work on their plans at the same time, then merge their changes.*
 
 ### Git configuration
 
