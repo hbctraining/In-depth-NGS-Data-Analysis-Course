@@ -44,7 +44,7 @@ A Version Control system is a tool that keeps track of these changes for us and 
 
 The 2 main reasons to use version control are to:
 
-* Manage data/code effectively 
+* Manage code or text documents effectively 
 * Collaborate efficiently
 
 Though version control was originally designed for dealing with code (`.R`, `.pl`. `.py`) there are many benefits to using it to with ***text files*** too (`.txt`, `.csv`, `.tsv`). For substantial work such as articles, books, or dissertations, version control makes a lot of sense.
@@ -57,7 +57,7 @@ Though not all of these benefits will be covered in this lesson, version control
 * ‘Merge’ versions of a document and manage conflicts between versions
 * Experiment with different versions of a document while maintaining the original version by creating branches
 
-> Note: Different Version Control systems handle different non-text files differently. In most cases Word documents, graphics files, data objects from R or STATA, etc., can be included but most tools have limited capabilities for these.
+> Note: Different Version Control systems handle different non-text files differently. In most cases Word documents, graphics files, data objects from R or STATA, etc., can be included but most tools have limited capabilities for these. Along these lines, it is considered best practice to not include large files/binaries in general; add-ons exist that will work better for storing large files.
 
 Version control is particularly useful for facilitating collaboration. One of the original motivations behind version control systems was to allow different people to work on large projects together, and in the case of Git, to manage the Linux kernel source code. 
 
