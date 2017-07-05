@@ -41,6 +41,8 @@ Since we are not running the above, we will need to copy over the database:
 ```bash
 $ cd ~/mm573/ngs_course/var-calling/results/annotation
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .
+```
+
 
 ### Constructing a query in GEMINI
 
