@@ -353,10 +353,7 @@ index df0654a..315bf3a 100644
 +The two moons may be a problem for Wolfman
 ~~~
 
-The output is cryptic because
-it is actually a series of commands for tools like editors and `patch`
-telling them how to reconstruct one file given the other.
-If we break it down into pieces:
+The output is cryptic, so let's break it down into pieces:
 
 1.  The first line tells us that Git is producing output similar to the Unix `diff` command
     comparing the old and new versions of the file.
