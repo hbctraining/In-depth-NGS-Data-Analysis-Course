@@ -422,8 +422,9 @@ We removed the conflict on this line
 
 Version control's ability to merge conflicting changes is another reason users tend to divide their programs and papers into multiple files instead of storing everything in one large file. There's another benefit too: whenever there are repeated conflicts in a particular file, the version control system is essentially trying to tell its users that they ought to clarify who's responsible for which section in the document, or find a way to divide the work up differently.
 
+
 ***
 
-*These materials were adapted from Software Carpentry, the Licensing information can be [found here](LICENSE_SWC_git_materials.md).*
+*These materials were adapted from [Software Carpentry](https://software-carpentry.org/lessons/), the Licensing information can be [found here](LICENSE_SWC_git_materials.md).*
 
 ***
