@@ -30,8 +30,7 @@ to hold those master copies;
 we'll explore the pros and cons of this in the final section of this lesson.
 
 Let's start by sharing the changes we've made to our current project with the world.
-Log in to GitHub,
-then click on the icon in the top right corner to create a new repository called `planets`:
+Go to [Github](http://github.com), and create an account if you don't have one or log in to GitHub. Once you have logged in with your (new) credentials, click on the icon in the top right corner to create a new repository called `planets`:
 
 ![Creating a Repository on GitHub (Step 1)](../img/github-create-repo-01.png)
 
@@ -70,8 +69,8 @@ Click on the 'HTTPS' link to change the [protocol](../reference.html#protocol) f
 > ### HTTPS vs SSH
 >
 > We use HTTPS here because it does not require additional configuration.
-> After the workshop you may want to set up SSH access, which is a bit more
-> secure, by following one of the great tutorials from
+> After the workshop you may want to set up SSH access by generating a new ssh key using the `ssh-keygen` command, which is a bit more
+> secure. There are great tutorials available to help you with this; a few are listed here:
 > [GitHub](https://help.github.com/articles/generating-ssh-keys),
 > [Atlassian/BitBucket](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git)
 > and [GitLab](https://about.gitlab.com/2014/03/04/add-ssh-key-screencast/)
@@ -122,48 +121,9 @@ To https://github.com/vlad/planets
 Branch master set up to track remote branch master from origin.
 ~~~
 
-> ### Proxy
->
-> If the network you are connected to uses a proxy there is an chance that your last
-> command failed with "Could not resolve hostname" as the error message. To
-> solve this issue you need to tell Git about the proxy:
->
-> ~~~ {.bash}
-> $ git config --global http.proxy http://user:password@proxy.url
-> $ git config --global https.proxy http://user:password@proxy.url
-> ~~~
->
-> When you connect to another network that doesn't use a proxy you will need to
-> tell Git to disable the proxy using:
->
-> ~~~ {.bash}
-> $ git config --global --unset http.proxy
-> $ git config --global --unset https.proxy
-> ~~~
-
-> ### Password Managers
->
-> If your operating system has a password manager configured, `git push` will
-> try to use it when it needs your username and password. If you want to type
-> your username and password at the terminal instead of using
-> a password manager, type:
->
-> ~~~ {.bash}
-> $ unset SSH_ASKPASS
-> ~~~
->
-> You may want to add this command at the end of your `~/.bashrc` to make it the
-> default behavior.
-
-Our local and remote repositories are now in this state:
+This is what we have done so far to make sure that out local and remote repositories are in sync:
 
 ![GitHub Repository After First Push](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/github-repo-after-first-push.svg)
-
-> ### The '-u' Flag
->
-> You may see a `-u` option used with `git push` in some documentation.
-> It is related to concepts we cover in our intermediate lesson,
-> and can safely be ignored for now.
 
 We can pull changes from the remote repository to the local one as well:
 
@@ -185,60 +145,35 @@ this command would download them to our local repository.
 ***
 **Exercises**
 
-1. Browse to your `planets` repository on GitHub.
- Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number). 
- Hover over, and click on, the three buttons to the right of each commit.
- What information can you gather/explore from these buttons?
+1. Browse to your `planets` repository on GitHub. Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number). Hover over and/or click on the three buttons to the right of each commit to explore what they point to; what information can you gather from these buttons?
 
-2. Create a remote repository on GitHub.
- Push the contents of your local repository to the remote.
- Make changes to your local repository and push these changes.
- Go to the repo you just created on Github and check the [timestamps](../reference.html#timestamp) of the files.
- How does GitHub record times, and why?
- 
-3. In this lesson, we introduced the "git push" command.
- How is "git push" different from "git commit"?
+2. In this lesson, we introduced the "git push" command. How is "git push" different from "git commit"?
 
 ***
 
 ## Collaborating with Git and Github
 
-For the next step, get into pairs.
-One person will be the "Owner" (this is the person whose Github repository will be used to start the exercise) and the other person will be the "Collaborator" (this is the person who will be cloning the Owner's repository and making changes to it).
+For the next step, get into pairs, and give each other access to your `planets` repo. In all cases, you will be "Owner" for your own repo, and a "Collaborator" on yout partner's repo.
 
-> ### Practicing by yourself
->
-> If you're working through this lesson on your own, you can carry on by opening
-> a second terminal window, and switching to another directory (e.g. `/tmp`).
-> This window will represent your partner, working on another computer. You
-> won't need to give anyone access on GitHub, because both 'partners' are you.
-
-The Owner needs to give the Collaborator access.
-On GitHub, click the settings button on the right,
-then select Collaborators, and enter your partner's username.
+The Owner needs to give the Collaborator access. On GitHub, click the settings button on the right, then select Collaborators, and enter your partner's Github username.
 
 ![Adding collaborators on GitHub](../img/github-add-collaborators.png)
 
-The Collaborator needs to work on this project locally. He or she should `cd` to another directory
-(so `ls` doesn't show a `planets` folder),
-and then make a copy of the Owner's repository:
+Once the Collaborator has been added, he/she will get an email with the invitation. Go to the link in the invitation email and you should be able to see the Owner's repo on Github. 
+
+The Collaborator can work on this project online or locally. To work on it locally, click on the green "Clone or download" button and copy the `https` address. Now on your computer (in Terminal), `cd` to another directory since you can't have 2 folders called `planets` in the same folder. Next, make a copy of the Owner's repository locally using `git clone`:
 
 ~~~ {.bash}
-$ git clone https://github.com/vlad/planets.git
+$ git clone <paste copied URL>
 ~~~
-
-Replace 'vlad' with the Owner's username.
-
-`git clone` creates a fresh local copy of a remote repository.
 
 ![After Creating Clone of Repository](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/github-collaboration.svg)
 
-The Collaborator can now make a change in his or her copy of the repository:
+The Collaborator can now make a change in his or her copy of the Owner's repository:
 
 ~~~ {.bash}
 $ cd planets
 $ vim pluto.txt
-$ cat pluto.txt
 ~~~
 ~~~ {.output}
 It is so a planet!
@@ -268,71 +203,29 @@ To https://github.com/vlad/planets.git
 ~~~
 
 Note that we didn't have to create a remote called `origin`:
-Git does this automatically,
-using that name,
-when we clone a repository.
-(This is why `origin` was a sensible choice earlier
-when we were setting up remotes by hand.)
+Git does this automatically using that name when we clone a repository.
 
-We can now download changes into the original repository on our machine:
+Please check your own `planets` repo online, you should have an additional file called `pluto.txt` created by your partner. To update your local repo with these changes, `cd` into the original planets directory/repo locally and `pull` the changes.
 
 ~~~ {.bash}
+$ cd ~/planets      #### Modify this to the path of your original repo.
 $ git pull origin master
 ~~~
-~~~ {.output}
-remote: Counting objects: 4, done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 3 (delta 0), reused 3 (delta 0)
-Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets
- * branch            master     -> FETCH_HEAD
-Updating 9272da5..29aba7c
-Fast-forward
- pluto.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
-~~~
 
-***
-**Exercises**
+Now we have 2 repos that you are collaborating with your partner on, one as an Owner and one as a Collaborator, and they are both available online on github.com as well as locally.
 
-1. The Owner push commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub? 
- 
-2. The Collaborator has some questions about one line change made by the Owner and has some suggestions to propose. 
- 
- With GitHub, it is possible to comment the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window. 
-
- The Collaborator posts his/her comments and suggestions using GitHub interface.
-
-***
 
 ## Resolving conflicts
 
-As soon as people can work in parallel, it's likely someone's going to step on someone
-else's toes.  This will even happen with a single person: if we are working on
-a piece of software on both our laptop and a server in the lab, we could make
-different changes to each copy.  Version control helps us manage these
-[conflicts](../reference.html#conflicts) by giving us tools to
-[resolve](../reference.html#resolve) overlapping changes.
+Collaborations are great but they make it very likely that someone's going to step on someone
+else's toes, figuratively speaking. Essentially, this means that if 2 people are working on the same section of a document at the same time. This can even happen with a single person: if we are working on a document on both our laptop and the lab computer. 
 
-To see how we can resolve conflicts, we must first create one.  The file
-`mars.txt` currently looks like this in both partners' copies of our `planets`
-repository:
+Version control helps us manage these [conflicts](../reference.html#conflicts) by giving us tools to [resolve](../reference.html#resolve) overlapping changes.
 
-~~~ {.bash}
-$ cat mars.txt
-~~~
-~~~ {.output}
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-~~~
-
-Let's add a line to one partner's copy only:
+To see how we can resolve conflicts, we must first create one. In your 2-person group that has a collaboration, pick an Owner and a Collaborator for this exercise (you can't be both for this activity). Now, the collaborator needs to change directories to the Owner's repo and modify the `mars.txt` file:
 
 ~~~ {.bash}
 $ vim mars.txt
-$ cat mars.txt
 ~~~
 ~~~ {.output}
 Cold and dry, but everything is my favorite color
@@ -341,7 +234,7 @@ But the Mummy will appreciate the lack of humidity
 This line added to Wolfman's copy
 ~~~
 
-and then push the change to GitHub:
+And then push the change to GitHub:
 
 ~~~ {.bash}
 $ git add mars.txt
@@ -364,13 +257,10 @@ To https://github.com/vlad/planets
    29aba7c..dabb4c8  master -> master
 ~~~
 
-Now let's have the other partner
-make a different change to their copy
-*without* updating from GitHub:
+Now let's have the Owner make a different change to their copy *without* updating from GitHub:
 
 ~~~ {.bash}
 $ vim mars.txt
-$ cat mars.txt
 ~~~
 ~~~ {.output}
 Cold and dry, but everything is my favorite color
@@ -379,7 +269,7 @@ But the Mummy will appreciate the lack of humidity
 We added a different line in the other copy
 ~~~
 
-We can commit the change locally:
+Commit the change locally:
 
 ~~~ {.bash}
 $ git add mars.txt
@@ -390,7 +280,7 @@ $ git commit -m "Adding a line in my copy"
  1 file changed, 1 insertion(+)
 ~~~
 
-but Git won't let us push it to GitHub:
+When you try to push this change, Git won't let us push it to GitHub:
 
 ~~~ {.bash}
 $ git push origin master
@@ -409,10 +299,9 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 Git detects that the changes made in one copy overlap with those made in the other
 and stops us from trampling on our previous work.
-What we have to do is pull the changes from GitHub,
-[merge](../reference.html#merge) them into the copy we're currently working in,
-and then push that.
-Let's start by pulling:
+What Owners have to do is pull the changes from GitHub, and [merge](../reference.html#merge) them into the copy they're currently working in, then push the modified file to Github.
+
+*Only owners will be doing this!*
 
 ~~~ {.bash}
 $ git pull origin master
@@ -429,8 +318,7 @@ CONFLICT (content): Merge conflict in mars.txt
 Automatic merge failed; fix conflicts and then commit the result.
 ~~~
 
-`git pull` tells us there's a conflict,
-and marks that conflict in the affected file:
+`git pull` tells us there's a conflict, and marks that conflict in the affected file:
 
 ~~~ {.bash}
 $ cat mars.txt
@@ -452,15 +340,11 @@ and marked the end of the content downloaded from GitHub with `>>>>>>>`.
 (The string of letters and digits after that marker
 identifies the commit we've just downloaded.)
 
-It is now up to us to edit this file to remove these markers
-and reconcile the changes.
-We can do anything we want: keep the change made in the local repository, keep
-the change made in the remote repository, write something new to replace both,
-or get rid of the change entirely.
-Let's replace both so that the file looks like this:
+It is now up to us to edit this file to remove these markers and reconcile the changes.
+We can do anything we want: keep the change made in the local repository, keep the change made in the remote repository, write something new to replace both, or get rid of the change entirely. Let's replace both so that the file looks like this:
 
 ~~~ {.bash}
-$ cat mars.txt
+$ vim mars.txt
 ~~~
 ~~~ {.output}
 Cold and dry, but everything is my favorite color
@@ -469,8 +353,7 @@ But the Mummy will appreciate the lack of humidity
 We removed the conflict on this line
 ~~~
 
-To finish merging,
-we add `mars.txt` to the changes being made by the merge
+To finish merging, we add `mars.txt` to the changes being made by the merge
 and then commit:
 
 ~~~ {.bash}
@@ -510,8 +393,7 @@ To https://github.com/vlad/planets.git
 ~~~
 
 Git keeps track of what we've merged with what,
-so we don't have to fix things by hand again
-when the collaborator who made the first change pulls again:
+so we don't have to fix things by hand again. When the Collaborator who made the first change pulls again, they will get the merged file.
 
 ~~~ {.bash}
 $ git pull origin master
@@ -528,9 +410,6 @@ Fast-forward
  mars.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 ~~~
-
-We get the merged file:
-
 ~~~ {.bash}
 $ cat mars.txt 
 ~~~
@@ -541,20 +420,10 @@ But the Mummy will appreciate the lack of humidity
 We removed the conflict on this line
 ~~~
 
-We don't need to merge again because Git knows someone has already done that.
-
-Version control's ability to merge conflicting changes
-is another reason users tend to divide their programs and papers into multiple files
-instead of storing everything in one large file.
-There's another benefit too:
-whenever there are repeated conflicts in a particular file,
-the version control system is essentially trying to tell its users
-that they ought to clarify who's responsible for what,
-or find a way to divide the work up differently.
+Version control's ability to merge conflicting changes is another reason users tend to divide their programs and papers into multiple files instead of storing everything in one large file. There's another benefit too: whenever there are repeated conflicts in a particular file, the version control system is essentially trying to tell its users that they ought to clarify who's responsible for which section in the document, or find a way to divide the work up differently.
 
 ***
-**Exercises**
 
-On Github "Fork" the NGS Analysis course repo to your account.
- 
- ***
+*These materials were adapted from Software Carpentry, the Licensing information can be [found here](LICENSE_SWC_git_materials.md).*
+
+***
