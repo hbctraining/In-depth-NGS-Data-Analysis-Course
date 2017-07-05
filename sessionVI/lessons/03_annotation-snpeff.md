@@ -222,7 +222,7 @@ SnpEff produces three output files:
 2. an HTML file containing summary statistics about the variants and their annotations
 3. a text file summarizing the number of variant types per gene
 
-In your current directory you will find that the two additional files (#2, #3) that were generated in addition to the newly annotated VCF. Let's take a look at the **text file**:
+Let's take a look at the **text file**:
 
 ```bash
 $ less snpEff_genes.txt
