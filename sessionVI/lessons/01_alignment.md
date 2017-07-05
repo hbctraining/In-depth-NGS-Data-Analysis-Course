@@ -27,13 +27,14 @@ Login to Orchestra and start an interactive session with four cores:
 $ bsub -Is -n 4 -q interactive bash
 ```
 
-Change directories to the `~/ngs_course` directory:
+Create a project directory for variant calling and change directories into it:
 
 ```bash
-$ cd ~/ngs_course
+$ mkdir ~/ngs_course/var-calling
+$ cd ~/ngs_course/var-calling
 ```
 
-Create the following directory structure for variant calling under `~/ngs_course/`:
+Create the following directory structure for the variant calling project:
 
 ```bash
 ~/ngs_course/
