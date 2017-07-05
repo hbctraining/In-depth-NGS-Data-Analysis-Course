@@ -102,7 +102,7 @@ The human WGS dataset completed by GIAB is "essentially the **first complete hum
 
 The source DNA, known as NA12878, was taken from a single person: the daughter in a father-mother-child 'trio' (she is also mother to 11 children of her own) [[4](http://www.nature.com/nmeth/journal/v12/n10/fig_tab/nmeth.3505_SF4.html)]. Father-mother-child 'trios' are often sequenced to utilize genetic links between family members.
 
-<img src="../img/na12878_tree.jpg" width=500>
+<img src="../img/na12878_tree.jpg" width=700>
 
 "The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequencing results from father-mother-child 'trios'" [[2](http://www.nist.gov/mml/bbd/dna-022514.cfm)]. The NIST Reference Materials are expected to be released in September 2016, but detailed information on the data and methods have been published, and the project information, data and analyses are available on Github (https://github.com/genome-in-a-bottle) [[1](http://jimb.stanford.edu/giab/), [5](http://www.nature.com/articles/sdata201625)].
 
