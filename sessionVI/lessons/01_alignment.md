@@ -169,7 +169,7 @@ Additionally we will specify:
 **NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
 
 ```bash
-$ bwa mem -M -t 4  \
+$ bwa mem -M -t 2  \
 reference_data/chr20 \
 raw_data/na12878_1.fq raw_data/na12878_2.fq \
 2> logs/bwa.err \
