@@ -93,7 +93,7 @@ is a good idea:
 
 <img src="../img/RStudio_screenshot_gitignore.png" width=700>
 
-> **NOTE:** When using Git versioning for R projects for your NGS Data Analysis it is best practice not to commit your data files. Binary files in particular will be problematic, as **Git is designed to track text changes not data**. Thus, adding data file extensions (i.e `.bam`) in your `.gitignore` can be very useful so those files are not accidently tracked.  
+> **NOTE:** When using Git versioning for R projects for your NGS Data Analysis it is best practice not to commit your data files. Binary files in particular will be problematic, as **Git is designed to track text changes not data**. Thus, adding data file extensions (i.e `.bam`) or folders which only contain data files in your `.gitignore` can be very useful so those files are not accidently tracked.  
 
 ## Git Large File Storage (LFS)
 
@@ -107,12 +107,24 @@ Some features of Git LFS are listed below:
 * **Same Git workflow**. Aside from the install and tracking the specific large files (`git lfs track`), work like you always do on Git. No need for additional commands, secondary storage systems, or toolsets.
 * **Same access controls and permissions**. Keep the same access controls and permissions for large files as the rest of your Git repository.
 
-> **NOTE:** There is a charge for Git LFS as it uses AWS in the back-end. If you wanted to test it out first with smaller files, it is free until you hit a ceratin quota.
+> **NOTE:** There is a charge for Git LFS as it uses AWS in the back-end. If you wanted to test it out first with smaller files, it is free until you hit a certain quota.
 
 
-## Integrating Git with an existing R project
+## Integrating Git with an existing RStudio project
+
+So far in this course we have created projects in RStudio, but we have not used Git integration. Now that you have seen how useful it can be, perhaps you want to go back to some your old projects and start tracking changes. 
+
+Rstudio allows for this pretty easily, and here we show you how.
 
 
+1. Open up the `DEanalyis.Rproj`.
+2. From the menu bar select 'Tools' -> 'Version Control' -> 'Project Setup...' 
 
+<img src="../img/git-integration.png" width=700>
 
+3. This will open up the 'Project Options' box. From the pull-down menu select <kbd>Git</kbd>. You will then be asked to confirm creating a new repository and asked to restart RStudio.
+
+<img src="../img/git-integration2.png" width=300>
+
+Now in the top right panel (Environment/History) of RStudio you will see a tab for <kbd>Git</kbd>. You can now get started with version control on any of your existing script/markdown files!
 
