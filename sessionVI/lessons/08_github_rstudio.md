@@ -93,23 +93,6 @@ is a good idea:
 
 <img src="../img/RStudio_screenshot_gitignore.png" width=700>
 
-> **NOTE:** When using Git versioning for R projects for your NGS Data Analysis it is best practice not to commit your data files. Binary files in particular will be problematic, as **Git is designed to track text changes not data**. Thus, adding data file extensions (i.e `.bam`) or folders which only contain data files in your `.gitignore` can be very useful so those files are not accidently tracked.  
-
-## Git Large File Storage (LFS)
-
-There may be large files that you want to track (i.e PDF, rda, xlsx, html) and the standard Git workflow is not as efficient at doing this. [Git LFS](https://git-lfs.github.com/) is a new command line extension and specification for managing large files with Git. 
-
-<img src="../img/git_lfs.png" width=500>
-
-Some features of Git LFS are listed below:
-
-* **Faster cloning and fetching**. Git LFS is configured to download less data. This means faster cloning and fetching from repositories that deal with large files.
-* **Same Git workflow**. Aside from the install and tracking the specific large files (`git lfs track`), work like you always do on Git. No need for additional commands, secondary storage systems, or toolsets.
-* **Same access controls and permissions**. Keep the same access controls and permissions for large files as the rest of your Git repository.
-
-> **NOTE:** There is a charge for Git LFS as it uses AWS in the back-end. If you wanted to test it out first with smaller files, it is free until you hit a certain quota.
-
-
 ## Integrating Git with an existing RStudio project
 
 So far in this course we have created projects in RStudio, but we have not used Git integration. Now that you have seen how useful it can be, perhaps you want to go back to some your old projects and start tracking changes. 
@@ -127,4 +110,23 @@ Rstudio allows for this pretty easily, and here we show you how.
 <img src="../img/git-integration2.png" width=300>
 
 Now in the top right panel (Environment/History) of RStudio you will see a tab for <kbd>Git</kbd>. You can now get started with version control on any of your existing script/markdown files!
+
+> **NOTE:** When using Git versioning for R projects for your NGS Data Analysis it is best practice not to commit your data files. Binary files in particular will be problematic, as **Git is designed to track text changes not data**. Thus, adding data file extensions (i.e `.bam`) or folders which only contain data files in your `.gitignore` can be very useful so those files are not accidently tracked.  
+
+## Git Large File Storage (LFS)
+
+There may be large files that you want to track (i.e PDF, rda, xlsx, html) and the standard Git workflow is not as efficient at doing this. [Git LFS](https://git-lfs.github.com/) is a new command line extension and specification for managing large files with Git. 
+
+<img src="../img/git_lfs.png" width=500>
+
+Some features of Git LFS are listed below:
+
+* **Faster cloning and fetching**. Git LFS is configured to download less data. This means faster cloning and fetching from repositories that deal with large files.
+* **Same Git workflow**. Aside from the install and tracking the specific large files (`git lfs track`), work like you always do on Git. No need for additional commands, secondary storage systems, or toolsets.
+* **Same access controls and permissions**. Keep the same access controls and permissions for large files as the rest of your Git repository.
+
+> **NOTE:** There is a charge for Git LFS as it uses AWS in the back-end. If you wanted to test it out first with smaller files, it is free until you hit a certain quota.
+
+
+
 
