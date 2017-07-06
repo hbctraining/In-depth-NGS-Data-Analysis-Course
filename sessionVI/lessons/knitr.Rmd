@@ -22,7 +22,7 @@ Document creation is now integrated into [RStudio][], and can be accessed using 
 
 # chunks
 
-In RMarkdown, programming chunks are defined by three backticks ("```") then then programming language, followed by a *unique* chunk label, and customization options.
+In RMarkdown, programming chunks are defined by three backticks ("```") then the programming language, followed by a *unique* chunk label, and customization options.
 
 
 ## Code languages
