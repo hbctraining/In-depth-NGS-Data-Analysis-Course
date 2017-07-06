@@ -1,5 +1,7 @@
 ---
 title: "Introduction to knitr"
+author: "Michael J. Steinbaugh"
+date: "2017-07-06"
 output: github_document
 ---
 
@@ -9,7 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [knitr]: https://yihui.name/knitr/
 [RMarkdown]: http://rmarkdown.rstudio.com/
-[RStudio]: https://www.rstudio.com
+[R]: https://www.r-project.org/
+[RStudio]: https://www.rstudio.com/
 
 
 
@@ -22,7 +25,7 @@ Document creation is now integrated into [RStudio][], and can be accessed using 
 
 # chunks
 
-In RMarkdown, programming chunks are defined by three backticks ("```") then the programming language, followed by a *unique* chunk label, and customization options.
+In RMarkdown, programming chunks are defined by three backticks ("```") then then programming language, followed by a *unique* chunk label, and customization options.
 
 
 ## Code languages
@@ -43,7 +46,8 @@ This is still in development but allows for integration of multiple programming 
 ## Global options
 
 ```{r global, eval=FALSE}
-knitr::opts_chunk$set(
+library(knitr)
+opts_chunk$set(
     autodep = TRUE,
     cache = TRUE,
     cache.lazy = TRUE,
@@ -82,7 +86,7 @@ Resize an image:
 
 The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all `library()` loads required for the script and other `load()`/`data()` requests for external files here. In our RMarkdown templates, such as the bcbioRnaseq [differential expression template](https://github.com/hbc/bcbioRnaseq/blob/master/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd), we store all the user-defined parameters in the `setup` chunk that are required for successful knitting.
 
-> {r setup, include=FALSE}  
+> {r setup, include=FALSE}
 > knitr::opts_chunk$set(echo = TRUE)
 
 
@@ -137,3 +141,31 @@ Alternatives:
 
 - xtable
 - pandoc table
+
+
+
+# Working directory behavior
+
+**Note**: [knitr][] redefines the working directory of an RMarkdown file in a manner that can be confusing. If you're working in [RStudio][] with an [RMarkdown][] file that is not at the same location as the current R working directory (`getwd()`), you can run into problems with broken file paths. Let's say I have [RStudio][] open without a project loaded. My working directory is set to `~/Users/mike`. Now, if I load an RMarkdown file from my desktop at `~/Users/mike/Desktop`, [knitr][] will set the working directory within chunks to be relative to my desktop. We advise against coding paths in a script to only work with [knitr][] and not base [R][].
+
+A simple way to resolve this issue is by creating an R project for the analysis, and saving all RMarkdown files at the top level, to avoid running into unexpected problems related to this behavior.
+
+
+
+# Convert an R script to an RMarkdown knit report
+
+Let's convert our Mov10 DE analysis script into an RMarkdown report:
+
+```{r download_script}
+download.file(
+    file.path("https://raw.githubusercontent.com",
+              "hbctraining",
+              "In-depth-NGS-Data-Analysis-Course",
+              "may2017",
+              "sessionVI",
+              "scripts",
+              "de_script_to_knit.R"),
+    destfile = "de_script_to_knit.R")
+```
+
+Open this script as a new tab in RStudio. Let's create a new RMarkdown called `de_analysis.Rmd`. You can do this quickly in RStudio by going to `File -> New File -> R Markdown...`. Customize the RMarkdown YAML header and create chunks for each code block.
