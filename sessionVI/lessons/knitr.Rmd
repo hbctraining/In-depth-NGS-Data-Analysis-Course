@@ -43,8 +43,7 @@ This is still in development but allows for integration of multiple programming 
 ## Global options
 
 ```{r global, eval=FALSE}
-library(knitr)
-opts_chunk$set(
+knitr::opts_chunk$set(
     autodep = TRUE,
     cache = TRUE,
     cache.lazy = TRUE,
