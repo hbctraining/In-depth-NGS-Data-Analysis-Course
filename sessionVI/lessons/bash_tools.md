@@ -74,7 +74,7 @@ Used Pattern matching for a certain amount of text
 
 ***
 
-## Examples of regex with `grep`
+## Examples of special characters with `grep`
 
 ```bash
 grep -c bicycle bicycle.txt
@@ -123,7 +123,8 @@ sed 's/Superman/Batman/' bicycle_copy.txt
 sed 's/bicycle/car/g' bicycle_copy.txt 
 sed 's/.icycle/car/g' bicycle_copy.txt
 sed 's/bi*/car/g' bicycle_copy.txt
-sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri*cycle/tricycle
-sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle
-sed '/You/a\best' bicycle_copy.txt
+sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri*cycle/tricycle/g'   ## does this work?
+sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle/g'
+sed 's/\s/\t/g' bicycle_copy.txt
+sed 's/\s//g' bicycle_copy.txt
 ```
