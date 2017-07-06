@@ -72,9 +72,7 @@ Used Pattern matching for a certain amount of text
 
 `{ }` : *place bounds, e.g `{1,6}`*
 
-***
-
-## Examples of special characters with `grep`
+### Examples of special characters with `grep`
 
 ```bash
 grep -c bicycle bicycle.txt
@@ -117,6 +115,8 @@ OR
 
 `/pattern/c\text` : *change line with text for matching pattern*
 
+### Examples of special characters and regular expression with `sed`
+
 ```bash
 sed '1,2d' bicycle_copy.txt
 sed 's/Superman/Batman/' bicycle_copy.txt 
@@ -128,3 +128,5 @@ sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle/g'
 sed 's/\s/\t/g' bicycle_copy.txt
 sed 's/\s//g' bicycle_copy.txt
 ```
+***
+
