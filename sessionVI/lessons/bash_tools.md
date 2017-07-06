@@ -13,9 +13,13 @@ using files: `grep pattern file`
 **Common options:**
 
 `c` : count the number of occurrences
+
 `v` : invert match, print non-matching lines
+
 `R` : recursively through directories
+
 `o` : only print matching part of line
+
 `n` : print the line number
 
 ## Regular expressions (regex)
@@ -35,9 +39,13 @@ Used Pattern matching for a certain amount of text
 **Non printable characters:**
 
 `\t` : tab
+
 `\r` : carriage return
+
 `\n` : new line (Unix)
+
 `\r\n` : new line (Windows)
+
 `\s` : space
 
 **Special Characters:**
