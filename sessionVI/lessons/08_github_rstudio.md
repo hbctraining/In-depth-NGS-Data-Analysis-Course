@@ -15,14 +15,14 @@ Since version control is so useful when developing scripts, RStudio has built-in
 RStudio let's you create a 
 [project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) associated with a given directory. We have done this many times in the course so far. When we create a new project, RStudio has a feature in which we can keep track of related files using version control! 
 
-To get started using RStudio for version control, let's make a new project:  
+To get started using RStudio for version control, let's make a **new project**:  
     
 <img src="../img/RStudio_screenshot_newproject.png" width=700>   
 
 This will pop up a window asking us how we want to create the project. We have
 some options here. Let's say that we want to use RStudio with the planets
 repository that we already made. Since that repository lives in a directory on
-our computer, we'll choose "existing directory":  
+our computer, we'll choose **existing directory**:  
 
 <img src="../img/RStudio_screenshot_existingdirectory.png" width=700>
 
@@ -38,41 +38,37 @@ our computer, we'll choose "existing directory":
 > for some debugging advice.
   
   
-Next, RStudio will ask which existing directory we want to use. Click "browse"
-to navigate to the correct directory on your computer, then click "create 
-project":  
+Next, RStudio will ask which existing directory we want to use. Click  <kbd>Browse</kbd>
+to navigate to the correct directory on your computer, then click <kbd>Create 
+Project</kbd>:  
 
 <img src="../img/RStudio_screenshot_navigateexisting.png" width=700>
 
 
-Ta-da! Now you have an R project containing your repository. Notice the
-vertical "Git" menu that is now on the menu bar. This means RStudio has
+Ta-da! Now you have an R project containing your repository. **Notice the
+vertical <kbd>Git</kbd> menu that is now on the menu bar.** This means RStudio has
 recognized that this directory is a git repository, so it's giving you tools
 to use Git:  
 
 <img src="../img/RStudio_screenshot_afterclone.png" width=700>
 
-To edit the files in your repository, you can click on them from the panel in
-the lower right. Let's add some more information about pluto:  
+To **edit the files** in your repository, you can click on them from the panel in
+the lower right. Let's add some more information about pluto to `pluto.txt`:  
+
+	And it's nice and out of the way.
 
 <img src="../img/RStudio_screenshot_editfiles.png" width=700>
 
 
-We can also use RStudio to commit these changes. Go to the git menu and click
-"commit":  
+We can also use RStudio to **commit these changes**. Go to the Git menu and click <kbd>Commit</kbd>:  
 
 <img src="../img/RStudio_screenshot_commit.png" width=700>
-&nbsp;
 
-This will bring up a screen where you can select which files to commit (check 
-the boxes in the "staged" column) and enter a commit message (in the upper 
-right). The icons in the "status" column indicate the current status of each
-file. You can also see the changes to each file by clicking on its name. Once
-everything is the way you want it, click "commit":  
+This will bring up a screen where you can **select which files** to commit (check the boxes in the "staged" column) and enter a **commit message** (in the upper right). The icons in the "status" column indicate the current status of each file. You can also see the changes to each file by clicking on its name. Once everything is the way you want it, click <kbd>Commit</kbd>:  
 
 <img src="../img/RStudio_screenshot_review.png" width=700>
 
-You can push these changes by selecting "push" from the Git menu. There are
+You can **push these changes** by selecting <kbd>Push</kbd> from the Git menu. There are
 also options there to pull from a remote version of the repository, and view
 the history:    
 
