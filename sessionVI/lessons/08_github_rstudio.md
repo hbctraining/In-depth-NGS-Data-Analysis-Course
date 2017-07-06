@@ -103,7 +103,7 @@ Rstudio allows for this pretty easily, and here we show you how.
 1. Open up the `DEanalyis.Rproj`.
 2. From the menu bar select 'Tools' -> 'Version Control' -> 'Project Setup...' 
 
-<img src="../img/git-integration.png" width=700>
+<img src="../img/git-integration.png" width=800>
 
 3. This will open up the 'Project Options' box. From the pull-down menu select <kbd>Git</kbd>. You will then be asked to confirm creating a new repository and asked to restart RStudio.
 
