@@ -197,7 +197,7 @@ We will be using the [Picard](http://broadinstitute.github.io/picard/) suite of 
 The latest version of Picard [requires Java 1.8](http://gatkforums.broadinstitute.org/gatk/discussion/6624/latest-picard-version-error), and so before we run it we need to load the Java module:
 
 ```bash
-$ module load dev/java/jdk1.8
+$ module load dev/java/jdk1.8 
 ```
 
 #### Sorting SAM by coordinates
@@ -245,10 +245,12 @@ VALIDATION_STRINGENCY=SILENT
 
 #### Creating index for BAM file
 
-Now that we have a sorted BAM file that has duplicates marked, let's index it for visualization with IGV. As we have done in previous sessions, we will use *Samtools* to create the index:
+Now that we have a sorted BAM file that has duplicates marked, let's index it for visualization with IGV. As we have done in previous sessions, we will use *Samtools* to create the index. We will first need to the load the module:
 
 ```bash
-samtools index na12878_sorted_marked.bam
+$ module load seq/samtools/1.3
+
+$ samtools index na12878_sorted_marked.bam
 ```
 ---
 
