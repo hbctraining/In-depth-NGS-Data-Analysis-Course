@@ -229,9 +229,13 @@ $ less snpEff_genes.txt
 ```
 Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they harbour, if any.
 
-To look at the **HTML file**, we will need to move it over to our laptop. You can do this by using `FileZilla` or the `scp` command if you are more comfortable with the command line.
+To look at the **HTML file**, we will need to **mount Orchestra**. You can do this using the command below, but modifying it to use your own eCommons ID:
 
-The first part of the report is a summary, which outlines what was run and what was found.
+	$ sshfs ecommonsID@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
+
+> **NOTE:** The above command assumes that you have Orchestra mounting setup from last class. If not, please see instructions [here](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/orchestra_mounting.md) on how to set that up (for now just use `FileZilla`). Also, you **may have an alias setup on your personal laptop**. In that case, you will not need to run the above command and you can simply type in the alias to the terminal (i.e **`orch_mount`**)
+
+Let's scroll through the report. The first part of the report is a summary, which outlines what was run and what was found.
 
 ![summary](../img/snpeff_summary3.png)
 
