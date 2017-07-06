@@ -1,35 +1,31 @@
 ---
 title: Version Control with Git
 subtitle: Using Git from RStudio
-duration: 10
+
 ---
 
 ## Learning Objectives
 
-*   Understand how to use Git from RStudio.
+*   Understand how to use Git from RStudio
+*   Integrating Git with existing R projects
 
 ## Using Git with RStudio
-Since version control is so useful when developing scripts, RStudio has built-in
-integration with Git. There are some more obscure Git features that you still
-need to use the command-line for, but RStudio has a nice interface for most
-common operations.
+Since version control is so useful when developing scripts, RStudio has built-in integration with Git. There are some more obscure Git features that you still need to use the command-line for, but RStudio has a nice interface for most common operations.
 
 RStudio let's you create a 
-[project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) 
-associated with a given directory. This is a way to keep track of related 
-files. One of the ways to keep track of them is via version control! To get
-started using RStudio for version control, let's make a new project:  
+[project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) associated with a given directory. We have done this many times in the course so far. When we create a new project, RStudio has a feature in which we can keep track of related files using version control! 
+
+To get started using RStudio for version control, let's make a new project:  
     
-![](../img/RStudio_screenshot_newproject.png)    
-&nbsp;
+<img src="../img/RStudio_screenshot_newproject.png" width=700>   
 
 This will pop up a window asking us how we want to create the project. We have
 some options here. Let's say that we want to use RStudio with the planets
 repository that we already made. Since that repository lives in a directory on
 our computer, we'll choose "existing directory":  
 
-![](../img/RStudio_screenshot_existingdirectory.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_existingdirectory.png" width=700>
+
 
 > ## Do you see a "version control" option?
 >
@@ -46,27 +42,26 @@ Next, RStudio will ask which existing directory we want to use. Click "browse"
 to navigate to the correct directory on your computer, then click "create 
 project":  
 
-![](../img/RStudio_screenshot_navigateexisting.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_navigateexisting.png" width=700>
+
 
 Ta-da! Now you have an R project containing your repository. Notice the
 vertical "Git" menu that is now on the menu bar. This means RStudio has
 recognized that this directory is a git repository, so it's giving you tools
 to use Git:  
 
-![](../img/RStudio_screenshot_afterclone.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_afterclone.png" width=700>
 
 To edit the files in your repository, you can click on them from the panel in
 the lower right. Let's add some more information about pluto:  
 
-![](../img/RStudio_screenshot_editfiles.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_editfiles.png" width=700>
+
 
 We can also use RStudio to commit these changes. Go to the git menu and click
 "commit":  
 
-![](../img/RStudio_screenshot_commit.png)
+<img src="../img/RStudio_screenshot_commit.png" width=700>
 &nbsp;
 
 This will bring up a screen where you can select which files to commit (check 
@@ -75,15 +70,13 @@ right). The icons in the "status" column indicate the current status of each
 file. You can also see the changes to each file by clicking on its name. Once
 everything is the way you want it, click "commit":  
 
-![](../img/RStudio_screenshot_review.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_review.png" width=700>
 
 You can push these changes by selecting "push" from the Git menu. There are
 also options there to pull from a remote version of the repository, and view
 the history:    
 
-![](../img/RStudio_screenshot_history.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_history.png" width=700>
 
 > ## Are the push/pull commands greyed out?
 >
@@ -96,15 +89,13 @@ the history:
 If we click on "history", we can see a pretty graphical version of what 
 `git log` would tell us:  
 
-![](../img/RStudio_screenshot_viewhistory.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_viewhistory.png" width=700>
 
 RStudio creates some files that is uses to keep track of your project. You
 generally don't want to track these, so adding them to your .gitignore file
 is a good idea:  
 
-![](../img/RStudio_screenshot_gitignore.png)
-&nbsp;
+<img src="../img/RStudio_screenshot_gitignore.png" width=700>
 
 There are many more features buried in the RStudio git interface, but these
 should be enough to get you started!
