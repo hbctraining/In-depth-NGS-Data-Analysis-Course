@@ -228,8 +228,8 @@ The *Picard* tool, `MarkDuplicates`, can locate and tag duplicate reads (both PC
 
 The basic options for marking duplicates are:
 
-* `INPUT`:	The BAM or SAM file to sort. Required.
-* `OUTPUT`:	The sorted BAM or SAM output file. Required.
+* `INPUT`:	The sorted BAM or SAM file to sort. Required.
+* `OUTPUT`:	The BAM or SAM output file. Required.
 * `METRICS_FILE`: File to write duplication metrics to Required.
 * `ASSUME_SORTED`: If true, assume that the input file is coordinate sorted even if the header says otherwise. Default value: false. Possible values: {true, false}
 * `VALIDATION_STRINGENCY`: Validation stringency for all SAM files read by this program. Default value: STRICT. Possible values: {STRICT, LENIENT, SILENT}
