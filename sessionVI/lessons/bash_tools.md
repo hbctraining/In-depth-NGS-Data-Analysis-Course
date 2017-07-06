@@ -1,4 +1,9 @@
 
+```bash
+cd ~/ngs_course/unix_lesson
+
+cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
+```
 
 ## Reintroducing `grep` (GNU regex parser)
 
@@ -144,3 +149,16 @@ sed 's/\s//g' bicycle_copy.txt
 ```
 ***
 
+```bash
+awk '{print $3}' reference_data/chr1-hg19_genes.gtf | head
+
+awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
+
+awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
+
+awk '{if ($3 == "stop_codon") print $1"\t"$4"\t"$5"\t"$3"\t"$10}' reference_data/chr1-hg19_genes.gtf | head
+
+awk '{if ($3 == "stop_codon") print $1"\t"$4"\t"$5"\t"$3"\t"$10}' reference_data/chr1-hg19_genes.gtf | sed 's/"//g' | sed 's/;//g' | head
+
+awk '{if ($3 == "stop_codon") ; sum+=1}END{print "Total: " sum}' reference_data/chr1-hg19_genes.gtf 
+```
