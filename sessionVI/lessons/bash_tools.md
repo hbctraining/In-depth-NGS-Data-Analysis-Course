@@ -26,9 +26,9 @@ Used Pattern matching for a certain amount of text
 
 **Character sets:**
 
-`[a-z]` # any one from a through z 
+`[a-z]` : any one from a through z 
 
-`[aei]` # either a, e, i
+`[aei]` : either a, e, i
 
 `[0-9]` : any one from 1 through 9
 
@@ -42,21 +42,21 @@ Used Pattern matching for a certain amount of text
 
 **Special Characters:**
 
-`.` period or dot: match any character (except new line) 
+`.` : *match any character (except new line)*
 
-`\` backslash: make next character literal
+`\` : *make next character literal*
 
-`^` caret: matches at the start of the line
+`^` : *matches at the start of the line*
 
-`$` dollar sign: matches at the end of line
+`$` : *matches at the end of line*
 
-`*` asterisk or star: *repeat match*
+`*` : *repeat match*
 
-`?` question mark: *preceding character is optional*
+`?` : *preceding character is optional*
 
-`( )` parentheses: create a capturing group
+`( )` : *create a capturing group*
 
-`[ ]` square bracket: sequence of characters
+`[ ]` : *sequence of characters*
 
-`{ }` curly brace: place bounds, e.g `{1,6}`
+`{ }` : *place bounds, e.g `{1,6}`*
 
