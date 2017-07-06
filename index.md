@@ -14,7 +14,6 @@ At the end of this course, participants can expect to have the expertise to inde
 **No prior programming experience or command-line training is required.**
 
 
-
 # Sessions
 
 1. [Introduction to Unix / Orchestra and NGS Data Analysis](sessionI)
@@ -23,27 +22,3 @@ At the end of this course, participants can expect to have the expertise to inde
 4. [RNA-Seq Part 3 / Related Technologies and Tools](sessionIV)
 5. [ChIP-Seq](sessionV)
 6. [Variant Calling](sessionVI)
-
-
-
-```
-├── ngs_course
-    ├── unix_lesson
-        ├── genomics_data
-        ├── raw_fastq
-        ├── README.txt
-        └── reference_data
-    ├── rnaseq
-        ├── data
-        ├── meta
-        ├── results
-        └── logs
-    ├── chipseq
-        ├── data
-        ├── results
-        ├── .
-        └── .
-    └── variant_calling
-        ├── .
-        └── .
-```
