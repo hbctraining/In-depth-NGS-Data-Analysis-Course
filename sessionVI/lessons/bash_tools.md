@@ -76,11 +76,17 @@ Used Pattern matching for a certain amount of text
 
 ```bash
 grep -c bicycle bicycle.txt
+
 grep "bicycle bicycle" bicycle.txt 
+
 grep ^bicycle bicycle.txt
+
 grep ^Bicycle bicycle.txt 
+
 grep yeah$ bicycle.txt
+
 grep [SJ] bicycle.txt
+
 grep ^[SJ] bicycle.txt 
 ```
 ***
@@ -119,13 +125,21 @@ OR
 
 ```bash
 sed '1,2d' bicycle_copy.txt
+
 sed 's/Superman/Batman/' bicycle_copy.txt 
+
 sed 's/bicycle/car/g' bicycle_copy.txt 
+
 sed 's/.icycle/car/g' bicycle_copy.txt
+
 sed 's/bi*/car/g' bicycle_copy.txt
+
 sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri*cycle/tricycle/g'   ## does this work?
+
 sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle/g'
+
 sed 's/\s/\t/g' bicycle_copy.txt
+
 sed 's/\s//g' bicycle_copy.txt
 ```
 ***
