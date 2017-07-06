@@ -107,7 +107,7 @@ Rstudio allows for this pretty easily, and here we show you how.
 
 3. This will open up the 'Project Options' box. From the pull-down menu select <kbd>Git</kbd>. You will then be asked to confirm creating a new repository and asked to restart RStudio.
 
-<img src="../img/git-integration2.png" width=300>
+<img src="../img/git-integration2.png" width=500>
 
 Now in the top right panel (Environment/History) of RStudio you will see a tab for <kbd>Git</kbd>. You can now get started with version control on any of your existing script/markdown files!
 
