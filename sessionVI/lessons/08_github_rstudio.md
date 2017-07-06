@@ -93,5 +93,11 @@ is a good idea:
 
 <img src="../img/RStudio_screenshot_gitignore.png" width=700>
 
-There are many more features buried in the RStudio git interface, but these
-should be enough to get you started!
+> **NOTE:** When using Git versioning for R projects for your NGS Data Analysis it is best practice not to commit your data files. Binary files in particular will be problematic, as **Git is designed to track text changes not data**. Thus, adding data file extensions (i.e `.bam`) in your `.gitignore` can be very useful so those files are not accidently tracked.  
+
+## Integrating Git with an existing R project
+
+
+
+
+
