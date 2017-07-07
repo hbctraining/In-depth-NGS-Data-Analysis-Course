@@ -116,7 +116,7 @@ There are some other functions that allow for more powerful customization of tab
 
 # Generating the report
 
-## `knit()` (basic, recommended)
+## `knit()` (recommended)
 
 ```{r knit}
 help("knit", "knitr")
@@ -166,7 +166,7 @@ A simple way to resolve this issue is by creating an R project for the analysis,
 
 Let's convert our Mov10 DE analysis script into an RMarkdown report:
 
-```{r download_script}
+```{r download_script, eval=FALSE}
 download.file(
     file.path("https://raw.githubusercontent.com",
               "hbctraining",

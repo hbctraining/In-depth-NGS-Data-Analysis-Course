@@ -9,8 +9,6 @@ library(knitr)
 
 [knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an [R](https://www.r-project.org/) package designed for report generation within [RStudio](https://www.rstudio.com/). It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using [knitr](https://yihui.name/knitr/) to generate a report summary is becoming common practice. Knit report generation is now integrated into [RStudio](https://www.rstudio.com/), and can be accessed using the GUI or console.
 
-One of my favorite features of [knitr](https://yihui.name/knitr/) is how much simpler it makes generating figures. You can simply return a plot in a chunk, and [knitr](https://yihui.name/knitr/) will automatically write the files to disk, in an organized subfolder. By specifying options in a `setup` chunk (below), you can have R automatically save your plots in multiple file formats at once, including PNG, PDF, and SVG.
-
 Chunks
 ======
 
@@ -19,7 +17,7 @@ The basic idea of [knitr](https://yihui.name/knitr/) (along with [RMarkdown](htt
 Additionally, you can write inline [R](https://www.r-project.org/) code enclosed by single backticks (\`) containing a lowercase `r` (like \`\`\` code chunks). This allows for variable returns outside of code chunks, and is extremely useful for making report text more dynamic. For example, you can print the current date inline with this syntax: `` ` r Sys.Date() ` `` (no spaces).
 
 Code languages
---------------
+==============
 
 Recently [RStudio](https://www.rstudio.com/) has added support for additional [code languages](http://rmarkdown.rstudio.com/lesson-5.html) besides [R](https://www.r-project.org/):
 
@@ -34,7 +32,7 @@ Recently [RStudio](https://www.rstudio.com/) has added support for additional [c
 This is still in development but allows for integration of multiple programming languages into a single workflow, and is shaping up to be a very powerful tool for NGS analysis in the near future.
 
 Global options
---------------
+==============
 
 [knitr](https://yihui.name/knitr/) allows for global options to be set on all chunks in an [RMarkdown](http://rmarkdown.rstudio.com/) file, and I recommend these be placed inside your `setup` chunk.
 
@@ -66,11 +64,11 @@ The `setup` chunk is a special knitr chunk that should be placed at the start of
     knitr::opts_chunk$set(echo = TRUE)
 
 Per chunk options
------------------
+=================
 
-    `` {r chunk_name, options} ``
+    {r chunk_name, options}
 
-Walk through some examples of useful per chunk options:
+[knitr](https://yihui.name/knitr/) provides a lot of customization options, and this can be overwhelming at first. Here's a short list of some options I commonly use in chunks:
 
 -   `echo = FALSE`
 -   `eval = FALSE`
@@ -79,50 +77,20 @@ Walk through some examples of useful per chunk options:
 -   `results = "asis"`
 -   `warning = FALSE`
 
-Resize an image:
+In particular, you can easily resize images:
 
 -   `fig.height = 6`
 -   `fig.width = 4`
 
-`knit()`
---------
+Figures
+=======
 
-``` r
-help("knit", "knitr")
-```
+My favorite feature of [knitr](https://yihui.name/knitr/) is how much simpler it makes generating figures. You can simply return a plot in a chunk, and [knitr](https://yihui.name/knitr/) will automatically write the files to disk, in an organized subfolder. By specifying options in a `setup` chunk (below), you can have R automatically save your plots in multiple file formats at once, including PNG, PDF, and SVG. A single chunk can support multiple plots, and they will be arranged in squares below the chunk in [RStudio](https://www.rstudio.com/).
 
-When you `knit()` a document, by default this will generate an HTML report. If you would prefer a different document format, this can be specified in the YAML header with the `output:` parameter.
+Tables
+======
 
-*refer back to RMarkdown table*
-
-`rmarkdown::render()` (advanced)
---------------------------------
-
-``` r
-help("render", "rmarkdown")
-```
-
-Mention that `render()` allows for output of multiple document formats.
-
-`_output.yaml` file from bcbioRnaseq [link](https://github.com/hbc/bcbioRnaseq/blob/master/docs/downloads/_output.yaml):
-
-    rmarkdown::html_document:
-        code_folding: hide
-        df_print: kable
-        highlight: pygments
-        number_sections: false
-        toc: true
-    rmarkdown::pdf_document:
-        number_sections: false
-        toc: true
-        toc_depth: 1
-
-Note on pandoc? PDF rendering can fail on some systems, may require Homebrew install.
-
-`kable()`
-=========
-
-[knitr](https://yihui.name/knitr/) includes a simple but powerful function for generating stylish tables in a knit report named `kable()`.
+[knitr](https://yihui.name/knitr/) includes a simple but powerful function for generating stylish tables in a knit report named `kable()`. Here's an example using [R](https://www.r-project.org/)'s built-in `mtcars` dataset:
 
 ``` r
 help("kable", "knitr")
@@ -140,12 +108,47 @@ mtcars %>%
 | Hornet Sportabout |  18.7|    8|   360|  175|  3.15|  3.440|  17.02|    0|    0|     3|     2|
 | Valiant           |  18.1|    6|   225|  105|  2.76|  3.460|  20.22|    1|    0|     3|     1|
 
-Alignment parameters from basejump scripts, previous consults \[need to add\].
+There are some other functions that allow for more powerful customization of tables, including `pander::pander()` and `xtable::xtable()`, but I generally perfer the simplicity and cross-platform reliability of `knitr::kable()`.
 
-Alternatives:
+Generating the report
+=====================
 
--   xtable
--   pandoc table
+`knit()` (recommended)
+----------------------
+
+``` r
+help("knit", "knitr")
+```
+
+Once we've finished creating an [RMarkdown](http://rmarkdown.rstudio.com/) file containing code chunks, we finally need to knit the report. When executing `knit()` on a document, by default this will generate an HTML report. If you would prefer a different document format, this can be specified in the YAML header with the `output:` parameter:
+
+-   html\_document
+-   pdf\_document
+-   github\_document
+
+[RStudio](https://www.rstudio.com/) now supports a [number of formats](http://rmarkdown.rstudio.com/formats.html), each with their own customization options. Consult their webiste for more details.
+
+`render()` (advanced)
+---------------------
+
+``` r
+help("render", "rmarkdown")
+```
+
+The `knit()` command works great if you only need to generate a single document format. [RMarkdown](http://rmarkdown.rstudio.com/) also supports a more advanced function named `rmarkdown::render()`, allows for output of multiple document formats. To accomplish this, we recommend saving a special file named `_output.yaml` in your project root. Here's an [example](https://github.com/hbc/bcbioRnaseq/blob/master/docs/downloads/_output.yaml) from our [bcbioRnaseq](https://github.com/hbc/bcbioRnaseq) package:
+
+    rmarkdown::html_document:
+        code_folding: hide
+        df_print: kable
+        highlight: pygments
+        number_sections: false
+        toc: true
+    rmarkdown::pdf_document:
+        number_sections: false
+        toc: true
+        toc_depth: 1
+
+**Note**: PDF rendering is sometimes problematic, especially when running [R](https://www.r-project.org/) remotely, like on the Orchestra cluster. If you run into problems, it's likely an issue related to [pandoc](http://pandoc.org).
 
 Working directory behavior
 ==========================
