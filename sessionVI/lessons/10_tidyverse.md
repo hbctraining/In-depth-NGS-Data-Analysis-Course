@@ -59,6 +59,17 @@ When you load the [tidyverse](http://tidyverse.org/), you'll see messages about 
 
 **Note**: This remains a common issue when loading multiple libraries in a single script. For example, many [Bioconductor](https://bioconductor.org/) packages have generic functions with the same name as base [R](https://www.r-project.org/) and [tidyverse](http://tidyverse.org/) packages. For example, `biomaRt::select()` and `dplyr::select()` have the same function name but require different arguments. Whichever library you load last will define the function name (`select()`). If you need to use two packages with the same function name at the same time, you can reference them explicitly (e.g. `dplyr::select()`). Therefore, when starting a new analysis using [tidyverse](http://tidyverse.org/) packages, we highly recommend slotting `library(tidyverse)` at the end of your list of libraries.
 
+Code style
+==========
+
+One problem with [R](https://www.r-project.org/) is a lack of consistency across packages in how functions and arguments are named.
+
+-   Base [R](https://www.r-project.org/) functions are formatted in dotted case: `read.csv()`.
+-   [tidyverse](http://tidyverse.org/) functions are formatted in snake\_case: `read_csv()`.
+-   [Bioconductor](https://bioconductor.org/) functions are generally formatted in lowerCamelCase (and sometimes UpperCamelCase).
+
+The [tidyverse](http://tidyverse.org/) collection of packages are very opinionated in this regard and consistently use `snake_case` formatting for all function names and arguments. When using these functions, we recommend that you follow the [tidy style guide](http://style.tidyverse.org/).
+
 tibbles
 =======
 
@@ -145,17 +156,6 @@ Row names
 help("rownames", "tibble")
 ```
 
-Code style
-==========
-
-One problem with [R](https://www.r-project.org/) is a lack of consistency across packages in how functions and arguments are named.
-
--   Base [R](https://www.r-project.org/) functions are formatted in dotted case: `read.csv()`.
--   [tidyverse](http://tidyverse.org/) functions are formatted in snake\_case: `read_csv()`.
--   [Bioconductor](https://bioconductor.org/) functions are generally formatted in lowerCamelCase (and sometimes UpperCamelCase).
-
-The [tidyverse](http://tidyverse.org/) collection of packages are very opinionated in this regard and consistently use `snake_case` formatting for all function names and arguments. When using these functions, we recommend that you follow the [tidy style guide](http://style.tidyverse.org/).
-
 Non-standard evaluation
 =======================
 
@@ -215,7 +215,8 @@ report <- results_tbl %>%
 Conversely, you can remove columns you don't want with negative selection.
 
 ``` r
-select(results_tbl, -c(lfcSE, stat, pvalue))
+results_tbl %>%
+    select(-c(lfcSE, stat, pvalue))
 ```
 
     ## # A tibble: 23,368 x 4

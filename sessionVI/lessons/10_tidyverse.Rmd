@@ -54,6 +54,18 @@ When you load the [tidyverse][], you'll see messages about tidy package conflict
 
 
 
+# Code style
+
+One problem with [R][] is a lack of consistency across packages in how functions and arguments are named.
+
+- Base [R][] functions are formatted in dotted case: `read.csv()`.
+- [tidyverse][] functions are formatted in snake_case: `read_csv()`.
+- [Bioconductor][] functions are generally formatted in lowerCamelCase (and sometimes UpperCamelCase).
+
+The [tidyverse][] collection of packages are very opinionated in this regard and consistently use `snake_case` formatting for all function names and arguments. When using these functions, we recommend that you follow the [tidy style guide][].
+
+
+
 # tibbles
 
 A core component of the [tidyverse][] is the [tibble][]. Tibbles are a modern rework of the standard `data.frame`, with some internal improvements to make code more reliable. Most notably, tibbles will return a more reasonable number of rows to the console.
@@ -134,21 +146,9 @@ glimpse(results_tbl)
 
 *Important*: [tidyverse][] is very opininationed about row names. These packages insist that all column data (e.g. `data.frame`) be treated equally, and that special designation of a column as `rownames` should be deprecated. [tibble][] provides simple utility functions to to handle rownames: `rownames_to_column()` and `column_to_rownames()`.
 
-```{r}
+```{r, eval=FALSE}
 help("rownames", "tibble")
 ```
-
-
-
-# Code style
-
-One problem with [R][] is a lack of consistency across packages in how functions and arguments are named.
-
-- Base [R][] functions are formatted in dotted case: `read.csv()`.
-- [tidyverse][] functions are formatted in snake_case: `read_csv()`.
-- [Bioconductor][] functions are generally formatted in lowerCamelCase (and sometimes UpperCamelCase).
-
-The [tidyverse][] collection of packages are very opinionated in this regard and consistently use `snake_case` formatting for all function names and arguments. When using these functions, we recommend that you follow the [tidy style guide][].
 
 
 
@@ -197,7 +197,8 @@ report <- results_tbl %>%
 Conversely, you can remove columns you don't want with negative selection.
 
 ```{r neg_select}
-select(results_tbl, -c(lfcSE, stat, pvalue))
+results_tbl %>%
+    select(-c(lfcSE, stat, pvalue))
 ```
 
 
