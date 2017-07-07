@@ -2,12 +2,20 @@
 ## Overview
 
 * [`grep`](#grep)
+* [regex](#regex)
+  * [using `grep` with special characters](example1)
+* [`sed`](#sed)
+
+***
+
+## Setting up
 
 ```bash
 cd ~/ngs_course/unix_lesson
 
 cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
 ```
+***
 
 ## Reintroducing `grep` (GNU regex parser) <a name="grep"></a>
 
@@ -35,7 +43,7 @@ OR
 
 ***
 
-## Regular expressions (regex)
+## Regular expressions (regex) <a name="regex"></a>
 
 Used Pattern matching for a certain amount of text
 
@@ -81,7 +89,7 @@ Used Pattern matching for a certain amount of text
 
 `{ }` : *place bounds, e.g `{1,6}`*
 
-### Examples of special characters with `grep`
+### Examples of special characters with `grep` <a name="example1"></a>
 
 ```bash
 grep -c bicycle bicycle.txt
@@ -100,7 +108,7 @@ grep ^[SJ] bicycle.txt
 ```
 ***
 
-## `sed`
+## `sed` <a name="sed"></a>
 
 `sed` takes a stream of stdin and pattern matches and returns the replaced text to stdout ("Think amped-up Windows Find & Replace").
 
