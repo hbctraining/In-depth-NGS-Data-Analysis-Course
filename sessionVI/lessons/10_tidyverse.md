@@ -241,7 +241,23 @@ Note that the rows are sorted by the gene symbol. Let's fix that and sort them b
 
 ``` r
 report <- arrange(report, padj)
+report
 ```
+
+    ## # A tibble: 23,368 x 4
+    ##      symbol   baseMean log2FoldChange          padj
+    ##       <chr>      <dbl>          <dbl>         <dbl>
+    ##  1    MOV10 21681.7998      4.7695983  0.000000e+00
+    ##  2     H1F0  7881.0811      1.5250811 2.007733e-162
+    ##  3    HSPA6   168.2522      4.4993734 1.969313e-134
+    ##  4 HIST1H1C  1741.3830      1.4868361 5.116720e-101
+    ##  5    TXNIP  5133.7486      1.3868320  4.882246e-90
+    ##  6    NEAT1 21973.7061      0.9087853  2.269464e-83
+    ##  7    KLF10  1694.2109      1.2093969  9.257431e-78
+    ##  8   INSIG1 11872.5106      1.2260848  8.853278e-70
+    ##  9    NR1D1   969.9119      1.5236259  1.376753e-64
+    ## 10    WDFY1  1422.7361      1.0629160  1.298076e-61
+    ## # ... with 23,358 more rows
 
 `filter()`
 ----------
