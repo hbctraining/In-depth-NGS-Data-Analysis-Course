@@ -177,14 +177,14 @@ Now that we know some of the basics of RMarkdown, let's convert our Mov10 DE ana
 
 Once the report has been knit, it should open up in a separate window. If not, you will now see an html file in your workindg directory (`de_script_toknit.html`) which you can open in a web browser. **This report contains some of the commands we ran in Session III.**  This report is a great template but it can use a **few tweaks** to make it a bit more aesthetically pleasing.
 
-* Add a title to your report
-* Only the first code chunk has a name. Go through and add names to the remaining code chunks.
-* Loading the libraries is very verbose and we do no need this output in our final report. To suppress this messaging you will need to set the code chunk options `warning=FALSE` and `message=FALSE`.
-* Remove the verbosity from the DESeq code chunk as well.
-* For the QC section we are ony really interested in displaying figures. To remove the code set the code chunk option `echo=FALSE`. Do the same for the Volcano Plot and Heatmap chunks.
-* Separate the QC code chunk into two code chunks one for PCA and one for the heatmap. Add a subheading for each chunk and be sure the code is not displayed for either. 
+* Add a **title** to your report
+* Only the first code chunk has a name. Go through and **add names to the remaining code chunks**.
+* Loading the libraries is very verbose and we do no need this output in our final report. To **suppress this messaging** you will need to set the code chunk options `warning=FALSE` and `message=FALSE`.
+* **Remove the verbosity** from the DESeq code chunk as well.
+* For the QC section we are ony really interested in displaying figures. To **hide the code** in the report the code chunk option `echo=FALSE`. Do the same for the Volcano Plot and Heatmap chunks.
+* **Separate** the QC code chunk into two code chunks one for PCA and one for the heatmap. **Add subheadings** for each chunk and be sure the code is not displayed for either. 
 * Take a look at the "Summarizing and Visualizing Results" section to see how we have incorporated **inline R code**
-* Remove the warnings from the Volcano Plot code chunk and change the width of the figure output using `fig.width=12`.
+* **Remove the warnings** from the Volcano Plot code chunk and change the **width of the figure** output using `fig.width=12`.
 * Separate the code for the last set of heatmaps into OE and KD. Add a sub-heading for each.
 
 
