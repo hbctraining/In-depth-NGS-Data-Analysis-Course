@@ -3,7 +3,7 @@ The tidyverse
 Michael J. Steinbaugh
 2017-07-07
 
-The [tidyverse](http://tidyverse.org/) is a suite of integrated packages designed to make common operations performed in [R](https://www.r-project.org/) more user friendly.
+The [tidyverse](http://tidyverse.org/) is a suite of integrated packages designed to make common operations performed in [R](https://www.r-project.org/) more user friendly. This was initially developed by [Hadley Wickham](http://hadley.nz), Chief Scientist at [RStudio](https://www.rstudio.com/), but is now maintained by a number of talented developers moving the [R](https://www.r-project.org/) language forward.
 
 ![](../img/tidyverse_website.png)
 
@@ -183,26 +183,180 @@ dplyr
 
 The most useful tool in the [tidyverse](http://tidyverse.org/) is [dplyr](http://dplyr.tidyverse.org/). It's a swiss-army knife for data manipulation. [dplyr](http://dplyr.tidyverse.org/) has 5 core functions that we recommend incorporating into your analysis:
 
--   `mutate()` adds new variables that are functions of existing variables
--   `select()` picks variables based on their names.
 -   `filter()` picks cases based on their values.
--   `summarise()` reduces multiple values down to a single summary.
 -   `arrange()` changes the ordering of the rows.
+-   `select()` picks variables based on their names.
+-   `mutate()` adds new variables that are functions of existing variables
+-   `summarise()` reduces multiple values down to a single summary.
+
+[dplyr](http://dplyr.tidyverse.org/) underwent a massive revision this year, switching versions from 0.5 to 0.7. If you consult other [dplyr](http://dplyr.tidyverse.org/) tutorials online, note that many materials developed prior to 2017 are no longer correct. In particular, this applies to writing functions with [dplyr](http://dplyr.tidyverse.org/) (see Notes section below).
+
+Let's make new tibbles of our `DESeqResults` containing only significantly upregulated and downregulated genes.
+
+`select()`
+----------
+
+First, we only need a few columns of interest from our results tibble. We can do this easily in [dplyr](http://dplyr.tidyverse.org/) with `select()`.
+
+``` r
+report <- results_tbl %>%
+    select(symbol, baseMean, log2FoldChange, padj)
+```
+
+Conversely, you can remove columns you don't want with negative selection.
+
+``` r
+select(results_tbl, -c(lfcSE, stat, pvalue))
+```
+
+    ## # A tibble: 23,368 x 4
+    ##         symbol    baseMean log2FoldChange         padj
+    ##          <chr>       <dbl>          <dbl>        <dbl>
+    ##  1 1/2-SBSRNA4  45.6520399    0.266586547 2.708964e-01
+    ##  2        A1BG  61.0931017    0.208057615 3.638671e-01
+    ##  3    A1BG-AS1 175.6658069   -0.051825739 7.837586e-01
+    ##  4        A1CF   0.2376919    0.012557390           NA
+    ##  5       A2LD1  89.6179845    0.343006364 7.652553e-02
+    ##  6         A2M   5.8600841   -0.270449534 2.318666e-01
+    ##  7       A2ML1   2.4240553    0.236041349           NA
+    ##  8       A2MP1   1.3203237    0.079525469           NA
+    ##  9      A4GALT  64.5409534    0.795049160 2.875565e-05
+    ## 10       A4GNT   0.1912781    0.009458374           NA
+    ## # ... with 23,358 more rows
+
+`arrange()`
+-----------
+
+Note that the rows are sorted by the gene symbol. Let's fix that and sort them by adjusted P value instead with `arrange()`.
+
+``` r
+report <- arrange(report, padj)
+```
+
+`filter()`
+----------
+
+Let's keep only genes that are expressed (`baseMean` above 0) with an adjusted P value below 0.01. You can perform multiple `filter()` operations together in a single command.
+
+``` r
+report <- report %>%
+    filter(baseMean > 0,
+           padj < 0.01)
+```
+
+`mutate()`
+----------
+
+`mutate()` enables you to create a new column from an existing column. Let's generate log10 calculations of our baseMeans for each gene.
+
+``` r
+report %>%
+    mutate(log10BaseMean = log10(baseMean)) %>%
+    select(symbol, baseMean, log10BaseMean)
+```
+
+    ## # A tibble: 4,909 x 3
+    ##      symbol   baseMean log10BaseMean
+    ##       <chr>      <dbl>         <dbl>
+    ##  1    MOV10 21681.7998      4.336095
+    ##  2     H1F0  7881.0811      3.896586
+    ##  3    HSPA6   168.2522      2.225961
+    ##  4 HIST1H1C  1741.3830      3.240894
+    ##  5    TXNIP  5133.7486      3.710435
+    ##  6    NEAT1 21973.7061      4.341903
+    ##  7    KLF10  1694.2109      3.228967
+    ##  8   INSIG1 11872.5106      4.074543
+    ##  9    NR1D1   969.9119      2.986732
+    ## 10    WDFY1  1422.7361      3.153124
+    ## # ... with 4,899 more rows
+
+`rename()`
+----------
+
+You can quickly rename an existing column with `rename()`. The syntax is `new_name` = `old_name`.
+
+``` r
+report %>%
+    rename(gene = symbol)
+```
+
+    ## # A tibble: 4,909 x 4
+    ##        gene   baseMean log2FoldChange          padj
+    ##       <chr>      <dbl>          <dbl>         <dbl>
+    ##  1    MOV10 21681.7998      4.7695983  0.000000e+00
+    ##  2     H1F0  7881.0811      1.5250811 2.007733e-162
+    ##  3    HSPA6   168.2522      4.4993734 1.969313e-134
+    ##  4 HIST1H1C  1741.3830      1.4868361 5.116720e-101
+    ##  5    TXNIP  5133.7486      1.3868320  4.882246e-90
+    ##  6    NEAT1 21973.7061      0.9087853  2.269464e-83
+    ##  7    KLF10  1694.2109      1.2093969  9.257431e-78
+    ##  8   INSIG1 11872.5106      1.2260848  8.853278e-70
+    ##  9    NR1D1   969.9119      1.5236259  1.376753e-64
+    ## 10    WDFY1  1422.7361      1.0629160  1.298076e-61
+    ## # ... with 4,899 more rows
+
+`summarise()`
+-------------
+
+You can perform column summarization operations with `summarise()`.
+
+``` r
+report %>%
+    summarise(avgBaseMean = mean(baseMean))
+```
+
+    ## # A tibble: 1 x 1
+    ##   avgBaseMean
+    ##         <dbl>
+    ## 1      1911.6
+
+*Advanced:* `summarise()` is particularly powerful in combination with the `group_by()` function, which allows you to group related rows together.
+
+*Note*: `summarize()` also works, for any patriotic Americans o reject British English 🇬.his applies across the board to any tidy functions, including in [ggplot2](http://ggplot2.tidyverse.org/) (e.g. `color` in place of `colour`).
+
+`pull()`
+--------
+
+In the recent [dplyr](http://dplyr.tidyverse.org/) 0.7 update, `pull()` was added as a quick way to access column data as a vector. This is very handy in chain operations with the pipe operator.
+
+``` r
+pull(report, symbol) %>% .[1:10]
+```
+
+Joins
+-----
+
+To demonstrate [dplyr](http://dplyr.tidyverse.org/)'s powerful suite of join operations, let's import Ensembl gene annotations from the \[annotables\]\[\] package and add them to our report.
+
+``` r
+install.packages("devtools")
+devtools::install_github("stephen_turner/annotables")
+```
+
+``` r
+library(annotables)
+annotable <- grch37 %>%     select(symbol, biotype, description) %>%
+    distinct
+```
+
+``` r
+report <- left_join(report, annotable, by = "symbol")
+```
 
 ------------------------------------------------------------------------
 
 Notes
 =====
 
-Programming
------------
-
-Underneath the hood, [tidyverse](http://tidyverse.org/) packages build upon the base [R](https://www.r-project.org/) language using [rlang](https://github.com/tidyverse/rlang/), which is a **complete rework** of how functions handle variable names and evaluate arguments. This is achieved through the `tidyeval` framework, which interprates command operations using `tidy evaluation`. This is outside of the scope of the course, but explained in detail in the [Programming with dplyr](http://dplyr.tidyverse.org/articles/programming.html) vignette, in case you'd like to understand how these new tools behave differently from base [R](https://www.r-project.org/).
-
 Row names
 ---------
 
 *Important*: [tidyverse](http://tidyverse.org/) is very opininationed about row names. These packages insist that all column data (e.g. `data.frame`) be treated equally, and that special designation of a column as `rownames` should be deprecated. [tibble](http://tibble.tidyverse.org/) provides simple utility functions to to handle rownames: `rownames_to_column()` and `columns_to_rowname()`.
+
+Programming
+-----------
+
+Underneath the hood, [tidyverse](http://tidyverse.org/) packages build upon the base [R](https://www.r-project.org/) language using [rlang](https://github.com/tidyverse/rlang/), which is a **complete rework** of how functions handle variable names and evaluate arguments. This is achieved through the `tidyeval` framework, which interprates command operations using `tidy evaluation`. This is outside of the scope of the course, but explained in detail in the [Programming with dplyr](http://dplyr.tidyverse.org/articles/programming.html) vignette, in case you'd like to understand how these new tools behave differently from base [R](https://www.r-project.org/).
 
 Additional resources
 ====================
