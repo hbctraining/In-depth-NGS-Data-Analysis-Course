@@ -139,24 +139,24 @@ OR
 ### Examples `sed` usage <a name="example2"></a>
 
 ```bash
-$ sed '1,2d' bicycle_copy.txt
+$ sed '1,2d' bicycle.txt
 
-$ sed 's/Superman/Batman/' bicycle_copy.txt 
+$ sed 's/Superman/Batman/' bicycle.txt 
 
-$ sed 's/bicycle/car/' bicycle_copy.txt 
-$ sed 's/bicycle/car/g' bicycle_copy.txt 
+$ sed 's/bicycle/car/' bicycle.txt 
+$ sed 's/bicycle/car/g' bicycle.txt 
 
-$ sed 's/.icycle/car/g' bicycle_copy.txt
+$ sed 's/.icycle/car/g' bicycle.txt
 
-$ sed 's/bi*/car/g' bicycle_copy.txt
+$ sed 's/bi*/car/g' bicycle.txt
 
-$ sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri*cycle/tricycle/g'   ## does this work?
-$ sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle/g'
+$ sed 's/bicycle/tri*cycle/g' bicycle.txt | sed 's/tri*cycle/tricycle/g'   ## does this work?
+$ sed 's/bicycle/tri*cycle/g' bicycle.txt | sed 's/tri\*cycle/tricycle/g'
 
-$ sed 's/\s/\t/g' bicycle_copy.txt
-$ sed 's/\s/\\t/g' bicycle_copy.txt
+$ sed 's/\s/\t/g' bicycle.txt
+$ sed 's/\s/\\t/g' bicycle.txt
 
-$ sed 's/\s//g' bicycle_copy.txt
+$ sed 's/\s//g' bicycle.txt
 ```
 ***
 
