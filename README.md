@@ -1,3 +1,5 @@
+**NOTE: This is the "master" branch of the repository, the [May2017](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/tree/may2017) branch contains the latest materials for this course.
+
 # In-depth NGS Data Analysis Course
 This repository contains all course materials for HBC's In-depth NGS Data Analysis Course, which is a 12-day course run over 6 weeks.
 
