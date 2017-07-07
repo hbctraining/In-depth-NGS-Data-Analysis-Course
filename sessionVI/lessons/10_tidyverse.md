@@ -87,17 +87,17 @@ Now let's create tibbles from our data frames:
 
 ``` r
 counts_tbl <- counts %>%
-    as_tibble %>%
-    rownames_to_column("ensgene")
+    rownames_to_column("ensgene") %>%
+    as_tibble
 meta_tbl <- meta %>%
-    as_tibble %>%
     rownames_to_column("sample_name") %>%
+    as_tibble %>%
     rename(sample_type = sampletype,
            mov_expression = MOVexpr) %>%
     mutate(sample_name = tolower(sample_name))
 results_tbl <- results %>%
-    as_tibble %>%
-    rownames_to_column("symbol")
+    rownames_to_column("symbol") %>%
+    as_tibble
 ```
 
 First, try returning the `counts` data frame in your console.
@@ -113,21 +113,21 @@ counts_tbl
 ```
 
     ## # A tibble: 38,828 x 13
-    ##    ensgene    sample1   sample2   sample3   sample4    sample5    sample6
-    ##      <chr>      <dbl>     <dbl>     <dbl>     <dbl>      <dbl>      <dbl>
-    ##  1       1 19.7848000 19.265000 20.889500 24.076700 23.7222000 20.8198000
-    ##  2       2  0.0000000  0.000000  0.000000  0.000000  0.0000000  0.0000000
-    ##  3       3  0.9377920  1.032290  0.892183  0.827891  0.8269540  1.1686300
-    ##  4       4  0.0359631  0.000000  0.000000  0.000000  0.0000000  0.0511932
-    ##  5       5  0.1514170  0.056033  0.146196  0.180883  0.0473238  0.1438840
-    ##  6       6  0.2567330  0.258134  0.421286  2.191720  1.0730200  1.6853800
-    ##  7       7  5.9998100  6.047990  6.020250  5.620120  6.4116300  5.5177700
-    ##  8       8  5.2784700  3.971810  6.161450  7.045910  5.2136600  7.3951100
-    ##  9       9 37.2141000 32.303000 31.249600  4.260570  3.5634100  5.3828200
-    ## 10      10 25.4044000 22.950700 21.415600 16.825400 17.9712000 17.7215000
-    ## # ... with 38,818 more rows, and 6 more variables: sample7 <dbl>,
-    ## #   sample8 <dbl>, sample9 <dbl>, sample10 <dbl>, sample11 <dbl>,
-    ## #   sample12 <dbl>
+    ##               ensgene    sample1   sample2   sample3   sample4    sample5
+    ##                 <chr>      <dbl>     <dbl>     <dbl>     <dbl>      <dbl>
+    ##  1 ENSMUSG00000000001 19.7848000 19.265000 20.889500 24.076700 23.7222000
+    ##  2 ENSMUSG00000000003  0.0000000  0.000000  0.000000  0.000000  0.0000000
+    ##  3 ENSMUSG00000000028  0.9377920  1.032290  0.892183  0.827891  0.8269540
+    ##  4 ENSMUSG00000000031  0.0359631  0.000000  0.000000  0.000000  0.0000000
+    ##  5 ENSMUSG00000000037  0.1514170  0.056033  0.146196  0.180883  0.0473238
+    ##  6 ENSMUSG00000000049  0.2567330  0.258134  0.421286  2.191720  1.0730200
+    ##  7 ENSMUSG00000000056  5.9998100  6.047990  6.020250  5.620120  6.4116300
+    ##  8 ENSMUSG00000000058  5.2784700  3.971810  6.161450  7.045910  5.2136600
+    ##  9 ENSMUSG00000000078 37.2141000 32.303000 31.249600  4.260570  3.5634100
+    ## 10 ENSMUSG00000000085 25.4044000 22.950700 21.415600 16.825400 17.9712000
+    ## # ... with 38,818 more rows, and 7 more variables: sample6 <dbl>,
+    ## #   sample7 <dbl>, sample8 <dbl>, sample9 <dbl>, sample10 <dbl>,
+    ## #   sample11 <dbl>, sample12 <dbl>
 
 See how [R](https://www.r-project.org/) only prints 10 rows instead of returning all 38k? This is much more user friendly.
 

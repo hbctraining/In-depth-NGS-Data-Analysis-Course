@@ -81,11 +81,13 @@ results_dir <- file.path(
     "results")
 counts <- file.path(results_dir, "counts.txt") %>%
     read.table %>%
-    as.matrix
+    as.data.frame
 meta <- file.path(results_dir, "meta.txt") %>%
-    read.table
+    read.table %>%
+    as.data.frame
 results <- file.path(results_dir, "results_Mov10_oe.txt") %>%
-    read.table
+    read.table %>%
+    as.data.frame
 ```
 
 Before we begin the tidy workflow, coerce your counts, metadata, and DESeqResults to data frames:
@@ -100,17 +102,17 @@ Now let's create tibbles from our data frames:
 
 ```{r tibbles}
 counts_tbl <- counts %>%
-    as_tibble %>%
-    rownames_to_column("ensgene")
+    rownames_to_column("ensgene") %>%
+    as_tibble
 meta_tbl <- meta %>%
-    as_tibble %>%
     rownames_to_column("sample_name") %>%
+    as_tibble %>%
     rename(sample_type = sampletype,
            mov_expression = MOVexpr) %>%
     mutate(sample_name = tolower(sample_name))
 results_tbl <- results %>%
-    as_tibble %>%
-    rownames_to_column("symbol")
+    rownames_to_column("symbol") %>%
+    as_tibble
 ```
 
 First, try returning the `counts` data frame in your console.
