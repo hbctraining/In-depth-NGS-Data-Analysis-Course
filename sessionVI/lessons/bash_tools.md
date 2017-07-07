@@ -1,19 +1,22 @@
 
 ## Overview
 
-* [`grep`](#grep)
-* [regex](#regex)
-  * [using `grep` with special characters](#example1)
-* [`sed`](#sed)
+* [Reintroducing `grep`](#grep)
+* [Regular expressions (regex)](#regex)
+ * [Using `grep` with special characters](#example1)
+* [Introducing to `sed`](#sed)
+ * [Using `sed` with special characters and regular expressions](#example2)
+* [Reintroducing `awk`](#awk)
+ * [`awk` examples](#example3)
 
 ***
 
 ## Setting up
 
 ```bash
-cd ~/ngs_course/unix_lesson
+$ cd ~/ngs_course/unix_lesson
 
-cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
 ```
 ***
 
@@ -92,23 +95,23 @@ Used Pattern matching for a certain amount of text
 ### Examples of special characters with `grep` <a name="example1"></a>
 
 ```bash
-grep -c bicycle bicycle.txt
+$ grep -c bicycle bicycle.txt
 
-grep "bicycle bicycle" bicycle.txt 
+$ grep "bicycle bicycle" bicycle.txt 
 
-grep ^bicycle bicycle.txt
+$ grep ^bicycle bicycle.txt
 
-grep ^Bicycle bicycle.txt 
+$ grep ^Bicycle bicycle.txt 
 
-grep yeah$ bicycle.txt
+$ grep yeah$ bicycle.txt
 
-grep [SJ] bicycle.txt
+$ grep [SJ] bicycle.txt
 
-grep ^[SJ] bicycle.txt 
+$ grep ^[SJ] bicycle.txt 
 ```
 ***
 
-## `sed` <a name="sed"></a>
+## Reintroducing `sed` <a name="sed"></a>
 
 `sed` takes a stream of stdin and pattern matches and returns the replaced text to stdout ("Think amped-up Windows Find & Replace").
 
@@ -138,41 +141,46 @@ OR
 
 `/pattern/c\text` : *change line with text for matching pattern*
 
-### Examples of special characters and regular expression with `sed`
+### Examples of special characters and regular expression with `sed` <a name="example2"></a>
 
 ```bash
-sed '1,2d' bicycle_copy.txt
+$ sed '1,2d' bicycle_copy.txt
 
-sed 's/Superman/Batman/' bicycle_copy.txt 
+$ sed 's/Superman/Batman/' bicycle_copy.txt 
 
-sed 's/bicycle/car/g' bicycle_copy.txt 
+$ sed 's/bicycle/car/g' bicycle_copy.txt 
 
-sed 's/.icycle/car/g' bicycle_copy.txt
+$ sed 's/.icycle/car/g' bicycle_copy.txt
 
-sed 's/bi*/car/g' bicycle_copy.txt
+$ sed 's/bi*/car/g' bicycle_copy.txt
 
-sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri*cycle/tricycle/g'   ## does this work?
+$ sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri*cycle/tricycle/g'   ## does this work?
 
-sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle/g'
+$ sed 's/bicycle/tri*cycle/g' bicycle_copy.txt | sed 's/tri\*cycle/tricycle/g'
 
-sed 's/\s/\t/g' bicycle_copy.txt
+$ sed 's/\s/\t/g' bicycle_copy.txt
 
-sed 's/\s//g' bicycle_copy.txt
+$ sed 's/\s//g' bicycle_copy.txt
 ```
 ***
 
+## Reintroducing `awk` <a name="awk"></a>
+
+
+### Examples of `awk` <a name="example3"></a>
+
 ```bash
-awk '{print $3}' reference_data/chr1-hg19_genes.gtf | head
+$ awk '{print $3}' reference_data/chr1-hg19_genes.gtf | head
 
-awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
+$ awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
 
-awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
+$ awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
 
-awk '{if ($3 == "stop_codon") print $1"\t"$4"\t"$5"\t"$3"\t"$10}' reference_data/chr1-hg19_genes.gtf | head
+$ awk '{if ($3 == "stop_codon") print $1"\t"$4"\t"$5"\t"$3"\t"$10}' reference_data/chr1-hg19_genes.gtf | head
 
-awk '{if ($3 == "stop_codon") print $1"\t"$4"\t"$5"\t"$3"\t"$10}' reference_data/chr1-hg19_genes.gtf | sed 's/"//g' | sed 's/;//g' | head
+$ awk '{if ($3 == "stop_codon") print $1"\t"$4"\t"$5"\t"$3"\t"$10}' reference_data/chr1-hg19_genes.gtf | sed 's/"//g' | sed 's/;//g' | head
 
-awk '{if ($3 == "stop_codon") ; sum+=1}END{print "Total: " sum}' reference_data/chr1-hg19_genes.gtf 
+$ awk '{if ($3 == "stop_codon") ; sum+=1} END {print "Total: " sum}' reference_data/chr1-hg19_genes.gtf 
 ```
 
 ***
