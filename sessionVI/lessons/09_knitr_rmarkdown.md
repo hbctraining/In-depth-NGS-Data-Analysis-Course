@@ -168,21 +168,23 @@ The `knit()` command works great if you only need to generate a single document 
 Convert an R script to an RMarkdown knit report
 ===============================================
 
-Let's convert our Mov10 DE analysis script into an RMarkdown report:
+Now that we know some of the basics of RMarkdown, let's convert our Mov10 DE analysis script into an RMarkdown report! 
 
-``` r
-download.file(
-    file.path("https://raw.githubusercontent.com",
-              "hbctraining",
-              "In-depth-NGS-Data-Analysis-Course",
-              "may2017",
-              "sessionVI",
-              "scripts",
-              "de_script_to_knit.R"),
-    destfile = "de_script_to_knit.R")
-```
+1. [Download the .Rmd file](https://raw.githubusercontent.com/hbctraining/In-depth-NGS-Data-Analysis-Course/may2017/sessionVI/scripts/de_script_toknit.Rmd)
+2. Open up your DEanalysis R project in Rstudio.
+3. Move your RMarkdown file into the project working directory.
+4. Open up the .Rmd file and <kbd>Knit</kbd> the report.
 
-Open this script as a new tab in RStudio. Let's create a new RMarkdown called `de_analysis.Rmd`. You can do this quickly in RStudio by going to `File -> New File -> R Markdown...`. Customize the RMarkdown YAML header and create chunks for each code block.
+Once the report has been knit, it should open up in a separate window. If not, you will now see an html file in your workindg directory (`de_script_toknit.html`) which you can open in a web browser. **This report contains some of the commands we ran in Session III.**  This report is a great template but it can use a **few tweaks** to make it a bit more aesthetically pleasing.
+
+* Add a title to your report
+* Only the first code chunk has a name. Go through and add names to the remaining code chunks.
+* Loading the libraries is very verbose and we do no need this output in our final report. To suppress this messaging you will need to set the code chunk options `warning=FALSE` and `message=FALSE`.
+* Remove the verbosity from the DESeq code chunk
+* For the QC section we are ony really interested in displaying figures. To remove the code set teh code chunk option `echo=FALSE`
+* Separate the QC code chunk into two code chunks one for PCA and one for the heatmap. Add a subheading for each chunk and be sure the code is not displayed for either. 
+ 
+
 
 Additional resources
 ================
