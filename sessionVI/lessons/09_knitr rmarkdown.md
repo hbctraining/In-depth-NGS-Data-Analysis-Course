@@ -11,76 +11,59 @@ author: Michael J. Steinbaugh and Meeta Mistry
 *   Creating reports using knitr
 
 
-## Reproducible reports in R
+# Reproducible reports in R
 
 So far in the course any R code we have written to file has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. But what if we wanted to communicate this with our collaborators; wouldn't it be nice to be able to share the code along with tables, figures, and text describing the interpretation? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown.  
 
 
-## Introduction to knitr
+# Introduction to knitr
 
 [knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using [knitr](https://yihui.name/knitr/) to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
 
-## RMarkdown
+# RMarkdown
 
 Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below.
 
 
-##Features of knitr with RMarkdown
+# Features of knitr with RMarkdown
 
-### Code chunks
+## Code chunks
 
-The basic idea of [knitr](https://yihui.name/knitr/) (along with [RMarkdown](http://rmarkdown.rstudio.com/)) is that you can write your analysis workflow in plain text and intersperse chunks of code delimited with a special marker (\`\`\`). Backticks (\`) commonly indicate code and are also used on [GitHub](https://github.com). Each chunk should be given a **unique** name. [knitr](https://yihui.name/knitr/) isn't very picky how you name the code chunks, but we recommend using `snake_case` for the names whenever possible. The output of each chunk can be customized, using a number of options described below.
+The basic idea of [knitr](https://yihui.name/knitr/) (along with [RMarkdown](http://rmarkdown.rstudio.com/)) is that you can write your analysis workflow in plain text and intersperse chunks of code delimited with a special marker (\`\`\`). Backticks (\`) commonly indicate code and are also used on [GitHub](https://github.com). Each chunk should be given a **unique** name. [knitr](https://yihui.name/knitr/) isn't very picky how you name the code chunks, but we recommend using `snake_case` for the names whenever possible. 
 
-```
-
-```{r chunk-name}
-x <- 4
-y <- 2
-x + y
-```
-
-```
+<img src="../img/r-chunk.png">
 
 Additionally, you can write inline [R](https://www.r-project.org/) code enclosed by single backticks (\`) containing a lowercase `r` (like \`\`\` code chunks). This allows for variable returns outside of code chunks, and is extremely useful for making report text more dynamic. For example, you can print the current date inline with this syntax: `` ` r Sys.Date() ` `` (no spaces).
 
 
-### Per chunk options
+## Per chunk options
+
+knitr provides a lot of customization options for code chunks, which are written in the form of `tag=value`. There is a [comprehensive list](https://yihui.name/knitr/options/#code-chunk) of all the options available, however when starting out this can be overwhelming. Here, we provide a short list of some options commonly use in chunks:
+
+* `echo = TRUE`: whether to include R source code in the output file
+* `eval = TRUE`: whether to evaluate/execute the code 
+* `include = TRUE`: whether to include the chunk output in the final output document; if include=FALSE, nothing will be written into the output document, but the code is still evaluated and plot files are generated if there are any plots in the chunk, so you can manually insert figures
+* `warning = TRUE`: whether to preserve warnings in the output like we run R code in a terminal (if FALSE, all warnings will be printed in the console instead of the output document)
+* `message = TRUE`: whether to preserve messages emitted by message() (similar to warning)
+* `results = "asis"`: output as-is, i.e., write raw results from R into the output document
+
+There are also a few options commonly used for plots to easily resize images:
+
+* `fig.height = 6`
+* `fig.width = 4`
 
 
-    {r chunk_name, options}
+## The setup chunk
 
-[knitr](https://yihui.name/knitr/) provides a lot of customization options, and this can be overwhelming at first. Here's a short list of some options I commonly use in chunks:
+The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all `library()` loads required for the script and other `load()` requests for external files here. In our RMarkdown templates, such as the bcbioRnaseq [differential expression template](https://github.com/hbc/bcbioRnaseq/blob/master/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd), we store all the user-defined parameters in the `setup` chunk that are required for successful knitting.
 
--   `echo = FALSE`
--   `eval = FALSE`
--   `include = FALSE`
--   `message = FALSE`
--   `results = "asis"`
--   `warning = FALSE`
+    {r setup, include=FALSE}
+    knitr::opts_chunk$set(echo = TRUE)
 
-In particular, you can easily resize images:
 
--   `fig.height = 6`
--   `fig.width = 4`
-Code languages
-==============
+## Global options
 
-Recently [RStudio](https://www.rstudio.com/) has added support for additional [code languages](http://rmarkdown.rstudio.com/lesson-5.html) besides [R](https://www.r-project.org/):
-
--   Python
--   SQL
--   Bash
--   Rcpp
--   Stan
--   JavaScript
--   CSS
-
-This is still in development but allows for integration of multiple programming languages into a single workflow, and is shaping up to be a very powerful tool for NGS analysis in the near future.
-
-Global options
-==============
-
-[knitr](https://yihui.name/knitr/) allows for global options to be set on all chunks in an [RMarkdown](http://rmarkdown.rstudio.com/) file, and I recommend these be placed inside your `setup` chunk.
+knitr allows for global options to be set on all chunks in an [RMarkdown](http://rmarkdown.rstudio.com/) file. These are options that should be placed inside your `setup` chunk at the top of your RMarkdown document.
 
 ``` r
 opts_chunk$set(
@@ -99,27 +82,17 @@ opts_chunk$set(
     warning = FALSE)
 ```
 
-An additional cool trick is that you can save `opts_chunk$set` settings in `~/.Rprofile` and these [knitr](https://yihui.name/knitr/) options will apply to all of your [RMarkdown](http://rmarkdown.rstudio.com/) documents.
-
-The setup chunk
-===============
-
-The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all `library()` loads required for the script and other `load()` requests for external files here. In our RMarkdown templates, such as the bcbioRnaseq [differential expression template](https://github.com/hbc/bcbioRnaseq/blob/master/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd), we store all the user-defined parameters in the `setup` chunk that are required for successful knitting.
-
-    {r setup, include=FALSE}
-    knitr::opts_chunk$set(echo = TRUE)
+An additional cool trick is that you can save `opts_chunk$set` settings in `~/.Rprofile` and these knitr options will apply to all of your RMarkdown documents.
 
 
+## Figures
 
-Figures
-=======
+A neat feature of knitr is how much simpler it makes generating figures. You can simply return a plot in a chunk, and knitr will automatically write the files to disk, in an organized subfolder. By specifying options in the `setup` chunk, you can have R automatically save your plots in multiple file formats at once, including PNG, PDF, and SVG. A single chunk can support multiple plots, and they will be arranged in squares below the chunk in RStudio.
 
-My favorite feature of [knitr](https://yihui.name/knitr/) is how much simpler it makes generating figures. You can simply return a plot in a chunk, and [knitr](https://yihui.name/knitr/) will automatically write the files to disk, in an organized subfolder. By specifying options in a `setup` chunk (below), you can have R automatically save your plots in multiple file formats at once, including PNG, PDF, and SVG. A single chunk can support multiple plots, and they will be arranged in squares below the chunk in [RStudio](https://www.rstudio.com/).
 
-Tables
-======
+## Tables
 
-[knitr](https://yihui.name/knitr/) includes a simple but powerful function for generating stylish tables in a knit report named `kable()`. Here's an example using [R](https://www.r-project.org/)'s built-in `mtcars` dataset:
+knitr includes a simple but powerful function for generating stylish tables in a knit report named `kable()`. Here's an example using [R](https://www.r-project.org/)'s built-in `mtcars` dataset:
 
 ``` r
 help("kable", "knitr")
@@ -137,10 +110,12 @@ mtcars %>%
 | Hornet Sportabout |  18.7|    8|   360|  175|  3.15|  3.440|  17.02|    0|    0|     3|     2|
 | Valiant           |  18.1|    6|   225|  105|  2.76|  3.460|  20.22|    1|    0|     3|     1|
 
-There are some other functions that allow for more powerful customization of tables, including `pander::pander()` and `xtable::xtable()`, but I generally perfer the simplicity and cross-platform reliability of `knitr::kable()`.
+There are some other functions that allow for more powerful customization of tables, including `pander::pander()` and `xtable::xtable()`, but I generally prefer the simplicity and cross-platform reliability of `knitr::kable()`.
 
-Generating the report
-=====================
+
+
+
+# Generating the report
 
 `knit()` (recommended)
 ----------------------
