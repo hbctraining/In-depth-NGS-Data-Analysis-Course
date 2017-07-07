@@ -134,7 +134,7 @@ Once we've finished creating an [RMarkdown](http://rmarkdown.rstudio.com/) file 
 -   pdf\_document
 -   github\_document
 
-RStudio now supports a [number of formats](http://rmarkdown.rstudio.com/formats.html), each with their own customization options. Consult their webiste for more details.
+RStudio now supports a [number of formats](http://rmarkdown.rstudio.com/formats.html), each with their own customization options. Consult their website for more details.
 
 `render()` (advanced)
 ---------------------
