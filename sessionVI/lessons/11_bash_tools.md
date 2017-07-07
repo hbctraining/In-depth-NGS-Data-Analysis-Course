@@ -10,8 +10,8 @@ duration: 45
 ## Overview
 
 * [Setting up](#setup)
+* [Regular expressions (regex) in `bash`](#regex)
 * [Reintroducing `grep`](#grep)
-* [Regular expressions (regex)](#regex)
     * [Using `grep` with special characters](#example1)
 * [Introducing to `sed`](#sed)
     * [Using `sed` with special characters and regular expressions](#example2)
@@ -29,6 +29,50 @@ $ cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
 ```
 ***
 
+## Regular expressions (regex) in `bash` <a name="regex"></a>
+
+"A regular expression, regex or regexp (sometimes called a rational expression) is a sequence of characters that define a search pattern. Usually this pattern is then used by string searching algorithms for "find" or "find and replace" operations on strings." -[Wikipedia](https://en.wikipedia.org/wiki/Regular_expression)
+
+"The specific syntax rules vary depending on the specific implementation, programming language, or library in use. Additionally, the functionality of regex implementations can vary between versions of languages." -[Wikipedia](https://en.wikipedia.org/wiki/Regular_expression)
+
+Below is a small subset of characters that can be used for pattern generation in `bash`.
+
+**Special Characters:**
+
+*  `.` : *match any character (except new line)
+*  `\` : *make next character literal*
+*  `^` : *matches at the start of the line*
+*  `$` : *matches at the end of line*
+*  `*` : *repeat match
+*  `?` : *preceding character is optional
+*  `[ ]` : *sequence of characters*
+      * `[a-z]` : any one from a through z 
+      * `[aei]` : either a, e, i
+      * `[0-9]` : any one from 1 through 9
+
+**Examples:**
+
+* `.at` == any three-character string ending with "at", including "hat", "cat", and "bat".
+* `ab*c` == "ac", "abc", "abbc", "abbbc", and so on*
+* `colou?r` == "color" or "colour"*
+* `[hc]at` == "hat" and "cat".
+* `[^b]at` == all strings matched by .at except "bat".
+* `[^hc]at` == all strings matched by .at other than "hat" and "cat".
+* `^[hc]at` == "hat" and "cat", but only at the beginning of the string or line.
+* `[hc]at$` == "hat" and "cat", but only at the end of the string or line.
+* `\[.\]` == any single character surrounded by "[" and "]" since the brackets are escaped, for example: "[a]" and "[b]".
+* `s.*` == "s" followed by zero or more characters, for example: "s" and "saw" and "seed" and "shawshank".
+
+>  above examples excerpted from [Wikipedia](-[Wikipedia](https://en.wikipedia.org/wiki/Regular_expression))
+
+**Non printable characters:**
+
+* `\t` : tab
+* `\n` : new line (Unix)
+* `\s` : space
+
+***
+
 ## Reintroducing `grep` (GNU regex parser) <a name="grep"></a>
 
 As we have seen in session I, `grep` is a line by line parser by default displays matching lines to the pattern of interest that allows the use of regular expressions (regex) in the specified pattern.
@@ -43,55 +87,13 @@ OR
 
 **`grep` common options:**
 
-`c` : count the number of occurrences
-
-`v` : invert match, print non-matching lines
-
-`R` : recursively through directories
-
-`o` : only print matching part of line
-
-`n` : print the line number
+* `c` : count the number of occurrences
+* `v` : invert match, print non-matching lines
+* `R` : recursively through directories
+* `o` : only print matching part of line
+* `n` : print the line number
 
 ***
-
-## Regular expressions (regex) <a name="regex"></a>
-
-Used Pattern matching for a certain amount of text
-
-**Single character:** `B`
-
-**Character sets:**
-
-`[a-z]` : any one from a through z 
-
-`[aei]` : either a, e, i
-
-`[0-9]` : any one from 1 through 9
-
-**Non printable characters:**
-
-`\t` : tab
-
-`\r` : carriage return
-
-`\n` : new line (Unix)
-
-`\r\n` : new line (Windows)
-
-`\s` : space
-
-**Special Characters:**
-
-*  `.` : *match any character (except new line)*
-*  `\` : *make next character literal*
-*  `^` : *matches at the start of the line*
-*  `$` : *matches at the end of line*
-*  `*` : *repeat match*
-*  `?` : *preceding character is optional*
-*  `( )` : *create a capturing group*
-*  `[ ]` : *sequence of characters*
-*  `{ }` : *place bounds, e.g `{1,6}`*
 
 ### Examples of special characters with `grep` <a name="example1"></a>
 
