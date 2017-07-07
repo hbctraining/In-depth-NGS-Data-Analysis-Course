@@ -2,7 +2,7 @@
 title: "The tidyverse"
 author: "Michael J. Steinbaugh"
 date: "2017-07-07"
-output: html_document
+output: github_document
 ---
 
 The [tidyverse][] is a suite of integrated packages designed to make common operations performed in [R][] more user friendly.
