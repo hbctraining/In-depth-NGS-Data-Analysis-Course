@@ -143,6 +143,7 @@ $ sed '1,2d' bicycle_copy.txt
 
 $ sed 's/Superman/Batman/' bicycle_copy.txt 
 
+$ sed 's/bicycle/car/' bicycle_copy.txt 
 $ sed 's/bicycle/car/g' bicycle_copy.txt 
 
 $ sed 's/.icycle/car/g' bicycle_copy.txt
