@@ -352,7 +352,7 @@ pull(report, symbol) %>% .[1:10]
 Joins
 -----
 
-To demonstrate [dplyr](http://dplyr.tidyverse.org/)'s powerful suite of join operations, let's import Ensembl gene annotations from the \[annotables\]\[\] package and add them to our report.
+To demonstrate [dplyr](http://dplyr.tidyverse.org/)'s powerful suite of join operations, let's import Ensembl gene annotations from the [annotables](https://github.com/stephenturner/annotables) package and add them to our report.
 
 ``` r
 install.packages("devtools")

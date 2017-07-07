@@ -311,6 +311,7 @@ Underneath the hood, [tidyverse][] packages build upon the base [R][] language u
 
 
 
+[annotables]: https://github.com/stephenturner/annotables
 [Bioconductor]: https://bioconductor.org/
 [dplyr]: http://dplyr.tidyverse.org/
 [ggplot2]: http://ggplot2.tidyverse.org/
