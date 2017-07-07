@@ -204,8 +204,6 @@ $ awk '{print $3}' reference_data/chr1-hg19_genes.gtf | head
 
 $ awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
 
-$ awk '{print $3 | "sort -u"}' reference_data/chr1-hg19_genes.gtf 
-
 $ awk '{OFS = "\t" ; if ($3 == "stop_codon") print $1,$4,$5,$3,$10}' reference_data/chr1-hg19_genes.gtf | head
 $ awk '{OFS = "\t" ; if ($3 == "stop_codon") print $1,$4,$5,$3,$10}' reference_data/chr1-hg19_genes.gtf | sed 's/"//g' | sed 's/;//g' | head
 
