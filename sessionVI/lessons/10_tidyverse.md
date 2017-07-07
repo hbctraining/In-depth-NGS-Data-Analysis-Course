@@ -136,6 +136,15 @@ glimpse(meta_tbl)
 glimpse(results_tbl)
 ```
 
+Row names
+---------
+
+*Important*: [tidyverse](http://tidyverse.org/) is very opininationed about row names. These packages insist that all column data (e.g. `data.frame`) be treated equally, and that special designation of a column as `rownames` should be deprecated. [tibble](http://tibble.tidyverse.org/) provides simple utility functions to to handle rownames: `rownames_to_column()` and `column_to_rownames()`.
+
+``` r
+help("rownames", "tibble")
+```
+
 Code style
 ==========
 
@@ -189,7 +198,7 @@ The most useful tool in the [tidyverse](http://tidyverse.org/) is [dplyr](http:/
 -   `mutate()` adds new variables that are functions of existing variables
 -   `summarise()` reduces multiple values down to a single summary.
 
-[dplyr](http://dplyr.tidyverse.org/) underwent a massive revision this year, switching versions from 0.5 to 0.7. If you consult other [dplyr](http://dplyr.tidyverse.org/) tutorials online, note that many materials developed prior to 2017 are no longer correct. In particular, this applies to writing functions with [dplyr](http://dplyr.tidyverse.org/) (see Notes section below).
+**Note:** [dplyr](http://dplyr.tidyverse.org/) underwent a massive revision this year, switching versions from 0.5 to 0.7. If you consult other [dplyr](http://dplyr.tidyverse.org/) tutorials online, note that many materials developed prior to 2017 are no longer correct. In particular, this applies to writing functions with [dplyr](http://dplyr.tidyverse.org/) (see Notes section below).
 
 Let's make a report tibble of our `DESeqResults`.
 
@@ -348,11 +357,6 @@ report <- left_join(report, annotable, by = "symbol")
 
 Notes
 =====
-
-Row names
----------
-
-*Important*: [tidyverse](http://tidyverse.org/) is very opininationed about row names. These packages insist that all column data (e.g. `data.frame`) be treated equally, and that special designation of a column as `rownames` should be deprecated. [tibble](http://tibble.tidyverse.org/) provides simple utility functions to to handle rownames: `rownames_to_column()` and `columns_to_rowname()`.
 
 Programming
 -----------
