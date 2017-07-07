@@ -54,9 +54,7 @@ When you load the [tidyverse][], you'll see messages about tidy package conflict
 
 
 
-# Load the example data
-
-```{r example_data}
+```{r example_data, include=FALSE}
 results_dir <- file.path(
     "https://raw.githubusercontent.com",
     "hbctraining",
@@ -96,7 +94,7 @@ Try executing `counts` in your console:
 counts_tbl
 ```
 
-See how [R][] only prints 10 rows instead of returning all 38k?
+See how [R][] only prints 10 rows instead of returning all 38k? This is much more user friendly.
 
 Internally, a [tibble][] is essentially a class variant of `data.frame`, with some extra tibble (`tbl`) magic baked in:
 
@@ -227,7 +225,7 @@ report %>%
 
 *Advanced:* `summarise()` is particularly powerful in combination with the `group_by()` function, which allows you to group related rows together.
 
-*Note*: `summarize()` also works, for any patriotic Americans o reject British English 🇬.his applies across the board to any tidy functions, including in [ggplot2][] (e.g. `color` in place of `colour`).
+*Note*: `summarize()` also works if you prefer to use American English. This applies across the board to any tidy functions, including in [ggplot2][] (e.g. `color` in place of `colour`).
 
 
 ## `pull()`
@@ -250,7 +248,8 @@ devtools::install_github("stephen_turner/annotables")
 
 ```{r}
 library(annotables)
-annotable <- grch37 %>%     select(symbol, biotype, description) %>%
+annotable <- grch37 %>%
+    select(symbol, biotype, description) %>%
     distinct
 ```
 

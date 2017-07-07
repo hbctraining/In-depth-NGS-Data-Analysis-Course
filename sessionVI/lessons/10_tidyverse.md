@@ -59,37 +59,6 @@ When you load the [tidyverse](http://tidyverse.org/), you'll see messages about 
 
 **Note**: This remains a common issue when loading multiple libraries in a single script. For example, many [Bioconductor](https://bioconductor.org/) packages have generic functions with the same name as base [R](https://www.r-project.org/) and [tidyverse](http://tidyverse.org/) packages. For example, `biomaRt::select()` and `dplyr::select()` have the same function name but require different arguments. Whichever library you load last will define the function name (`select()`). If you need to use two packages with the same function name at the same time, you can reference them explicitly (e.g. `dplyr::select()`). Therefore, when starting a new analysis using [tidyverse](http://tidyverse.org/) packages, we highly recommend slotting `library(tidyverse)` at the end of your list of libraries.
 
-Load the example data
-=====================
-
-``` r
-results_dir <- file.path(
-    "https://raw.githubusercontent.com",
-    "hbctraining",
-    "In-depth-NGS-Data-Analysis-Course",
-    "may2017",
-    "sessionVI",
-    "results")
-counts_mat <- file.path(results_dir, "counts.txt") %>%
-    read.table %>%
-    as.matrix
-counts_tbl <- counts_mat %>%
-    as.data.frame %>%
-    as_tibble %>%
-    rownames_to_column("ensgene")
-meta_tbl <- file.path(results_dir, "meta.txt") %>%
-    read.table %>%
-    as_tibble %>%
-    rownames_to_column("sample_name") %>%
-    rename(sample_type = sampletype,
-           mov_expression = MOVexpr) %>%
-    mutate(sample_name = tolower(sample_name))
-results_tbl <- file.path(results_dir, "results_Mov10_oe.txt") %>%
-    read.table %>%
-    as_tibble %>%
-    rownames_to_column("symbol")
-```
-
 tibbles
 =======
 
@@ -118,7 +87,7 @@ counts_tbl
     ## #   sample7 <dbl>, sample8 <dbl>, sample9 <dbl>, sample10 <dbl>,
     ## #   sample11 <dbl>, sample12 <dbl>
 
-See how [R](https://www.r-project.org/) only prints 10 rows instead of returning all 38k?
+See how [R](https://www.r-project.org/) only prints 10 rows instead of returning all 38k? This is much more user friendly.
 
 Internally, a [tibble](http://tibble.tidyverse.org/) is essentially a class variant of `data.frame`, with some extra tibble (`tbl`) magic baked in:
 
@@ -312,7 +281,7 @@ report %>%
 
 *Advanced:* `summarise()` is particularly powerful in combination with the `group_by()` function, which allows you to group related rows together.
 
-*Note*: `summarize()` also works, for any patriotic Americans o reject British English 🇬.his applies across the board to any tidy functions, including in [ggplot2](http://ggplot2.tidyverse.org/) (e.g. `color` in place of `colour`).
+*Note*: `summarize()` also works if you prefer to use American English. This applies across the board to any tidy functions, including in [ggplot2](http://ggplot2.tidyverse.org/) (e.g. `color` in place of `colour`).
 
 `pull()`
 --------
@@ -335,7 +304,8 @@ devtools::install_github("stephen_turner/annotables")
 
 ``` r
 library(annotables)
-annotable <- grch37 %>%     select(symbol, biotype, description) %>%
+annotable <- grch37 %>%
+    select(symbol, biotype, description) %>%
     distinct
 ```
 
