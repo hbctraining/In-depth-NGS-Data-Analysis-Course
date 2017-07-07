@@ -13,7 +13,7 @@ duration: 45
 * [Regular expressions (regex) in `bash`](#regex)
 * [Reintroducing `grep`](#grep)
     * [Using `grep` with special characters](#example1)
-* [Introducing to `sed`](#sed)
+* [Introducing `sed`](#sed)
     * [Using `sed` with special characters and regular expressions](#example2)
 * [Reintroducing `awk`](#awk)
     * [`awk` examples](#example3)
@@ -113,7 +113,7 @@ $ grep ^[SJ] bicycle.txt
 ```
 ***
 
-## Reintroducing `sed` <a name="sed"></a>
+## Introducing `sed` <a name="sed"></a>
 
 `sed` takes a stream of stdin and pattern matches and returns the replaced text to stdout ("Think amped-up Windows Find & Replace").
 
