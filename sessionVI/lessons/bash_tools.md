@@ -3,11 +3,11 @@
 
 * [Reintroducing `grep`](#grep)
 * [Regular expressions (regex)](#regex)
- * [Using `grep` with special characters](#example1)
+    * [Using `grep` with special characters](#example1)
 * [Introducing to `sed`](#sed)
- * [Using `sed` with special characters and regular expressions](#example2)
+    * [Using `sed` with special characters and regular expressions](#example2)
 * [Reintroducing `awk`](#awk)
- * [`awk` examples](#example3)
+    * [`awk` examples](#example3)
 
 ***
 
