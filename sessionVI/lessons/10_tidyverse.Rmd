@@ -1,0 +1,72 @@
+---
+title: "The tidyverse"
+author: "Michael J. Steinbaugh"
+date: "2017-07-07"
+output: html_document
+---
+
+```{r setup, message=FALSE}
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+The [tidyverse][] is a suite of integrated packages designed to make common operations performed in [R][] more user friendly.
+
+[tidy evaluation][], in the [rlang][] package. This essentially is a form of non-standard evaluation that makes arguments passed to functions easier to read.
+
+Both of these functions use non-standard evaluation. `filter()` mimics `subset()` but uses tidy evaluation under the hood:
+
+```{r}
+subset
+filter
+```
+
+
+```{r read}
+results_dir <- file.path(
+    "https://raw.githubusercontent.com",
+    "hbctraining",
+    "In-depth-NGS-Data-Analysis-Course",
+    "may2017",
+    "sessionVI",
+    "results")
+counts <- file.path(results_dir, "counts.txt") %>% read.table
+meta <- file.path(results_dir, "meta.txt") %>% read.table
+rm(results_dir)
+```
+
+```{r}
+glimpse(counts)
+glimpse(meta)
+```
+
+```{r}
+starwars <- dplyr::starwars
+starwars
+```
+
+```{r}
+glimpse(starwars)
+```
+
+```{r as_tibble}
+counts <- counts %>%
+    as_tibble %>%
+    rownames_to_column("ensgene")
+meta <- meta %>%
+    as_tibble %>%
+    rownames_to_column("sample_name")
+```
+
+```{r rename}
+meta <- meta %>%
+    rename(sample_type = sampletype,
+           mov_expression = MOVexpr) %>%
+    mutate(sample_name = tolower(sample_name))
+```
+
+
+
+# Additional resources
+
+- David Robinson's recent article on tidyverse
