@@ -3,7 +3,7 @@
 
 * [`grep`](#grep)
 * [regex](#regex)
-  * [using `grep` with special characters](example1)
+  * [using `grep` with special characters](#example1)
 * [`sed`](#sed)
 
 ***
