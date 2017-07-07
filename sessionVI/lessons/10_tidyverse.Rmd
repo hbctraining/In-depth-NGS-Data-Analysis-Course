@@ -76,7 +76,7 @@ results <- file.path(results_dir, "results_Mov10_oe.txt") %>%
     read.table
 ```
 
-Coerce your counts, metadata, and DESeqResults to data frames:
+Before we begin the tidy workflow, coerce your counts, metadata, and DESeqResults to data frames:
 
 ```{r globalenv_data, eval=FALSE}
 counts <- as.data.frame(data)
@@ -88,7 +88,6 @@ Now let's create tibbles from our data frames:
 
 ```{r tibbles}
 counts_tbl <- counts %>%
-    as.data.frame %>%
     as_tibble %>%
     rownames_to_column("ensgene")
 meta_tbl <- meta %>%
@@ -104,7 +103,7 @@ results_tbl <- results %>%
 
 First, try returning the `counts` data frame in your console.
 
-```{r}
+```{r, eval=FALSE}
 counts
 ```
 
@@ -158,7 +157,7 @@ Here's the [tidyverse][] variant:
 filter(meta_tbl, mov_expression == "high")
 ```
 
-See how both functions refer to `mov_expression` directly and not in quotations? That's *non-standard evaluation*. It makes code easier to read.
+See how both functions refer to the `mov_expression` column directly and not in quotations? That's *non-standard evaluation*. It makes code easier to read.
 
 
 
@@ -174,7 +173,7 @@ The most useful tool in the [tidyverse][] is [dplyr][]. It's a swiss-army knife 
 
 [dplyr][] underwent a massive revision this year, switching versions from 0.5 to 0.7. If you consult other [dplyr][] tutorials online, note that many materials developed prior to 2017 are no longer correct. In particular, this applies to writing functions with [dplyr][] (see Notes section below).
 
-Let's make new tibbles of our `DESeqResults` containing only significantly upregulated and downregulated genes.
+Let's make a report tibble of our `DESeqResults`.
 
 
 ## `select()`
