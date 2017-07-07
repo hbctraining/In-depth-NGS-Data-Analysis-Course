@@ -38,7 +38,11 @@ Additionally, you can write inline [R](https://www.r-project.org/) code enclosed
 
 ## Per chunk options
 
-knitr provides a lot of customization options for code chunks, which are written in the form of `tag=value`. There is a [comprehensive list](https://yihui.name/knitr/options/#code-chunk) of all the options available, however when starting out this can be overwhelming. Here, we provide a short list of some options commonly use in chunks:
+knitr provides a lot of customization options for code chunks, which are written in the form of `tag=value`.
+
+<img src="../img/r-chunkoptions.png">
+
+There is a [comprehensive list](https://yihui.name/knitr/options/#code-chunk) of all the options available, however when starting out this can be overwhelming. Here, we provide a short list of some options commonly use in chunks:
 
 * `echo = TRUE`: whether to include R source code in the output file
 * `eval = TRUE`: whether to evaluate/execute the code 
@@ -92,7 +96,7 @@ A neat feature of knitr is how much simpler it makes generating figures. You can
 
 ## Tables
 
-knitr includes a simple but powerful function for generating stylish tables in a knit report named `kable()`. Here's an example using [R](https://www.r-project.org/)'s built-in `mtcars` dataset:
+knitr includes a simple but powerful function for generating stylish tables in a knit report named `kable()`. Here's an example using R's built-in `mtcars` dataset:
 
 ``` r
 help("kable", "knitr")
@@ -130,7 +134,7 @@ Once we've finished creating an [RMarkdown](http://rmarkdown.rstudio.com/) file 
 -   pdf\_document
 -   github\_document
 
-[RStudio](https://www.rstudio.com/) now supports a [number of formats](http://rmarkdown.rstudio.com/formats.html), each with their own customization options. Consult their webiste for more details.
+RStudio now supports a [number of formats](http://rmarkdown.rstudio.com/formats.html), each with their own customization options. Consult their webiste for more details.
 
 `render()` (advanced)
 ---------------------
@@ -154,12 +158,12 @@ The `knit()` command works great if you only need to generate a single document 
 
 **Note**: PDF rendering is sometimes problematic, especially when running [R](https://www.r-project.org/) remotely, like on the Orchestra cluster. If you run into problems, it's likely an issue related to [pandoc](http://pandoc.org).
 
-Working directory behavior
-==========================
 
-**Note**: [knitr](https://yihui.name/knitr/) redefines the working directory of an RMarkdown file in a manner that can be confusing. If you're working in [RStudio](https://www.rstudio.com/) with an [RMarkdown](http://rmarkdown.rstudio.com/) file that is not at the same location as the current R working directory (`getwd()`), you can run into problems with broken file paths. Let's say I have [RStudio](https://www.rstudio.com/) open without a project loaded. My working directory is set to `~/Users/mike`. Now, if I load an RMarkdown file from my desktop at `~/Users/mike/Desktop`, [knitr](https://yihui.name/knitr/) will set the working directory within chunks to be relative to my desktop. We advise against coding paths in a script to only work with [knitr](https://yihui.name/knitr/) and not base [R](https://www.r-project.org/).
-
-A simple way to resolve this issue is by creating an R project for the analysis, and saving all RMarkdown files at the top level, to avoid running into unexpected problems related to this behavior.
+> ## Working directory behavior
+> 
+> knitr redefines the working directory of an RMarkdown file in a manner that can be confusing. If you're working in RStudio with an RMarkdown file that is not at the same location as the current R working directory (`getwd()`), you can run into problems with broken file paths. Suppose you have RStudio open without a project loaded. My working directory is set to `~/Users/mike`. Now, if I load an RMarkdown file from my desktop at `~/Users/mike/Desktop`, knitr will set the working directory within chunks to be relative to my desktop. We advise against coding paths in a script to only work with knitr and not base R.
+> 
+> A simple way to resolve this issue is by creating an R project for the analysis, and saving all RMarkdown files at the top level, to avoid running into unexpected problems related to this behavior.
 
 Convert an R script to an RMarkdown knit report
 ===============================================
@@ -180,7 +184,7 @@ download.file(
 
 Open this script as a new tab in RStudio. Let's create a new RMarkdown called `de_analysis.Rmd`. You can do this quickly in RStudio by going to `File -> New File -> R Markdown...`. Customize the RMarkdown YAML header and create chunks for each code block.
 
-Additional links
+Additional resources
 ================
 
 -   [knitr in a knutshell](http://kbroman.org/knitr_knutshell/)
