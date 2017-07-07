@@ -54,7 +54,12 @@ When you load the [tidyverse][], you'll see messages about tidy package conflict
 
 
 
-```{r example_data, include=FALSE}
+# tibbles
+
+A core component of the [tidyverse][] is the [tibble][]. Tibbles are a modern rework of the standard `data.frame`, with some internal improvements to make code more reliable. Most notably, tibbles will return a more reasonable number of rows to the console.
+
+```{r gh_data, include=FALSE}
+# Download from GH to knit
 results_dir <- file.path(
     "https://raw.githubusercontent.com",
     "hbctraining",
@@ -62,33 +67,48 @@ results_dir <- file.path(
     "may2017",
     "sessionVI",
     "results")
-counts_mat <- file.path(results_dir, "counts.txt") %>%
+counts <- file.path(results_dir, "counts.txt") %>%
     read.table %>%
     as.matrix
-counts_tbl <- counts_mat %>%
+meta <- file.path(results_dir, "meta.txt") %>%
+    read.table
+results <- file.path(results_dir, "results_Mov10_oe.txt") %>%
+    read.table
+```
+
+Coerce your counts, metadata, and DESeqResults to data frames:
+
+```{r globalenv_data, eval=FALSE}
+counts <- as.data.frame(data)
+meta <- as.data.frame(meta)
+results <- as.data.frame(res_tableOE)
+```
+
+Now let's create tibbles from our data frames:
+
+```{r tibbles}
+counts_tbl <- counts %>%
     as.data.frame %>%
     as_tibble %>%
     rownames_to_column("ensgene")
-meta_tbl <- file.path(results_dir, "meta.txt") %>%
-    read.table %>%
+meta_tbl <- meta %>%
     as_tibble %>%
     rownames_to_column("sample_name") %>%
     rename(sample_type = sampletype,
            mov_expression = MOVexpr) %>%
     mutate(sample_name = tolower(sample_name))
-results_tbl <- file.path(results_dir, "results_Mov10_oe.txt") %>%
-    read.table %>%
+results_tbl <- results %>%
     as_tibble %>%
     rownames_to_column("symbol")
 ```
 
+First, try returning the `counts` data frame in your console.
 
+```{r}
+counts
+```
 
-# tibbles
-
-A core component of the [tidyverse][] is the [tibble][]. Tibbles are a modern rework of the standard `data.frame`, with some internal improvements to make code more reliable. Most notably, tibbles will return a more reasonable number of rows to the console.
-
-Try executing `counts` in your console:
+Next, try returning the counts [tibble][].
 
 ```{r}
 counts_tbl
