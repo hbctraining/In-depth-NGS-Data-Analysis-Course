@@ -181,6 +181,7 @@ Fields are separated by white space, or you can specifying a field separator (FS
 The `awk` program has some internal environment variables that are useful (more exist and change upon platform)
 
 * `NF` – number of fields in the current record
+* `NR` – number of the current record (somewhat similar to row number)
 * `FS` – regular expression used to separate fields; also settable by option -Ffs (default whitespace)
 * `RS` – input record separator (default newline)
 * `OFS` – output field separator (default blank)
@@ -211,7 +212,11 @@ $ awk '{OFS = "\t" ; if ($3 == "stop_codon") print $1,$4,$5,$3,$10}' reference_d
 $ awk -F "\t" '{print $10}' reference_data/chr1-hg19_genes.gtf | head
 $ awk -F "\t" '{print $9}' reference_data/chr1-hg19_genes.gtf | head
 
-$ awk '{if ($3 == "stop_codon") ; sum += 1} END {print "Total: "sum}' reference_data/chr1-hg19_genes.gtf 
+# head other/bad-reads.count.summary
+$ awk -F ":" 'NR > 1 {sum += $2} END {print sum}' other/bad-reads.count.summary
+
+# head ../rnaseq/results/counts/Mov10_featurecounts.Rmatrix.txt
+$ awk 'NR > 1 {sum += $2} END {print sum}' ../rnaseq/results/counts/Mov10_featurecounts.Rmatrix.txt
 ```
 
 ***
