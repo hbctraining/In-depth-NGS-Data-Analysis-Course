@@ -1,11 +1,15 @@
 
+## Overview
+
+* [`grep`](#grep)
+
 ```bash
 cd ~/ngs_course/unix_lesson
 
 cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
 ```
 
-## Reintroducing `grep` (GNU regex parser)
+## Reintroducing `grep` (GNU regex parser) <a name="grep"></a>
 
 As we have seen in session I, `grep` is a line by line parser by default displays matching lines to the pattern of interest that allows the use of regular expressions (regex) in the specified pattern.
 
