@@ -1,6 +1,7 @@
 
 ## Overview
 
+* [Setting up](#setup)
 * [Reintroducing `grep`](#grep)
 * [Regular expressions (regex)](#regex)
     * [Using `grep` with special characters](#example1)
@@ -11,7 +12,7 @@
 
 ***
 
-## Setting up
+## Setting up <a name="setup"></a>
 
 ```bash
 $ cd ~/ngs_course/unix_lesson
