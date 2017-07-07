@@ -9,7 +9,7 @@ cp /groups/hbctraining/ngs-data-analysis-longcourse/unix_lesson/bicycle.txt .
 
 As we have seen in session I, `grep` is a line by line parser by default displays matching lines to the pattern of interest that allows the use of regular expressions (regex) in the specified pattern.
 
-**`grep` usage: **
+**`grep` usage:**
 
 `cat file | grep pattern`
 
