@@ -12,9 +12,9 @@ duration: 45
 * [Setting up](#setup)
 * [Regular expressions (regex) in `bash`](#regex)
 * [Reintroducing `grep`](#grep)
-    * [Using `grep` with special characters](#example1)
+    * [`grep` examples](#example1)
 * [Introducing `sed`](#sed)
-    * [Using `sed` with special characters and regular expressions](#example2)
+    * [`sed` examples](#example2)
 * [Reintroducing `awk`](#awk)
     * [`awk` examples](#example3)
 
@@ -95,7 +95,7 @@ OR
 
 ***
 
-### Examples of special characters with `grep` <a name="example1"></a>
+### Examples `grep` usage <a name="example1"></a>
 
 ```bash
 $ grep -c bicycle bicycle.txt
@@ -136,7 +136,7 @@ OR
 * `/pattern/a\text` : *append line with text after matching pattern*
 * `/pattern/c\text` : *change line with text for matching pattern*
 
-### Examples of special characters and regular expression with `sed` <a name="example2"></a>
+### Examples `sed` usage <a name="example2"></a>
 
 ```bash
 $ sed '1,2d' bicycle_copy.txt
@@ -195,7 +195,7 @@ The `awk` program has some internal environment variables that are useful (more 
 
 Please note that awk is a language on it's own, and we will only be looking at some examples os its usage.
 
-### Examples of `awk` <a name="example3"></a>
+### Examples `awk` usage <a name="example3"></a>
 
 ```bash
 $ awk '{print $3}' reference_data/chr1-hg19_genes.gtf | head
