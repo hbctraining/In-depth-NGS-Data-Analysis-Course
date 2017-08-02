@@ -223,7 +223,10 @@ Let's first obtain a summary of how many peaks were called in each sample. We ca
 	$ wc -l *.narrowPeak
 
 We can also generate plots using the R script file that was output by MACS2. There is a `_model.R` script in the directory. Let's load the R module and run the R script in the command line using the `Rscript` command as demonstrated below:
+<<<<<<< HEAD
 
+=======
+>>>>>>> b681cc9aecf74b6aa10cb68bb483f143b578672e
 
 	$ module load stats/R/3.2.1
 	$ Rscript Nanog-rep1_model.r

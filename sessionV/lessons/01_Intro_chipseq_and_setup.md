@@ -77,6 +77,7 @@ Before we get started with the analysis, we need to set up our directory structu
 Login to Orchestra and start an interactive session with two cores:
 
 ```bash
+<<<<<<< HEAD
 $ bsub -Is -n 2 -q interactive bash
 ```
 
@@ -95,6 +96,7 @@ $ cd chipseq
 ```
 
 Now let's setup the directory structure, we are looking for the following structure within the chipseq directory:
+
 ```bash
 chipseq/
 ├── logs/
@@ -108,6 +110,7 @@ chipseq/
 │   └── untrimmed_fastqc/
 └── scripts/
 ```
+
 ```bash
 $ mkdir -p raw_data reference_data scripts logs meta
 
@@ -127,6 +130,7 @@ You should have bcbio in you path, but please check that it is:
 ```bash
 $ echo $PATH
 ```
+
 If `/opt/bcbio/centos/bin` is not part of `$PATH`, add it by adding the following line within your `~/.bashrc` file and then run `source ~/.bashrc`:
 
 ```bash
