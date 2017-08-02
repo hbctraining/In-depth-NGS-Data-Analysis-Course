@@ -1,7 +1,7 @@
 ---
-title: "Permissions and Environment variables"
+title: "Permissions and Environment Variables"
 author: "Christina Koch, Radhika Khetani"
-date: "Wednesday, October 26, 2016"
+date: "Sunday, May 28, 2017"
 ---
 
 Approximate time: 60 minutes
@@ -14,14 +14,14 @@ Approximate time: 60 minutes
 
 ## Permissions
 
-Unix controls who can read, modify, and run files using *permissions*.
+UNIX controls who can read, modify, and run files using *permissions*.
 
 Let's start with how users are identified in a shared, multi-user system.
 We all have a unique username, e.g. rsk27 and a userid 124292.
 
 Find out yours:
 
-```
+```bash
 $ id <username>
 ```
 
@@ -31,7 +31,7 @@ The list of who is in what group is usually stored in the system file `/etc/grou
 
 Let's see what groups we all belong to:
 
-```
+```bash
 $ groups
 ```
 
@@ -40,7 +40,8 @@ Depending on our affiliation, we all belong to at least a couple of groups. I be
 * bcbio
 * hbctraining
 * Domain_Users
-* CBMI_pklab
+* genomebrowser-uploads 
+* shen
 
 As you can imagine, on a shared system it is important to protect each user's data. To start, every file and directory on a Unix computer belongs to one owner and one group. Along with each file's content, the operating system stores the numeric IDs of the user and group that own it, which is the "metadata" for a given file.
 
@@ -75,7 +76,7 @@ If we say,
 $ ls -l /bin/ls
 ```
 
-It tells us `-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`. 
+`-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`. 
  
 So, `ls` is an executable file that belong to user root and group root, and only they can modify (write) it.
 
@@ -83,12 +84,10 @@ So, `ls` is an executable file that belong to user root and group root, and only
 >
 > The fact that something is marked as executable doesn't actually mean it contains or is a program of some kind. We could easily mark the `~/ngs_course/unix_lesson/raw_fastq/Irrel_kd_1.subset.fq` file as executable using the commands that are introduced below. Depending on the operating system we're using, trying to "run" it will fail (because it doesn't contain instructions the computer recognizes).
 
-
-Now let's run the command `ls -l ~/ngs_course/unix_lesson`, to list the files in that directory:
-
+Now let's run the following command:
 	
-```bash
-$ ls -l
+```bash	
+$ ls -l ~/ngs_course/unix_lesson
 ```
 ```
 drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
@@ -97,11 +96,11 @@ drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
 drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
 ```
 
-The `-l` flag tells `ls` to give us a long-form listing. It's a lot of information, so let's go through the columns in turn.
+The `-l` flag tells `ls` to give us a long-form listing. It's a lot of information, so let's go through the columns from right to left.
 
-On the right side, we have the file names. Next to them, moving left, are the times and dates they were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
+On the right side we have the file names and to the left of them are the times and dates these files were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
 
-Next to the modification time is the file's size in bytes and the names of the user and group that owns it (in this case, `rsk27` and `rsk27` respectively). We'll skip over the second column for now (the one showing `1` for each file),  because it's the first column that we care about most. This shows the file's permissions, i.e., who can read, write, or execute it.
+To the left of the modification time is the file's size in bytes and the names of the user and group that owns it (in this case, `rsk27` and `rsk27` respectively). We'll skip over the second column for now (the one showing `1` for each file),  because it's the first column that we care about most. This shows the file's permissions, i.e., who can read, write, or execute it.
 
 Let's have a closer look at one of those permission strings for README.txt:
 	
@@ -127,25 +126,22 @@ $ ls -l ~/ngs_course/unix_lesson/README.txt
 
 ```bash
 $ chmod o-rw ~/ngs_course/unix_lesson/README.txt         # the "-" after o denotes removing that permission
-
-$ ls -l ~/ngs_course/unix_lesson/README.txt
-
--rw-rw---- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
 ```
+The `o` signals that we're changing the privileges of "others", and the `-` indicates that we are removing read and write permissions.
 
-The 'o' signals that we're changing the privileges of "others".
-
-Let's change it back to allow it to be readable by others:
+Let's change it back to allow it to be readable by others, i.e. add read permission:
 	
 ```bash
 $ chmod o+r ~/ngs_course/unix_lesson/README.txt         # the "+" after o denotes adding/giving that permission
+```
 
+```bash
 $ ls -l ~/ngs_course/unix_lesson/README.txt
 
 -rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
 ```
 
-If we wanted to make this an executable file for ourselves (the file's owners) we would say `chmod u+rwx`, where the 'u' signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter "g" `chmod g-w`. 
+If we wanted to make this an executable file for ourselves (the file's owners) we would say `chmod u+rwx`, where the `u` signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter `g`, e.g. `chmod g-w`. 
 
 Before we go any further,
 let's run `ls -l` on the `~/ngs_course/unix_lesson` directory to get a long-form listing:
@@ -177,7 +173,7 @@ She's allowed to go through `pluto`, but not to look at what's there. She will b
 This trick gives people a way to make some of their directories visible to the world as a whole without opening up everything else.
 
 ****
-**Exercise**
+### Exercise
 
 If `ls -l myfile.php` returns the following details:
 
@@ -195,10 +191,12 @@ Which of the following statements is true?
 
 ## Environment Variables
 
-Environment variables are, in short, variables that describe the environment in which programs run in. Two commonly encountered variables are HOME and PATH.
+Every time a shell session spawns, a process takes place to gather and compile information to determine its behavior and access to resources. One way that the shell keeps track of all of these settings and details is through an area it maintains called the **environment**.
 
-* HOME defines the home directory for a user.
-* PATH defines a list of directories to search through when looking for a command to execute.
+The environment is built by the shell every time that it starts a session. The environment is defined by **environment variables** as they define the system properties of the environment. Two commonly encountered variables are `HOME` and `PATH`.
+
+* `HOME` defines the home directory for a user.
+* `PATH` defines a list of directories to search through when looking for a command to execute.
 
 In the context of the shell the Environment variables are usually all upper case.
 
@@ -223,7 +221,7 @@ $ echo $PATH
 
 /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin:/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:/opt/lsf/7.0/linux2.6-glibc2.3-x86_64/etc:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 ```
-I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a ":"; here is the list in a more readable format:
+I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a "**:**"; here is the list in a more readable format:
 
 * /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin
 * /groups/bcbio/bcbio/anaconda/bin
@@ -276,10 +274,32 @@ $ vim ~/.bashrc
 
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
+### [[Extra, extra!!]] Modifying command prompt content
+
+To change the command prompt you would modify the `PS1` environment variable. Let's take a look at what the current contents are.
+
+```bash
+echo $PS1
+```
+
+To change the command prompt to contain the full path of the directory you are in, open the `~/.bashrc` file using "vim" and add the following line to the end of the file.
+
+```bash
+PS1="\u@\h:\w\$ "
+```
+The `\u`, `\h`, `\w` and `\W` are "bash prompt special characters." You can find more information about what those characters mean [at this link](https://linuxconfig.org/bash-prompt-basics).
+
+After you add it, run the `source` command on the file to make the modification go into effect.
+
+```bash
+$ source ~/.bashrc
+```
+
+These steps will modify the command prompt when you start an interactive session on Orchestra to display the full path. If you want to make the same change to the command prompt when you log in, you will have to add the `PS1` reassignment line to `~/.bash_profile`.
+
 ---
 
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
 * *The materials used in this lesson was derived from work that is Copyright © Software Carpentry (http://software-carpentry.org/). 
 All Software Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
-

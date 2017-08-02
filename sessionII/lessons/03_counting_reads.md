@@ -1,15 +1,16 @@
 ---
-title: "Counting reads"
-author: "Meeta Mistry, Bob Freeman, Radhika Khetani"
-date: "Tuesday, February 16, 2016"
+title: Counting reads
+author: Meeta Mistry, Bob Freeman, Radhika Khetani
+date: 06/06/2017
 ---
 
-Approximate time: 
+Approximate time: 75 minutes
 
 ## Learning Objectives:
 
-* learn about read counting tools
-* learn to generate a count matrix using featureCounts
+* understand how counting tools work
+* generate a count matrix using featureCounts
+* generate a report with multiQC to document results
 
 ## Counting reads as a measure of gene expression
 <img src="../img/counts-workflow.png" width="400">
@@ -48,7 +49,7 @@ First things first, start an interactive session with 4 cores:
 $ bsub -Is -n 4 -q interactive bash
 ```
 
-Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for the bam files we generated yesterday:
+Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for the bam files we generated earlier:
 
 ``` bash
 $ cd ~/ngs_course/rnaseq/
@@ -88,7 +89,7 @@ We are going to use the following options:
 
 and the following are the values for the required parameters:
 
-`-a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf # required option for specifying path to GTF`
+`-a ~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf # required option for specifying path to GTF`
 
 `-o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt # required option for specifying path to, and name of the text output (count matrix)`
 
@@ -98,7 +99,7 @@ Let's run this now:
 
 ``` bash
 $ featureCounts -T 4 -s 2 \ 
-  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
+  -a ~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf \
   -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
   ~/ngs_course/rnaseq/results/STAR/bams/*bam
 ```
@@ -110,7 +111,7 @@ $ featureCounts -T 4 -s 2 \
 # note the last line of the command below
 	
 $ featureCounts -T 4 -s 2 \ 
-  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
+  -a ~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf \
   -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
   ~/ngs_course/rnaseq/results/STAR/bams/*bam \
   2> /ngs_course/rnaseq/results/counts/Mov10_featurecounts.screen-output
@@ -144,16 +145,50 @@ For paired-end (PE) data, the bam file contains information about whether both r
 
 For counting PE fragments associated with genes, the input bam files need to be sorted by read name (i.e. alignment information about both read pairs in adjoining rows). The alignment tool might sort them for you, but watch out for how the sorting was done. If they are sorted by coordinates (like with STAR), you will need to use `samtools sort` to re-sort them by read name before using as input in featureCounts. If you do not sort you BAM file by read name before using as input, featureCounts assumes that almost all the reads are not properly paired.
 
-### Keeping track of read numbers
+## Documenting results for QC
 
-It is important to keep track of how many reads you started with and how many of those ended up being associated with genes. This will help you pick out any obvious outliers, and it will also alert you early on about issues with contamination and so on.
+As you walk through the workflow, it is important to document the parameters you are using to run the analysis, but it is are very important to document the results at every step. This is a a form of QC and it will enable you to identify any issues with the parameters you are using or any contamination, biases, etc.  
+
+### Manual tracking
+One way to document the results is by keeping track of how many reads you started with and how many of those ended up being associated with genes. 
 
 The things to keep track of for each sample are the following:
 * number of raw reads
-* number of reads left after trimming
 * number of reads aligned to genome
 * number of reads associated with genes 
- 
-We have an [Excel template](https://dl.dropboxusercontent.com/u/74036176/rna-seq_reads_template.xlsx) available, to get you started.
 
+But this method is tedious and difficult. Several tools exist that help you with the documentation, and additionally have really nice visualizations to go along with it, e.g. [Qualimap](http://qualimap.bioinfo.cipf.es/doc_html/index.html), [MultiQC](http://multiqc.info/). These tools have some overlap, but Qualimap is focused on count data whereas MultiQC is able to make a report from the output of many different tools in a given workflow.
 
+### Tracking and aggregating results from tools with *MultiQC*
+
+Today we will be using MultiQC, which aggregates results from several tools and generates a single HTML report with plots to visualize results. This is a very useful method of not only keeping track of what is going on at each step with each sample, but more importantly it enables a graphical comparison of samples with each other.
+
+MultiQC can generate this report from 36 different bioinformatics tools, and these tools span various NGS analyses, e.g., basic QC, RNA-seq, variant calling, genome annotation, etc. Today we are going to use it to aggregate information from the results of [FastQC](http://multiqc.info/docs/#fastqc), [STAR](http://multiqc.info/docs/#star), and [featureCounts](http://multiqc.info/docs/#featurecounts). MultiQC can parse the information from specific output files from each of these tools and the manual page specifies the required output from each of the tools that should be used as input to MultiQC.
+
+We are going to start by creating a directory in the `~/ngs_course/rnaseq/results/` directory called `multiqc_report` and navigating to it. You should already be in the `~/ngs_course/rnaseq/` directory.
+
+```bash
+mkdir results/multiqc_report
+
+cd results/multiqc_report
+```
+
+Next, we are going to run multiQC on the output of FastQC (zip files), STAR (.Log.final.out files) and featureCounts (the summary file).
+
+```bash
+multiqc -n multiqc_report_rnaseq \
+~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/*zip \
+~/ngs_course/rnaseq/logs/*Log.final.out \
+~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt.summary
+```
+
+> If you did not move the log files that are output by STAR, you will have to modify the path of the 2nd input in the code above to `~/ngs_course/rnaseq/results/STAR/*Log.final.out`
+
+> If you want to save the output on the terminal into a log file, you can use `2>` operator to redirect it to a file.
+
+The output of multiQC is 1 HTML file and a data folder. Let's transfer the interactive HTML report over to our laptops using FileZilla and visualize the outputs of the 3 tools we used to generate the report.
+
+The multiqc report is relatively quick to generate and provides a really clear method for comparing the samples to determine consistency, and to identify problematic samples.
+
+---
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*

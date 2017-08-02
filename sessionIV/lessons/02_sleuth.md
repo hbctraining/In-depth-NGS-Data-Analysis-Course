@@ -1,7 +1,7 @@
 ---
 title: "Differential expression of transcripts using Sleuth"
 author: "Mary Piper"
-date: "Monday, November 28, 2016"
+date: "Wednesday, June 21, 2017"
 ---
 
 Contributors: Mary Piper
@@ -18,7 +18,7 @@ Approximate time: 1.25 hours
 
 Until this point we have focused on looking for expression changes at the gene-level. However, if you are interested in looking at **splice isoform expression changes between groups** the previous methods (i.e DESeq2) will not work. To demonstrate how to identify transcript-level differential expression we will be using a tool called Sleuth.
 
-<img src="../img/sleuth_fullworkflow.png", width=500>
+<img src="../img/sleuth_fullworkflow_new.png" width="500">
 
 ## What is Sleuth?
 
@@ -26,9 +26,9 @@ Until this point we have focused on looking for expression changes at the gene-l
 
 To analyze the differential expression of gene isoforms, it is expected that RNA-Seq reads will often align to multiple isoforms of the same gene. Therefore, **multimapping reads cannot be ignored** to properly determine abundances of gene isoforms. 
 
-Due to the statistical procedure required to assign reads to gene isoforms, in addition to the random processes underlying RNA-Seq, there will be **technical variability in the abundance estimates** output from the pseudo-alignment tool [[2](https://rawgit.com/pachterlab/sleuth/master/inst/doc/intro.html), [3](http://biorxiv.org/content/biorxiv/early/2016/06/10/058164.full.pdf)]. For example, if we performed multiple technical replicates and estimated abundances for gene isoforms, the abundance estimates for the technical replicates would exhibit variability greater than expected. Therefore, we would need technical replicates to distinguish technical variability from the biological variability.
+Due to the statistical procedure required to assign reads to gene isoforms, in addition to the random processes underlying RNA-Seq, there will be **technical variability in the abundance estimates** output from the pseudo-alignment tool [[2](https://rawgit.com/pachterlab/sleuth/master/inst/doc/intro.html), [3](http://biorxiv.org/content/biorxiv/early/2016/06/10/058164.full.pdf)]. For example, if we performed multiple technical replicates and estimated abundances for gene isoforms, the abundance estimates for the technical replicates would exhibit variability greater than expected. Therefore, **we would need technical replicates to distinguish technical variability from the biological variability**.
 
-Sleuth accounts for this technical variability by using bootstraps as a proxy for technical replicates, which are used to model the variability in the abundance estimates. Bootstrapping essentially estimates technical variance by using a different sub-sample of reads during each round of bootstrapping. **The technical variance is the variation in transcript abundance estimates calculated for each of the different sub-samplings (or bootstraps) and it accounts for the technical variation associated with the transcript abundance estimation process**. 
+Sleuth accounts for this technical variability by using **bootstraps as a proxy for technical replicates**, which are used to model the variability in the abundance estimates. Bootstrapping essentially estimates technical variance by using a different sub-sample of reads during each round of bootstrapping. **The technical variance is the variation in transcript abundance estimates calculated for each of the different sub-samplings (or bootstraps) and it accounts for the technical variation associated with the transcript abundance estimation process**. 
 
 Sleuth models the unobserved true abundance (logarithm of true counts) using a general linear model, but includes the technical variance (variance between bootstrapping runs) as error in the response variable. 
 
@@ -82,7 +82,7 @@ $ mkdir -p ~/R/library
 
 ### Installing R packages
 
-Since Sleuth was designed to use the output of Kallisto as input, our Sailfish transcript abundance estimates need to be massaged into the format of the Kallisto output. To do this, we are going to use the package [Wasabi](https://github.com/COMBINE-lab/wasabi). 
+Since Sleuth was designed to use the output of Kallisto as input, our Salmon transcript abundance estimates need to be massaged into the format of the Kallisto output. To do this, we are going to use the package [Wasabi](https://github.com/COMBINE-lab/wasabi). 
 
 We have installed all of these packages for you to copy to your personal libraries:
 
@@ -177,7 +177,9 @@ After performing all analysis steps, we will explore our results by transferring
 
 ![sleuth](../img/sleuth_workflow1.png)
 
-To run Sleuth, we not only need the transcript abundance files, but we also need the metadata file specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis. We also need the location of the estimated counts files, the model design, and a biomaRt database to easily convert between transcript IDs and associated gene names. To create this object we need to perform the following steps:
+Similar to DESeq2, we need to tell Sleuth where to find the **metadata** (specifying which samplegroups the samples belong to, and any other metadata we want included in the analysis), **estimated counts** (output from Salmon) and the **design formula**. In addition, we also need a **biomaRt database** to easily convert between transcript IDs and associated gene names. To create this object there is no simple function like in DESeq2 (e.g. DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)). 
+
+To create this Sleuth object, we need to perform the following steps:
 
 1. Create a dataframe containing metadata and locations of the estimated counts files:
 
@@ -191,29 +193,50 @@ To run Sleuth, we not only need the transcript abundance files, but we also need
 
 #### Create a dataframe needed to generate Sleuth analysis object
 
-Read in the metadata file and use the `data.frame()` function to ensure it is a dataframe, then combine the metadata with the paths to the transcript abundance files to use as input for the Sleuth analysis. Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will create the dataframe based on the sleuth requirements for analysis.
+Read in the metadata file and use the `data.frame()` function to ensure it is a dataframe, then combine the metadata with the paths to the transcript abundance files to use as input for the Sleuth analysis. 
 
-```R
+First we need to read in the metadata file:
+
+```r
 # Read in metadata file
 
 summarydata <- data.frame(read.table("meta/Mov10_full_meta.txt", header=TRUE, row.names=1), check.rows=FALSE)
 
+summarydata
+```
+
+Then we make sure the metadata and count estimate sample names match:
+
+```r
 # Name the directory paths for the abundance files with their corresponding sample IDs
 
 ## Make sure the order of the `sfdirs` created above matches the order of samples in the `summarydata` rownames
 
 names(sf_dirs) <- rownames(summarydata)
 
+sf_dirs
+```
+
+Finally, we can generate the data frame containing the metadata:
+
+```r
 # Generate the dataframe
 
 sfdata <- summarydata
+```
 
-# Sleuth requires a column entitled "sample" containing the sample names 
+Sleuth expects the data to be presented in a specific format with specific column and row names; therefore, we will need to name columns based on the sleuth requirements for the analysis. 
 
+Sleuth requires a column entitled "sample" containing the sample names:
+
+```r
+# Adding a column named 'sample'
 sfdata$sample <- rownames(sfdata)
+```
 
-# Sleuth requires a column entitled "path" containing the paths to the estimated counts files
+Now, we can include the path to the count estimate folders. Sleuth requires a column entitled "path" containing the paths to the estimated counts files stored in our `sf_dirs`:
 
+```r
 sfdata$path <- sf_dirs
 
 sfdata
@@ -221,11 +244,11 @@ sfdata
 
 #### Provide the model design
 
-Determine the covariates and/or confounders that should be included in your experimental design model. Sleuth can be used to analyze multiple conditions from complex experimental designs.
+Now that we have the metadata and location of the count estimates, we can input our design formula to determine the covariates and/or confounders that should be included in your experimental design model. Sleuth can be used to analyze multiple conditions from complex experimental designs.
 
 Within Sleuth, models are written similar to DESeq2. Since the only condition we plan to test is our sample type, our design formula is very simple:
 
-```R
+```r
 design <- ~ sampletype
 ```
 
@@ -233,25 +256,29 @@ More complex designs can be analyzed using Sleuth as well by adding additional c
 
 #### Create Biomart dataset to query
 
-Obtain the Ensembl transcript/gene IDs and gene names for annotation of results by using the biomaRt package to query the Ensembl genome database. BiomaRt allows extensive genome information to be accessible during an analysis.
+The last component to include for our analysis is the biomaRt Ensembl genome database to obtain the Ensembl transcript/gene IDs and gene names for annotation of results. BiomaRt allows extensive genome information to be accessible during an analysis.
 
-```R
+```r
 # Using biomaRt, ensure host is the appropriate version since the main portal (www.ensembl.org) is not accessible from Orchestra
 
 ## Specify that the database to query is the human gene database
 
 human_37 <- useDataset("hsapiens_gene_ensembl",
 				useMart(biomart = "ENSEMBL_MART_ENSEMBL", 
-					host = "dec2015.archive.ensembl.org")) #feb2014=build 37
+					host = "feb2014.archive.ensembl.org")) #feb2014=build 37
 
 ## Specify the information to return
 
-t2g <- getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_name"), 
-			mart = human_37)
+t2g <- getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_id"), 
+		mart = human_37)
 
 ## Rename the columns for use in Sleuth
 
-t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, 
+			ens_gene = ensembl_gene_id, 
+			ext_gene = external_gene_id)
+
+head(t2g)
 ```
 
 ### Step 2: Fit the sleuth model
@@ -260,7 +287,7 @@ t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_
 
 #### Fit the transcript abundance data to the Sleuth model
 
-```R
+```r
 # Create sleuth object for analysis 
 
 so <- sleuth_prep(sfdata, design, target_mapping = t2g) 
@@ -275,14 +302,14 @@ so <- sleuth_fit(so)
 
 #### Check which models have been fit and which coefficients can be tested
 
-Ensure the design model and coefficients are correct for your analysis.
+Ensure the design model and coefficients are correct for your analysis. The level not shown is the base level.
 
-```R
+```r
 models(so)
 ```
 > **NOTE:** Sleuth will automatically use the first level (alphabetically) in the factor variable being tested to compare all other conditions against (in our metadata, this is 'control'). If you want to use a different condition to be the base level, then you would need to use the relevel() function to change the base level of the variable in step 1 above. For example, if we wanted the base level of `sampletype` to be "MOV10_knockdown", we could use the following code:
 >
->```R
+>```r
 > # DO NOT RUN!
 > summarydata$sampletype <- relevel(summarydata$sampletype, ref = "MOV10_knockdown")
 >```
@@ -292,7 +319,9 @@ models(so)
 
 ![sleuth](../img/sleuth_workflow3.png)
 
-```R
+At this step in the workflow, we need to specify which level we want to compare against the base level (use the name given for the coefficients from `models(so)`):
+
+```r
 # Wald test for differential expression of isoforms
 
 oe <- sleuth_wt(so, 'sampletypeMOV10_overexpression')
@@ -306,7 +335,7 @@ sleuth_results_oe <- sleuth_results(oe, 'sampletypeMOV10_overexpression', show_a
 
 Now that we have all of the analyses performed, we need to bring the output to our local machines for further exploration. The `save()` function works to write an R object to file, and takes the files to include in the R object as arguments.
 
-```R
+```r
 save("oe", "summarydata", "sleuth_results_oe", file="sleuth/oe.RData")
 ```
 
@@ -335,11 +364,17 @@ If using `scp`, you need to open the Terminal on the local machine and type:
 ```bash
 $ scp username@transfer.orchestra.med.harvard.edu:/home/username/ngs_course/rnaseq/sleuth/oe.RData Desktop
 ```
+
+> **NOTE:** If the oe.RData file didn't write, you can copy over a back-up we have created:
+> ```bash
+> $ scp username@transfer.orchestra.med.harvard.edu:/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/snapshots/sleuth/oe.RData Desktop
+> ```
+
 **Open up RStudio and create a new project called `sleuth`.**
 
 Within RStudio we need to install and load Sleuth similar to what we did on Orchestra:
 
-```R
+```r
 # Install the sleuth package on your local machine
 
 source("http://bioconductor.org/biocLite.R")
@@ -355,7 +390,7 @@ library(dplyr)
 
 After the R object has successfully transferred, you can load the object into your new R project using `load()` or by double-clicking on the `oe.RData` object in the RStudio file directory:
 
-```R
+```r
 load("~/Desktop/oe.RData")
 ```
 
@@ -365,7 +400,7 @@ Move `oe.RData` into the `sleuth` folder.
 
 Now that we have our environment set up, we can perform some exploratory analyses. Sleuth offers us the option to explore the data and results interactively using a web interface. 
 
-```R
+```r
 sleuth_live(oe)
 ```
 
@@ -381,13 +416,15 @@ Look at the expression levels of Mov10 for three different isoforms using the `a
 
 > **NOTE:** The expression levels can be explored manually as well. For example, to plot the transcript expression values for Mov10 transcript "ENST00000357443" we would need technical variation estimates for each sample. To attain the expression estimates for each bootstrap sampling for every sample using the `get_bootstraps()` function in sleuth:
 >
->```
->boot_mov10_443 <- get_bootstraps(oe, "ENST00000357443")
+>```r
+> boot_mov10_443 <- get_bootstraps(oe, "ENST00000357443")
+>
+> boot_mov10_443
 >```
 >
 >If we view `boot_mov10_443`, we will see the estimated counts (est_counts) and Transcripts Per Million (tpm) values for each bootstrap of every sample. We can visualize the estimates and distributions:
 >
->```
+>```r
 >ggplot(boot_mov10_443, aes(sample, est_counts + 1, fill = sampletype)) + 
 >        geom_boxplot() + 
 >        facet_wrap(~target_id, ncol = 1) + 

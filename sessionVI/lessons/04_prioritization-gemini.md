@@ -22,19 +22,27 @@ GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (milli
 <img src="../img/Gemini.png" width="600">
 
 
-Let's start by opening an interactive session with 4 cores:
+Let's start by opening an interactive session:
 	
-	$ bsub -Is -n 4 -q interactive bash
+```bash
+$ bsub -Is -q interactive bash
+```
 
-Next we will load our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses and for this file can take up to 30 minutes on a single core. We have the resources so let's use them by adding `--cores 4`. You will first need to move into the annotation directory:
+The next step is to load our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as specified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses and for this file can take up to 30 minutes on a single core. In the interest of time **we have loaded the VCF file into a database for you**. 
 
-	$ cd ~/ngs_course/var-calling/results/annotation
+```bash
+### DO NOT RUN
 
-	$ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff --cores 4 na12878_q20.db
+$ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff --cores 4 na12878_q20.db
+```
 
-> If this does not work, copy over the database:
->
-> `cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .`
+Since we are not running the above, we will need to copy over the database:
+
+```bash
+$ cd ~/mm573/ngs_course/var-calling/results/annotation
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .
+```
+
 
 ### Constructing a query in GEMINI
 
@@ -79,28 +87,32 @@ Rather than printing matching rows from the table, you can also query GEMINI to 
 
 *How many variants are SNPs?*
 
-	$ gemini query -q "select count(*) \
-                       from variants \
-                       where type='snp'" \
-                       na12878_q20.db  
-
+```bash
+$ gemini query -q "select count(*) \
+	from variants \
+	where type='snp'" \
+	na12878_q20.db  
+```
 
 *How many variants are Indels?*
 
-	$ gemini query -q "select count(*) \
-                       from variants \
-                       where type='indel'" \
-                       na12878_q20.db  
+```bash
+$ gemini query -q "select count(*) \
+	from variants \
+	where type='indel'" \
+	na12878_q20.db  
+```
 
 > *NOTE:* The number of variants reported here as indels is different from the value reported in the Snpeff report. How do the numbers compare? What might GEMINI be reporting here?
 
 You can also request the **count be broken down by category**. To do so, the `count()` operation is combined with `group by` so rather than providing a total count, GEMINI will give us a breakdown of numbers per category. Let's query for the distribution of our variants across the different types:
 
-	$ gemini query -q “select type, count(*) \
-                       from variants \
-                       group by type" \
-                       na12878_q20.db
-
+```bash
+$ gemini query -q "select type, count(*) \
+	from variants \
+	group by type" \
+	na12878_q20.db
+```
 
 ****
 
@@ -119,10 +131,12 @@ For some fields the value is not numeric or character, but is boolean (TRUE == 1
 
 Let's query a field that has boolean values. **How many variants are exonic?**
 
-	$ gemini query -q "select count(*)
-                       from variants 
-                       where is_exonic=1" 
-                       na12878_q20.db  
+```bash
+$ gemini query -q "select count(*) \
+	from variants \
+	where is_exonic=1" \
+	na12878_q20.db  
+```
 
 **How would you modify the query to find variants that are not exonic?**
 	
@@ -133,10 +147,12 @@ Queries can also be combined by using `and` to separate multiple `where` clauses
 
 For example, supposed we wanted to ask how many of our SNP variants are located within coding regions?
 
-	$ gemini query -q "select count(*)
-                 from variants 
-                 where is_exonic=1 and type=‘snp’" 
-                 na12878_q20.db
+```bash
+$ gemini query -q "select count(*) \
+	from variants \
+	where is_exonic=1 and type='snp'" \
+	na12878_q20.db
+```
 
 ****
 
@@ -165,11 +181,12 @@ Because of the way genotype information is stored in GEMINI, we **cannot directl
 
 We can still include the fields/columns of information that we want to retrieve by specifying in our `select` statement. We would also want to add a header to keep track of what information is being tracked in each column, using `--header`. Take a look at what is returned when querying for variants that have a genotype depth greater than 20: 
 
-	gemini query -q "select chrom, start, end, gt_depths \
+```bash
+$ gemini query -q "select chrom, start, end, gt_depths \
 	from variants" \
 	--gt-filter "(gt_depths.unknown >=20)" \
 	--header na12878_q20.db | less
-
+```
 
 If we had **multiple samples**, we use an extended syntax which uses the wild card to help apply the same rule to multiple samples without having to enter the rule over and over again. 
 
@@ -179,12 +196,13 @@ The syntax for multiple sample filtering is:
 
 We can try an example query, but because we have ony one sample this will retrieve the same results as the query above:	
 
-	$ gemini query -q "select chrom, start, end, ref, alt, gene, gt_depths \
-                     from variants” \
-                     --gt-filter "((gt_depths).(*).(>=20).(all))" \
-                     --header \
-                     na12878_q20.db | less
-                     
+```bash
+$ gemini query -q "select chrom, start, end, ref, alt, gene, gt_depths \
+	from variants" \
+	--gt-filter "((gt_depths).(*).(>=20).(all))" \
+	--header \
+	na12878_q20.db | less
+```
 
 ***
 
@@ -197,26 +215,23 @@ We can try an example query, but because we have ony one sample this will retrie
                  
 ### Filtering based on sample information
 
-GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file for the trio that our sample (daughter) was derived from is shown below. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
+GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file is provided below for a trio in which the mother and son are affcted. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
 
 <img src="../img/gemini-family.png" width="600">
 
 We can filter based on sample information by adding this to our `--gt-filter` rule. For example if we wanted to filter by genotype depth but only on samples with a specific phenotype:
 
-	$ gemini query -q "select count (*)        
-                 from variants 
-                 where is_conserved=1”
-                 --gt-filter “(gt_depths).(phenotype == 2).(>=20).(all)” 
-                 --header 
-                 na12878_q20.db 
-
+```bash
+$ gemini query -q "select count (*) \
+	from variants \
+	where is_conserved=1" \
+	--gt-filter "(gt_depths).(phenotype == 2).(>=20).(all)" \
+	--header \
+	na12878_q20.db 
+```
 If we had **multiple families** in our dataset, we could specify to GEMINI the minimum number of families for the variant to be present in using `--min-kindreds` or we can select the specific families we want to query using `--families`.
 
 We have only scratched the surface here! GEMINI has so much functionality for exploration and is worth the time to learn more if it is relevant to your work. There is a cornucopia of information at your fingerprints. Check out http://gemini.readthedocs.org/ to learn more.
  
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-
-
-

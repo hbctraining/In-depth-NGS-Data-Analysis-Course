@@ -16,13 +16,13 @@ Approximate time: 1.25 hours
 
 ## Alignment-free quantification of gene expression
 
-In the standard RNA-seq pipeline that we have presented so far in this course, we have taken our reads post-QC and aligned them to the genome using our transcriptome annotation (GTF) as guidance. The goal is to identify the genomic location where these reads originated from. Another strategy for quantification which has more recently been introduced involves **transcriptome mapping**. Tools that fall in this category include [Kallisto](https://pachterlab.github.io/kallisto/about), [Sailfish](http://www.nature.com/nbt/journal/v32/n5/full/nbt.2862.html) and [Salmon](https://combine-lab.github.io/salmon/); each working slightly different from one another. (For this course we will explore Salmon in more detail.) Common to all of these tools is that we **avoid base-to-base alignment of the reads**, which is a time-consuming step, and these tools **provide quantification estimates much faster than do standard approaches** (typically 20 times faster) with improvements in accuracy. These estimates, often referred to as 'pseudocounts' are then converted for use with DEG tools like DESeq2. 
+In the standard RNA-seq pipeline that we have presented so far in this course, we have taken our reads post-QC and aligned them to the genome using our transcriptome annotation (GTF) as guidance. The goal is to identify the genomic location where these reads originated from. Another strategy for quantification which has more recently been introduced involves **transcriptome mapping**. Tools that fall in this category include [Kallisto](https://pachterlab.github.io/kallisto/about), [Sailfish](http://www.nature.com/nbt/journal/v32/n5/full/nbt.2862.html) and [Salmon](https://combine-lab.github.io/salmon/); each working slightly different from one another. (For this course we will explore Salmon in more detail.) Common to all of these tools is that we **avoid base-to-base alignment of the reads**, which is a time-consuming step, and these tools **provide quantification estimates much faster than do standard approaches** (typically 20 times faster) with improvements in accuracy. These estimates, often referred to as 'pseudocounts' are then converted for use with DGE tools like DESeq2. 
 
-<img src="../img/alignmentfree_workflow.png" width="500">
+<img src="../img/alignmentfree_workflow_june2017.png" width="500">
 
 ### What is Salmon?
 
-[Salmon](http://salmon.readthedocs.io/en/latest/salmon.html#using-salmon) is based on the philosophy of lightweight algorithms, which use the sequence of genes or transcripts as input (in FASTA format) and do not align the whole read. However, many of these lightweight tools, in addition to the more traditional alignment-based tools, lack sample-specific bias models for transcriptome-wide abundance estimation. Sample-specific bias models are needed to account for known biases present in RNA-Seq data including:
+[Salmon](http://salmon.readthedocs.io/en/latest/salmon.html#using-salmon) is based on the philosophy of lightweight algorithms, which uses the sequence of genes or transcripts as input (in FASTA format) and do not align the whole read. However, many of these lightweight tools, in addition to the more traditional alignment-based tools, lack sample-specific bias models for transcriptome-wide abundance estimation. Sample-specific bias models are needed to account for known biases present in RNA-Seq data including:
 
 - GC bias
 - positional coverage biases
@@ -30,10 +30,10 @@ In the standard RNA-seq pipeline that we have presented so far in this course, w
 - fragment length distribution
 - strand-specific methods
 
-If not accounted for, these biases can lead to unacceptable false positive rates in differential expression studies [[1](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. Salmon algorithm learns these sample-specific biases and accounts for them in the transcript abundance estimates by combining a quasi-mapping approach that is extremely fast at "mapping" reads to the transcriptome and often more accurate, with a dual inference method that is used to account for sample-specific biases and parameters. [[2](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. 
+If not accounted for, these biases can lead to unacceptable false positive rates in differential expression studies [[1](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. The **Salmon algorithm learns these sample-specific biases and accounts for them in the transcript abundance estimates** by combining a quasi-mapping approach with a dual inference method that is used to account for sample-specific biases and parameters. Salmon is extremely fast at "mapping" reads to the transcriptome and often more accurate than standard aproaches [[2](http://salmon.readthedocs.io/en/latest/salmon.html#quasi-mapping-based-mode-including-lightweight-alignment)]. 
 
 ### How does Salmon estimate transcript abundances?
-Similar to standard, base-to-base alignment, the quasi-mapping approach utilized by Salmon requires a reference index to determine the position and orientation information for where the fragments best "map" prior to quantification [[1](https://academic.oup.com/bioinformatics/article/32/12/i192/2288985/RapMap-a-rapid-sensitive-and-accurate-tool-for)]. 
+Similar to standard base-to-base alignment approaches, the quasi-mapping approach utilized by Salmon requires a reference index to determine the position and orientation information for where the fragments best "map" prior to quantification [[1](https://academic.oup.com/bioinformatics/article/32/12/i192/2288985/RapMap-a-rapid-sensitive-and-accurate-tool-for)]. 
 
 #### **Indexing** 
 
@@ -79,6 +79,16 @@ The quasi-mapping approach estimates the numbers of reads mapping to each transc
 	- positional, sequence-specific, and GC content based on computed mappings
 
 	The model continuously learns and updates the transcript abundance estimates, and the the second phase of the algorithm refines the estimates by using the expectation maximization (EM) or variational Bayes optimization (VBEM)  [[5](http://biorxiv.org/content/biorxiv/early/2016/08/30/021592.full.pdf)]. The maximum likelihood estimates output from the EM or VBEM factorized likelihood function represent the estimated number of fragments derived from each transcript.
+	
+> **NOTE:** To have Salmon correct for these biases you will need to specify the appropriate parameters when you run it. Before using these parameters it is advisable to assess your data using tools like [Qualimap](http://qualimap.bioinfo.cipf.es/) to look specifically for the presence of these biases in your data and decide on which parameters would be appropriate. 
+> 
+> To correct for the various sample-specific biases you could add the following parameters to the sailfisg command:
+>
+> * `--seqBias` will enable it to learn and correct for sequence-specific biases in the input data.
+> * `--gcBias` to learn and correct for fragment-level GC biases in the input data
+> * `--posBias` will enable modeling of a position-specific fragment start distribution
+>
+
 
 ## Running Salmon on Orchestra
 
@@ -104,28 +114,28 @@ $ salmon index -t transcripts.fa -i transcripts_index --type quasi -k 31
 ```
 > **NOTE:** Default for salmon is --type quasi and -k 31, so we do not need to include these parameters in the index command. The kmer default of 31 is optimized for 75bp or longer reads, so if your reads are shorter, you may want a smaller kmer to use with shorter reads (kmer size needs to be an odd number).
 > 
-**We are not going to run this in class, but it only takes a few minutes.** We will be using an index we have generated from transcript sequences (all known transcripts/ splice isoforms with multiples for some genes) for human. 
+**We are not going to run this in class, but it only takes a few minutes.** We will be using an index we have generated from transcript sequences (all known transcripts/ splice isoforms with multiples for some genes) for human. The transcriptome data (FASTA) was obtained from the [Ensembl ftp site](ftp://ftp.ensembl.org/pub/current_fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz).
 
 
 **Step 2: Quantification:**
 Get the transcript abundance estimates using the `quant` command and the parameters described below (more information on parameters can be found [here](http://salmon.readthedocs.io/en/latest/salmon.html#id5)):
 
-
-   * `-i`: specify the location of the index directory; for us it is `/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/`
-   * `-l SR`: library type - specify stranded single-end reads (more info available [here](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype))
-   * `-r`: list of files for sample
-   * `--useVBOpt`: use variational Bayesian EM algorithm rather than the ‘standard EM’ to optimize abundance estimates (more accurate) 
-   * `-o`: output quantification file name
-
+* `-i`: specify the location of the index directory; for us it is `/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/`
+* `-l SR`: library type - specify stranded single-end reads (more info available [here](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype))
+* `-r`: list of files for sample
+* `--useVBOpt`: use variational Bayesian EM algorithm rather than the ‘standard EM’ to optimize abundance estimates (more accurate) 
+* `-o`: output quantification file name
+* `--writeMappings=salmon.out`: instead of printing to screen write to a file
+   
 To run the quantification step on a single sample we have the command provided below. Let's try running it on our subset sample for `Mov10_oe_1.subset.fq`:
 
 ```bash
 $ salmon quant -i /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl37.idx/ \
  -l SR \
- -r ~/ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq \
+ -r ~/ngs_course/rnaseq/raw_data/Mov10_oe_1.subset.fq \
  -o Mov10_oe_1.subset.salmon \
  --writeMappings=salmon.out \
- --useVBOpt
+ --useVBOpt 
 ```
 
 >**NOTE:** Paired-end reads require both sets of reads to be given in addition to a [paired-end specific library type](http://salmon.readthedocs.io/en/latest/salmon.html#what-s-this-libtype):
@@ -143,14 +153,13 @@ This is the **quantification file** in which each row corresponds to a transcrip
 
 ```bash
 Name    Length  EffectiveLength TPM     NumReads
-ENST00000415118 8       4.33984 0       0
-ENST00000434970 9       4.79722 0       0
-ENST00000448914 13      6.57926 0       0
-ENST00000604642 23      10.7207 0       0
-ENST00000603326 19      9.11572 0       0
-ENST00000604950 31      13.741  0       0
-ENST00000603077 31      13.741  0       0
-ENST00000605284 17      8.28787 0       0
+ENST00000632684.1       12      3.00168 0       0
+ENST00000434970.2       9       2.81792 0       0
+ENST00000448914.1       13      3.04008 0       0
+ENST00000415118.1       8       2.72193 0       0
+ENST00000631435.1       12      3.00168 0       0
+ENST00000390567.1       20      3.18453 0       0
+ENST00000439842.1       11      2.95387 0       0
 
 ....
 
@@ -170,14 +179,17 @@ Open up a script in `vim`:
 
 	$ vim salmon_all_samples.sh
 
-Now we can create a for loop to iterate over all FASTQ samples, and run Salmon on each one. We begin by listing all BSUB directives to specify the resources we are requesting including memory, cores and wall time.
+Now we can create a for loop to iterate over all FASTQ samples, and submit a job to **run Salmon on each sample in parallel**. We begin by listing all BSUB directives to specify the resources we are requesting including memory, cores and wall time.
 
 Next comes the Salmon command. Note, that we are adding a parameter called `--numBootstraps` to the Salmon command. Salmon has the ability to optionally compute bootstrapped abundance estimates. **Bootstraps are required for estimation of technical variance**. Bootstrapping essentially takes a different sub-sample of reads for each bootstapping run for estimating the transcript abundances. The technical variance is the variation in transcript abundance estimates calculated for each of the different sub-samplings (or bootstraps). We will discuss this in more detail in the next lesson.
 
-> *NOTE:* We are iterating over FASTQ files in the full dataset directory, located at `/groups/hbctraining/ngs-data-analysis2016/rnaseq/full_dataset/`
+> *NOTE:* We are iterating over FASTQ files in the full dataset directory, located at `/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/full_dataset/`
+
+> *NOTE:* We are using a new command called `basename` in our for loop. This command allows us to string split the file path to obtain a short name for filenaming purposes. We will discuss this in more detail when we talk about [Unix automation](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionIV/lessons/04_automating_workflow.md).
+
 
 ```bash
-for fq in /groups/hbctraining/ngs-data-analysis2016/rnaseq/full_dataset/*.fastq
+for fq in /groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/full_dataset/*.fastq
  do 
    base=`basename $fq .fastq`
    bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J $base.mov10_salmon -o %J.$base.out -e %J.$base.err \
@@ -192,13 +204,13 @@ Save and close the script. This is now ready to run. **We are not going to run t
 
 ## Performing DE analysis on Pseudocounts
 
-The pseudocounts generated by Salmon are represented as normalized TPM (transcripts per million) counts and map to transcripts or genes, depending on the input in the index step; in our case it was transcripts. These need to be converted into non-normalized count estimates for performing DESeq2 analysis. In addition, we need to be able to use the resulting non-normalized values which contain decimal places as input to create the DESeq object. Finally, to use DESeq2 we need to be able to tell which transcript is associated with which gene, since DESeq2 performs gene-level differential expression.
+The pseudocounts generated by Salmon are represented as normalized TPM (transcripts per million) counts and map to transcripts or genes, depending on the input in the index step; in our case it was transcripts. These **need to be converted into non-normalized count estimates for performing DESeq2 analysis**. In addition, we need to be able to use the resulting non-normalized values which contain decimal places as input to create the DESeq object. Finally, to use DESeq2 we need to be able to tell which transcript is associated with which gene, since DESeq2 performs gene-level differential expression.
 
 ### Setting up to run DESeq2 on pseudocount data:
 
 You can download the directory with the quant.sf files for the 8 full datasets using the link below. Once you have them downloaded continue to follow the set of instructions:
 
-1. [Download Salmon files](https://www.dropbox.com/s/mingk95x982194j/salmon.zip?dl=0)
+1. [Download Salmon files](https://www.dropbox.com/s/aw170f8zge01jpq/salmon.zip?dl=0)
 2. Decompress (unzip) the zip archive and move the folder to an appropriate location (i.e `~/Desktop`)
 3. Open RStudio and select 'File' -> 'New Project'  -> 'Existing Directory' and navigate to the `salmon` directory 
 4. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `salmon_de.R`
@@ -226,6 +238,7 @@ library(tximport)
 library(readr)
 library(DESeq2)
 library(biomaRt) # tximport requires gene symbols as row names
+
 ```
 
 **Step 3:** Load the quantification data that was output from Salmon:
@@ -261,12 +274,18 @@ Either of these methods will work, or even a combination of the two. The **main 
 **Step 4.** Create a dataframe containing Ensembl Transcript IDs and Gene symbols
 
 Our Salmon index was generated with transcript sequences listed by Ensembl IDs, but `tximport` needs to know **which genes these transcripts came from**, so we need to use the `biomaRt` package to extract this information. However, since BiomaRt has been a little unreliable we are actually not going to use this code right now.
+
+> *NOTE:* Keep in mind that the Ensembl IDs listed in our Salmon output contained version numbers (i.e ENST00000632684.1). If we query Biomart with those IDs it will not return anything. Therefore, before querying Biomart in R do not forget to strip the version numbers from the Ensembl IDs.
+
+
 ```R
 ## DO NOT RUN
 
 # Create a character vector of Ensembl IDs		
 ids <- read.delim(files[1], sep="\t", header=T)    # extract the transcript ids from one of the files
-ids <- as.character(ids[,1]) 
+ids <- as.character(ids[,1])
+require(stringr)
+ids.strip <- str_replace(ids, "([.][0-9])", "")
 
 # Create a mart object
 # Note that we are using an archived host, since "www.ensembl.org" gave us an error
@@ -276,24 +295,22 @@ mart <- useDataset("hsapiens_gene_ensembl", useMart("ENSEMBL_MART_ENSEMBL", host
 tx2gene <- getBM(
     filters= "ensembl_transcript_id", 
      attributes= c("ensembl_transcript_id", "external_gene_name"),
-     values= ids,
+     values= ids.strip,
      mart= mart)
      
-# Re-order and save columns to a new variable
-head(tx2gene)
 ```
 
-We have already run the above code for you and saved the output in a text file which is in the salmon directory. Load it in using: 
+**We have already run the above code for you and saved the output in a text file which is in the salmon directory.** Load it in using: 
 
 ```R
-tx2gene <- read.delim("tx2gene.txt",sep=" ")
+tx2gene <- read.delim("tx2gene.txt",sep="\t")
 ```
     
 **Step 5:** Run tximport to summarize gene-level information    
 ```R
 ?tximport   # let's take a look at the arguments for the tximport function
 
-txi <- tximport(files, type="salmon", txIn = TRUE, txOut = FALSE, tx2gene=tx2gene, reader=read_tsv)
+txi <- tximport(files, type="salmon", txIn = TRUE, txOut = FALSE, tx2gene=tx2gene, reader=read_tsv, ignoreTxVersion=TRUE)
 ```
 ### Output from `tximport`
 
@@ -308,8 +325,6 @@ A final element 'countsFromAbundance' carries through the character argument use
 
 ```R    
 library(DESeq2)   # load this if you have not loaded it earlier
-
-source('DESeqDataFromTx.R')   # required for using tximport output as input for DESeq2
 
 ## Create a sampletable/metadata
 

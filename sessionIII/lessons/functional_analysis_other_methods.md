@@ -1,7 +1,74 @@
 # Functional class scoring tools
 Functional class scoring (FCS) tools, such as [GSEA](http://software.broadinstitute.org/gsea/index.jsp), use the gene-level statistics from the differential expression results to determine pathway-level expression changes. The hypothesis of FCS methods is that although large changes in individual genes can have significant effects on pathways (and will be detected via ORA methods), weaker but coordinated changes in sets of functionally related genes (i.e., pathways) can also have significant effects.  Thus, rather than setting an arbitrary threshold to identify 'significant genes', **all genes are considered** in the analysis. The gene-level statistics from the dataset are aggregated to generate a single pathway-level statistic and statistical significance of each pathway is reported.
 
+### Gene set enrichment analysis using clusterProfiler and Pathview
+
+ClusterProfiler is a versatile tool allowing for over-representation analysis and GSEA analysis. To perform GSEA analysis of KEGG gene sets, we need to obtain the Entrez IDs for all genes in our results dataset.
+
+```r
+# Return all genes with Entrez IDs
+all_results_entrez <- getBM(filters = "external_gene_name", 
+                   values = rownames(res_tableOE),
+                   attributes = c("entrezgene","external_gene_name")
+                   mart = human)
+                   
+merged_all_results_entrez <- merge(data.frame(res_tableOE), all_results_entrez, by.x="row.names", by.y="external_gene_name") 
+```
+
+When performing our analysis, we need to remove the NA values prior to the analysis:
+
+```r
+# Remove any NA values
+all_results_gsea <- subset(merged_all_results_entrez, entrezgene != "NA")
+```
+
+We also need to order our results by log2 fold changes:
+
+```r
+# Order results by `Log2FoldChange`
+all_results_gsea <- all_results_gsea[order(all_results_gsea$log2FoldChange, decreasing = T), ]
+```
+
+Finally, extract and name the fold changes:
+
+```r
+# Extract the ordered foldchanges
+foldchanges <- all_results_gsea$log2FoldChange
+names(foldchanges) <- all_results_gsea$entrezgene
+# head(foldchanges)
+# foldchanges <- sort(foldchanges, T)
+
+# GSEA using gene sets from KEGG pathways
+gseaKEGG <- gseKEGG(geneList = foldchanges,
+              organism = "hsa",
+              nPerm = 1000,
+              minGSSize = 120,
+              pvalueCutoff = 0.05,
+              verbose = FALSE)
+              
+gseaKEGG_results <- gseaKEGG@result
+pathview(gene.data = foldchanges,
+              pathway.id = kkgsea_results$ID[1],
+              species = "hsa",
+              limit = list(gene = max(abs(foldchanges)),
+              cpd = 1))
+
+# GSEA using gene sets associated with BP Gene Ontology terms
+gseaGO <- gseGO(geneList = foldchanges, 
+              OrgDb = org.Hs.eg.db, 
+              ont = 'BP', 
+              nPerm = 1000, 
+              minGSSize = 100, 
+              maxGSSize = 500, 
+              pvalueCutoff = 0.05,
+              verbose = FALSE) 
+
+gseaGO_results <- gseaGO@result
+gseaplot(gseaGO, geneSetID = 'GO:0048812')
+
+
 ### Gene set enrichment analysis using GAGE and Pathview
+
 Using the log2 fold changes obtained from the DESeq2 analysis for every gene, gene set enrichment analysis and pathway analysis was performed using [GAGE (Generally Applicable Gene-set Enrichment for Pathway Analysis)](http://bioconductor.org/packages/release/bioc/html/gage.html) and [Pathview](http://bioconductor.org/packages/release/bioc/html/pathview.html) tools.
 
 For gene set or pathway analysis using GAGE, coordinated differential expression over gene sets is tested instead of changes of individual genes. "Gene sets are pre-defined groups of genes, which are functionally related. Commonly used gene sets include those derived from KEGG pathways, Gene Ontology terms, gene groups that share some other functional annotations, etc. Consistent perturbations over such gene sets frequently suggest mechanistic changes." [[1](https://www.bioconductor.org/packages/devel/bioc/vignettes/gage/inst/doc/gage.pdf)]
@@ -92,7 +159,6 @@ Now the data is ready to run for GAGE analysis. The [GAGE vignette](https://www.
 
 keggres = gage(foldchanges, gsets=kegg.gs, same.dir=T)
 names(keggres)
-
 head(keggres$greater) #Pathways that are up-regulated
 head(keggres$less) #Pathways that are down-regulated
 
@@ -110,7 +176,9 @@ keggresids
 Now that we have the IDs for the pathways that are significantly up-regulated in our dataset, we can visualize these pathways and the genes identified from our dataset causing these pathways to be enriched using [Pathview](https://www.bioconductor.org/packages/devel/bioc/vignettes/pathview/inst/doc/pathview.pdf). 
 
 ```r
-# Use Pathview to view significant up-regulated pathways
+# Run Pathview
+
+## Use Pathview to view significant up-regulated pathways
 
 pathview(gene.data = foldchanges, pathway.id=keggresids, species="human", kegg.dir="results/")
 ```
@@ -120,7 +188,7 @@ pathview(gene.data = foldchanges, pathway.id=keggresids, species="human", kegg.d
 Using the GAGE tool, we can identify significantly enriched gene ontology terms for biological process and molecular function based on the log2 fold changes for all genes. While gProfileR is an overlap statistic analysis tool which uses a threshold (adjusted p<0.05 here) to define which genes are analyzed for GO enrichment, gene set enrichment analysis tools like GAGE use a list of genes (here ranked by logFC) without using a threshold. This allows GAGE to use more information to identify enriched biological processes. The introduction to GSEA goes into more detail about the advantages of this approach: [http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1239896/](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1239896/).
 
 ```r
-# Acquire datasets
+#Acquire datasets
 
 data(go.sets.hs)
 head(names(go.sets.hs))
@@ -129,21 +197,21 @@ data(go.subs.hs)
 names(go.subs.hs)
 head(go.subs.hs$MF)
 
-# Use gage to explore enriched biological processes
+#Use gage to explore enriched biological processes
+#Biological process 
 
 go_bp_sets = go.sets.hs[go.subs.hs$BP]
 ```
 
 > If we wanted to identify enriched molecular functions we would use the code: `go.sets.hs[go.subs.hs$MF]`
 
+
 ```r
 # Run GAGE
 go_bp_res = gage(foldchanges, gsets=go_bp_sets, same.dir=T)
 class(go_bp_res)
 names(go_bp_res)
-
 head(go_bp_res$greater)
-
 go_df_enriched <- data.frame(go_bp_res$greater)
 
 GO_enriched_BP <- subset(go_df_enriched, q.val < 0.05)
@@ -185,7 +253,6 @@ head(sig_genes)
 
 
 ## Remove NA and duplicated values
-
 sig_genes <- sig_genes[!is.na(names(sig_genes))] 
 
 sig_genes <- sig_genes[!duplicated(names(sig_genes))]
@@ -208,16 +275,7 @@ spia_result <- spia(de=sig_genes, all=background_genes, organism="hsa")
 head(spia_result, n=20)
 ```
 
-SPIA outputs a table showing significantly dysregulated pathways based on over-representation and signaling perturbations accumulation. The table shows the following information: 
-- `pSize` is the number of genes on the pathway
-- `NDE` is the number of DE genes per pathway
-- `tA` is the observed total perturbation accumulation in the pathway
-- `pNDE` is the probability to observe at least NDE genes on the pathway using a hypergeometric model
-- `pPERT` is the probability to observe a total accumulation more extreme than tA only by chance
-- `pG` is the p-value obtained by combining pNDE and pPERT
-- `pGFdr` and `pGFWER` are the False Discovery Rate and Bonferroni adjusted global p-values, respectively
-- `Status` gives the direction in which the pathway is perturbed (activated or inhibited). 
-- `KEGGLINK` gives a web link to the KEGG website that displays the pathway image with the differentially expressed genes highlighted in red.
+SPIA outputs a table showing significantly dysregulated pathways based on over-representation and signaling perturbations accumulation. The table shows the following information: `pSize` is the number of genes on the pathway; `NDE` is the number of DE genes per pathway; `tA` is the observed total perturbation accumulation in the pathway; `pNDE` is the probability to observe at least NDE genes on the pathway using a hypergeometric model; `pPERT` is the probability to observe a total accumulation more extreme than tA only by chance; `pG` is the p-value obtained by combining pNDE and pPERT; `pGFdr` and `pGFWER` are the False Discovery Rate and respectively Bonferroni adjusted global p-values; and the Status gives the direction in which the pathway is perturbed (activated or inhibited). KEGGLINK gives a web link to the KEGG website that displays the pathway image with the differentially expressed genes highlighted in red.
 
 We can view the significantly dysregulated pathways by viewing the over-representation and perturbations for each pathway.
 

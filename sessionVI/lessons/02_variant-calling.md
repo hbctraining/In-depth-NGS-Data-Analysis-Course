@@ -1,10 +1,9 @@
 ---
 title: "Variant calling with Freebayes"
 author: "Radhika Khetani, Meeta Mistry"
-date: "Thursday, April 28th, 2016"
+date: 2017-07-06
+duration: 45
 ---
-
-Approximate time: 45 minutes
 
 ## Learning Objectives:
 
@@ -45,24 +44,24 @@ Some of the more popular tools for calling variants include [SAMtools mpileup](h
 > *If you don't have `freebayes` available, please add `/opt/bcbio/centos/bin` to your path.*
 	
 	$ freebayes -h
-	$ freebayes -f ../../data/reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
+	$ freebayes -f ../../reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
 	
 ### Variant Call Format (VCF)
 
 VCF is a text format. It usually has several header lines before the actual data; the header lines start with `##`. There is usually only 1 VCF file generated for all the samples in an experiment. Variants are represented in the rows, and each sample has a column with the status of a given variant:
 
-	##format=PCFv1
+	##format=VCFv4.0
 	##fileDate=20090805
 	##source=myImputationProgramV3.1
 	##reference=1000GenomesPilot-NCBI36
 	##phasing=partial
 	#CHROM  POS     ID        REF   ALT    QUAL  FILTER  INFO                                 FORMAT       NA00001         NA00002         
-	20      14370   rs6054257 G     A      29    0       NS=58;DP=258;AF=0.786;DB;H2          GT:GQ:DP:HQ  0|0:48:1:51,51  1|0:48:8:51,51  
+	20      14370   rs6054257 G     A      29    0       NS=55;DP=255;AF=0.768;DB;H2          GT:GQ:DP:HQ  0|0:48:1:51,51  1|0:48:8:51,51  
 	20      13330   .         T     A      3     q10     NS=55;DP=202;AF=0.024                GT:GQ:DP:HQ  0|0:49:3:58,50  0|1:3:5:65,3    
 	20      1110696 rs6040355 A     G,T    67    0       NS=55;DP=276;AF=0.421,0.579;AA=T;DB  GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2    
 	20      10237   .         T     .      47    0       NS=57;DP=257;AA=T                    GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51  
 	20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
-Often the header lines will have some explanation about the various columns in the VCF, including the confusing looking INFO column. Here's an explanation of the INFO column for the first entry in the example above:
+Often the header lines will have some explanation about the various columns in the VCF, including the confusing looking INFO column. Here's an explanation of the INFO column for the first entry in the example above (the example below is representing the same variant as above, "rs6054257", but the VCF was excerpted from a much larger experiment):
 
 <img src="../img/vcf_3.png" width="600">
 
@@ -84,7 +83,7 @@ Today we are going to use `vcftools` to remove entries that have calls with a qu
 
 	$ module avail seq/vcf
 
-	$ module load seq/vcftools/0.1.12
+	$ module load seq/vcftools/0.1.14
 
 The manual for `vcftools` is [available here](https://vcftools.github.io/man_latest.html), let's take a quick look at it.
 

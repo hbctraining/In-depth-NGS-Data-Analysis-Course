@@ -2,17 +2,17 @@
 layout: topic
 title: Functions in R
 author: Data Carpentry contributors
-date: "Wednesday, September 28, 2016"
+date: "Tuesday, May 9, 2017"
 ---
 Approximate time: 50 min
 
 ## Learning Objectives
 
-* Understanding the structure of a function and how it is used
-* Exposure to a few commonly used base functions in R
-* A brief introduction to packages and libraries in R 
-* Knowing where and how to find help 
-
+* Describe and utilize functions in R. 
+* Modify default behavior of functions using arguments in R.
+* Identify R-specific sources of help to get more information about functions.
+* Demonstrate how to install external packages to extend R’s functionality. 
+* Identify different R-specific and external sources of help to (1) troubleshoot errors and (2) get more information about functions and packages.
 
 ## Functions and their arguments
 
@@ -44,7 +44,7 @@ The **defaults** represent standard values that the author of the function speci
 
 We have already used a few examples of basic functions in the previous lessons i.e `getwd()`, `c()`, and  `factor()`. These functions are available as part of R's built in capabilities, and we will explore a few more of these base functions below. 
 
-You can also get functions from external [*packages or libraries*](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/07_introR-functions-and-arguments.md#packages-and-libraries) (which we'll talk about in a bit), or even write your own. 
+You can also get functions from external [*packages or libraries*](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionII/lessons/04c_introR-functions-and-arguments.md#packages-and-libraries) (which we'll talk about in a bit), or [even write your own](https://campus.datacamp.com/courses/writing-functions-in-r/a-quick-refresher?ex=1). 
 
 Let's revisit a function that we have used previously to combine data `c()` into vectors. The *arguments* it takes is a collection of numbers, characters or strings (separated by a comma). The `c()` function performs the task of combining the numbers or characters into a single vector. You can also use the function to add elements to an existing vector:
 
@@ -55,7 +55,7 @@ glengths <- c(30, glengths) # adding at the beginning
 
 What happens here is that we take the original vector `glengths` (containing three elements), and we are adding another item to either end. We can do this over and over again to build a vector or a dataset.
 
-Since R is used for statistical computing, many of the base functions involve mathematical operations. One example would be the function `sqrt()`. The input/argument must be a number, and the the output is the square root of that number. Let's try finding the square root of 81:
+Since R is used for statistical computing, many of the base functions involve mathematical operations. One example would be the function `sqrt()`. The input/argument must be a number, and the output is the square root of that number. Let's try finding the square root of 81:
 
 ```r
 sqrt(81)
@@ -79,7 +79,7 @@ round(3.14159)
 We can see that we get `3`. That's because the default is to round to the nearest whole number. **What if we want a different number of significant digits?**
 
 
-#### Seeking help
+### Seeking help on arguments for functions
 
 The best way of finding out this information is to use the `?` followed by the name of the function. Doing this will open up the help manual in the bottom right panel of RStudio that will provide a description of the function, usage, arguments, details, and examples: 
 
@@ -98,7 +98,7 @@ Even more useful is the `example()` function. This will allow you to run the exa
 example("round")
 ```
 
-In our example, we can change the number of digits returned by **adding an argutment**. We can type `digits=2` or however many we may want:
+In our example, we can change the number of digits returned by **adding an argument**. We can type `digits=2` or however many we may want:
 
 
 ```r
@@ -109,29 +109,34 @@ round(3.14159, digits=2)
 >
 	round(3.14159, 2)
 >
->However, it's usually not recommended practice because it's a lot of remembering to do, and if you share your code with others that includes less known functions it makes your code difficult to read. (It's however OK to not include the names of the arguments for basic functions like `mean`, `min`, etc...). Another advantage of naming arguments, is that the order doesn't matter.  This is useful when a function has many arguments. 
+>However, it's usually not recommended practice because it involves a lot of memorization. In addition, it makes your code difficult to read for your future self and others, especially if your code includes functions that are not commonly used. (It's however OK to not include the names of the arguments for basic functions like `mean`, `min`, etc...). Another advantage of naming arguments, is that the order doesn't matter. This is useful when a function has many arguments. 
 
 
 ***
 **Exercise** 
 
 1. Another commonly used base function is `mean()`. Use this function to calculate an average for the `glengths` vector.
+2. Use the help manual to identify additional arguments for `mean()`.
 
 ***
 
 ## Packages and Libraries
 
-**Packages** are collections of R functions, data, and compiled code in a well-defined format, created to add specific functionality. There are 7,000+ user contributed packages and growing.
+**Packages** are collections of R functions, data, and compiled code in a well-defined format, created to add specific functionality. There are 10,000+ user contributed packages and growing.
 
 There are a set of **standard (or base) packages** which are considered part of the R source code and automatically available as part of your R installation. Base packages contain the **basic functions** that allow R to work, and enable standard statistical and graphical functions on datasets; for example, all of the functions that we have been using so far in our examples. 
 
-The directories in R where the packages are stored are called the **libraries**. The terms *package* and *library* are sometimes used synonomously and there has been [discussion](http://www.r-bloggers.com/packages-v-libraries-in-r/) amongst the community to resolve this. It is somewhat counter-intuitive to _load a package_ using the `library()` function and so you can see how confusion can arise.
+The directories in R where the packages are stored are called the **libraries**. The terms *package* and *library* are sometimes used synonymously and there has been [discussion](http://www.r-bloggers.com/packages-v-libraries-in-r/) amongst the community to resolve this. It is somewhat counter-intuitive to _load a package_ using the `library()` function and so you can see how confusion can arise.
 
 
-You can check what packages are loaded in your R session by typing into the console:
+You can check what libraries are loaded in your current R session by typing into the console:
 
 ```r
-sessionInfo()
+sessionInfo() #Print version information about R, the OS and attached or loaded packages
+
+# OR
+
+search() #Gives a list of attached packages
 ```
 
 In this workshop we will mostly be using functions from the standard base packages. However, the more you work with R you will come to realize that there is a cornucopia of R packages that offer a wide variety of functionality. To use additional packages will require installation. Many packages can be installed from the [CRAN](http://cran.r-project.org/) or [Bioconductor](https://www.bioconductor.org/) repositories.
@@ -144,7 +149,7 @@ CRAN is a repository where the latest downloads of R (and legacy versions) are f
 
 Packages for R can be installed from the [CRAN](http://cran.r-project.org/) package repository using the `install.packages` function. This function will download the source code from on the CRAN mirrors and install the package (and any dependencies) locally on your computer. 
 
-An example is given below for the `ggplot2` package that will be required for some images we will create later on. Run this code to install `ggplot2`.
+An example is given below for the `ggplot2` package that will be required for some plots we will create later on. Run this code to install `ggplot2`.
 
 
 ```r
@@ -155,11 +160,15 @@ Alternatively, packages can also be installed from [Bioconductor](https://www.bi
 
 <img src="../img/bioconductor_logo.png" width=300>
 
-There are many packages that are available in CRAN and Bioconductor, but there are also packages that are specific to one repository. Generally, you can find out this information with a Google search or by trial and error. To install from Bioconductor, you will first need to install Bioconductor and all the standard packages. *This only needs to be done once ever for your R installation.* 
+There are many packages that are available in CRAN and Bioconductor, but there are also packages that are specific to one repository. Generally, you can find out this information with a Google search or by trial and error. 
+
+To install from Bioconductor, you will first need to install Bioconductor and all the standard packages. *This only needs to be done once ever for your R installation.* 
 
 **If you were successful with the installation from CRAN, you do not need to run this**
 
 ```r
+# DO NOT RUN THIS!
+
 source("http://bioconductor.org/biocLite.R")
 biocLite()
 ```
@@ -168,6 +177,8 @@ Once you have the standard packages installed, you can install additional packag
 
 
 ```r
+# DO NOT RUN THIS!
+
 biocLite('ggplot2')
 ```
 ### Package installation from source
@@ -177,17 +188,19 @@ Finally, R packages can also be installed from source. This is useful when you d
 To install from source, we use the same `install.packages` function but we have additional arguments that provide *specifications* to *change from defaults*:
 
 ```r
+# DO NOT RUN THIS!
+
 install.packages('ggplot2_1.0.1.tar.gz', type="source", repos=NULL)
 ```
 ### Loading libraries
-Once you have the package installed, you can load it into your R session for use. Any of the functions that are specific to that package will be available for you to use by simply calling the function as you would for any of the base functions. *Note that quotations are not required here.*
+Once you have the package installed, you can **load the library** into your R session for use. Any of the functions that are specific to that package will be available for you to use by simply calling the function as you would for any of the base functions. *Note that quotations are not required here.*
 
 
 ```r
 library(ggplot2)
 ```
 
-You can also check what is loaded in your current environment by using `sessionInfo()` and you you should see your package listed as:
+You can also check what is loaded in your current environment by using `sessionInfo()` or `search()` and you should see your package listed as:
 
 ```r
 other attached packages:
@@ -215,7 +228,7 @@ help.search("scatter")
 
 If you can't find what you are looking for, you can use the [rdocumention.org](http://www.rdocumentation.org) website that search through the help files across all packages available.
 
-### Crytpic error messages
+### Cryptic error messages
 
 It is very likely that someone else has encountered this same problem already! 
 
@@ -237,7 +250,9 @@ precise as possible when describing your problem.**
 
 2. **Always include the output of `sessionInfo()`** as it provides critical information about your platform, the versions of R and the packages that you are using, and other information that can be very helpful to understand your problem.
 
-		sessionInfo()
+```r
+sessionInfo()  #This time it is not interchangeable with search()
+```
 
 3. If possible, **reproduce the problem using a very small `data.frame`**
 instead of your 50,000 rows and 10,000 columns one, provide the small one with
@@ -248,22 +263,27 @@ your script up to the point of the error (and after removing everything that is
 not relevant to your issue). Alternatively, in particular if your questions is
 not related to a `data.frame`, you can save any other R data structure that you have in your environment to a file:
 
-		save(iris, file="/tmp/iris.RData")
+```r
+# DO NOT RUN THIS!
 
-	The content of this file is however not human readable and cannot be posted
-directly on stackoverflow. It can, however, be sent to someone by email who can read
-it with this command:
+save(iris, file="/tmp/iris.RData")
+```
 
-		some_data <- load(file="~/Downloads/iris.RData")
+The content of this `.RData` file is not human readable and cannot be posted directly on stackoverflow. It can, however, be emailed to someone who can read it with this command:
 
+```r
+# DO NOT RUN THIS!
+
+some_data <- load(file="~/Downloads/iris.RData")
+```
 
 ### Where to ask for help?
 
-* Your friendly colleagues: if you know someone with more experience than you,
+* **Your friendly colleagues**: if you know someone with more experience than you,
   they might be able and willing to help you.
-* Stackoverflow: if your question hasn't been answered before and is well
+* **Stackoverflow**: if your question hasn't been answered before and is well
   crafted, chances are you will get an answer in less than 5 min.
-* The [R-help](https://stat.ethz.ch/mailman/listinfo/r-help): it is read by a
+* **The [R-help](https://stat.ethz.ch/mailman/listinfo/r-help)**: it is read by a
   lot of people (including most of the R core team), a lot of people post to it,
   but the tone can be pretty dry, and it is not always very welcoming to new
   users. If your question is valid, you are likely to get an answer very fast
@@ -272,12 +292,12 @@ it with this command:
   answer pointing to the misuse of your words rather than answering your
   question). You will also have more success if your question is about a base
   function rather than a specific package.
-* The [Bioconductor support site](https://support.bioconductor.org/). This is very useful and if you tag your post, there is a high likelihood of getting an answer from the developer.
+* **The [Bioconductor support site](https://support.bioconductor.org/)**. This is very useful and if you tag your post, there is a high likelihood of getting an answer from the developer.
 * If your question is about a specific package, see if there is a mailing list
   for it. Usually it's included in the DESCRIPTION file of the package that can
   be accessed using `packageDescription("name-of-package")`. You may also want
-  to try to email the author of the package directly.
-* There are also some topic-specific mailing lists (GIS, phylogenetics, etc...),
+  to try to **email the author** of the package directly.
+* There are also some **topic-specific mailing lists** (GIS, phylogenetics, etc...),
   the complete list is [here](http://www.r-project.org/mail.html).
   
 ### More resources

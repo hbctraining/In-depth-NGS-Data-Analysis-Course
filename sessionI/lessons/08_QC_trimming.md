@@ -1,16 +1,15 @@
 ---
 title: "Quality Control - Trimming"
-author: "Mary Piper, Radhika Khetani"
-date: "Thursday, January 28th, 2016"
+author: Mary Piper, Radhika Khetani
+date: 2017-05-31
+duration: 60 minutes
 ---
-
-Approximate time: 60 minutes
 
 ## Learning Objectives:
 * Explore trimming strategies for improving the quality of FASTQ reads
 * Use a `for loop` to automate operations on multiple files
 
-##Quality Control - Trimming
+## Quality Control - Trimming
 
 So far we have run our raw reads through FastQC to assess the quality of our sequencing reads. Now we are going to improve the quality of our reads, by **trimming** off any "bad" bases.
 

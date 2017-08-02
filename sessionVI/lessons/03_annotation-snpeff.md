@@ -22,7 +22,7 @@ Variant annotation is a crucial step in linking sequence variants with changes i
 
 At this stage, we have a large tab-delimited file containing loci at which a variation was found in the sample DNA sequence relative to the reference. We have filtered out these variations (also referred to as 'variant calls') to keep only those we are highly confident in, and now need to find out more. We can do this by **comparing our variants against known variants, and also use genome annotations to help predict information about our variants.** 
 
-<img src="../img/prioritize.png" width="300">
+<img src="../img/prioritize.png" width="200">
 
 
 
@@ -33,10 +33,10 @@ For this section we are going to need to copy over some reference data required 
 ```
 $ bsub -Is -q interactive bash
 
-$ cd ngs_course/var-calling
+$ cd ~/ngs_course/var-calling
 
 $ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* \
-data/reference_data/
+reference_data/
 
 ```
 
@@ -45,28 +45,28 @@ Let's also create a new directory for the results of our annotation steps:
 ```
 $ mkdir results/annotation
 $ cd results/annotation
-
 ```
 Your directory structure should now look something like this:
 
-```
+```bash
 ~/
 ├── ngs_course/
     ├── var-calling/
-        ├── data/
-            ├── untrimmed_fastq/
-            ├── reference_data
-        	    ├── chr20.fa
-        	    ├── dbsnp.138.chr20.vcf.gz
-                └── snpeff
+	├── reference_data/
+        	├── chr20.amb
+		├── chr20.ann
+		├── chr20.bwt
+		├── chr20.fa
+		├── chr20.fa.fai
+		├── chr20.pac
+		├── chr20.sa
+		├── dbsnp.138.chr20.vcf.gz
+		└── dbsnp.138.chr20.vcf.gz.tbi
         ├── results/
-     		├── bwa
-     		├── variants
-            └── annotation
-
+     		├── bwa/
+     		├── variants/
+            	└── annotation/
 ```
-
-
 
 ## Annotation with known variants 
 
@@ -82,23 +82,23 @@ To annotate our data with dbSNP information we wil be using [`bcftools`](https:/
 
 The `bcftools annotate` command allows the user to **add or remove annotations**. 
 
-```
+```bash
 $ bcftools annotate --help
 ```
 
 The annotation we wish to add and the file we are annotating must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format). Tabix indexes a tab-delimited genome position file and creates an index file (.tbi), which facilitates quick retrieval of data lines overlapping regions. *NOTE: this has already been done for our dbSNP file*
 
-```
+```bash
 $ bgzip ../variants/na12878_q20.recode.vcf 
 $ tabix ../variants/na12878_q20.recode.vcf.gz
 ```
 
 When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
 
-```
-$ bcftools annotate -c ID -a ../../data/reference_data/dbsnp.138.chr20.vcf.gz \
-    ../variants/na12878_q20.recode.vcf.gz \
-    > na12878_q20_annot.vcf
+```bash
+$ bcftools annotate -c ID -a ../../reference_data/dbsnp.138.chr20.vcf.gz \
+	../variants/na12878_q20.recode.vcf.gz \
+	> na12878_q20_annot.vcf
 ```
 Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants that are not known, you will find the `.` in place of an ID indicating novelty of that sequence change.
 
@@ -108,31 +108,45 @@ Take a quick peek at the new VCF file that was generated using `less`. You shoul
 
 One fundamental level of variant annotation involves categorising each variant based on its relationship to coding sequences in the genome and how it may change the coding sequence and affect the gene product. To do this we will be using a tool called [SnpEff](http://snpeff.sourceforge.net/), a **variant effect predictor program**. 
 
-Our understanding of the protein-coding sequences in the genome is summarised in the set of transcripts we believe to exist. Thus, variant annotation depends on the set of transcripts used as the basis for annotation. The widely used annotation databases and browsers – ENSEMBL, RefSeq, UCSC – contain sets of transcripts that can be used for variant annotation, as well as a wealth of information of many other kinds as well, such as ENCODE data about the function of non-coding regions of the genome. SnpEff will take information from the provided annotation database and populate our VCF file by adding it into the `INFO` field name `ANN`. Data fields are encoded separated by pipe sign "|"; and the order of fields is written in the VCF header.
+Our understanding of the protein-coding sequences in the genome is summarised in the set of transcripts we believe to exist. Thus, **variant annotation depends on the set of transcripts used as the basis for annotation**. The widely used annotation databases and browsers – ENSEMBL, RefSeq, UCSC – contain sets of transcripts that can be used for variant annotation, as well as a wealth of information of many other kinds as well, such as ENCODE data about the function of non-coding regions of the genome. SnpEff will take information from the provided annotation database and populate our VCF file by adding it into the `INFO` field name `ANN`. Data fields are encoded separated by pipe sign "|"; and the order of fields is written in the VCF header.
 
 <img src="../img/snpeff.png" width="700">
 
-```
+Some **common annotations** are listed below, but [the manual](http://snpeff.sourceforge.net/SnpEff_manual.html#input)
+provides a more comprehensive list.
+
+* Putative_impact/impact: A simple estimation of putative impact / deleteriousness : (HIGH, MODERATE, LOW, MODIFIER)
+* Gene Name: Common gene name (HGNC). Optional: use closest gene when the variant is “intergenic”.
+* Feature type: Which type of feature (e.g. transcript, motif, miRNA, etc.). It is preferred to use Sequence Ontology (SO) terms, but ‘custom’ (user defined) are allowed. 
+* Feature ID: Depending on the annotation sources, this may be: Transcript ID (preferably using version number), Motif ID, miRNA, ChipSeq peak, Histone mark, etc. Note: Some features may not have ID (e.g. histone marks from custom Chip-Seq experiments may not have a unique ID).
+* Biotype: The bare minimum is at least a description on whether the transcript is (“Coding”, “Noncoding”). Whenever possible, use ENSEMBL biotypes.
+
+Take a look at the options available. We will be using `snpEff` to annotate our variants.
+
+```bash
 $ snpEff -h
 ```
 To run the snpEff command we will need to specify two things:
 
 1. The appropriate genome
 2. The VCF file we want to annotate
-
-By default snpEff downloads and install databases automatically (since version 4.0). To see what databases are available you can use the `databases` command. Be sure to pipe this to `less`, as there is a long list of options:
-
-	$ snpEff databases | less
 	
 An additional parameter to add to our command is `Xmx2G`, a Java parameter to define available memory. Since we are in an interactive session by default we have 2GB available to us, if we had requested more before starting the session we could increase the number here.
 
 The final command will look like this:
 
-	## DO NOT RUN THIS CODE
+```bash
+## DO NOT RUN THIS CODE
 
-	$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
-	     > results/annotation/na12878_q20_annot_snpEff.vcf
-	    
+$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
+     > results/annotation/na12878_q20_annot_snpEff.vcf
+```	
+
+By default snpEff downloads and install databases automatically (since version 4.0) for the organism that is specified. To see what databases are available for human you can use the `databases` command:
+
+```bash
+$ snpEff databases | grep Homo_sapiens | less
+```
 	    
 > *NOTE:* SnpEff is a Java program and is normally run using JAR files (Java Archive), a package file format which requires the use of `java -jar snpEff.jar` notation. You will see this when reading through the [documentation](http://snpeff.sourceforge.net/SnpEff_manual.html). Because this is a bcbio install, similar to `picard`, the program has been setup with an alias and typing in `snpEff` alone works.
 
@@ -149,14 +163,14 @@ There are two steps in the pre-processing. We will use an example presented in t
 
 Suppose in your data you find a a patient with a potentially interesting frameshift:
 
-```
+```bash
 #CHROM	POS	ID	REF	ALT
 1	1001	.	CT	C
 ```
 
 To check the rarity of this variant it is common to cross-reference against reference populations (i.e. 1000 genomes, ESP), however our comparison shows that this allele does not exist. If we look a bit closer we find there is an individual with the variant, but due to joint calling it looks more like this:
 
-```
+```bash
 #CHROM	POS	ID	REF	ALT
 1	1001	.	CTCC	CCC,C,CCCC
 ```
@@ -165,7 +179,7 @@ This where the pre-processing comes in to play.
 
 1)  **Decomposing**: this step takes multiallelic variants and expands them into distinct variant records; one record for each REF/ALT combination. So our exmaple above now becomes:
  
-```
+```bash
 POS	REF	ALT
 1001	CTCC	CCC
 1001	CTCC	C
@@ -174,7 +188,7 @@ POS	REF	ALT
 
 2) **Normalize**: this step is to left-aligns indels. Aligning requires first removing any suffix shared between the REF and ALT alleles,then remove any prefix shared between the REF and ALT alleles. Finally, increment POS by the number of characters you removed from each.
 
-```
+```bash
 POS	REF	ALT	→	POS	REF	ALT
 1001	CTCC	CCC	→	1001	CT	C
 1001	CTCC	C	→	1001	CTCC	C
@@ -187,15 +201,15 @@ For both steps we will be using the `vt` toolset. First, the command to decompos
 	
 We then apply the `normalize` command, providing the path to the reference genome:
 
-```
-$ vt normalize -r ~/ngs_course/var-calling/data/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
+```bash
+$ vt normalize -r ~/ngs_course/var-calling/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
       na12878_q20_annot_decompose.vcf  	
 ```
 
 **Now we are ready to run SnpEff**. We can modify the command above to specify the relevant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses `ANN` (as described above), but GEMINI is expecting information to be written in `EFF`. By adding the `-classic` and `-formatEff` the results are written using the old format with EFF.
 
-```
-snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
+```bash
+$ snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
      > na12878_q20_annot_snpEff.vcf
 ```
 
@@ -208,17 +222,22 @@ SnpEff produces three output files:
 2. an HTML file containing summary statistics about the variants and their annotations
 3. a text file summarizing the number of variant types per gene
 
-In your current directory you will find that the two additional files (#2, #3) that were generated in addition to the newly annotated VCF. Let's take a look at the **text file**:
+Let's take a look at the **text file**:
 
-	$ less snpEff_genes.txt
-
+```bash
+$ less snpEff_genes.txt
+```
 Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they harbour, if any.
 
-To look at the **HTML file**, we will need to move it over to our laptop. You can do this by using `FileZilla` or the `scp` command if you are more comfortable with the command line.
+To look at the **HTML file**, we will need to **mount Orchestra**. You can do this using the command below, but modifying it to use your own eCommons ID:
 
-The first part of the report is a summary, which outlines what was run and what was found.
+	$ sshfs ecommonsID@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
 
-![summary](../img/snpeff_summary2.png)
+> **NOTE:** The above command assumes that you have Orchestra mounting setup from last class. If not, please see instructions [here](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/orchestra_mounting.md) on how to set that up (for now just use `FileZilla`). Also, you **may have an alias setup on your personal laptop**. In that case, you will not need to run the above command and you can simply type in the alias to the terminal (i.e **`orch_mount`**)
+
+Let's scroll through the report. The first part of the report is a summary, which outlines what was run and what was found.
+
+![summary](../img/snpeff_summary3.png)
 
 As we scroll through the report, we can obtain more details on the categories of variants in our file. 
 
@@ -252,11 +271,5 @@ Use the HTML report to answer the following questions:
 3. How many variants were found in exonic regions?
 4. The Ts/Tv ratio (the transition/transversion rate) tends to be around 2-2.1 for the human genome, although it changes between different genomic regions. What is the ratio reported for our sample? 
 
-
-
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-
-
-

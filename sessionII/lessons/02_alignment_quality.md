@@ -34,7 +34,7 @@ What you should see, is that for each FASTQ file you have **5 output files** and
 
 Having completed the alignment, the first thing we want to know is how well did our reads align to the reference. Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at one of those files. We'll use the `less` command which allows us to scroll through it easily: 
 
-	$ less Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Log.final.out
+	$ less Mov10_oe_1.subset.fq_Log.final.out
 	
 The log file provides information on reads that 1) mapped uniquely, 2) reads that mapped to mutliple locations and 3) reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the **mapping rate and the number of multimappers**.
 
@@ -42,26 +42,30 @@ The log file provides information on reads that 1) mapped uniquely, 2) reads tha
 
 > NOTE: The thresholds suggested above will vary depending on the organism that you are working with. Much of what is discussed here is in the context of working with human or mouse data. For example, 75% of mapped reads holds true only if the genome is good or mature. For badly assembled genomes we may not observe a high mapping rate, even if the actual sequence sample is good.
 
-
-In addition to the aligner-specific summary we can also obtain quality metrics using tools like [RNA-SeQC](https://www.broadinstitute.org/cancer/cga/rna-seqc). The input for RNA-SeQC can be one or more BAM files and the output consists of HTML reports and tab delimited files of metrics data. This tool can be valuable for comparing sequencing quality across different samples, but can also be run on individual samples as a means of quality control before continuing with downstream analysis. We will not be using this tool in the course, but some of the features are listed below:
-
-* Transcript-annotated reads: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
-* Ribosomal RNA (rRNA) constitutes a large majority of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve complete rRNA removal. Even with Poly-A enrichment a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data. 
-* GC bias and strand specificity
-* Depth of coverage across transcript length
-
-
 *** 
 
 **Exercise**
 
-Using the less command take a look at `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Log.final.out` and answer the following questions:
+Using the less command take a look at `Mov10_oe_1.subset.fq_Log.final.out` and answer the following questions:
 
 1. How many reads map to more than 10 locations on the genome?
 2. How many reads are unmapped due to read length?
 3. What is the average mapped length per read?
 
 ***
+
+
+## Other quality checks
+
+In addition to the aligner-specific summary we can also obtain quality metrics using tools like [Qualimap](http://qualimap.bioinfo.cipf.es/doc_html/intro.html#what-is-qualimap) or [RNASeQC](http://archive.broadinstitute.org/cancer/cga/rna-seqc). These tools examine sequencing alignment data according to the features of the mapped reads and their genomic properties and **provides an overall view of the data that helps to to the detect biases in the sequencing and/or mapping of the data**.The input can be one or more BAM files and the output consists of HTML or PDF reports with useful figures and tab delimited files of metrics data.
+
+We will not be performing this step in the course, but we describe some of the features below to point out things to look for when assessing alignment quality of RNA-seq data:
+
+* **Reads genomic origin**: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
+* **Ribosomal RNA (rRNA)** constitutes a large majority of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve complete rRNA removal. Even with Poly-A enrichment a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data.
+* **Transcript coverage and 5'-3' bias**: assesing the affect on expression level and on levels of transcript GC content
+* **Junction analysis**: analysis of junction positions in spliced alignments (i.e known, partly known, novel) 
+* **Strand specificity:** assess the performance of strand-specific library construction methods. The percentage of sense-derived reads is given for each end of the read pair. A non-strand-specific protocol would give values of 50%/50%, whereas strand-specific protocols typically yield 99%/1% or 1%/99% for this metric.
 
 
 ## Alignment file format: SAM/BAM
@@ -166,7 +170,7 @@ Now that we have learned so much about the SAM file format, let's use `samtools`
 We will do the latter (since we don't really need it for downstream analysis) and scroll through the SAM file (using the up and down arrows) to see how the fields correspond to what we expected. Adding the `-h` flag allows to also view the header.
 
 ```
-$ samtools view -h Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByCoord.out.bam | less
+$ samtools view -h Mov10_oe_1.subset.fq_Aligned.sortedByCoord.out.bam | less
 
 ``` 
 
@@ -175,7 +179,7 @@ $ samtools view -h Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByC
 Now we know that we have all of this information for each of the reads -- wouldn't it be useful to summarize and filter based on selected criteria? Suppose we wanted to set a threshold on mapping quality. For example, we want to know how many reads aligned with a quality score higher than 30. To do this, we can combine the `view` command with additional flags `q 30` and `-c` (to count):
 
 ```
-$ samtools view -q 30 -c Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByCoord.out.bam
+$ samtools view -q 30 -c Mov10_oe_1.subset.fq_Aligned.sortedByCoord.out.bam
 
 ```
 *How many of reads have a mapping quality of 30 or higher?*
@@ -192,7 +196,7 @@ To perform some functions (i.e. subsetting, visualization) on the BAM file, an i
 
 To index the BAM file we use the `index` command:
 
-    $ samtools index Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByCoord.out.bam
+    $ samtools index Mov10_oe_1.subset.fq_Aligned.sortedByCoord.out.bam
 
 This will create an index in the same directory as the BAM file, which will be identical to the input file in name but with an added extension of `.bai`.
 
@@ -201,7 +205,7 @@ This will create an index in the same directory as the BAM file, which will be i
 
 **Exercise:**
 
-1. The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
+The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
 primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of [bitwise flags](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/03_alignment_quality.md#bitwise-flags-explained) to find count how many secondary reads there are for `Mov10_oe_1`.**
 
 
@@ -220,12 +224,12 @@ First, identify the location of the _origin file_ you intend to copy, followed b
 
 The following 2 files need to be moved from Orchestra to your local machine,
  
-`Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByCoord.out.bam`,
+`Mov10_oe_1.subset.fq_Aligned.sortedByCoord.out.bam`,
 
-`Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByCoord.out.bam.bai` 
+`Mov10_oe_1.subset.fq_Aligned.sortedByCoord.out.bam.bai` 
 
 ```
-$ scp user_name@orchestra.med.harvard.edu:/home/user_name/ngs_course/rnaseq/results/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq_Aligned.sortedByCoord.out.bam* /path/to/directory_on_laptop
+$ scp user_name@orchestra.med.harvard.edu:/home/user_name/ngs_course/rnaseq/results/Mov10_oe_1.subset.fq_Aligned.sortedByCoord.out.bam* /path/to/directory_on_laptop
 ```
 
 
@@ -241,10 +245,12 @@ $ scp user_name@orchestra.med.harvard.edu:/home/user_name/ngs_course/rnaseq/resu
 
 **Exercise**
 
-Now that we have done this for one sample, let's try using the same commands to perform the indexing on a the Irrelevant replicate 1 and copy over the index (bai) file along with the corresponding BAM file to your laptop. Then upload the BAM file into IGV for visualization. 
+Now that we have done this for one sample, let's try using the same commands on the Irrelevant replicate 1 sample.
 
-1. How does the MOV10 gene look in the control sample in comparison to the overexpression sample?
-2. Take a look at a few other genes by typing into the search bar. For example, PPM1J and PTPN22. How do these genes compare? 
+1. Create an index for the BAM file.
+2. Copy over the index (bai) file along with the corresponding BAM file to your laptop. Then upload the BAM file into IGV for visualization. 
+3. How does the MOV10 gene look in the control sample in comparison to the overexpression sample?
+4. Take a look at a few other genes by typing into the search bar. For example, PPM1J and PTPN22. How do these genes compare? 
 
 ***
 

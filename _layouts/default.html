@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ page.title | markdownify | strip_html }}</title>
+<link rel="stylesheet" type="text/css" href="http://steinbaugh.com/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/css/default.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+<header>
+<h1>{{ page.title }}</h1>
+{% if page.author != nil %}
+<div id="author">{{ page.author }}</div>
+{% endif %}
+{% if page.duration != nil %}
+<div id="duration">Duration: {{ page.duration }} minutes</div>
+{% endif %}
+{% if page.date != nil %}
+<div id="date"><time datetime="{{ page.date | date: '%F' }}">{{ page.date | date: '%B %-d, %Y' }}</time></div>
+{% endif %}
+{% if page.excerpt != nil %}
+<div id="excerpt">{{ page.excerpt | markdownify | remove: "<p>" | remove: "</p>" }}</div>
+{% endif %}
+</header>
+<article>
+{{ content }}
+</article>
+</body>
+</html>
+
+<!-- GitHub Pages | Generated {{ site.time }} | Revision {{ site.github.build_revision }} -->

@@ -1,10 +1,8 @@
 ---
 title: "Introduction to ChIP-Seq and directory setup"
-author: "Mary Piper, Radhika Khetani"
-date: "Thursday, March 3rd, 2016"
+author: "Mary Piper, Radhika Khetani, Meeta Mistry"
+date: "June 28, 2017"
 ---
-
-Contributors: Mary Piper, Radhika Khetani
 
 Approximate time: 30 minutes
 
@@ -39,7 +37,7 @@ Within the DNA fragments enriched for the regions binding to a protein of intere
 In addition, when performing ChIP-Seq, some sequences may appear enriched due to the following:
 
 - Open chromatin regions are fragmented more easily than closed regions
-- Repetitive sequences might seem to be enriched (inaccurately assessed copy numbers in the assembled genome)
+- Repetitive sequences might seem to be enriched (copy number inaccuracies in genome assembly)
 - Uneven distribution of sequence reads across the genome
 
 Therefore, proper controls are essential. A ChIP-Seq peak should be compared with the same region of the genome in a matched control.
@@ -54,76 +52,87 @@ The same starting material should be divided to be used for both the protein-spe
 
 ![controls](../img/chipseq_exp_controls.png)
 
-## Experimental Design
+## Introduction to example data
 
-We will ultimately be comparing the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4) from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/) that have been ChIP-sequenced with Illumina in H1 human embryonic stem cell line (h1-ESC) cells. **Nanog and Pou5f1 are both TFs that are involved in stem cell pluripotency.**
+Our goal for this session is to compare the the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4). The ChIP was performed on H1 human embryonic stem cell line (h1-ESC) cells, and sequenced using Illumina. The datasets were obtained from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/). These 2 transcription factors are involved in **stem cell pluripotency** and one of the goals is to understand their roles, individually and together, in transriptional regulation. 
 
-The experimental design used two replicates, with each replicate divided into three samples:
+Two replicates were collected and each was divided into 3 aliquots for the following:
 
-- Control input DNA
 - Nanog IP
 - Pou5f1 IP
+- Control input DNA
 
 <img src="../img/chipseq_exp_design.png" width=500>
 
-To keep things manageable and allow algorithms to finish within a few minutes we will be using reads from 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000) for all samples. 
+For these 6 samples, we will be using reads from only a 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000), so we can get through the workflow in class. 
 
-The workflow for the ChIP-Seq analysis will start with quality control and alignment, proceed to peak calling and comparing peaks between samples, and finish with motif discovery and functional enrichment analyses. Similar to RNA-Seq, each step in the workflow will require the data to be in a specific type of standardized format.
+Below is the workflow that we will be using today, similar to RNA-Seq, each step in the workflow will require the data to be in a specific type of standardized format.
 
-![workflow](../img/chip_workflow_combined.png)
-
-In the interest of time, we will not be using all samples in every step:
-
-![workflow](../img/chipseq_analysis_workflow_samples.png)}}
+<img src="../img/chip_workflow_june2017.png" width="700">	
 
 ## Set-up
 
-Before we get started with the ChIP-Seq analysis, we need to set up our directory structure.
+Before we get started with the analysis, we need to set up our directory structure.
 
-Login to Orchestra and start an interactive session with four cores:
+Login to Orchestra and start an interactive session with two cores:
 
-`$ bsub -Is -n 4 -q interactive bash`
+```bash
+$ bsub -Is -n 2 -q interactive bash
+```
 
 Change directories to the `ngs_course` directory:
 
-`$ cd ~/ngs_course`
+```bash
+$ cd ~/ngs_course
+```
 
 Create a `chipseq` directory and change directories into it:
 
-```
+```bash
 $ mkdir chipseq
 
 $ cd chipseq
 ```
 
-Now let's setup the directory structure. In one command create folders for `data`and `results` _and_ within the `data` folder create folders for `untrimmed_fastq`, `trimmed_fastq`, and `reference_data`:
-
-`$ mkdir -p data/untrimmed_fastq data/trimmed_fastq data/reference_data`
-
-Within the `results` folder create folders for untrimmed_fastqc, trimmed_fastqc, and bowtie2:
-
-`$ mkdir -p results/untrimmed_fastqc results/trimmed_fastqc results/bowtie2`
-
-Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our fastq files and reference data files:
-
+Now let's setup the directory structure, we are looking for the following structure within the chipseq directory:
+```bash
+chipseq/
+├── logs/
+├── meta/
+├── raw_data/
+├── reference_data/
+├── results/
+│   ├── bowtie2/
+│   ├── trimmed/
+│   ├── trimmed_fastqc/
+│   └── untrimmed_fastqc/
+└── scripts/
 ```
-$ cd data
+```bash
+$ mkdir -p raw_data reference_data scripts logs meta
 
-$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq untrimmed_fastq/
-
-$ cp /groups/hbctraining/ngs-data-analysis-longcoursechipseq/reference_data/chr12* reference_data/
+$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/bowtie2
 ```
 
-We will be using tools within the bcbio pipeline, so please make sure bcbio is in your PATH:
+Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our FASTQ files and reference data files:
 
-```
-$ PATH=/opt/bcbio/centos/bin:$PATH
-```
-or within your `.bashrc` file:
+```bash
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq raw_data/
 
+$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/reference_data/chr12* reference_data/
 ```
+
+You should have bcbio in you path, but please check that it is:
+
+```bash
+$ echo $PATH
+```
+If `/opt/bcbio/centos/bin` is not part of `$PATH`, add it by adding the following line within your `~/.bashrc` file and then run `source ~/.bashrc`:
+
+```bash
 export PATH=/opt/bcbio/centos/bin:$PATH
 ```
+
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 

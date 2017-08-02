@@ -1,7 +1,8 @@
 # In-depth NGS Data Analysis Course
-This repository contains all course materials for HBC's In-depth NGS Data Analysis Course, which is a 12-day course run over 6 weeks.
 
-This course is aimed at bench biologists who are interested in learning about NGS-based genomic analysis. The topics covered in-depth during this course are analysis of RNA-Seq and ChIP-Seq data, with an optional Variant Calling session. The sessions will also include functional analysis downstream of sequence data processing. During this course, participants will gain skills in the areas of:
+This branch (May 2017) of the NGS course repo contains all course materials for the Summer 2017 version of HBC's In-depth NGS Data Analysis Course, a 12-day course run over 6 weeks (May 31 through July 7, 2017).
+
+The course is aimed at bench biologists who are interested in learning about NGS-based genomic analysis. The topics covered in-depth during this course are analysis of RNA-Seq and ChIP-Seq data, with an optional Variant Calling session. The sessions will also include functional analysis downstream of sequence data processing. During this course, participants will gain skills in the areas of:
  
 * UNIX and basic shell scripting
 * high-performance compute clusters, and 
@@ -13,12 +14,12 @@ At the end of this course, participants can expect to have the expertise to inde
 
 This repo contains the materials for the six sessions of the course. The six sessions are described below:
 
- * **Session I**: Introduction to Unix / Orchestra and NGS Data Analysis
- * **Session II**: RNA-Seq Part I
- * **Session III**: RNA-Seq Part II
- * **Session IV**: RNA-Seq Part III and Related Technologies and Tools
- * **Session V**: ChIP-Seq
- * **Session VI**: Variant Calling
+ * [**Session I**: Introduction to Unix / Orchestra and NGS Data Analysis](sessionI)
+ * [**Session II**: RNA-Seq Part I](sessionII)
+ * [**Session III**: RNA-Seq Part II](sessionIII)
+ * [**Session IV**: RNA-Seq Part III and Related Technologies and Tools](sessionIV)
+ * [**Session V**: ChIP-Seq](sessionV)
+ * [**Session VI**: Variant Calling](sessionVI)
 
 ---
 

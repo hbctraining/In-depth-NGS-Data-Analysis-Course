@@ -1,9 +1,9 @@
 ---
-layout: page
 title: Version Control with Git
-subtitle: Git basics
-minutes: 90
+date: 2017-07-07
+duration: 90
 ---
+
 ## Learning Objectives
 
 *  Configure `git` the first time is used on a computer.
@@ -15,7 +15,7 @@ minutes: 90
 
 To learn about version control with Git, we are going to use the following scenario:
 
-*Wolfman and Dracula have been hired by Universal Missions to investigate if it is possible to send their next planetary lander to Mars. They want to be able to work on the plans at the same time, but they have run into problems doing this in the past. If they take turns, each one will spend a lot of time waiting for the other to finish, but if they work on their own copies and email changes back and forth things will be lost, overwritten, or duplicated. Therefore, they are going to use Git with Github to work on their plans at the same time, then merge their changes.*
+*Wolfman and Dracula have been hired by Universal Missions to investigate if it is **possible to send their planetary lander to Mars**. They want to be able to work on the plans at the same time, but they have run into problems doing this in the past. If they take turns, each one will spend a lot of time waiting for the other to finish, but if they work on their own copies and email changes back and forth things will be lost, overwritten, or duplicated. Therefore, they are going to use Git with Github to work on their plans at the same time, then merge their changes.*
 
 ### Git configuration
 
@@ -28,13 +28,19 @@ of configurations we will set as we get started with Git:
 *   what our preferred text editor is,
 *   and that we want to use these settings globally (i.e. for every project)
 
-On a command line, Git commands are written as `git verb`, 
+On a command line, Git commands are written as:
+
+```bash
+git verb
+``` 
 where `verb` is what we actually want to do. So here is how 
 Dracula sets up his new laptop:
 
 ~~~ {.bash}
 $ git config --global user.name "Vlad Dracula"
+
 $ git config --global user.email "vlad@tran.sylvan.ia"
+
 $ git config --global color.ui "auto"
 ~~~
 
@@ -67,24 +73,6 @@ $ git config --list
 You can change your configuration as many times as you want: just use the
 same commands to choose another editor or update your email address.
 
-> ### Proxy
->
-> In some networks you need to use a
-> [proxy](https://en.wikipedia.org/wiki/Proxy_server). If this is the case, you
-> may also need to tell Git about the proxy:
->
-> ~~~ {.bash}
-> $ git config --global http.proxy proxy-url
-> $ git config --global https.proxy proxy-url
-> ~~~
->
-> To disable the proxy, use
->
-> ~~~ {.bash}
-> $ git config --global --unset http.proxy
-> $ git config --global --unset https.proxy
-> ~~~
-
 ### Creating a local Git repository
 
 Once Git is configured,
@@ -93,6 +81,7 @@ Let's create a directory for our work and then move into that directory:
 
 ~~~ {.bash}
 $ mkdir planets
+
 $ cd planets
 ~~~
 
@@ -342,6 +331,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 The last line is the key phrase:
 "no changes added to commit".
+
 We have changed this file,
 but we haven't told Git we will want to save those changes
 (which we do with `git add`)
@@ -364,10 +354,7 @@ index df0654a..315bf3a 100644
 +The two moons may be a problem for Wolfman
 ~~~
 
-The output is cryptic because
-it is actually a series of commands for tools like editors and `patch`
-telling them how to reconstruct one file given the other.
-If we break it down into pieces:
+The output is cryptic, so let's break it down into pieces:
 
 1.  The first line tells us that Git is producing output similar to the Unix `diff` command
     comparing the old and new versions of the file.
@@ -599,34 +586,15 @@ repository (`git commit`):
 		
 	d. `$ git commit -m myfile.txt "my recent changes"`
 
-3. Create a new Git repository on your computer called `bio`. Write a three-line biography for yourself in a file called `me.txt`,
-commit your changes, then modify one line, add a fourth line, and display the differences between its updated state and its original state.
-
-4. For each of the commits you have done, Git stored your name twice. You are named as the author and as the committer. You can observe
- that by telling Git to show you more information about your last commits:
-
-	```
-	$ git log --format=full
-	```
-
-	When commiting you can name someone else as the author:
-	
-	```
-	$ git commit --author="Vlad Dracula <vlad@tran.sylvan.ia>"
-	```
-	
-	Create a new repository and create two commits: one without the `--author` option and one by naming a colleague of yours as the author. Run `git log` and `git log --format=full`. Think about ways how that can allow you to collaborate with your colleagues.
-
-	[commit-messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
-
 ***
 
 ### Ignoring files during tracking
 
 What if we have files that we do not want Git to track for us,
 like backup files created by our editor
-or intermediate files created during data analysis.
-Let's create a few dummy files:
+or intermediate files created during data analysis. Generally, it's a good idea to avoid versioning really large files and binary files; however, Git does have an [extension](https://git-lfs.github.com/) you can download if you need to version these types of files.
+
+Let's practice with ignoring files by creating a few dummy files:
 
 ~~~ {.bash}
 $ mkdir results
@@ -750,34 +718,6 @@ nothing to commit, working directory clean
 	How would you ignore only `results/plots` and not `results/data`?
 
 2. How would you ignore all `.data` files in your root directory except for `final.data`? Hint: Find out what `!` (the exclamation point operator) does
-
-3. Given a directory structure that looks like:
-	
-	```
-	results/data/position/gps/useless.data
-	results/plots
-	```
-	
-	What's the shortest `.gitignore` rule you could write to ignore all `.data` files in `result/data/position/gps`? Hint: What does appending `**` to a rule accomplish?
-
-4. Given a `.gitignore` file with the following contents:
-
-	```
-	*.data
-	!*.data
-	```
-	
-	What will be the result?
-
-5. You wrote a script that creates many intermediate log-files of the form log_01, log_02, log_03, etc. You want to keep them but you do not want to track them through `git`.
-
-	a. Write **one** `.gitignore` entry that excludes files of the form `log_01`, `log_02`, etc.
-	
-	b. Test your "ignore pattern" by creating some dummy files of the form `log_01`, etc.
-	
-	c. You find that the file `log_01` is very important after all, add it to the tracked files without changing the `.gitignore` again.
-	
-	d. Discuss with your neighbor what other types of files could reside in your directory that you do not want to track and thus would exclude via `.gitignore`.
 
 ## Comparing differences between files
 
@@ -1024,4 +964,8 @@ Luckily, she has been keeping track of her project's versions using Git!
 
 	d. Error because you have changed venus.txt without committing the changes
      	
+***
+
+*These materials were adapted from [Software Carpentry](https://software-carpentry.org/lessons/), the Licensing information can be [found here](LICENSE_SWC_git_materials.md).*
+
 ***
