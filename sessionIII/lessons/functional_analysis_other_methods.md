@@ -65,7 +65,7 @@ gseaGO <- gseGO(geneList = foldchanges,
 
 gseaGO_results <- gseaGO@result
 gseaplot(gseaGO, geneSetID = 'GO:0048812')
-
+```
 
 ### Gene set enrichment analysis using GAGE and Pathview
 
