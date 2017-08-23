@@ -1,7 +1,7 @@
 ---
 title: "Quality control using FASTQC"
 author: "Bob Freeman, Mary Piper"
-date: 2017-05-31
+date: Wednesday, August 23, 2017
 duration: 85 minutes
 ---
 
