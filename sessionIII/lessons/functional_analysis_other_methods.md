@@ -19,29 +19,35 @@ all_results_entrez <- getBM(filters = "external_gene_name",
 merged_all_results_entrez <- merge(data.frame(res_tableOE), all_results_entrez, by.x="row.names", by.y="external_gene_name") 
 ```
 
-When performing our analysis, we need to remove the NA values prior to the analysis:
+When performing our analysis, we need to remove the NA values and duplicates (due to gene ID conversion) prior to the analysis:
 
 ```r
 # Remove any NA values
 all_results_gsea <- subset(merged_all_results_entrez, entrezgene != "NA")
+
+# Remove any duplicates
+all_results_gsea <- all_results_gsea[which(duplicated(all_results_gsea$Row.names) == F), ]
 ```
-
-We also need to order our results by log2 fold changes:
-
-```r
-# Order results by `Log2FoldChange`
-all_results_gsea <- all_results_gsea[order(all_results_gsea$log2FoldChange, decreasing = T), ]
-```
-
 Finally, extract and name the fold changes:
 
 ```r
 # Extract the ordered foldchanges
 foldchanges <- all_results_gsea$log2FoldChange
-names(foldchanges) <- all_results_gsea$entrezgene
-# head(foldchanges)
-# foldchanges <- sort(foldchanges, T)
 
+names(foldchanges) <- all_results_gsea$entrezgene
+```
+
+Order the foldchanges in decreasing order:
+
+```r
+foldchanges <- sort(foldchanges, T)
+
+head(foldchanges)
+```
+
+Perform the GSEA using KEGG gene sets:
+
+```r
 # GSEA using gene sets from KEGG pathways
 gseaKEGG <- gseKEGG(geneList = foldchanges,
               organism = "hsa",
@@ -51,12 +57,39 @@ gseaKEGG <- gseKEGG(geneList = foldchanges,
               verbose = FALSE)
               
 gseaKEGG_results <- gseaKEGG@result
-pathview(gene.data = foldchanges,
-              pathway.id = kkgsea_results$ID[1],
-              species = "hsa",
-              limit = list(gene = max(abs(foldchanges)),
-              cpd = 1))
+```
 
+View the enriched pathways:
+
+```r
+gseaKEGG_results
+
+write.csv(gseaKEGG_results, "results/gseaOE.csv", quote=F)
+```
+
+Use Pathview to integrate the pathway data from clusterProfiler into pathway images:
+
+```r
+pathview(gene.data = foldchanges,
+              pathway.id = "hsa03040",
+              species = "hsa",
+              limit = list(gene = 2,
+              cpd = 1))
+```
+
+>**NOTE:** Printing out Pathview images for all significant pathways can be easily performed as follows:
+> ```r
+> get_kegg_plots <- function(x) {
+>    pathview(gene.data = foldchanges, pathway.id = gsea_results$ID[x], species = "mmu", 
+>        limit = list(gene = 2, cpd = 1))
+> }
+> library(purrr)
+> map(1:length(gsea_results$ID), get_kegg_plots)
+> ```
+
+Instead of exploring enrichment of KEGG gene sets, we can also explore the enrichment of BP Gene Ontology terms: 
+
+```r
 # GSEA using gene sets associated with BP Gene Ontology terms
 gseaGO <- gseGO(geneList = foldchanges, 
               OrgDb = org.Hs.eg.db, 
@@ -69,7 +102,7 @@ gseaGO <- gseGO(geneList = foldchanges,
 
 gseaGO_results <- gseaGO@result
 gseaplot(gseaGO, geneSetID = 'GO:0048812')
-
+```
 
 ### Gene set enrichment analysis using GAGE and Pathview
 
