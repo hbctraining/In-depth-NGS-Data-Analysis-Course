@@ -3,13 +3,17 @@ Functional class scoring (FCS) tools, such as [GSEA](http://software.broadinstit
 
 ### Gene set enrichment analysis using clusterProfiler and Pathview
 
-ClusterProfiler is a versatile tool allowing for over-representation analysis and GSEA analysis. To perform GSEA analysis of KEGG gene sets, we need to obtain the Entrez IDs for all genes in our results dataset.
+Using the log2 fold changes obtained from the DESeq2 analysis for every gene, gene set enrichment analysis and pathway analysis was performed using clusterProfiler and Pathview tools.
+
+For gene set or pathway analysis using clusterProfiler, coordinated differential expression over gene sets is tested instead of changes of individual genes. "Gene sets are pre-defined groups of genes, which are functionally related. Commonly used gene sets include those derived from KEGG pathways, Gene Ontology terms, gene groups that share some other functional annotations, etc. Consistent perturbations over such gene sets frequently suggest mechanistic changes" [1]. 
+
+To perform GSEA analysis of KEGG gene sets, clusterProfiler requires the genes to be identified using Entrez IDs for all genes in our results dataset.
 
 ```r
 # Return all genes with Entrez IDs
 all_results_entrez <- getBM(filters = "external_gene_name", 
                    values = rownames(res_tableOE),
-                   attributes = c("entrezgene","external_gene_name")
+                   attributes = c("entrezgene","external_gene_name"),
                    mart = human)
                    
 merged_all_results_entrez <- merge(data.frame(res_tableOE), all_results_entrez, by.x="row.names", by.y="external_gene_name") 
