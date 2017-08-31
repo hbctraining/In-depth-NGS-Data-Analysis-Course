@@ -13,7 +13,7 @@ To perform GSEA analysis of KEGG gene sets, clusterProfiler requires the genes t
 # Return all genes with Entrez IDs
 all_results_entrez <- getBM(filters = "external_gene_name", 
                    values = rownames(res_tableOE),
-                   attributes = c("entrezgene","external_gene_name")
+                   attributes = c("entrezgene","external_gene_name"),
                    mart = human)
                    
 merged_all_results_entrez <- merge(data.frame(res_tableOE), all_results_entrez, by.x="row.names", by.y="external_gene_name") 
