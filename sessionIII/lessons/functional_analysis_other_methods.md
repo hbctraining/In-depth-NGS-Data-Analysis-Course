@@ -3,7 +3,11 @@ Functional class scoring (FCS) tools, such as [GSEA](http://software.broadinstit
 
 ### Gene set enrichment analysis using clusterProfiler and Pathview
 
-ClusterProfiler is a versatile tool allowing for over-representation analysis and GSEA analysis. To perform GSEA analysis of KEGG gene sets, we need to obtain the Entrez IDs for all genes in our results dataset.
+Using the log2 fold changes obtained from the DESeq2 analysis for every gene, gene set enrichment analysis and pathway analysis was performed using clusterProfiler and Pathview tools.
+
+For gene set or pathway analysis using clusterProfiler, coordinated differential expression over gene sets is tested instead of changes of individual genes. "Gene sets are pre-defined groups of genes, which are functionally related. Commonly used gene sets include those derived from KEGG pathways, Gene Ontology terms, gene groups that share some other functional annotations, etc. Consistent perturbations over such gene sets frequently suggest mechanistic changes" [1]. 
+
+To perform GSEA analysis of KEGG gene sets, clusterProfiler requires the genes to be identified using Entrez IDs for all genes in our results dataset.
 
 ```r
 # Return all genes with Entrez IDs
@@ -69,9 +73,7 @@ gseaplot(gseaGO, geneSetID = 'GO:0048812')
 
 ### Gene set enrichment analysis using GAGE and Pathview
 
-Using the log2 fold changes obtained from the DESeq2 analysis for every gene, gene set enrichment analysis and pathway analysis was performed using [GAGE (Generally Applicable Gene-set Enrichment for Pathway Analysis)](http://bioconductor.org/packages/release/bioc/html/gage.html) and [Pathview](http://bioconductor.org/packages/release/bioc/html/pathview.html) tools.
-
-For gene set or pathway analysis using GAGE, coordinated differential expression over gene sets is tested instead of changes of individual genes. "Gene sets are pre-defined groups of genes, which are functionally related. Commonly used gene sets include those derived from KEGG pathways, Gene Ontology terms, gene groups that share some other functional annotations, etc. Consistent perturbations over such gene sets frequently suggest mechanistic changes." [[1](https://www.bioconductor.org/packages/devel/bioc/vignettes/gage/inst/doc/gage.pdf)]
+Gene set enrichment analysis using [GAGE (Generally Applicable Gene-set Enrichment for Pathway Analysis)](http://bioconductor.org/packages/release/bioc/html/gage.html) and [Pathview](http://bioconductor.org/packages/release/bioc/html/pathview.html) tools was also performed using a slightly different type of algorithm.
 
 "GAGE assumes a gene set comes from a different distribution than the background and uses two-sample t-test to account for the gene set specific variance as well as the background variance. The two-sample t-test used by GAGE identifies gene sets with modest but consistent changes in gene expression level."[[2](http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-161)]
 
