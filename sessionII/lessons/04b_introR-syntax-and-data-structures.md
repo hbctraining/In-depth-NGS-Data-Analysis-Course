@@ -1,4 +1,3 @@
-
 ---
 layout: topic
 title: R Syntax and Data Structures
