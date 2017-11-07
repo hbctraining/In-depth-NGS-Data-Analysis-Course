@@ -5,22 +5,18 @@ Prerequisites: None
 Duration: 2-day workshop (~13 hours of trainer-led time)
 ---
 
-## Session I: Introduction to Unix / Orchestra and NGS Data Analysis
+## Session I: Introduction to Unix / O2 and NGS Data Analysis
 
 ### Description
 
-Session I will start with an overview of bioinformatics and next-generation sequencing (NGS), followed by an interactive introduction to Unix and Orchestra (the high performance computational cluster maintained by HMS Research Computing). The session will wrap up with an in-depth introduction to sequencing technology, library preparation and QC protocols for NGS data.
-
-**Day 1:** We will start the course by laying out the path for the NGS Analysis course and providing a general overview of bioinformatics and NGS data. The remainder of the day will be dedicated to learning Unix, including navigating filesystems and performing basic operations.
-
-**Day 2:** The second day will start with an introduction to computational clusters and O2, which will provide a thorough description of what the cluster environment is and how we benefit from using it. Following the introduction to O2, we will discuss best practices in Research Data Management (RDM) and spend some time implementing some of these to organize our project before jumping into the workflow. We will then introduce how Illumina sequencing works and what goes into preparing libraries for sequencing transcriptomics experiments. Finally, we will learn how to assess and interpret the quality of sequencing (FASTQ) files, discuss different error profiles you can expect to see with Illumina sequencers, and the main sources of errors.
+Session I will start with an overview of bioinformatics and next-generation sequencing (NGS), followed by an interactive introduction to Unix and O2 (the high performance computational cluster maintained by HMS Research Computing). The session will wrap up with an in-depth introduction to sequencing technology, library preparation and QC protocols for NGS data.
 
 > These materials were developed for a trainer-led workshop, but are also amenable to self-guided learning.
 
 ### Learning Objectives
 
 1.	Understand the necessity for, and use of, the command line interface (bash) and HPC for analyzing high-throughput sequencing data.
-2.	Understand best practices for designing an RNA-seq experiment and analysis the resulting data.
+2.	Understand best practices for designing an RNA-seq experiment and the QC of the resulting data.
 
 
 ### Contents
