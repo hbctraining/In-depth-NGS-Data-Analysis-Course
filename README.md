@@ -33,6 +33,28 @@ This repo contains the materials for the six sessions of the course. The six ses
 
 ---
 
+### Installation Requirements
+
+Download and install the following programs:
+>**NOTE:** If you are going to be using a **Mac laptop** please use the [instructions here](https://support.apple.com/en-us/HT201260) to determine your OS X version. If you find that your Mac is running a version older than OS X 10.6, please email us.
+
+**Mac users:**
+- [Java](https://www.java.com/en/download/)
+- [Filezilla](https://filezilla-project.org/download.php?type=client)
+- [Integrative Genomics Viewer (IGV)](https://www.broadinstitute.org/igv/?q=registration)
+- [Sublime Text](http://www.sublimetext.com/)
+- [Rstudio](http://www.rstudio.com/products/rstudio/download/) (pick the appropriate file for your operating system)
+- [R](http://cran.r-project.org/bin/macosx/) (R-3.4.2 for Mac OS X 10.11 (El Capitan) and higher, R-3.3.3 for Mac OS X 10.9 (Mavericks) and R-3.1.3 for Mac OS X 10.6 (Snow Leopard), OS X 10.7 and OS X 10.8). 
+
+**Windows users:**
+- [GitBash](https://git-scm.com/download/win)
+- [Java](https://www.java.com/en/download/)
+- [Filezilla](https://filezilla-project.org/)
+- [Integrative Genomics Viewer (IGV)](https://www.broadinstitute.org/igv/?q=registration)
+- [Notepad++](http://notepad-plus-plus.org/) or [Sublime Text](http://www.sublimetext.com/)
+- [Rstudio](http://www.rstudio.com/products/rstudio/download/) (pick the appropriate file for your operating system)
+- [R](http://cran.r-project.org/bin/windows/base/)
+
 *These materials have been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
 * *Some materials used in these lessons were derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
