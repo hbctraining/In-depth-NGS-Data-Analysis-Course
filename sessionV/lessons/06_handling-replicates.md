@@ -17,11 +17,11 @@ Approximate time: 75 minutes
  
 As with any high-throughput experiment, a single assay is often subject to a substantial amount of variability. Thus, it is highly recommended to setup your experimental design with a minimum of 2-3 biological replicates. Presumably, two replicates measuring the same underlying biology should have high consistency but that is not always the case. In order to evaluate consistency between replicates **we require metrics that objectively assess the reproducibility of high-throughput assays**.
 
-<img src="../img/chip_workflow_june2017_step4.png" width=700>
+<img src="../img/chip_workflow_june2017_step4.png" width="700">
 
 Since we have 2 replicates in this example, we want to consider only those peaks that are present in both replicates before we compare the peaks from the two transcription factors to one another.
 
-<img src=../img/idr_samples.png width=500> 
+<img src=../img/idr_samples.png width="500"> 
 
 Common methods for handling replicates includes taking overlapping peak calls across replicates and then assessing differences in binding regions. Additionally, there are more complex methods that employ statistical testing and evaluate the reproducibility between replicates. In this lesson we will cover both methods.
 
@@ -122,7 +122,7 @@ The IDR approach creates a curve, from which it then quantitatively assesses whe
 
 1) A **correspondence curve**: a graphical representation of matched peaks as you go down the ranked list. Qualitative, not adequate for selecting signals.
 
-<img src=../img/corr_curve.png width=400> 
+<img src=../img/corr_curve.png width="400"> 
 
 2) An **inference procedure**: summarizes the proportion of reproducible and irreproducible signals. Quantitative, using a copula mixture model.
 
@@ -199,7 +199,7 @@ $ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/idr/macs/*sorted* 
 
 The first step is taking our replicates and evaluating how consistent they are with one another.
 
-<img src="../img/idr-idr.png" width=500>
+<img src="../img/idr-idr.png" width="500">
 
 To run IDR we use the `idr` command followed by any necessary parameters. To see what parameters we have available to us, we can use:
 
@@ -268,7 +268,7 @@ _Which of the two TFs show better reproducibility between replicates? How does t
 
 There is a single image file output for each IDR analyses (`.png` files). Within each image you should see four plots. **Since we are working with such a small subset of data, the plots are not as meaningful. Therefore, below we have provided the images  generated for Pou5f1 full dataset below**.
 
-<img src=../img/Pou5f1-idr.png width=500> 
+<img src=../img/Pou5f1-idr.png width="500"> 
 
 The plot for each quadrant is described below:
 
@@ -283,7 +283,7 @@ The plot for each quadrant is described below:
 
 Once you have IDR values for true replicates, you want to see how this compares to pooled replicates. This is a bit more involved, as it requires you to go back to the BAM files, merge the reads and randomly split them into two pseudo-replicates. If the original replicates are highly concordant, then shuffling and splitting them should result in pseudo-replicates that the reflect the originals. **Therefore, if IDR analysis on the pooled pseudo-replicates results in a number of peaks that are similar (within a factor of 2) these are truly good replicates.**
 
-<img src="../img/idr-pool.png" width=500> 
+<img src="../img/idr-pool.png" width="500"> 
 
 _We will not run this analysis, but have provided a bash script below if you wanted to take a stab at it._ To run this script you will need to:
 
@@ -385,7 +385,7 @@ rm -r $tmpDir
 
 An _optional step_ is to create pseudo-replicates for each replicate by randomly splitting the reads and running them through the same workflow. Again, **if IDR analysis on the self-replicates for Replicate 1 results in a number of peaks that are similar (within a factor of 2) to self-replicates for Replicate 2 these are truly good replicates.**
 
-<img src="../img/idr-rep1-rep2.png" width=500>
+<img src="../img/idr-rep1-rep2.png" width="500">
 
 ### Threshold guidelines
 
