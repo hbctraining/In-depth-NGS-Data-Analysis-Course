@@ -1,11 +1,9 @@
----
-Audience: Biologists
-Computational Skills: Beginner/Intermediate
-Prerequisites: None
-Duration: 12-day workshop (~78 hours of trainer-led time)
----
 
 # In-depth NGS Data Analysis Course
+
+| Audience | Computational Skills | Prerequisites | Duration |
+:----------|:----------|:----------|:----------|
+| Biologists | Beginner/Intermediate | None | 12-day workshop (~78 hours of trainer-led time)|
 
 This repository contains all course materials for the Summer 2017 version of HBC's In-depth NGS Data Analysis Course, a 12-day course run over 6 weeks.
 
