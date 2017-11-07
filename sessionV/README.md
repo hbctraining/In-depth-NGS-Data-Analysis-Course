@@ -7,7 +7,7 @@ Session V will focus on ChIP-Seq analysis. We will start with read quality contr
 ### Contents
  
 | Lessons            | Estimated Duration |
-|:------------------------|:----------|
+|:------------------------|:----------:|
 |[Introduction to ChIP-Seq](lectures/)| 60 min |
 |[Set-up and project organization](lessons/01_Intro_chipseq_and_setup.md)| 20 min |
 |[QC and alignment](lessons/02_QC_and_alignment.md)| 60 min |
