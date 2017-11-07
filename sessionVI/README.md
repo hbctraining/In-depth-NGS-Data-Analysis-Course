@@ -1,12 +1,28 @@
-### Session VI: Variant Calling
+## Session VI: Variant Calling
 
-This directory contains all materials for the NGS Data Analysis Course for Session VI.
+### Description
 
- 
- **The following folders can be found within this directory:**
+Session VI will explore variant calling with students learning about methods and tools for resequencing and identifying sequence variations. We will explore pre-call sequence processing, methods for variant calling and workflows, and functional interpretation of variant calls.
 
-- ***img***: contains all images used in the lessons for this session
-- ***lessons***: contains the lessons for this session as markdown files
-- ***results***: any results needed for use during the lessons for this session
-- ***scripts***: any scripts needed for use during the lessons for this session
-- ***slides***: teaching slides for content not included in markdown lessons
+Following the variant calling session, NGS workflow commonalities and suggestions for troubleshooting will be discussed. After a short break, students will explore Git and Github for version control. This will be followed by several short topics including, incorporating version control into R, using the markdown language, using Rmarkdowns to generate reports in RStudio, using R packages like tidyr and others that make up tidyverse, and regular expressions in shell along with a couple of bash commands that can help to improve efficiency.
+
+### Contents
+
+| Lessons | Estimated Duration |
+|:------------------------|:----------:|
+| Introduction to variant calling() |  min |
+| Variant calling: tools, validation, genomes and output	() |  min |
+| Alignment with BWA and pre-call processing() |  min |
+| Variant calling with Freebayes, VCF format and filtering VCF() |  min |
+| Annotation and Snpeff() |  min |
+| Variant prioritization with Gemini() |  min |
+| Visualization of variant calls with IGV() |  min |
+| Workflow comparisons and Troubleshooting() |  min |
+| Git: Introduction() |  min |
+| Git: Basics() |  min |
+| Git: Github() |  min |
+| Introduction to the Markdown language in Github() |  min |
+| RStudio and Github() |  min |
+| R-related Tools: Generating reports with Rmarkdown (Rstudio, knitr)() |  min |
+| R-related Tools: tidyverse() |  min |
+| Bash-related Tools: Regex, grep, sed, awk() |  min |
