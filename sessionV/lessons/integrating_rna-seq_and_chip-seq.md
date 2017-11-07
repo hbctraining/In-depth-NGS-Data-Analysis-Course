@@ -4,10 +4,6 @@ author: "Meeta Mistry"
 date: "June 29th, 2017"
 ---
 
-Contributors: Meeta Mistry, 
-
-
-
 ## Integrating RNA-seq and ChIP-seq
 
 As discussed previously, cells use a wide range of mechanisms to regulate gene expression. The increase or decrease in production of specific gene products is dependent on sophisticated programs/machinery, which can change in different cellular conditions. 
