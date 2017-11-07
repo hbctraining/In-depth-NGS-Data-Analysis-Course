@@ -1,10 +1,3 @@
----
-Audience: Biologists
-Computational Skills: Beginner/Intermediate
-Prerequisites: None
-Duration: 2-day workshop (~13 hours of trainer-led time)
----
-
 ## Session I: Introduction to Unix / O2 and NGS Data Analysis
 
 ### Description
