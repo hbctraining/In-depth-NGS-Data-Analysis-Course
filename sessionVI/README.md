@@ -10,19 +10,19 @@ Following the variant calling session, NGS workflow commonalities and suggestion
 
 | Lessons | Estimated Duration |
 |:------------------------|:----------:|
-| [Introduction to variant calling]() |  min |
-| [Variant calling: tools, validation, genomes and output]() |  min |
-| [Alignment with BWA and pre-call processing]() |  min |
-| [Variant calling with Freebayes, VCF format and filtering VCF]() |  min |
-| [Annotation and Snpeff]() |  min |
-| [Variant prioritization with Gemini]() |  min |
-| [Visualization of variant calls with IGV]() |  min |
-| [Workflow comparisons and Troubleshooting]() |  min |
-| [Git: Introduction]() |  min |
-| [Git: Basics]() |  min |
-| [Git: Github]() |  min |
-| [Introduction to the Markdown language in Github]() |  min |
-| [RStudio and Github]() |  min |
-| [R-related Tools: Generating reports with Rmarkdown (Rstudio, knitr)]() |  min |
-| [R-related Tools: tidyverse]() |  min |
-| [Bash-related Tools: Regex, grep, sed, awk]() |  min |
+| [Introduction to variant calling](lectures/) | 60 min |
+| [Variant calling: tools, validation, genomes and output](lectures/) | 90 min |
+| [Alignment with BWA and pre-call processing](lessons/01_alignment.md) | 65 min |
+| [Variant calling with Freebayes, VCF format and filtering VCF](lessons/02_variant-calling.md) | 35 min |
+| [Annotation and Snpeff](lessons/03_annotation-snpeff.md) | 35 min |
+| [Variant prioritization with Gemini](lessons/04_prioritization-gemini.md) | 70 min |
+| Visualization of variant calls with IGV | 30 min |
+| [Workflow comparisons and Troubleshooting](lectures/) | 45 min |
+| [Git: Introduction](lessons/05_git_intro.md) | 15 min |
+| [Git: Basics](lessons/06_git_basics.md) | 60 min |
+| [Git: Github](lessons/07.1_git_github.md) | 45 min |
+| [Introduction to the Markdown language in Github](lessons/07.2_markdown-syntax.md) | 30 min |
+| [RStudio and Github](lessons/08_github_rstudio.md) | 20 min |
+| [R-related Tools: Generating reports with Rmarkdown (Rstudio, knitr)](lessons/09_knitr_rmarkdown.md) | 45 min |
+| [R-related Tools: tidyverse](lessons/10_tidyverse.md) | 45 min |
+| [Bash-related Tools: Regex, grep, sed, awk](lessons/11_bash_tools.md) | 55 min |
