@@ -16,7 +16,7 @@ Approximate time: 60 minutes
 
 ## Quality control of sequence reads
 
-<img src="../img/chip_workflow_june2017_step1.png" width=700>
+<img src="../img/chip_workflow_june2017_step1.png" width="700">
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. 
 
