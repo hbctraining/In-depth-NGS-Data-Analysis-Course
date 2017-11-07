@@ -34,8 +34,7 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 |[Introduction to High-Performance Computing (HPC)](lectures/) | 50 min |
 |[Project organization and data management](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/06_data_organization.html) | 40 min |
 |[Research data management concepts](lectures/) | 30 min |
-|[Illumina sequencing technology +
-RNA-seq design & analysis](lectures/) | 60 min |
+|[Illumina sequencing technology + RNA-seq design & analysis](lectures/) | 60 min |
 |[Library preparation](lectures/) | 90 min |
 |[FastQ format and Illumina error profiles](lectures/) | 40 min |
 |[QC: Quality assessment](lessons/10_salmon.md) | 55 min |
