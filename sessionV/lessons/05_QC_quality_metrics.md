@@ -18,7 +18,7 @@ Approximate time: 1.5 hours
 
 ## Additional Quality Metrics for ChIP-seq data
 
-<img src="../img/chip_workflow_june2017_step3.png" width=700>
+<img src="../img/chip_workflow_june2017_step3.png" width="700">
 
 The [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html) analyzes the quality of the data produced using a variety of metrics. We have already discussed metrics related to strand cross-correlation such as NSC and RSC. In this section, we will provide descriptions of additional metrics that **assess the distribution of signal within enriched regions, within/across expected annotations, across the whole genome, and within known artefact regions.**
 
@@ -44,7 +44,7 @@ Using the genomic regions identified as called peaks, we can obtain **genomic an
 
 It is important to keep track of and filter artifact regions that tend to show **artificially high signal** (excessive unstructured anomalous reads mapping). As such the DAC Blacklisted Regions track was generated for the ENCODE modENCODE consortia. The blacklisted regions **typically appear uniquely mappable so simple mappability filters do not remove them**. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats. 
 
-<img src="../img/blacklist.png" width=600>
+<img src="../img/blacklist.png" width="600">
 
 These regions tend to have a very high ratio of multi-mapping to unique mapping reads and high variance in mappability. **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** The RiBL score then may act as a guide for the level of background signal in a ChIP or input and is found to be correlated with SSD in input samples and the read length cross coverage score in both input and ChIP samples. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
 
@@ -153,33 +153,33 @@ The next table contains **the mapping quality, and duplication rate,** however s
 
 Next is a plot showing the effect of blacklisting, with the proportion of reads that do and do not overlap with blacklisted regions. The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
  
-<img src="../img/GenomicFeatureEnrichment.png" width=500>
+<img src="../img/GenomicFeatureEnrichment.png" width="500">
 
 The next section, **ChIP Signal Distribution and Structure**, looks at the inherent ”peakiness” of the samples. The first plot is a **coverage histogram**. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. **A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. 
 Samples with low enrichment (i.e input), consisting of mostly background reads will have lower genome wide low pile-up. In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. The cross-correlation plot which is displayed next is one we have already covered. 
 
-<img src="../img/CoverageHistogramPlot.png" width=500>
+<img src="../img/CoverageHistogramPlot.png" width="500">
 
 
 
 The final set of plots, **Peak Profile and ChIP Enrichment**, are based on metric computed using the supplied peaks if available. The first plot shows average peak profiles, centered on the summit (point of highest pileup) for each peak.
 
-<img src="../img/PeakProfile.png" width=500>
+<img src="../img/PeakProfile.png" width="500">
 
 The **shape of these profiles can vary depending on what type of mark is being studied** – transcription factor, histone mark, or other DNA-binding protein such as a polymerase – but similar marks usually have a distinctive profile in successful ChIPs. 
 
 Next we have two plots that summarize the number of **Reads in Peaks**. ChIP samples with good enrichment will have a higher proportion of their reads overlapping called peaks. Although RiP is higher in Nanog, the boxplot for the Nanog samples shows quite different distributions between the replicates compared to Pou5f1.
 
-<img src="../img/Rip.png" width=500>
+<img src="../img/Rip.png" width="500">
 
-<img src="../img/Rap.png" width=500>
+<img src="../img/Rap.png" width="500">
 
 
 Finally, there are plots to show **how the samples are clustered**. The correlation heatmap is based on correlation values for all the peak scores for each sample. The other plot shows the first two principal component values for each sample. In our dataset, the replicates do cluster by replicate for Pou5f1, which is a positive sign. For Nanog we see that Replicate 1 appears to correlate slightly better with Pou5f1 than with Replicate 2. The PCA also demonstrates distance between the Nanog replicates.
 
-<img src="../img/PeakCorHeatmap.png" width=500>
+<img src="../img/PeakCorHeatmap.png" width="500">
 
-<img src="../img/PeakPCA.png" width=500>
+<img src="../img/PeakPCA.png" width="500">
 
 
 In general, our data look good. There is some discordance apparent between the Nanog replicates and this combined with lower SSD scores might indicate that while there are many peaks identified it is mainly due to noise. 
