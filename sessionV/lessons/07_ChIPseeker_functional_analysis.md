@@ -113,13 +113,13 @@ The **heatmap is another method of visualizing the read count frequency** relati
 	# Plot heatmap
 	tagHeatmap(tagMatrixList, xlim=c(-1000, 1000), color=NULL)
 
-<img src="../img/Rplot.png" width=500>
+<img src="../img/Rplot.png" width="500">
 
 ## Annotation
 
 ChIPseeker implements the `annotatePeak` function for annotating peaks with nearest gene and genomic region where the peak is located. Many annotation tools calculate the distance of a peak to the nearest TSS and annotates the peak to that gene. This can be misleading as **binding sites might be located between two start sites of different genes**.
 
-<img src="../img/annotate-genes.png" width=800>
+<img src="../img/annotate-genes.png" width="800">
 
 The **`annotatePeak` function by default uses the TSS method, and provides parameters to specify a max distance cutoff.** There is also an option to report ALL genes within this distance regardless of whether there is overlap with TSS or not. For annotating genomic regions, annotatePeak function reports detail information when genomic region is Exon or Intron. For instance, ‘Exon (uc002sbe.3/9736, exon 69 of 80)’, means that the peak overlaps with the 69th exon of the 80 exons that transcript uc002sbe.3 possess and the corresponding Entrez gene ID is 9736. 
 
@@ -174,7 +174,7 @@ To visualize this annotation data ChIPseeker provides several functions. We will
 plotAnnoPie(peakAnnoList[["Nanog"]])
 ```
 
-<img src="../img/pie.png" width=500>
+<img src="../img/pie.png" width="500">
 
 ### Vennpie of genomic region annotation
 
@@ -182,7 +182,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 vennpie(peakAnnoList[["Nanog"]])
 ```
 
-<img src="../img/vennpie.png" width=500>
+<img src="../img/vennpie.png" width="500">
 
 ### Barchart (multiple samples for comparison)
 
