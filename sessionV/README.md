@@ -1,4 +1,4 @@
-## Session V: ChIP-Seq and Closing Remarks
+## Session V: ChIP-Seq
 
 ### Description
 
