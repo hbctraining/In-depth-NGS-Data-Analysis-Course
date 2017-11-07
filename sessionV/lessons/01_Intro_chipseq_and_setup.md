@@ -62,7 +62,7 @@ Two replicates were collected and each was divided into 3 aliquots for the follo
 - Pou5f1 IP
 - Control input DNA
 
-<img src="../img/chipseq_exp_design.png" width=500>
+<img src="../img/chipseq_exp_design.png" width="500">
 
 For these 6 samples, we will be using reads from only a 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000), so we can get through the workflow in class. 
 
