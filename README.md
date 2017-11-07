@@ -20,8 +20,8 @@ At the end of this course, participants can expect to have the expertise to inde
 
 This repo contains the materials for the six sessions of the course. The six sessions are described below:
 
- * [**Session I**: Introduction to Unix / Orchestra and NGS Data Analysis](hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionI)
- * [**Session II**: RNA-Seq Part I](hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionII)
+ * [**Session I**: Introduction to Unix / Orchestra and NGS Data Analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionI/)
+ * [**Session II**: RNA-Seq Part I](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionII/)
  * [**Session III**: RNA-Seq Part II](sessionIII)
  * [**Session IV**: RNA-Seq Part III and Related Technologies and Tools](sessionIV)
  * [**Session V**: ChIP-Seq](sessionV)
