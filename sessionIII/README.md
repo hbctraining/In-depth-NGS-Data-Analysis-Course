@@ -13,3 +13,14 @@ Session III starts with an interactive lesson in R, wherein we cover advanced to
 
 | Lessons            | Estimated Duration |
 |:------------------------|:----------|
+| [Matching and reordering ](lessons/01_advR-matching.md) | |
+| [DGE setup and overview](lessons/02_DGE_setup_and_overview.md) | |
+| [Count normalization ](lessons/03_DGE_count_normalization.md) | |
+| [Exploratory data analysis](lessons/04_DGE_QC_analysis.md) | |
+| [DESeq2 workflow overview](lessons/05_DGE_DESeq2_analysis.md) | |
+| [DGE analysis: Pairiwse comparisons (Wald test)](lessons/06_DGE_DESeq2_analysis2.md) | |
+| [DGE results summarization and visualization ](lessons/07_DGE_visualizing_results.md) | |
+| [Workflow summarization ](lessons/08_DGE_summarizing_workflow.md) | |
+| [DGE analysis: Complex experimental designs (LRT) ](lessons/09_DGE_LRT.md) | |
+| [Ensembl/Biomart ](lessons/10_Ensembl_biomart.md) | |
+| [Functional Enrichment analysis ](lessons/11_functional_analysis.md) | |
