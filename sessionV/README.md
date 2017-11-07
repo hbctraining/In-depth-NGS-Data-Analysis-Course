@@ -8,17 +8,16 @@ Session V will focus on ChIP-Seq analysis. We will start with read quality contr
  
 | Lessons            | Estimated Duration |
 |:------------------------|:----------|
-|[Introduction to ChIP-Seq]()||
-|[Set-up and project organization]()||
-|[QC and alignment]()||
-|[Peak calling with MACS]()||
-|[ChIP QC: strand cross-correlation]()||
-|[ChIP QC: sample level QC with ChIPQC]()||
-|[Assessing replicates: bedtools and IDR]()||
-|[ChipSeeker: annotation and functional analysis]()||
-|[Web-based functional analysis]()||
-|[Differential peak enrichment with DiffBind]()||
-|[Visualization of differential peak enrichment using IGV]()||
-|[Integrating RNAseq and ChIPseq]()||
-|[Orchestra mounting]()||
-|[Wrap up]()||
+|[Introduction to ChIP-Seq](lectures/)| 60 min |
+|[Set-up and project organization](lessons/01_Intro_chipseq_and_setup.html)| 20 min |
+|[QC and alignment](lessons/02_QC_and_alignment.html)| 60 min |
+|[Peak calling with MACS](lessons/03_peak_calling_macs.html)| 90 min |
+|[ChIP QC: strand cross-correlation](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/04_QC_cross_correlation.html)| 70 min |
+|[ChIP QC: sample level QC with ChIPQC](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/05_QC_quality_metrics.html)| 60 min |
+|[Assessing replicates: bedtools and IDR](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/06_handling-replicates.html)| 90 min |
+|[ChipSeeker: annotation and functional analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/07_ChIPseeker_functional_analysis.html)| 30 min |
+|[Web-based functional analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/08_functional_analysis.html)| 90 min |
+|[Differential peak enrichment with DiffBind](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/09_differential_peaks.html)| 45 min |
+|[Visualization of differential peak enrichment using IGV](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/10_QC_visualization.html)| 45 min |
+|[Integrating RNAseq and ChIPseq]()| 20 min |
+|[Orchestra mounting]()| 60 min |
