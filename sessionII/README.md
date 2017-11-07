@@ -10,10 +10,10 @@ Session II will start with a discussion of common file formats encountered durin
 |:------------------------|:----------:|
 | [File formats in NGS analysis](lectures/) | 30 min |
 | [Sequence alignment tools and theory](lectures/) | 40 min |
-| [Alignment with STAR](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B1_alignment.md) | 
-| [Assessing alignment quality](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B2_alignment_quality.md) |
-| [Generating a count matrix](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B3_counting_reads.md) |
-| [Documenting and MultiQC](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B4_multiQC.md)
+| [Alignment with STAR](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B1_alignment.md) | 75 min |
+| [Assessing alignment quality](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B2_alignment_quality.md) | 45 min |
+| [Generating a count matrix](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B3_counting_reads.md) | 75 min |
+| [Documenting and MultiQC](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B4_multiQC.md) | 30 min |
 | [Intro to R and RStudio](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/01_introR-R-and-RStudio.md) | 40 min |
 | [R syntax and data structure](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/02_introR-syntax-and-data-structures.md) | 80 min |
 | [Intro to R: Functions and arguments](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/03_introR-functions-and-arguments.md) | 50 min |
