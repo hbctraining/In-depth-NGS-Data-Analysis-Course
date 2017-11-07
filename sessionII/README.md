@@ -13,7 +13,7 @@ Session II will start with a discussion of common file formats encountered durin
 | [Alignment with STAR](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B1_alignment.md) | 75 min |
 | [Assessing alignment quality](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B2_alignment_quality.md) | 45 min |
 | [Generating a count matrix](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B3_counting_reads.md) | 75 min |
-| [Documenting and MultiQC](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B4_multiQC.html) | 30 min |
+| [Documenting and MultiQC](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B4_multiQC.md) | 30 min |
 | [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | 40 min |
 | [R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | 80 min |
 | [Intro to R: Functions and arguments](https://hbctraining.github.io/Intro-to-R/lessons/03_introR-functions-and-arguments.html) | 50 min |
