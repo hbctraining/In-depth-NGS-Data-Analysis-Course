@@ -19,7 +19,7 @@ Approximate time: 90 minutes
 
 An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.
 
-<img src="../img/diffpeaks-software.png" width=800> 
+<img src="../img/diffpeaks-software.png" width="800"> 
 
 When choosing which tool to use there are several criterion to consider. 
 
@@ -34,7 +34,7 @@ When choosing which tool to use there are several criterion to consider.
 
 Which tool you need will depend heavily on your experimental design, and so the **decision tree** below can be helpful in narrowing down your choice.
 
-<img src="../img/diff-peaks.png" width=600>
+<img src="../img/diff-peaks.png" width="600">
 
 In our case, we are interested in identifying differences in binding between two transcription factors. For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. 
 
@@ -112,7 +112,7 @@ To see how well the samples cluster with one another, we can draw a **PCA plot**
 	dba.plotPCA(dbObj,  attributes=DBA_FACTOR, label=DBA_ID)
 	
 
-<img src="../img/pcaplot.png" width=600>
+<img src="../img/pcaplot.png" width="600">
 
 
 We can also plot a **correlation heatmap**, to evaluate the relationship between samples.
@@ -120,13 +120,13 @@ We can also plot a **correlation heatmap**, to evaluate the relationship between
 	plot(dbObj)
 	
 
-<img src="../img/db-heatmap.png" width=600>
+<img src="../img/db-heatmap.png" width="600">
 
 To evaluate how many peaks overlap between all samples we can plot a **Venn diagram**:
 
 	dba.plotVenn(dbObj, 1:4)
 	
-<img src="../img/venn-db.png" width=600> 
+<img src="../img/venn-db.png" width="600"> 
 	
 
 ### Establishing a contrast
@@ -163,7 +163,7 @@ Try plotting a PCA but this time **only use the regions that were identified as 
 
 	dba.plotPCA(dbObj, contrast=1, method=DBA_DESEQ2, attributes=DBA_FACTOR, label=DBA_ID)
 	
-<img src="../img/deseq2-pca.png" width=600> 
+<img src="../img/deseq2-pca.png" width="600"> 
 
 *Modify the code above so that you only plot a PCA using the regions identified as significant by edgeR. Do the plots differ?*
 
@@ -173,7 +173,7 @@ For a quick look at the **overlapping peaks** identified by the two different to
 
 	dba.plotVenn(dbObj,contrast=1,method=DBA_ALL_METHODS)
 	
-<img src="../img/venn-deseq-edger.png" width=600> 
+<img src="../img/venn-deseq-edger.png" width="600"> 
 
 > **NOTE:** Normally, we would keep the list of consensus peaks from edgeR and DESeq2 to use as our *high confidence set* to move forward with. But since we have an overlap of only two regions we will keep the results from both tools.
 
@@ -225,20 +225,20 @@ The value columns are described below:
 
 	dba.plotMA(dbObj, method=DBA_DESEQ2)
 	
-<img src="../img/maplot.png" width=600>
+<img src="../img/maplot.png" width="600">
 
 Each point represents a binding site. Points in red representing sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the **concentrations of each sample groups plotted against each other**.
 
 
 	dba.plotMA(dbObj, bXY=TRUE)
 	
-<img src="../img/maplotXY.png" width=600>
+<img src="../img/maplotXY.png" width="600">
 
 If we want to see **how the reads are distributed amongst the different classes of differentially bound sites and sample group**s, we can use a boxplot:
 
 	pvals <- dba.plotBox(dbObj)
 	
-<img src="../img/boxplot-db.png" width=600>
+<img src="../img/boxplot-db.png" width="600">
 
 The left two boxes show distribution of reads over all differentially bound sites in the Nanog and Pou5f1 groups. Samples have a somewhat higher mean read concentration in Nanog samples. The next two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Pou5f1 samples, while the final two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Nanog samples. `dba.plotBox()` returns a matrix of p-values (computed using a two-sided Wilcoxon Mann-Whitney test and are stored in the `pvals` variable. 
 
