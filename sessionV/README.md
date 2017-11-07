@@ -4,7 +4,7 @@
 
 Session V will focus on ChIP-Seq analysis. We will start with read quality control and alignment, then discuss various tools for peak calling, ChIP-Seq QC and visualization for ChIP-Seq analysis. We will talk about the IDR framework when handling replicates with ChIP-seq data and walk-through running IDR on true replicates. Since we have samples from two different IPs we will use DiffBind to demonstrate how to perform differential binding analyses. Finally, we will perform functional analysis of the peak calls, ending our analysis of the ChIP-Seq data. We will end the course by going over a few additional helpful tools. 
 
- ### Contents
+### Contents
  
 | Lessons            | Estimated Duration |
 |:------------------------|:----------|
