@@ -38,7 +38,7 @@ It has three commands depending on what input data you have and what output you 
 * BETA **plus**: BETA basic + motif analysis on target regions 
 * BETA **minus**: TF target genes prediction based on regulatory potential score with only binding data
 
-<img src="../img/beta.png" width=500>
+<img src="../img/beta.png" width="500">
 
 **Image source: Nat Protoc. 2013 Dec; 8(12): 2502–2515.**
 
