@@ -21,7 +21,7 @@ As with any high-throughput experiment, a single assay is often subject to a sub
 
 Since we have 2 replicates in this example, we want to consider only those peaks that are present in both replicates before we compare the peaks from the two transcription factors to one another.
 
-<img src=../img/idr_samples.png width="500"> 
+<img src="../img/idr_samples.png" width="500"> 
 
 Common methods for handling replicates includes taking overlapping peak calls across replicates and then assessing differences in binding regions. Additionally, there are more complex methods that employ statistical testing and evaluate the reproducibility between replicates. In this lesson we will cover both methods.
 
@@ -105,7 +105,7 @@ Note that we are working with subsetted data and so our list of peaks for each r
 
 [IDR](https://sites.google.com/site/anshulkundaje/projects/idr) is a framework developed by Qunhua Li and Peter Bickel's group that **compares a pair of ranked lists of regions/peaks and assigns values that reflect its reproducibility.** 
 
-<img src=../img/idr_figure.png> 
+<img src="../img/idr_figure.png"> 
 
 It is extensively used by the ENCODE and modENCODE projects and is part of their [ChIP-seq guidelines and standards](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/). It has been established for submission of ChIP-seq data sets and have been constructed based on the historical experiences of ENCODE ChIP-seq data production groups.
 
@@ -122,7 +122,7 @@ The IDR approach creates a curve, from which it then quantitatively assesses whe
 
 1) A **correspondence curve**: a graphical representation of matched peaks as you go down the ranked list. Qualitative, not adequate for selecting signals.
 
-<img src=../img/corr_curve.png width="400"> 
+<img src="../img/corr_curve.png" width="400"> 
 
 2) An **inference procedure**: summarizes the proportion of reproducible and irreproducible signals. Quantitative, using a copula mixture model.
 
@@ -140,7 +140,7 @@ There are three main steps to the IDR pipeline:
 2. Evaluate peak consistency between **pooled pseudo-replicates**
 3. Evaluate **self-consistency** for each individual replicate
 
-<img src=../img/idr_pipeline.png> 
+<img src="../img/idr_pipeline.png"> 
 
 > This figure is taken from the [ENCODE ChIP-Seq Guidelines](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/#box3).
 
@@ -268,7 +268,7 @@ _Which of the two TFs show better reproducibility between replicates? How does t
 
 There is a single image file output for each IDR analyses (`.png` files). Within each image you should see four plots. **Since we are working with such a small subset of data, the plots are not as meaningful. Therefore, below we have provided the images  generated for Pou5f1 full dataset below**.
 
-<img src=../img/Pou5f1-idr.png width="500"> 
+<img src="../img/Pou5f1-idr.png" width="500"> 
 
 The plot for each quadrant is described below:
 
