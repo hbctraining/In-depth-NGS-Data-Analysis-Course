@@ -7,17 +7,19 @@ Session II will start with a discussion of common file formats encountered durin
 ### Contents
 
 | Lessons            | Estimated Duration |
-|:------------------------|:----------|
+|:------------------------|:----------:|
 | [File formats in NGS analysis](lectures/) |
 | [Sequence alignment tools and theory](lectures/) |
-| [Alignment and counting](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/08_rnaseq_workflow.html) |
-| [Assessing alignment quality and visualization with IGV]() |
-| [Generating a count matrix]() |
-| [Intro to R and RStudio]() |
-| [R syntax and data structure]() |
-| [Intro to R: Functions and arguments]() |
-| [Intro to R: Data wrangling vectors and factors]() |
-| [Intro to R: Data wrangling matrices, data frames and lists]() |
-| [Intro to R: Nested functions]() |
+| [Alignment with STAR](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B1_alignment.md) |
+| [Assessing alignment quality](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B2_alignment_quality.md) |
+| [Generating a count matrix](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B3_counting_reads.md) |
+| [Documenting and MultiQC](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B4_multiQC.md)
+| [Intro to R and RStudio](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/01_introR-R-and-RStudio.md) |
+| [R syntax and data structure](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/02_introR-syntax-and-data-structures.md) |
+| [Intro to R: Functions and arguments](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/03_introR-functions-and-arguments.md) |
+| [Intro to R: Data wrangling: subsetting vectors and factors](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/04_introR-data-wrangling.md) |
+| [Intro to R: Data wrangling: subsetting matrices, data frames and lists](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/05_introR-data-wrangling2.md) |
+| [Intro to R: Nested functions](https://github.com/hbctraining/Intro-to-R/blob/master/lessons/introR-nested-functions.md) |
+
 ### Practical exercises
 After completion of the session, practice of concepts can be explored with [these exercises]().
