@@ -31,8 +31,7 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 |[Unix shell - Introduction to vim](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/03_vim.html) | 35 min |
 |[Unix shell - Loops, variables and shell scripts](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/04_loops_and_scripts.html) | 75 min |
 |[Unix shell - Permissions and environment variables](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/05_permissions_and_environment_variables.html) | 60 min |
-|[Introduction to High-Performance Computing
-(HPC)](lectures/) | 50 min |
+|[Introduction to High-Performance Computing (HPC)](lectures/) | 50 min |
 |[Project organization and data management](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/06_data_organization.html) | 40 min |
 |[Research data management concepts](lectures/) | 30 min |
 |[Illumina sequencing technology +
