@@ -1,8 +1,6 @@
-**NOTE: This is the "master" branch of the repository, the [May2017](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/tree/may2017) branch contains the latest materials for this course.
-
 # In-depth NGS Data Analysis Course
 
-This branch (May 2017) of the NGS course repo contains all course materials for the Summer 2017 version of HBC's In-depth NGS Data Analysis Course, a 12-day course run over 6 weeks (May 31 through July 7, 2017).
+This repository contains all course materials for the Summer 2017 version of HBC's In-depth NGS Data Analysis Course, a 12-day course run over 6 weeks.
 
 The course is aimed at bench biologists who are interested in learning about NGS-based genomic analysis. The topics covered in-depth during this course are analysis of RNA-Seq and ChIP-Seq data, with an optional Variant Calling session. The sessions will also include functional analysis downstream of sequence data processing. During this course, participants will gain skills in the areas of:
  
