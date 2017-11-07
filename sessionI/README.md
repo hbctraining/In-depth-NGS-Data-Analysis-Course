@@ -27,7 +27,7 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 ### Installation Requirements
 
 Download and install the following programs:
->**NOTE:** If you are going to be using a Mac laptop please use the instructions here to determine your OS X version. If you find that your Mac is running a version older than OS X 10.6, please email us.
+>**NOTE:** If you are going to be using a **Mac laptop** please use the [instructions here](https://support.apple.com/en-us/HT201260) to determine your OS X version. If you find that your Mac is running a version older than OS X 10.6, please email us.
 
 **Mac users:**
 - [Java](https://www.java.com/en/download/)
