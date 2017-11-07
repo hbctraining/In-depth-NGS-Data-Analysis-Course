@@ -18,7 +18,7 @@ Approximate time: 90 minutes
 
 Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment. 
 
-<img src="../img/chip_workflow_june2017_step2.png" width=700>
+<img src="../img/chip_workflow_june2017_step2.png" width="700">
 
 What we observe from the alignment files is a **strand asymmetry with read densities on the +/- strand, centered around the binding site**. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
 
@@ -34,7 +34,7 @@ A commonly used tool for identifying transcription factor binding sites is named
 
 MACS improves the spatial resolution of binding sites through **combining the information of both sequencing tag position and orientation.** MACS can be easily used for ChIP-Seq data alone, or with control sample with the increase of specificity. The MACS workflow is depicted below. In this lesson, we will describe the steps in more detail.
 
-<img src="../img/macs_workflow.png" width=500>
+<img src="../img/macs_workflow.png" width="500">
 
 
 ### Removing redundancy
@@ -56,7 +56,7 @@ The tag density around a true binding site should show a **bimodal enrichment pa
 
 To find paired peaks to **build the model**, MACS first scans the whole dataset searching for highly significant enriched regions. *This is done only using the ChIP sample!* Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mfold`), MACS slides two `bandwidth` windows across the genome to find regions with **tags more than `mfold` enriched relative to a random tag genome distribution**. 
 
-<img src="../img/model_shift.png" width=500>
+<img src="../img/model_shift.png" width="500">
 
 MACS randomly **samples 1,000 of these high-quality peaks**, separates their Watson and Crick tags, and aligns them by the midpoint between their Watson and Crick tag centers. The **distance between the modes of the Watson and Crick peaks in the alignment is defined as 'd'** and represents the estimated fragment length. MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
 
@@ -69,21 +69,21 @@ For experiments in which sequence depth differs between input and treatment samp
 
 To calculate calculate λBG from tag count, MAC2 requires the **effective genome size** or the size of the genome that is mappable. Mappability is related to the uniqueness of the k-mers at a  particular position the genome. Low-complexity and repetitive regions have low uniqueness, which means low mappability. Therefore we need to provide the effective genome length to **correct for the loss of true signals in low-mappable regions**.
 
-<img src="../img/mappable.png" width=300>
+<img src="../img/mappable.png" width="300">
 
 The mappability or uniqueness influences the average mapped depth (i.e if the effective genome length is small, the proportion of reads that map will be small). As shown in the table below **mappability improves with increased read length**. When low-mappable regions (e.g. a ratio  <  0.25) are of interest, it might be better to include multiple mapped reads or use paired-end reads.
 
-<img src="../img/map_table.png" width=500>
+<img src="../img/map_table.png" width="500">
 
 ### Peak detection
 
 For ChIP-Seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p < 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
 
-<img src="../img/peak_detection.png" width=300>
+<img src="../img/peak_detection.png" width="300">
 
 Instead of using a uniform λ estimated from the whole genome, MACS uses a dynamic parameter, λlocal, defined for each candidate peak. The lambda parameter is estimated from the control sample and is deduced by **taking the maximum value across various window sizes: λlocal = max(λBG, λ1k, λ5k, λ10k).** In this way lambda captures the influence of local biases, and is **robust against occasional low tag counts at small local regions**. Possible sources for these biases include local chromatin structure, DNA amplification and sequencing bias, and genome copy number variation.
 
-<img src="../img/lambda.png" width=300>
+<img src="../img/lambda.png" width="300">
 
 Overlapping enriched peaks are merged, and each tag position is extended d bases from its center. The location with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-Seq tag count and λlocal is reported as the fold enrichment.
 
