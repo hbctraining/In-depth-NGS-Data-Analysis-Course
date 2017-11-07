@@ -14,17 +14,17 @@ The second half of Session IV begins with combining the different components of 
 
 | Lessons            | Estimated Duration |
 |:------------------------|:----------|
-| [RNA-seq analysis methods](lectures/) | |
-| [Considerations for isoform-level differential expression analysis](lectures/) | |
-| [Alignment-free expression estimation using Salmon](lessons/01_salmon.md)| |
-| [Isoform-level differential expression using Sleuth](lessons/02_sleuth.md)| |
-| [Revisiting Orchestra](lectures/) | |
-| [Automating the RNA-seq workflow](lessons/03_automating_workflow.md) | |
-| [bcbio-nextgen RNA-seq](lessons/04_bcbio_nextgen.md) | |
-| [Accessing genomic data - genome builds and FTP sites](lectures/) | |
-| [Other applications of RNA sequencing](lectures/) | |
-| [Small RNA-seq analysis](lectures/) | |
-| [Single-cell RNA-seq analysis (lecture)](lecture/) and [Seurat RMarkdown demo](lessons/07_single_cell_rnaseq.Rmd) | |
+| [RNA-seq analysis methods](lectures/) | 15 min|
+| [Considerations for isoform-level differential expression analysis](lectures/) | 75 min|
+| [Alignment-free expression estimation using Salmon](lessons/01_salmon.md)| 45 min|
+| [Isoform-level differential expression using Sleuth](lessons/02_sleuth.md)| 100 min|
+| [Revisiting Orchestra](lectures/) | 50 min|
+| [Automating the RNA-seq workflow](lessons/03_automating_workflow.md) | 60 min|
+| [bcbio-nextgen RNA-seq](lessons/04_bcbio_nextgen.md) | 80 min|
+| [Accessing genomic data - genome builds and FTP sites](lectures/) | 35 min|
+| [Other applications of RNA sequencing](lectures/) | 20 min|
+| [Small RNA-seq analysis](lectures/) | 75 min|
+| [Single-cell RNA-seq analysis (lecture)](lectures/) and [Seurat RMarkdown demo](lessons/07_single_cell_rnaseq.Rmd) | 120 min|
 
 
 
