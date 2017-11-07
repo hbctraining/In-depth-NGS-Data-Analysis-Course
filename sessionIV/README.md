@@ -1,12 +1,19 @@
-### Session IV: NGS tools and applications
+### Session IV: RNA-Seq Part III and Related Technologies and Tools
 
-This directory contains all materials for the NGS Data Analysis Course for Session IV.
+### Description
 
- 
- **The following folders can be found within this directory:**
+Session IV starts with a discussion about different methods for differential expression analysis of RNA-seq data. It then segues into a discussion on the considerations for isoform level differential expression (lecture), followed by an interactive lesson on the quantification of isoforms using pseudo-alignment tools and analysis of isoform level differential expression of RNA-seq data. Transcriptome expression abundances for the MOV10 dataset are estimated using [Salmon](https://combine-lab.github.io/salmon/getting_started/). The output of Salmon is used as input to Sleuth to obtain lists of differentially expressed transcripts/genes. The first half of the session ends with a lecture talking about advanced concepts related to using bash, and more specifically using the Orchestra cluster.
 
-- ***img***: contains all images used in the lessons for this session
-- ***lessons***: contains the lessons for this session as markdown files
-- ***results***: any results needed for use during the lessons for this session
-- ***scripts***: any scripts needed for use during the lessons for this session
-- ***slides***: teaching slides for content not included in markdown lessons
+The second half of Session IV begins with combining the different components of RNA-seq analysis to create an automated workflow/pipeline using shell scripting. Following this, we introduce HBC's [bcbio-nextgen](https://bcbio-nextgen.readthedocs.io/en/latest/) pipeline for RNA-seq analysis with a hands-on demonstration using the Mov10 dataset. Finally, we explore other NGS technologies related to RNA-seq, with a focus on small RNA-seq and single cell RNA-seq (lectures).
+
+> These materials were developed for a trainer-led workshop, but are also amenable to self-guided learning.
+
+
+### Contents
+
+
+| Lessons            | Estimated Duration |
+|:------------------------|:----------|
+
+
+
