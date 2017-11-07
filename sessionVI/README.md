@@ -10,19 +10,19 @@ Following the variant calling session, NGS workflow commonalities and suggestion
 
 | Lessons | Estimated Duration |
 |:------------------------|:----------:|
-| Introduction to variant calling() |  min |
-| Variant calling: tools, validation, genomes and output	() |  min |
-| Alignment with BWA and pre-call processing() |  min |
-| Variant calling with Freebayes, VCF format and filtering VCF() |  min |
-| Annotation and Snpeff() |  min |
-| Variant prioritization with Gemini() |  min |
-| Visualization of variant calls with IGV() |  min |
-| Workflow comparisons and Troubleshooting() |  min |
-| Git: Introduction() |  min |
-| Git: Basics() |  min |
-| Git: Github() |  min |
-| Introduction to the Markdown language in Github() |  min |
-| RStudio and Github() |  min |
-| R-related Tools: Generating reports with Rmarkdown (Rstudio, knitr)() |  min |
-| R-related Tools: tidyverse() |  min |
-| Bash-related Tools: Regex, grep, sed, awk() |  min |
+| [Introduction to variant calling]() |  min |
+| [Variant calling: tools, validation, genomes and output]() |  min |
+| [Alignment with BWA and pre-call processing]() |  min |
+| [Variant calling with Freebayes, VCF format and filtering VCF]() |  min |
+| [Annotation and Snpeff]() |  min |
+| [Variant prioritization with Gemini]() |  min |
+| [Visualization of variant calls with IGV]() |  min |
+| [Workflow comparisons and Troubleshooting]() |  min |
+| [Git: Introduction]() |  min |
+| [Git: Basics]() |  min |
+| [Git: Github]() |  min |
+| [Introduction to the Markdown language in Github]() |  min |
+| [RStudio and Github]() |  min |
+| [R-related Tools: Generating reports with Rmarkdown (Rstudio, knitr)]() |  min |
+| [R-related Tools: tidyverse]() |  min |
+| [Bash-related Tools: Regex, grep, sed, awk]() |  min |
