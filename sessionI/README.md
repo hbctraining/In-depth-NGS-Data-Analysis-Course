@@ -4,13 +4,10 @@
 
 Session I will start with an overview of bioinformatics and next-generation sequencing (NGS), followed by an interactive introduction to Unix and O2 (the high performance computational cluster maintained by HMS Research Computing). The session will wrap up with an in-depth introduction to sequencing technology, library preparation and QC protocols for NGS data.
 
-> These materials were developed for a trainer-led workshop, but are also amenable to self-guided learning.
-
 ### Learning Objectives
 
 1.	Understand the necessity for, and use of, the command line interface (bash) and HPC for analyzing high-throughput sequencing data.
 2.	Understand best practices for designing an RNA-seq experiment and the QC of the resulting data.
-
 
 ### Contents
 
