@@ -1,4 +1,3 @@
-
 # In-depth NGS Data Analysis Course
 
 | Audience | Computational Skills | Prerequisites | Duration |
