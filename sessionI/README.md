@@ -7,7 +7,7 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 ### Contents
 
 | Lessons            | Estimated Duration |
-|:------------------------|:----------|
+|:------------------------|:----------:|
 |[Introduction to the NGS Data Analysis Course](lectures/) | 40 min |
 |[Overview of bioinformatics](lectures/) | 35 min |
 |[Introduction to Unix shell and O2](lectures/) | 15 min |
