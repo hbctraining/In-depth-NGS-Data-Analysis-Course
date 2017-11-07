@@ -8,3 +8,5 @@ kramdown:
     header_offset: 0
     parse_block_html: true
     parse_span_html: true
+
+theme: jekyll-theme-cayman
