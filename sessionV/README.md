@@ -9,9 +9,9 @@ Session V will focus on ChIP-Seq analysis. We will start with read quality contr
 | Lessons            | Estimated Duration |
 |:------------------------|:----------|
 |[Introduction to ChIP-Seq](lectures/)| 60 min |
-|[Set-up and project organization](lessons/01_Intro_chipseq_and_setup.html)| 20 min |
-|[QC and alignment](lessons/02_QC_and_alignment.html)| 60 min |
-|[Peak calling with MACS](lessons/03_peak_calling_macs.html)| 90 min |
+|[Set-up and project organization](lessons/01_Intro_chipseq_and_setup.md)| 20 min |
+|[QC and alignment](lessons/02_QC_and_alignment.md)| 60 min |
+|[Peak calling with MACS](lessons/03_peak_calling_macs.md)| 90 min |
 |[ChIP QC: strand cross-correlation](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/04_QC_cross_correlation.html)| 70 min |
 |[ChIP QC: sample level QC with ChIPQC](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/05_QC_quality_metrics.html)| 60 min |
 |[Assessing replicates: bedtools and IDR](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/06_handling-replicates.html)| 90 min |
