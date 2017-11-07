@@ -22,7 +22,7 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 |[Illumina sequencing technology + RNA-seq design & analysis](lectures/) | 60 min |
 |[Library preparation](lectures/) | 90 min |
 |[FastQ format and Illumina error profiles](lectures/) | 40 min |
-|[QC: Quality assessment](lessons/10_salmon.md) | 55 min |
+|[QC: Quality assessment](lessons/07_assessing_quality.md) | 55 min |
 
 ### Practical exercises
 After completion of the session, practice of concepts can be explored with [these exercises]().
