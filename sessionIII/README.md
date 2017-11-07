@@ -1,12 +1,15 @@
-### Session III: RNA-Seq Part II 
+## Session III: RNA-Seq Part II
 
-This directory contains all materials for the NGS Data Analysis Course for Session III.
+### Description
 
- 
- **The following folders can be found within this directory:**
+Session III starts with an interactive lesson in R, wherein we cover advanced topics including how to match up and reorder rows and columns based on their names. We will then use various packages in R to perform the differential gene expression (DGE) analysis on the count matrix created in Session II, to generate a list of differentially expressed (DE) genes. In addition to performing this analysis, we will be talking about the QC steps and statistics that are involved in the DGE analysis. The list(s) of DE genes will then be used as input to various tools to graphically represent the results of this analysis. Finally, this session will cover gene annotation and functional enrichment analysis using R packages such as BiomaRt clusterProfiler and gProfileR.   
 
-- ***img***: contains all images used in the lessons for this session
-- ***lessons***: contains the lessons for this session as markdown files
-- ***results***: any results needed for use during the lessons for this session
-- ***scripts***: any scripts needed for use during the lessons for this session
-- ***slides***: teaching slides for content not included in markdown lessons
+> These materials were developed for a trainer-led workshop, but are also amenable to self-guided learning.
+
+
+
+
+### Contents
+
+| Lessons            | Estimated Duration |
+|:------------------------|:----------|
