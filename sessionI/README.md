@@ -17,7 +17,7 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 |[Shell scripts and `for` loops](https://hbctraining.github.io/Intro-to-Shell/lessons/04_loops_and_scripts.html) | 75 min |
 |[Permissions and environment variables](https://hbctraining.github.io/Intro-to-Shell/lessons/05_permissions_and_environment_variables.html) | 50 min |
 |[Introduction to High-Performance Computing (HPC)](lectures/) | 50 min |
-|[Project and data organization](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/01_data_organization.md) | 40 min |
+|[Project and data organization](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/01_data_organization.html) | 40 min |
 |[Research data management concepts](lectures/) | 30 min |
 |[Illumina sequencing technology + RNA-seq design & analysis](lectures/) | 60 min |
 |[Library preparation](lectures/) | 90 min |
