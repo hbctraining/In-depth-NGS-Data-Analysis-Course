@@ -11,18 +11,18 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 |[Introduction to the NGS Data Analysis Course](lectures/) | 40 min |
 |[Overview of bioinformatics](lectures/) | 35 min |
 |[Introduction to Unix shell and O2](lectures/) | 15 min |
-|[Unix shell - Files and directories](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/01_the_filesystem.html) | 130 min |
-|[Unix shell - Searching and redirection](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/02_searching_files.html) | 45 min |
-|[Unix shell - Introduction to vim](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/03_vim.html) | 35 min |
-|[Unix shell - Loops, variables and shell scripts](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/04_loops_and_scripts.html) | 75 min |
-|[Unix shell - Permissions and environment variables](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/05_permissions_and_environment_variables.html) | 60 min |
+|[Introduction to the shell](https://hbctraining.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) | 70 min |
+|[Searching and redirection in shell](https://hbctraining.github.io/Intro-to-Shell/lessons/02_searching_files.html) | 45 min |
+|[Introduction to the Vim text editor ](https://hbctraining.github.io/Intro-to-Shell/lessons/03_vim.html) | 30 min |
+|[Shell scripts and `for` loops](https://hbctraining.github.io/Intro-to-Shell/lessons/04_loops_and_scripts.html) | 75 min |
+|[Permissions and environment variables](https://hbctraining.github.io/Intro-to-Shell/lessons/05_permissions_and_environment_variables.html) | 50 min |
 |[Introduction to High-Performance Computing (HPC)](lectures/) | 50 min |
-|[Project organization and data management](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/06_data_organization.html) | 40 min |
+|[Project and data organization](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/01_data_organization.md) | 40 min |
 |[Research data management concepts](lectures/) | 30 min |
 |[Illumina sequencing technology + RNA-seq design & analysis](lectures/) | 60 min |
 |[Library preparation](lectures/) | 90 min |
 |[FastQ format and Illumina error profiles](lectures/) | 40 min |
-|[QC: Quality assessment](lessons/07_assessing_quality.md) | 55 min |
+|[RNA-seq data QC with FastQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/02_assessing_quality.html) | 75 min |
 
 ### Practical exercises
 After completion of the session, practice of concepts can be explored with [these exercises]().
