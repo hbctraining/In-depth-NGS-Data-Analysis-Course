@@ -4,7 +4,7 @@
 :----------|:----------|:----------|:----------|
 | Biologists | Beginner/Intermediate | None | 12-day workshop (~78 hours of trainer-led time)|
 
-This repository contains all course materials for the Summer 2017 version of HBC's In-depth NGS Data Analysis Course, a 12-day course run over 6 weeks.
+This repository contains all course materials for the Fall 2018 version of HBC's In-depth NGS Data Analysis Course, a 12-day course run over 6 weeks.
 
 > These materials are developed for a trainer-led workshop, but they are also amenable to self-guided learning.
 
@@ -18,14 +18,21 @@ At the end of this course, participants can expect to have the expertise to inde
 
 **No prior programming experience or command-line training is required.**
 
-This repo contains the materials for the six sessions of the course. The six sessions are described below:
+This repo contains the materials for the six sessions of the course. 
 
- * [**Session I**: Introduction to Unix / Orchestra and NGS Data Analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionI/)
- * [**Session II**: RNA-Seq Part I](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionII/)
- * [**Session III**: RNA-Seq Part II](sessionIII)
- * [**Session IV**: RNA-Seq Part III and Related Technologies and Tools](sessionIV)
- * [**Session V**: ChIP-Seq](sessionV)
- * [**Session VI**: Variant Calling](sessionVI)
+## Schedule:
+
+The table below will be updated with links to the lessons as the course progresses:
+
+| Date |  Session #  | Description | Time |
+|:-----------:|:----------:|:--------:|:--------:|
+|September 5th - 6th	| Session 1 | Introduction to UNIX, O2 and NGS Data Analysis | 9am - 5pm |
+|September 12th - 13th| Session 2 | NGS workflow and RNA-seq Part I | 9am - 5pm |
+|September 19th - 20th| Session 3 | RNA-seq Part II	| 9am - 5pm |
+|September 26th - 27th| Session 4 | Functional Analysis and other RNA-seq applications| 9am - 5pm |
+|October 3rd - 4th	  | Session 5 | ChIP-seq | 9am - 5pm |
+|October 10th - 11th	| Session 6 | Variant Calling, Version Control | 9am - 5pm |
+
 
 ---
 
