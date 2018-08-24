@@ -1,10 +1,10 @@
 # Course Schedule
 
-| Date |  Session #  | Description | Time |
-|:-----------------:|:---------:|:--------:|:--------:|
-| Sept. 5th - 6th	  | Session 1 | [Introduction to UNIX, O2 and NGS Data Analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionI/schedule/) | 9am - 5pm |
-| Sept. 12th - 13th | Session 2 | NGS workflow and RNA-seq Part I | 9am - 5pm |
-| Sept. 19th - 20th | Session 3 | RNA-seq Part II	| 9am - 5pm |
-| Sept. 26th - 27th | Session 4 | Functional Analysis and other RNA-seq applications| 9am - 5pm |
-| Oct. 3rd - 4th	  | Session 5 | ChIP-seq | 9am - 5pm |
-| Oct. 10th - 11th	| Session 6 | Variant Calling, Version Control | 9am - 5pm |
+| Date |  Session #  | Description | 
+|:-----------------:|:---------:|:--------:|
+| Sept. 5th - 6th	  | I | [Introduction to UNIX, O2 and NGS Data Analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionI/schedule/) |
+| Sept. 12th - 13th | II | NGS workflow and RNA-seq Part I | 
+| Sept. 19th - 20th | III | RNA-seq Part II	| 
+| Sept. 26th - 27th | IV| Functional Analysis and other RNA-seq applications|
+| Oct. 3rd - 4th	  | V | ChIP-seq |
+| Oct. 10th - 11th	| VI | Variant Calling, Version Control |
