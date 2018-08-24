@@ -28,8 +28,8 @@
 | 10:35 - 11:15 | Project organization and data management  | Radhika Khetani |
 | 11:15 - 11:45 | Research Data Management Concepts | Meeta Mistry |
 | 11:45 - 12:45 | Lunch |  |
-| 12:45 - 13:45 | Illumina sequencing technology + RNA-seq design & analysis | Radhika Khetani |  |
-| 13:45 - 15:15 | Library preparation | Dr. Sarah Boswell |
+| 12:45 - 13:45 | Illumina sequencing technology + RNA-seq design & analysis | Radhika Khetani |
+| 13:45 - 15:15 | Library preparation | Sarah Boswell |
 | 15:15 - 15:25 | Coffee |  |
-| 15:25 - 16:05 | FastQ format and Illumina error profiles    | Meeta Mistry |
+| 15:25 - 16:05 | FastQ format and Illumina error profiles | Meeta Mistry |
 | 16:05 - 17:00 | QC: Quality assessment | Mary Piper |
