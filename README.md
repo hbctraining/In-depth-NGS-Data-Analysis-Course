@@ -26,7 +26,7 @@ The table below will be updated with links to the lessons as the course progress
 
 | Dates (Wednesdays & Thursdays) |  Session number  | Description | Time/Duration |
 |:-----------:|:----------:|:--------:|:--------:|
-| September 5th - 6th	| Session 1 | Introduction to UNIX, O2 and NGS Data Analysis | 9am - 5pm |
+| September 5th - 6th	| Session 1 | Introduction to bash, O2 and NGS Data Analysis | 9am - 5pm |
 | September 12th - 13th | Session 2 | Differential Gene Expression Analysis Part I | 9am - 5pm |
 | September 19th - 20th | Session 3 | Differential Gene Expression Analysis Part II	| 9am - 5pm |
 | September 26th - 27th | Session 4 | Functional Analysis & other RNA-seq applications| 9am - 5pm |
@@ -44,22 +44,19 @@ The table below will be updated with links to the lessons as the course progress
 Download and install the following programs:
 >**NOTE:** If you are going to be using a **Mac laptop** please use the [instructions here](https://support.apple.com/en-us/HT201260) to determine your OS X version. If you find that your Mac is running a version older than OS X 10.6, please email us.
 
-**Mac users:**
-- [Java](https://www.java.com/en/download/)
 - [Filezilla](https://filezilla-project.org/download.php?type=client)
-- [Integrative Genomics Viewer (IGV)](https://www.broadinstitute.org/igv/?q=registration)
-- [Sublime Text](http://www.sublimetext.com/)
+- [Integrative Genomics Viewer (IGV)](https://www.broadinstitute.org/igv/?q=registration). If you get an error when you try to open IGV, please download [Java](https://www.java.com/en/download/) and try again.
 - [Rstudio](http://www.rstudio.com/products/rstudio/download/) (pick the appropriate file for your operating system)
 - [R](http://cran.r-project.org/bin/macosx/) (R-3.4.2 for Mac OS X 10.11 (El Capitan) and higher, R-3.3.3 for Mac OS X 10.9 (Mavericks) and R-3.1.3 for Mac OS X 10.6 (Snow Leopard), OS X 10.7 and OS X 10.8). 
 
-**Windows users:**
-- [GitBash](https://git-scm.com/download/win)
-- [Java](https://www.java.com/en/download/)
-- [Filezilla](https://filezilla-project.org/)
-- [Integrative Genomics Viewer (IGV)](https://www.broadinstitute.org/igv/?q=registration)
-- [Notepad++](http://notepad-plus-plus.org/) or [Sublime Text](http://www.sublimetext.com/)
-- [Rstudio](http://www.rstudio.com/products/rstudio/download/) (pick the appropriate file for your operating system)
-- [R](http://cran.r-project.org/bin/windows/base/)
+**Mac OS specific download:**
+- [Sublime Text](http://www.sublimetext.com/) or similar
+
+**Windows OS specific download:**
+- [Git for Windows](https://git-scm.com/download/win), we will be using the Git Bash tools from this suite.
+- [Notepad++](http://notepad-plus-plus.org/) or similar
+
+***
 
 *These materials have been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
