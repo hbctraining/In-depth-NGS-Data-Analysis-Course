@@ -26,7 +26,7 @@ Schedule for Session I
 | 09:30 - 10:20 | Introduction to High-Performance Computing (HPC)  | Radhika Khetani |
 | 10:20 - 10:35 | Coffee |  |
 | 10:35 - 11:15 | Project organization and data management  | Radhika Khetani |
-| 11:15 - 11:45 | Research Data Management Concepts | Jessica Pierce |
+| 11:15 - 11:45 | Research Data Management Concepts | Meeta Mistry |
 | 11:45 - 12:45 | Lunch |  |
 | 12:45 - 13:45 | Illumina sequencing technology + RNA-seq design & analysis | Radhika Khetani |  |
 | 13:45 - 15:15 | Library preparation | Dr. Sarah Boswell |
