@@ -20,18 +20,17 @@ At the end of this course, participants can expect to have the expertise to inde
 
 This repo contains the materials for the six sessions of the course. 
 
-## Schedule:
+## Contents:
 
-The table below will be updated with links to the lessons as the course progresses:
 
-| Dates (Wednesdays & Thursdays) |  Session number  | Description | Time/Duration |
+ Description | Time/Duration |
 |:-----------:|:----------:|:--------:|:--------:|
-| September 5th - 6th	| Session 1 | Introduction to bash, O2 and NGS Data Analysis | 9am - 5pm |
-| September 12th - 13th | Session 2 | Differential Gene Expression Analysis Part I | 9am - 5pm |
-| September 19th - 20th | Session 3 | Differential Gene Expression Analysis Part II	| 9am - 5pm |
-| September 26th - 27th | Session 4 | Functional Analysis & other RNA-seq applications| 9am - 5pm |
-| October 3rd - 4th	  | Session 5 | ChIP-seq | 9am - 5pm |
-| October 10th - 11th	| Session 6 | Variant Calling, Version Control | 9am - 5pm |
+|Introduction to bash, O2 and NGS Data Analysis | 2 Days |
+|Differential Gene Expression Analysis Part I | 2 Days |
+|Differential Gene Expression Analysis Part II	| 2 Days |
+|Functional Analysis & other RNA-seq applications| 2 Days |
+|ChIP-seq | 2 Days |
+|Variant Calling, Version Control | 2 Days |
 
 ---
 
