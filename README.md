@@ -23,8 +23,8 @@ This repo contains the materials for the six sessions of the course.
 ## Contents:
 
 
- Description | Time/Duration |
-|:-----------:|:----------:|:--------:|:--------:|
+| Description | Time/Duration |
+|:-----------:|:----------:|
 |Introduction to bash, O2 and NGS Data Analysis | 2 Days |
 |Differential Gene Expression Analysis Part I | 2 Days |
 |Differential Gene Expression Analysis Part II	| 2 Days |
