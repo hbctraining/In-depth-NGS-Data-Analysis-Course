@@ -3,7 +3,7 @@
 ## Day1
 
 | Time |  Topic  | Instructor |
-|:-----------:|:----------:|:--------:|
+|:-------------:|:----------:|:--------:|
 | 09:00 - 09:40 | [Introduction to the NGS Data Analysis Course]() | Radhika |
 | 09:40 - 10:15 | [Overview of bioinformatics]() | Mary |
 | 10:15 - 10:30 | [Introduction to Unix shell and Orchestra]() | Radhika |
@@ -21,12 +21,12 @@
 ## Day2
 
 | Time |  Topic  | Instructor |
-|:-----------:|:----------:|:--------:|
+|:-------------:|:----------:|:--------:|
 | 09:00 - 09:30 | [Unix shell - Environment variables]() | Meeta |
-| 09:30 - 10:20 | [Introduction to High Performance Computing (HPC) & Orchestra]() | Radhika |
+| 09:30 - 10:20 | [Introduction to High Performance Computing (HPC)]() | Radhika |
 | 10:20 - 10:35 | Coffee | |
 | 10:35 - 10:45 | [Introduction to analysis workflows]() | Radhika |
-| 10:45 - 12:15 | [Library preparation]() | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
+| 10:45 - 12:15 | [Library preparation for RNA sequencing]() | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Sequencing technologies]() | Meeta |
 | 13:45 - 14:20 | [Experimental considerations]() | Mary |
