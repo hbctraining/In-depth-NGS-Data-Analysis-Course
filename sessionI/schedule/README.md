@@ -1,6 +1,9 @@
 # Schedule for Session I
 
-## Day1
+
+## Day1 
+
+**Location: Countway Library, room 518 (Lahey room)**
 
 | Time |  Topic  | Instructor |
 |:-------------:|:----------:|:--------:|
@@ -19,6 +22,8 @@
 
 
 ## Day2
+
+**Location: Countway Library, room 518 (Lahey room)**
 
 | Time |  Topic  | Instructor |
 |:-------------:|:----------:|:--------:|
