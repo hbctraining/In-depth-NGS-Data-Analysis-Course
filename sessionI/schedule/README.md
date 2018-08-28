@@ -26,7 +26,7 @@
 | 09:30 - 10:20 | [Introduction to High Performance Computing (HPC) & Orchestra]() | Radhika |
 | 10:20 - 10:35 | Coffee | |
 | 10:35 - 10:45 | [Introduction to analysis workflows]() | Radhika |
-| 10:45 - 12:15 | [Library preparation]() | Sarah |
+| 10:45 - 12:15 | [Library preparation]() | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Sequencing technologies]() | Meeta |
 | 13:45 - 14:20 | [Experimental considerations]() | Mary |
