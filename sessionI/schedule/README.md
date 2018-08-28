@@ -3,7 +3,7 @@
 
 ## Day1 
 
-**Location: Countway Library, room 518 (Lahey room)**
+**Location:** Countway Library, room 518 (Lahey room)
 
 | Time |  Topic  | Instructor |
 |:-------------:|:----------:|:--------:|
@@ -23,7 +23,7 @@
 
 ## Day2
 
-**Location: Countway Library, room 518 (Lahey room)**
+**Location:** Countway Library, room 518 (Lahey room)
 
 | Time |  Topic  | Instructor |
 |:-------------:|:----------:|:--------:|
