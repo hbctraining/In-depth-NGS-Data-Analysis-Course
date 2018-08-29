@@ -4,17 +4,18 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 09:30 | Homework review  | All |
-| 09:30 - 10:00 | File formats in NGS analysis | Radhika |
-| 10:00 - 10:40 | Sequence alignment tools and theory | Meeta |
-| 10:40 - 10:55 | Coffee |  |
-| 10:55 - 12:20 | Alignment with STAR | Mary |
-| 12:20 - 13:20 | Lunch |  |
-| 13:20 - 14:20 | Assessing alignment quality and visualization with IGV     | Meeta |
-| 14:20 - 14:35 | Coffee |  |
-| 14:35 - 15:50 | Generating a count matrix | Radhika |
-| 15:50 - 16:20 | Documenting and visualizing results (QC) | Radhika |
-| 16:20 - 17:00 | Intro to R and RStudio | Meeta |
+| 09:00 - 09:40 | Homework review  | All |
+| 09:40 - 10:55 | Overview of quantification strategies | Dr. Rory Kirchner |
+| 10:55 - 11:10 | Coffee |  |
+| 11:10 - 11:55 | Sequence alignment tools and theory | Meeta |
+| 11:55 - 12:45 | QC with STAR and Qualimap: Running | Mary |
+| 12:45 - 13:45 | Lunch |  |
+| 13:45 - 14:25 | QC with STAR and Qualimap: Assessment | Radhika |
+| 14:25 - 15:05 | Quasi-alignment with Salmon | Meeta |
+| 15:05 - 15:20 | Coffee |  |
+| 15:20 - 15:50 | Quasi-alignment with Salmon (cont.) | Meeta |
+| 15:50 - 16:20 | MultiQC | Mary |
+| 16:20 - 17:00 | Intro to R and RStudio | Radhika |
 
 
 ## Day2
