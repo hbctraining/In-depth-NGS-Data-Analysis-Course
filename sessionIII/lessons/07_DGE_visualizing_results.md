@@ -17,6 +17,7 @@ Approximate time: 75 minutes
 When we are working with large amounts of data it can be useful to display that information graphically to gain more insight. Visualization deserves an entire course of its own, but during this lesson we will get you started with some basic and more advanced plots commonly used when exploring differential gene expression data.
 
 Let's start by loading a few libraries:
+
 ```r
 # load libraries
 library(DESeq2)
