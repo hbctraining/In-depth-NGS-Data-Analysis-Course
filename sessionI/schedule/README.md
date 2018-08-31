@@ -37,5 +37,5 @@
 | 13:45 - 14:20 | [Experimental considerations]() | Mary |
 | 14:20 - 15:15 | [Project Organization & Introduction to Dataset]() | Meeta |
 | 15:15 - 15:30 | Coffee | |
-| 15:30 - 16:15 | [QC: Running FastQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/02_assessing_quality.html) | Meeta |
-| 16:15 - 17:00 | [QC: Assessing results](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/02_assessing_quality.html) | Mary |
+| 15:30 - 16:15 | [Quality control: Running FastQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_running_fastqc.html) | Meeta |
+| 16:15 - 17:00 | [Quality control: Assessing results](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html) | Mary |
