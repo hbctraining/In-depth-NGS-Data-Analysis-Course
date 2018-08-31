@@ -23,7 +23,6 @@ Session I will start with an overview of bioinformatics and next-generation sequ
 |[Library preparation](lectures/) | 90 min |
 |[FastQ format and Illumina error profiles](lectures/) | 40 min |
 |[RNA-seq data QC with FastQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/02_assessing_quality.html) | 75 min |
-~                  
 
 ### Practical exercises
 After completion of the session, practice of concepts can be explored with [these exercises]().
