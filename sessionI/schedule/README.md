@@ -35,7 +35,7 @@
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Sequencing technologies]() | Meeta |
 | 13:45 - 14:20 | [Experimental considerations]() | Mary |
-| 14:20 - 15:15 | [Project Organization & Introduction to Dataset]() | Meeta |
+| 14:20 - 15:15 | [Project Organization & Introduction to Dataset](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/01_data_organization.html) | Meeta |
 | 15:15 - 15:30 | Coffee | |
 | 15:30 - 16:15 | [Quality control: Running FastQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_running_fastqc.html) | Meeta |
 | 16:15 - 17:00 | [Quality control: Assessing results](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html) | Mary |
