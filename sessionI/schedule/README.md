@@ -34,7 +34,7 @@
 | 10:45 - 12:15 | [Library preparation for RNA sequencing]() | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Sequencing technologies]() | Meeta |
-| 13:45 - 14:20 | [Experimental considerations]() | Mary |
+| 13:45 - 14:20 | [Experimental considerations](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) | Mary |
 | 14:20 - 15:15 | [Project Organization & Introduction to Dataset](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/01_data_organization.html) | Meeta |
 | 15:15 - 15:30 | Coffee | |
 | 15:30 - 16:15 | [Quality control: Running FastQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_running_fastqc.html) | Meeta |
