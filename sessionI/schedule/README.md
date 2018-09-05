@@ -8,7 +8,7 @@
 | Time |  Topic  | Instructor |
 |:-------------:|:----------:|:--------:|
 | 09:00 - 09:40 | [Introduction to the NGS Data Analysis Course]() | Meeta |
-| 09:40 - 10:15 | [Overview of bioinformatics]() | Mary |
+| 09:40 - 10:15 | [Overview of bioinformatics](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionI/slides/Overview_of_Bioinformatics.pdf) | Mary |
 | 10:15 - 10:30 | [Introduction to Unix shell and Orchestra]() | Meeta |
 | 10:30 - 10:45 | Coffee | |
 | 10:45 - 11:50 | [Unix shell - Files and directories](https://hbctraining.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) | Mary |
