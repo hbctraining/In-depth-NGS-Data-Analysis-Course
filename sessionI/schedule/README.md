@@ -31,7 +31,7 @@
 | 09:30 - 10:20 | [Introduction to High Performance Computing (HPC)]() | Meeta |
 | 10:20 - 10:35 | Coffee | |
 | 10:35 - 10:45 | [Introduction to analysis workflows]() | Mary |
-| 10:45 - 12:15 | [Library preparation for RNA sequencing]() | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
+| 10:45 - 12:15 | [Library preparation for RNA sequencing](https://www.dropbox.com/s/2vi4o1bw5t94hdk/SB_Library_Prep_Aug_2018.pdf?dl=1) | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Sequencing technologies]() | Meeta |
 | 13:45 - 14:20 | [Experimental considerations](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) | Mary |
