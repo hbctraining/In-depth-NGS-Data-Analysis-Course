@@ -33,7 +33,7 @@
 | 10:35 - 10:45 | [Introduction to analysis workflows](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionI/slides/RNA-seq_workflow.pdf) | Mary |
 | 10:45 - 12:15 | [Library preparation for RNA sequencing](https://www.dropbox.com/s/cm5zfwuj6n5kw0l/SB_Library_Prep_Sept_2018.pdf?dl=1) | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
 | 12:15 - 13:15 | Lunch | |
-| 13:15 - 13:45 | [Sequencing technologies]() | Meeta |
+| 13:15 - 13:45 | [Sequencing technologies](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionI/slides/sequencing_technologies_mm.pdf) | Meeta |
 | 13:45 - 14:20 | [Experimental considerations](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/experimental_planning_considerations.html) | Mary |
 | 14:20 - 15:15 | [Project Organization & Introduction to Dataset](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/01_data_organization.html) | Meeta |
 | 15:15 - 15:30 | Coffee | |
