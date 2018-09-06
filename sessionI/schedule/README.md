@@ -28,7 +28,7 @@
 | Time |  Topic  | Instructor |
 |:-------------:|:----------:|:--------:|
 | 09:00 - 09:30 | [Unix shell - Environment variables](https://hbctraining.github.io/Intro-to-Shell/lessons/05_permissions_and_environment_variables.html) | Mary |
-| 09:30 - 10:20 | [Introduction to High Performance Computing (HPC)]() | Meeta |
+| 09:30 - 10:20 | [Introduction to High Performance Computing (HPC)](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionI/slides/HPC_intro_O2_09042018.pdf) | Meeta |
 | 10:20 - 10:35 | Coffee | |
 | 10:35 - 10:45 | [Introduction to analysis workflows]() | Mary |
 | 10:45 - 12:15 | [Library preparation for RNA sequencing](https://www.dropbox.com/s/cm5zfwuj6n5kw0l/SB_Library_Prep_Sept_2018.pdf?dl=1) | [Dr. Sarah Boswell](https://scholar.harvard.edu/saboswell) |
