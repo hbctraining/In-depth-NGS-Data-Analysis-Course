@@ -4,13 +4,14 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 09:40 | Homework review  | All |
-| 09:40 - 10:55 | Overview of quantification strategies | Dr. Rory Kirchner |
-| 10:55 - 11:10 | Coffee |  |
-| 11:10 - 11:55 | Sequence alignment tools and theory | Meeta |
-| 11:55 - 12:45 | QC with STAR and Qualimap: Running | Mary |
-| 12:45 - 13:45 | Lunch |  |
-| 13:45 - 14:25 | QC with STAR and Qualimap: Assessment | Radhika |
+| 9:00 - 9:30 | Homework Review | All |
+| 09:30 - 10:15 | Quality control: Assessing results (FASTQC) | Mary |
+| 10:15 - 10:25 | Coffee |  |
+| 10:25 - 11:40 | Overview of quantification strategies | Dr. Rory Kirchner |
+| 11:10 - 11:45 | Sequence alignment tools and theory | Meeta |
+| 11:45 - 12:35 | QC with HISAT2 and Qualimap: Running | Mary |
+| 12:35 - 13:35 | Lunch |  |
+| 13:35 - 14:25 | QC with HISAT2 and Qualimap: Assessment | Radhika |
 | 14:25 - 15:05 | Quasi-alignment with Salmon | Meeta |
 | 15:05 - 15:20 | Coffee |  |
 | 15:20 - 15:50 | Quasi-alignment with Salmon (cont.) | Meeta |
