@@ -22,12 +22,12 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 10:15 | [Intro to R: R syntax and data structure]() | Mary |
+| 09:00 - 10:15 | [Intro to R: R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | Mary |
 | 10:15 - 10:30 | Coffee |  |
-| 10:30 - 11:20 | [Intro to R: Functions and arguments]() | Meeta |
-| 11:20 - 12:25 | [Intro to R: Data wrangling (Part 1)]()   | Radhika |
+| 10:30 - 11:20 | [Intro to R: Functions and arguments](https://hbctraining.github.io/Intro-to-R/lessons/03_introR-functions-and-arguments.html) | Meeta |
+| 11:20 - 12:25 | [Intro to R: Data wrangling (Part 1)](https://hbctraining.github.io/Intro-to-R/lessons/04_introR-data-wrangling.html)   | Radhika |
 | 12:25 - 13:25 | Lunch |  |
-| 13:25 - 14:40 | [Intro to R: Data wrangling (Part 2)]() | Mary |
+| 13:25 - 14:40 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
 | 14:40 - 14:55 | Coffee |  |
 | 14:55 - 15:25 | [Intro to R: Nested functions]() | Meeta |
 | 15:25 - 16:15 | [Data visualization in R (basics)]() | Radhika |
