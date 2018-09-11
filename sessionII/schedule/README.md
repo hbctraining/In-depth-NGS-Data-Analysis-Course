@@ -8,13 +8,13 @@
 | 09:30 - 10:15 | [Quality control: Assessing results (FASTQC)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html) | Mary |
 | 10:15 - 10:25 | Coffee |  |
 | 10:25 - 11:40 | [Overview of quantification strategies]() | Dr. Rory Kirchner |
-| 11:10 - 12:00 | [Sequence alignment tools and theory]() | Meeta |
-| 12:00 - 13:00 | Lunch |  |
-| 13:00 - 14:05 | [QC with STAR and Qualimap](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.md.html) | Mary |
-| 14:05 - 14:45 | [Quasi-alignment with Salmon](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
-| 14:45 - 15:00 | Coffee |  |
-| 15:00 - 15:30 | [Quasi-alignment with Salmon (cont.)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
-| 15:30 - 16:20 | [MultiQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/05_multiQC.html) | Mary |
+| 11:40 - 12:30 | [Sequence alignment tools and theory]() | Meeta |
+| 12:30 - 13:30 | Lunch |  |
+| 13:30 - 14:35 | [QC with STAR and Qualimap](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.md.html) | Mary |
+| 14:35 - 15:00 | [Quasi-alignment with Salmon](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
+| 15:00 - 15:10 | Coffee |  |
+| 15:10 - 15:40 | [Quasi-alignment with Salmon (cont.)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
+| 15:40 - 16:20 | [MultiQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/05_multiQC.html) | Mary |
 | 16:20 - 17:00 | [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | Radhika |
 
 
