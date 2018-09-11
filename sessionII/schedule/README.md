@@ -7,7 +7,7 @@
 | 9:00 - 9:30 | Homework Review | All |
 | 09:30 - 10:15 | [Quality control: Assessing results (FASTQC)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html) | Mary |
 | 10:15 - 10:25 | Coffee |  |
-| 10:25 - 11:40 | [Overview of quantification strategies]() | Dr. Rory Kirchner |
+| 10:25 - 11:10 | [Overview of quantification strategies]() | Dr. Rory Kirchner |
 | 11:10 - 12:00 | [Sequence alignment tools and theory]() | Meeta |
 | 12:00 - 13:00 | Lunch |  |
 | 13:00 - 14:05 | [QC with STAR and Qualimap](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.md.html) | Mary |
