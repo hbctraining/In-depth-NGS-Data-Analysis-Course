@@ -5,15 +5,15 @@
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
 | 09:00 - 10:00 | Homework review | Meeta |
-| 10:00 - 10:30 | Matching and reordering | Mary |
+| 10:00 - 10:30 | Data Visualization (cont'd) | Radhika |
 | 10:30 - 10:45 | Coffee  |  |
-| 10:45 - 11:35 | Matching and reordering (cont.) | Mary |
-| 11:35 - 12:45 | DGE: Setup and Overview | Meeta |
-| 12:45 - 13:45 | Lunch |  |
-| 13:45 - 14:35 | DGE: Count Normalization | Radhika |
-| 14:35 - 14:55 | Coffee  |
-| 15:05 - 16:30 | DGE: Exploratory Data Analysis (QC) | Mary |
-| 16:30 - 17:00 | DGE: DESeq2 Workflow Part 1   | Mary |
+| 10:45 - 11:40 | Tidyverse | Mary |
+| 11:40 - 12:40 | DGE: Setup and Overview | Meeta |
+| 12:40 - 13:40 | Lunch |  |
+| 13:40 - 14:30 | DGE: Count Normalization | Radhika |
+| 14:30 - 14:45 | Coffee  |
+| 14:45 - 15:35 | Count Data QC | Meeta |
+| 15:35 - 17:00 | DGE: DESeq2 Workflow Part 1   | Mary |
 
 
 ## Day2
