@@ -33,3 +33,5 @@
 | 15:35 - 16:05 | [Reordering](https://hbctraining.github.io/Intro-to-R/lessons/06_advR-matching.html#reordering-data-using-indices) | Mary |
 | 16:05 - 17:00 | [Data Visualization](https://hbctraining.github.io/Intro-to-R/lessons/08_ggplot2.html) | Radhika |
 
+
+[Automation in bash](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html)
