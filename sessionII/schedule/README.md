@@ -34,4 +34,4 @@
 | 16:05 - 17:00 | [Data Visualization](https://hbctraining.github.io/Intro-to-R/lessons/08_ggplot2.html) | Radhika |
 
 
-[Automation in bash](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html)
+**Extra Lesson** : [Automation in bash](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html)
