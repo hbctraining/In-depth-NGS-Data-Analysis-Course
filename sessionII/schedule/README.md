@@ -10,7 +10,7 @@
 | 10:25 - 11:40 | [Overview of quantification strategies]() | Dr. Rory Kirchner |
 | 11:40 - 12:30 | [Sequence alignment tools and theory]() | Meeta |
 | 12:30 - 13:30 | Lunch |  |
-| 13:30 - 14:35 | [QC with STAR and Qualimap](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.md.html) | Mary |
+| 13:30 - 14:35 | [QC with STAR and Qualimap](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.html) | Mary |
 | 14:35 - 15:00 | [Quasi-alignment with Salmon](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
 | 15:00 - 15:10 | Coffee |  |
 | 15:10 - 15:40 | [Quasi-alignment with Salmon (cont.)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
