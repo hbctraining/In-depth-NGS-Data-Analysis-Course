@@ -7,8 +7,8 @@
 | 9:00 - 9:30 | Homework Review | All |
 | 09:30 - 10:15 | [Quality control: Assessing results (FASTQC)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html) | Mary |
 | 10:15 - 10:25 | Coffee |  |
-| 10:25 - 11:40 | [Overview of quantification strategies]() | Dr. Rory Kirchner |
-| 11:40 - 12:30 | [Sequence alignment tools and theory]() | Meeta |
+| 10:25 - 11:40 | [Overview of quantification strategies](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionII/slides/2018-09-12-RNA-seq-quantification.pdf) | Dr. Rory Kirchner |
+| 11:40 - 12:30 | [Sequence alignment tools and theory](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionII/slides/alignment_quantification.pdf) | Meeta |
 | 12:30 - 13:30 | Lunch |  |
 | 13:30 - 14:35 | [QC with STAR and Qualimap](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.html) | Mary |
 | 14:35 - 15:00 | [Quasi-alignment with Salmon](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
