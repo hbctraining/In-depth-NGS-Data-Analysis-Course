@@ -22,7 +22,7 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 10:25 | [Automation in bash cont'd](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html) | Radhika |
+| 09:00 - 10:25 | [Automation in bash (cont.)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html) | Radhika |
 | 10:25 - 10:35 | Coffee |  |
 | 10:35 - 11:15 | [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | Radhika |
 | 11:15 - 12:30 | [Intro to R: R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | Mary |
