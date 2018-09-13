@@ -15,15 +15,17 @@
 | 15:00 - 15:10 | Coffee |  |
 | 15:10 - 15:40 | [Quasi-alignment with Salmon (cont.)](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/04_quasi_alignment_salmon.html) | Meeta |
 | 15:40 - 16:20 | [MultiQC](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/05_multiQC.html) | Mary |
-| 16:20 - 17:00 | [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | Radhika |
+| 16:20 - 17:00 | [Automation in bash](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html) | Radhika |
 
 
 ## Day2
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
+| 09:00 - 10:25 | [Automation in bash cont'd](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html) | Radhika |
+| 10:25 - 10:35 | Coffee |  |
+| 10:35 - 11:15 | [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | Radhika |
 | 09:00 - 10:15 | [Intro to R: R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | Mary |
-| 10:15 - 10:30 | Coffee |  |
 | 10:30 - 11:30 | [Intro to R: Functions and arguments](https://hbctraining.github.io/Intro-to-R/lessons/03_introR-functions-and-arguments.html) | Meeta |
 | 11:30 - 12:35 | [Intro to R: Data wrangling (Part 1)](https://hbctraining.github.io/Intro-to-R/lessons/04_introR-data-wrangling.html)   | Radhika |
 | 12:35 - 13:35 | Lunch |  |
@@ -34,4 +36,4 @@
 | 16:05 - 17:00 | [Data Visualization](https://hbctraining.github.io/Intro-to-R/lessons/08_ggplot2.html) | Radhika |
 
 
-**Extra Lesson** : [Automation in bash](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html)
+**Extra Lesson** : 
