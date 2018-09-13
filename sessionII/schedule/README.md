@@ -33,4 +33,3 @@
 | 15:45 - 17:00 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
 
 
-**Extra Lesson** : 
