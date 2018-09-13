@@ -25,15 +25,12 @@
 | 09:00 - 10:25 | [Automation in bash cont'd](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/06_automating_workflow.html) | Radhika |
 | 10:25 - 10:35 | Coffee |  |
 | 10:35 - 11:15 | [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | Radhika |
-| 09:00 - 10:15 | [Intro to R: R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | Mary |
-| 10:30 - 11:30 | [Intro to R: Functions and arguments](https://hbctraining.github.io/Intro-to-R/lessons/03_introR-functions-and-arguments.html) | Meeta |
-| 11:30 - 12:35 | [Intro to R: Data wrangling (Part 1)](https://hbctraining.github.io/Intro-to-R/lessons/04_introR-data-wrangling.html)   | Radhika |
-| 12:35 - 13:35 | Lunch |  |
-| 13:35 - 14:40 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
-| 14:40 - 14:55 | Coffee |  |
-| 14:55 - 15:35 | [Matching](https://hbctraining.github.io/Intro-to-R/lessons/06_advR-matching.html) | Meeta |
-| 15:35 - 16:05 | [Reordering](https://hbctraining.github.io/Intro-to-R/lessons/06_advR-matching.html#reordering-data-using-indices) | Mary |
-| 16:05 - 17:00 | [Data Visualization](https://hbctraining.github.io/Intro-to-R/lessons/08_ggplot2.html) | Radhika |
+| 11:15 - 12:30 | [Intro to R: R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | Mary |
+| 12:30 - 13:30 | Lunch |  |
+| 13:30 - 14:30 | [Intro to R: Functions and arguments](https://hbctraining.github.io/Intro-to-R/lessons/03_introR-functions-and-arguments.html) | Meeta |
+| 14:30 - 15:35 | [Intro to R: Data wrangling (Part 1)](https://hbctraining.github.io/Intro-to-R/lessons/04_introR-data-wrangling.html)   | Radhika |
+| 15:35 - 15:45 | Coffee |  |
+| 15:45 - 17:00 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
 
 
 **Extra Lesson** : 
