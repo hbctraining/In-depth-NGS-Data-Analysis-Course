@@ -30,7 +30,7 @@ Finally, create an Rscript and type the following note:
 # Single-cell RNA-seq analysis with Seurat - QC
 ```
 
-Save the Rscript as `quality_control.R`. Now, we can load the necessary libraries:
+Save the Rscript as `sc_quality_control.R`. Now, we can load the necessary libraries:
 
 # Explain the input for QC: tagcounts, rownames, colnames files
 
