@@ -22,14 +22,14 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 10:30 | [Setting up for DGE Analysis: Count Data QC]() | Mary |
+| 09:00 - 10:30 | [Setting up for DGE Analysis: Count Data QC]() | Radhika |
 | 10:15 - 10:30 | Coffee | |
-| 10:30 - 11:15 | [DGE Analysis: Pairwise Comparisons (Wald Test)]()   | Meeta |
-| 11:15 - 12:30 | [DGE Analysis: Visualization]() | Radhika |
-| 12:30 - 13:30 | Lunch |  |
-| 13:30 - 13:45 | [DGE Analysis: Workflow Summarization]() | Meeta |
-| 13:45 - 14:45 | [DGE Analysis: Complex Experimental Designs (LRT)]() | Mary |
+| 10:30 - 11:30 | [Overview of DESeq2 Methods]() | Mary |
+| 11:30 - 12:15 | [DGE Analysis: Pairwise Comparisons (Wald Test)]()   | Meeta |
+| 12:15 - 13:15 | Lunch |  |
+| 13:15 - 14:30 | [DGE Analysis: Visualization]() | Radhika |
+| 14:30 - 14:45 | [DGE Analysis: Workflow Summarization]() | Meeta |
 | 14:45 - 15:00 | Coffee  |  |
-| 15:00 - 15:30 | [Functional Analysis]() | Radhika |
-| 15:30 - 17:00 | [Functional Analysis]() | Mary |
+| 15:00 - 16:00 | [DGE Analysis: Complex Experimental Designs (LRT)]() | Meeta |
+| 16:00 - 17:00 | [Functional Analysis]() | Mary |
 
