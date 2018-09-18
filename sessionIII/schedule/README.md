@@ -4,7 +4,7 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 10:00 | Homework review, R refresher, Package installations | Meeta |
+| 09:00 - 10:00 | Homework review, R refresher, [Package installations](https://hbctraining.github.io/Intro-to-R-with-DGE/#packages-to-be-installed) | Meeta |
 | 10:00 - 10:20 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
 | 10:20 - 10:30 | Coffee  |  |
 | 10:30 - 11:15 | [Matching and Reordering](https://hbctraining.github.io/Intro-to-R/lessons/matching_shortened.html) | Meeta |
@@ -16,8 +16,6 @@
 | 14:45 - 15:00 | Coffee  |
 | 15:00 - 16:10 | [Overview of DGE Analysis Workflow]() | Meeta |
 | 16:10 - 17:00 | [Setting up for DGE Analysis: Count Normalization]() | Radhika |
-
-**Homework:** [Package installations](https://hbctraining.github.io/Intro-to-R-with-DGE/#packages-to-be-installed)
 
 
 ## Day2
