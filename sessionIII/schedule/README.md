@@ -4,9 +4,9 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 9:30 | Homework review | Meeta |
-| 09:30 - 10:15 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
-| 10:15 - 10:30 | Coffee  |  |
+| 09:00 - 10:00 | Homework review, R refresher, Package installations | Meeta |
+| 10:00 - 10:20 | [Intro to R: Data wrangling (Part 2)](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | Mary |
+| 10:20 - 10:30 | Coffee  |  |
 | 10:30 - 11:15 | [Matching and Reordering](https://hbctraining.github.io/Intro-to-R/lessons/matching_shortened.html) | Meeta |
 | 11:15 - 12:00 | [Matching and Reordering (contd.)](https://hbctraining.github.io/Intro-to-R/lessons/matching_shortened.html) | Mary |
 | 12:00 - 12:30 | [Data Visualization](https://hbctraining.github.io/Intro-to-R/lessons/08_ggplot2.html) | Radhika |
