@@ -86,7 +86,7 @@ gene_ids <- genes$X1
 cell_ids <- read_tsv("data/filtered_gene_bc_matrices/hg19/barcodes.tsv", col_names = FALSE)$X1
 ```
 
-To improve the amount of space, memory and CPU required to work with our huge count matrix, we are going to turn it into a sparse matrix, which collapses the zeros in the data:
+To improve the amount of space, memory and CPU required to work with our huge count matrix, we are going to turn it into a [sparse matrix](https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)), which collapses the zeros in the data:
 
 ```r
 # Create a sparse matrix for more efficient computation
