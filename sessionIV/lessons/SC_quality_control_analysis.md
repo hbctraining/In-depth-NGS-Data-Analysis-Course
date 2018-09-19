@@ -96,7 +96,7 @@ counts <- as(counts, "dgCMatrix")
 Then we can add row names to the count matrix to be the gene IDs and the column names of the count matrix to be the cell IDs.
 
 ```r
-# 
+# Make the column names as the cell IDs and the row names as the gene IDs
 rownames(counts) <- gene_ids
 colnames(counts) <- cell_ids
 ```
