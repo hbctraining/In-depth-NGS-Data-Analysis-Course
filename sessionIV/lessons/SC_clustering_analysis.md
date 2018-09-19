@@ -1,44 +1,36 @@
 # Single-cell RNA-seq clustering analysis
 
-
-This workflow is adapted from the following sources:
+Now that we have our high quality cells, we want to know the different cell types present within our population of cells. To do this we are going to perform a clustering analysis. The workflow for this analysis is adapted from the following sources:
 
 - Satija Lab: [Seurat v2 Guided Clustering Tutorial](http://satijalab.org/seurat/pbmc3k_tutorial.html)
 - Paul Hoffman: [Cell-Cycle Scoring and Regression](http://satijalab.org/seurat/cell_cycle_vignette.html)
 
 To identify clusters, the following steps will be performed:
 
-1. Normalization and transformation of the raw gene counts per cell to account for differences in sequencing depth.
+1. **Normalization and transformation** of the raw gene counts per cell to account for **differences in sequencing depth** per cell.
 2. Identification of high variance genes.
-3. Regression of sources of unwanted variation (e.g. number of UMIs per cell, mitochondrial transcript abundance, cell cycle phase).
-4. Identification of the primary sources of heterogeneity using principal component (PC) analysis and heatmaps.
-5. Clustering cells based on significant PCs (metagenes).
+3. **Regression of sources of unwanted variation** (e.g. number of UMIs per cell, mitochondrial transcript abundance, cell cycle phase).
+4. **Identification of the primary sources of heterogeneity** using principal component (PC) analysis and heatmaps.
+5. **Clustering cells** based on significant PCs (metagenes).
 
+To perform this analysis, we will be mainly using functions available in the Seurat package. Therefore, we need to load the Seurat library in addition to the tidyverse library.
 
 ```r
 library(Seurat)
 library(tidyverse)
 ```
 
-Create variable for where you store the needed data and load the cell cycle file stored in this directory:
+To perform the analysis, Seurat requires the data to be present as a `seurat` object. To create the `seurat` object, we will be extracting the **filtered counts** and **metadata** stored in our `se_c` SingleCellExperiment object created during quality control. 
+To access the counts from our SingleCellExperiment, we can use the `counts()` function:
 
 ```r
-data_dir <- "data" 
-
-# Load Seurat object created                                                                                               
-
-seurat_raw <- readRDS(file.path(data_dir, "seurat_raw.rds"))
+seurat_raw <- CreateSeuratObject(raw.data = counts(se_c),
+                                 meta.data = colData(se_c) %>% data.frame())
 ```
->**NOTE:** Often identifying cell types is easiest for a single sample type. To subset the Seurat object, we can use the `SubsetData()` function. For example:
->
->```r
-> pre_regressed_seurat <- SubsetData(seurat_raw, 
->                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control")])
->```
 
 ### Normalizing counts, finding variable genes, and scaling the data
 
-The raw counts are normalized using global-scaling normalization with the `NormalizeData()` function, which performs the following:
+The first step in the analysis is to normalize the raw counts to account for differences in sequencing depth per cell. The raw counts are normalized using global-scaling normalization with the `NormalizeData()` function, which performs the following:
 
 1. normalizes the gene expression measurements for each cell by the total expression 
 2. multiplies this by a scale factor (10,000 by default)
@@ -46,13 +38,12 @@ The raw counts are normalized using global-scaling normalization with the `Norma
 
 ```r
 # Normalize counts for total cell expression and take log value                            
-
 pre_regressed_seurat <- seurat_raw %>%
-                        NormalizeData(normalization.method = "LogNormalize",
-                                   scale.factor = 10000)  
+  NormalizeData(normalization.method = "LogNormalize",
+                scale.factor = 10000)  
 ```
 
-Following normalization, the most variable genes are identified and will be used for downstream clustering analyses. The `FindVariableGenes()` function is called, which performs the following calculations:
+Following normalization, we want to identify the most variable genes to use for downstream clustering analyses. The `FindVariableGenes()` function can be called, which performs the following calculations:
 
 1. calculates the average expression and dispersion for each gene
 2. places these genes into bins
@@ -62,7 +53,6 @@ This helps control for the relationship between variability and average expressi
 
 ```r
 # Find variable genes based on the mean-dispersion relationship based on z-score for dispersion. 
-
 pre_regressed_seurat <-  pre_regressed_seurat %>%
                           FindVariableGenes(
                             mean.function = ExpMean,
@@ -70,13 +60,20 @@ pre_regressed_seurat <-  pre_regressed_seurat %>%
                             do.plot = FALSE)
 ```
 
-It's recommended to set parameters as to mark visual outliers on dispersion plot - default parameters are for ~2,000 variable genes.
+It's recommended to set parameters as to mark visual outliers on dispersion plot - default parameters are for ~2,000 variable genes. There are some additional arguments, such as `x.low.cutoff`, `x.high.cutoff`, `y.cutoff`, and `y.high.cutoff`.
 
-Finally, the genes are scaled and centered using the `ScaleData()` function.
+We can check the number of variable genes to see if it meets expectations. Generally, we might be a bit concerned if we are only seeing like 500 genes or 4,000 genes as being variable.
+
+
+```r
+# Check number of variable genes to determine if correct parameters used  
+length(x = pre_regressed_seurat@var.genes)
+```
+
+Finally, the genes should then be scaled and centered using the `ScaleData()` function so that ...
 
 ```r
 # Scale and center data
-
 pre_regressed_seurat <- pre_regressed_seurat %>%
                         ScaleData(model.use = "linear")
 ```
@@ -85,17 +82,9 @@ We can plot dispersion (a normalized measure of to cell-to-cell variation) as a 
 
 ```r
 # Plot variable genes
-
 VariableGenePlot(pre_regressed_seurat)
 ```
 
-We can also check the number of variable genes:
-
-```r
-# Check number of variable genes to determine if correct parameters used  
-
-length(x = pre_regressed_seurat@var.genes)
-```
 
 ### Examining sources of variation in the data
 
@@ -278,3 +267,9 @@ saveRDS(seurat, file = file.path(data_dir, "name_seurat_tsne.rds"))
 >
 > R_MAX_NUM_DLLS=150
 > ```
+>**NOTE:** Often identifying cell types is easiest for a single sample type. To subset the Seurat object, we can use the `SubsetData()` function. For example:
+>
+>```r
+> pre_regressed_seurat <- SubsetData(seurat_raw, 
+>                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control")])
+>```
