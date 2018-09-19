@@ -14,8 +14,8 @@
 | 13:30 - 14:00 | [Data Visualization (cont'd)](https://hbctraining.github.io/Intro-to-R/lessons/08_ggplot2.html) | Radhika |
 | 14:00 - 14:45 | [Tidyverse](https://hbctraining.github.io/Intro-to-R/lessons/07_intro_tidyverse.html) | Mary |
 | 14:45 - 15:00 | Coffee  |
-| 15:00 - 16:10 | [Overview of DGE Analysis Workflow]() | Meeta |
-| 16:10 - 17:00 | [Setting up for DGE Analysis: Count Normalization]() | Radhika |
+| 15:00 - 16:10 | [Overview of DGE Analysis Workflow](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html) | Meeta |
+| 16:10 - 17:00 | [Setting up for DGE Analysis: Count Normalization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/02_DGE_count_normalization.html) | Radhika |
 
 
 ## Day2
