@@ -70,14 +70,6 @@ We can check the number of variable genes to see if it meets expectations. Gener
 length(x = pre_regressed_seurat@var.genes)
 ```
 
-Finally, the genes should then be scaled and centered using the `ScaleData()` function so that ...
-
-```r
-# Scale and center data
-pre_regressed_seurat <- pre_regressed_seurat %>%
-                        ScaleData(model.use = "linear")
-```
-
 We can plot dispersion (a normalized measure of to cell-to-cell variation) as a function of average expression for each gene to identify a set of high-variance genes. To check that the dispersions behave as expected, decreasing with increasing mean, and to identify the most variable genes, we can visualize the dispersions with the `VariableGenePlot()` function.
 
 ```r
@@ -85,6 +77,13 @@ We can plot dispersion (a normalized measure of to cell-to-cell variation) as a 
 VariableGenePlot(pre_regressed_seurat)
 ```
 
+Finally, the genes should then be scaled and centered using the `ScaleData()` function so that ...
+
+```r
+# Scale and center data
+pre_regressed_seurat <- pre_regressed_seurat %>%
+                        ScaleData(model.use = "linear")
+```
 
 ### Examining sources of variation in the data
 
@@ -129,7 +128,6 @@ Here we are checking to see if the cells are grouping by cell cycle. If we don't
 
 ```r
 # Perform PCA and color by cell cycle phase
-
 pre_regressed_seurat = RunPCA(
   pre_regressed_seurat,
   pc.genes = c(s_genes, g2m_genes),
@@ -142,7 +140,6 @@ Now save the pre-regressed Seurat object:
 
 ```r
 # Save pre-regression Seurat object
-
 saveRDS(pre_regressed_seurat, file = file.path(data_dir, "seurat_pre_regress.rds"))
 ```
 
@@ -158,7 +155,6 @@ When regressing out the effects of cell-cycle variation, include `S.Score` and `
 
 ```r
 # Regress out the uninteresting sources of variation in the data
-
 vars_to_regress <- c("nUMI", "S.Score", "G2M.Score")
 
 seurat <- ScaleData(pre_regressed_seurat, vars.to.regress = vars_to_regress)
