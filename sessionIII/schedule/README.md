@@ -23,7 +23,7 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 9:00 - 9:50 | [Setting up for DGE Analysis: Count Normalization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/02_DGE_count_normalization.html) | Radhika |
+| 09:00 - 9:50 | [Setting up for DGE Analysis: Count Normalization](https://hbctraining.github.io/DGE_workshop_salmon/lessons/02_DGE_count_normalization.html) | Radhika |
 | 09:50 - 10:30 | [Setting up for DGE Analysis: Count Data QC](https://hbctraining.github.io/DGE_workshop_salmon/lessons/03_DGE_QC_analysis.html) | Meeta |
 | 10:30 - 10:45 | Coffee | |
 | 10:45 - 11:40 | [Setting up for DGE Analysis: Count Data QC](https://hbctraining.github.io/DGE_workshop_salmon/lessons/03_DGE_QC_analysis.html) | Meeta |
