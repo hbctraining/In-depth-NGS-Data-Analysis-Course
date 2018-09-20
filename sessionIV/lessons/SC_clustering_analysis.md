@@ -140,7 +140,7 @@ Now save the pre-regressed Seurat object:
 
 ```r
 # Save pre-regression Seurat object
-saveRDS(pre_regressed_seurat, file = file.path(data_dir, "seurat_pre_regress.rds"))
+saveRDS(pre_regressed_seurat, file = "data/seurat_pre_regress.rds")
 ```
 
 ## Apply regression variables
