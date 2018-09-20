@@ -212,7 +212,7 @@ co2 <- sort(which((pct[1:length(pct)-1] - pct[2:length(pct)]) > 0.1),  decreasin
 co2
 ```
 
-Now to determine the selection of PCs, we will use the minimum of the two metrics:
+The second metric returned PC8. Now, to determine the selection of PCs, we will use the minimum of the two metrics:
 
 ```r
 # Minimum of the two calculation
