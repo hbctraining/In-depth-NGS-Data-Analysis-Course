@@ -124,7 +124,7 @@ pre_regressed_seurat <- CellCycleScoring(
   s.genes = s_genes)
 ```
 
-Here we are checking to see if the cells are grouping by cell cycle. If we don't see clear grouping of the cells into `G1`, `G2M`, and `S` clusters on the PCA plot, then it is recommended that we don't regress out cell-cycle variation. When this is the case, remove `S.Score` and `G2M.Score` from the variables to regress (`vars_to_regress`) in the R Markdown YAML parameters.
+To determine whether the cells group by cell cycle, we can perform PCA using the cell cycle genes. If the cells group by cell cycle in the PCA, then we would want to regress out cell cycle variation. Let's assess our data:
 
 ```r
 # Perform PCA and color by cell cycle phase
@@ -136,7 +136,9 @@ pre_regressed_seurat = RunPCA(
 PCAPlot(pre_regressed_seurat, group.by= "Phase")
 ```
 
-Now save the pre-regressed Seurat object:
+In our data, the cells don't really see the cells cluster by cell cycle, so we do not need to include `S.Score` and `G2M.Score` variables in the metadata for regression.
+
+Now let's save the pre-regressed Seurat object:
 
 ```r
 # Save pre-regression Seurat object
@@ -154,24 +156,13 @@ We generally recommend minimizing the effects of variable read count depth (`nUM
 When regressing out the effects of cell-cycle variation, include `S.Score` and `G2M.Score` in the `vars.to.regress` argument. Cell-cycle regression is generally recommended but should be avoided for samples containing cells undergoing differentiation.
 
 ```r
-# Regress out the uninteresting sources of variation in the data
-vars_to_regress <- c("nUMI", "S.Score", "G2M.Score")
+# Define variables in metadata to regress
+vars_to_regress <- c("nUMI", "mitoRatio")
 
+# Regress out the uninteresting sources of variation in the data
 seurat <- ScaleData(pre_regressed_seurat, vars.to.regress = vars_to_regress)
 ```
 
-Now that regression has been applied, let's recheck to see if the cells are no longer clustering by cycle. We should now see the phase clusters superimpose.
-
-```r
-# Re-run the PCA plots and color by cell cycle phase
-
-seurat <- RunPCA(
-  seurat,
-  pc.genes = c(s_genes, g2m_genes),
-  do.print = FALSE)
-  
-PCAPlot(seurat, group.by= "Phase")
-```
 
 ## Linear dimensionality reduction
 
@@ -179,7 +170,6 @@ Next, we perform principal component analysis (PCA) on the scaled data with `Run
 
 ```r
 # Perform the scoring for all genes
-
 seurat <- seurat %>%
   RunPCA(do.print = FALSE) %>%
   ProjectPCA(do.print = FALSE)
@@ -187,35 +177,51 @@ seurat <- seurat %>%
 
 ## Determine statistically significant principal components
 
-To overcome the extensive technical noise in any single gene for scRNA-seq data, [Seurat][] clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Determining how many PCs to include downstream is therefore an important step. To accomplish this, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function.
-
-PC selection — identifying the true dimensionality of a dataset — is an important step for [Seurat][], but can be challenging/uncertain. We therefore suggest these three approaches to consider:
-
-1. Supervised, exploring PCs to determine relevant sources of heterogeneity, and could be used in conjunction with GSEA for example.
-2. Implement a statistical test based on a random null model. This can be time-consuming for large datasets, and may not return a clear PC cutoff.
-3. **Heuristic approach**, using a metric that can be calculated instantly.
-
-We're using a heuristic approach here, by calculating where the principal components start to elbow. The plots below show where we have defined the principal compoment cutoff used downstream for dimensionality reduction. This is calculated automatically as the larger value of:
-
-1. The point where the principal components only contribute 5% of standard deviation (bottom left).
-2. The point where the principal components cumulatively contribute 90% of the standard deviation (bottom right).
-
-This methodology is also commonly used for PC covariate analysis on bulk RNA-seq samples.
+To overcome the extensive technical noise in any single gene for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Determining how many PCs to include downstream is therefore an important step. To accomplish this, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function.
 
 ```r
 # Create elbow plot
-
 PCElbowPlot(seurat)
-
-# Determine the estimate for significant PCs
-
-pct = seurat@dr$pca@sdev / sum(seurat@dr$pca@sdev) * 100
-cum = cumsum(pct)
-co1 = which(cum > 90 & pct < 5)[1]
-co2 = sort(which((pct[1:length(pct)-1] - pct[2:length(pct)]) > 0.1),
-           decreasing = T)[1] + 1 # last point where change of % of variation is more than 0.1%.
-pcs = min(co1, co2) # change to any other number
 ```
+
+Based on this plot, the elbow appears to be around PC 7 or 8. PC selection — identifying the true dimensionality of a dataset — is an important step for our clustering analysis, but can be challenging/uncertain. While there are a variety of ways to choose a threshold, we're going to calculate where the principal components start to elbow by taking the larger value of:
+
+1. The point where the principal components only contribute 5% of standard deviation and the principal components cumulatively contribute 90% of the standard deviation.
+2. The point where the percent change in variation between the consequtive PCs is less than 0.1%.
+
+We will start by calculating the first metric:
+
+```r
+# Determine percent of variation associated with each PC
+pct <- seurat@dr$pca@sdev / sum(seurat@dr$pca@sdev) * 100
+
+# Calculate cumulative percents for each PC
+cum <- cumsum(pct)
+
+# Determine which PC exhibits cumulative percent greater than 90% and % variation associated with the PC as less than 5
+co1 <- which(cum > 90 & pct < 5)[1]
+
+co1
+```
+The first metric returns PC18 as the PC matching these requirements. Let's check the second metric:
+
+```r
+# Determine the difference between variation of PC and subsequent PC
+co2 <- sort(which((pct[1:length(pct)-1] - pct[2:length(pct)]) > 0.1),  decreasing = T)[1] + 1 # last point where change of % of variation is more than 0.1%.
+
+co2
+```
+
+Now to determine the selection of PCs, we will use the minimum of the two metrics:
+
+```r
+# Minimum of the two calculation
+pcs <- min(co1, co2) # change to any other number
+
+pcs
+```
+
+Based on these metrics, the clustering of cells in Seurat with use the first **eight PCs** to generate the clusters.
 
 ## Cluster the cells
 
