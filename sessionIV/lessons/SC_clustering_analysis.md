@@ -166,7 +166,7 @@ seurat <- ScaleData(pre_regressed_seurat, vars.to.regress = vars_to_regress)
 
 ## Linear dimensionality reduction
 
-Next, we perform principal component analysis (PCA) on the scaled data with `RunPCA()`. By default, the genes in `seurat@var.genes` are used as input, but can be defined using the `pc.genes` argument. `ProjectPCA()` scores each gene in the dataset (including genes not included in the PCA) based on their correlation with the calculated components. Though we don't use this further here, it can be used to identify markers that are strongly correlated with cellular heterogeneity, but may not have passed through variable gene selection.  The results of the projected PCA can be explored by setting `use.full = TRUE` for `PrintPCA()`.
+Next, we perform principal component analysis (PCA) on the scaled data with `RunPCA()`. By default, the genes in `seurat@var.genes` are used as input, but can be defined using the `pc.genes` argument. `ProjectPCA()` scores each gene in the dataset (including genes not included in the PCA) based on their correlation with the calculated components.
 
 ```r
 # Perform the scoring for all genes
@@ -184,7 +184,9 @@ To overcome the extensive technical noise in any single gene for scRNA-seq data,
 PCElbowPlot(seurat)
 ```
 
-Based on this plot, the elbow appears to be around PC 7 or 8. PC selection — identifying the true dimensionality of a dataset — is an important step for our clustering analysis, but can be challenging/uncertain. While there are a variety of ways to choose a threshold, we're going to calculate where the principal components start to elbow by taking the larger value of:
+Based on this plot, we can eye the plot, and the elbow appears to be around PC 7 or 8. While this gives us a good idea of the number of PCs to include, a more quantitative approach may be a bit more reliable.
+
+PC selection — identifying the true dimensionality of a dataset — is an important step for our clustering analysis, but can be challenging/uncertain. While there are a variety of ways to choose a threshold, we're going to calculate where the principal components start to elbow by taking the larger value of:
 
 1. The point where the principal components only contribute 5% of standard deviation and the principal components cumulatively contribute 90% of the standard deviation.
 2. The point where the percent change in variation between the consequtive PCs is less than 0.1%.
@@ -221,15 +223,15 @@ pcs <- min(co1, co2) # change to any other number
 pcs
 ```
 
-Based on these metrics, the clustering of cells in Seurat with use the first **eight PCs** to generate the clusters.
+Based on these metrics, for the clustering of cells in Seurat we will use the first **eight PCs** to generate the clusters.
 
 ## Cluster the cells
 
-Seurat uses a graph-based clustering approach, inspired by SNN-Cliq [@Xu2015-je] and PhenoGraph [@Levine2015-hr]. This approach embeds cells in a graph structure, by default using a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar gene expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’. As in PhenoGraph, [Seurat][] first constructs a KNN graph based on the euclidean distance in PCA space, and refines the edge weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard distance). To cluster the cells, it then applies modularity optimization techniques [@Blondel2008-rf], to iteratively group cells together, with the goal of optimizing the standard modularity function.
+Seurat uses a graph-based clustering approach, inspired by SNN-Cliq [@Xu2015-je] and PhenoGraph [@Levine2015-hr]. This approach embeds cells in a graph structure, by default using a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar gene expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’. Seurat first constructs a KNN graph based on the euclidean distance in PCA space, and refines the edge weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard distance). To cluster the cells, it then applies modularity optimization techniques [@Blondel2008-rf], to iteratively group cells together, with the goal of optimizing the standard modularity function.
 
-The `FindClusters()` function implements the procedure, and contains a `resolution` argument that sets the "granularity" of the downstream clustering, with increased values leading to a greater number of clusters. We find that setting this parameter between `0.6`-`1.2` typically returns good results for single cell datasets of around 3K cells. Optimal resolution often increases for larger datasets. The clusters are saved in the `seurat@ident` slot.
+We will use the `FindClusters()` function to perform the graph-based clustering, and contains a `resolution` argument that sets the "granularity" of the downstream clustering, with increased values leading to a greater number of clusters. We find that setting this parameter between `0.6`-`1.2` typically returns good results for single cell datasets of around 3K cells. Optimal resolution often increases for larger datasets. The cluster IDs are saved in the `seurat@ident` slot.
 
-Regarding the value of the `resolution` argument, use a value < 1 if you want to obtain fewer clusters. We provide a series of options and downstream we can choose the best resolution.
+Regarding the value of the `resolution` argument, use lower value if you want to obtain fewer clusters. We provide a series of options and downstream we can choose the best resolution.
 
 ```r
 # Find cell clusters
