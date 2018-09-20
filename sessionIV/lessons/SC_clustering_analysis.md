@@ -101,16 +101,24 @@ We are going to download this list by **right-clicking** [here](https://github.c
 We can subset out the G2M phase and save as a character vector, and do the same for the S phase genes.
 
 ```r
-g2m_genes <- 
+# Read in cell cycle genes
+cell_cycle <- read.csv("data/Homo_sapiens.csv")
 
-s_genes <- 
+# Extract the G2/M genes
+g2m_genes <- dplyr::filter(cell_cycle, phase == "G2/M") %>%
+  pull(geneID) %>%
+  as.character() 
+  
+# Extract the S genes
+s_genes <- dplyr::filter(cell_cycle, phase == "S") %>%
+  pull(geneID) %>%
+  as.character() 
 ```
 
 Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function:
 
 ```r
 # Perform cell cycle scoring
-
 pre_regressed_seurat <- CellCycleScoring(
   pre_regressed_seurat,
   g2m.genes = g2m_genes,
