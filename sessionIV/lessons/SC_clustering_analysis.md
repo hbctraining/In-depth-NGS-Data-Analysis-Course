@@ -94,6 +94,20 @@ Your single-cell dataset likely contains "uninteresting" sources of variation. T
 
 If we want to examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. These marker sets should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G1 phase. We assign scores in the `CellCycleScoring()` function, which stores S and G2/M scores in `seurat@meta.data`, along with the predicted classification of each cell in either G2M, S or G1 phase.
 
+At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. An overview of the phases is given in the image below.
+
+We are going to download this list by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
+
+We can subset out the G2M phase and save as a character vector, and do the same for the S phase genes.
+
+```r
+g2m_genes <- 
+
+s_genes <- 
+```
+
+Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function:
+
 ```r
 # Perform cell cycle scoring
 
