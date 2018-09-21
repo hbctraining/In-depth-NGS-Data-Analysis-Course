@@ -441,6 +441,8 @@ After performing the filtering, it's recommended to look back over the metrics t
 
 ### Cell counts
 
+After filtering, we should not have more cells than we sequenced. Generally we aim to have about the number we sequenced or a bit less. With 2,700 cells sequenced, we would expect to return around this number of cells. We have about 2,480 returned after filtering, which is pretty good. 
+
 ```r
 ## Cell counts
 metrics_clean %>% 
@@ -451,19 +453,23 @@ metrics_clean %>%
 
 <img src="../img/cell_counts_filtered.png" width="350">
 
-### Cells versus genes
-```r
+## Cells versus genes
+
+``` 
 # Cells versus genes
 metrics_clean %>% 
   ggplot(aes(x=sample, y=log10(nGene), fill = sample)) + 
   geom_boxplot() + 
   ggtitle("NCells vs NGenes")
+  
 ```
 
 <img src="../img/cells_vs_ngenes_filtered.png" width="350">
 
 
 ## UMI counts
+
+The filtering using a threshold of 500 has removed the cells with low numbers of UMIs from the analysis.
 
 ```r
 # UMI counts
@@ -479,6 +485,7 @@ metrics_clean %>%
 
 
 ## Genes detected
+
 ```r
 # Genes detected
 metrics_clean %>% 
