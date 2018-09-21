@@ -206,7 +206,7 @@ annotations <- annotations %>%
   dplyr::select(gene_id, gene_name, gene_biotype, seq_name, description, entrezid)
 ```
 
-Since we are looking for genes associated with particular types of RNA, the `biotype` information is the field we should query. Let's explore the options:
+Since we are looking for genes associated with mitochondrial gene expression, the `biotype` information is the field we should query. Let's explore the options:
 
 ```r
 # Explore biotypes
@@ -218,16 +218,6 @@ annotations$gene_biotype %>%
 Now we can retrieve the genes associated with the different biotypes of interest:
 
 ```r
-# Extract IDs for rRNA genes
-rrna <- annotations %>% 
-  dplyr::filter(grepl("rRNA", gene_biotype)) %>%
-  dplyr::pull(gene_id)
-
-# Extract IDs for tRNA genes
-trna <- annotations %>% 
-  dplyr::filter(grepl("tRNA", gene_biotype)) %>%
-  dplyr::pull(gene_id)
-
 # Extract IDs for mitochondrial genes
 mt <- annotations %>% 
   dplyr::filter(seq_name == "MT") %>%
@@ -236,7 +226,7 @@ mt <- annotations %>%
 
 ### Adding metrics to metadata
 
-Now that we have information about which genes are mitochondrial, rRNA, or tRNA, we can quanitify whether we have contamination with any of these species.
+Now that we have information about which genes are mitochondrial, we can quanitify whether we have contamination.
 
 ```r
 # Number of UMIs assigned to mitochondrial genes
@@ -246,12 +236,12 @@ metadata$mtUMI <- Matrix::colSums(counts[which(rownames(counts) %in% mt),], na.r
 metadata$mtUMI[is.na(metadata$mtUMI)] <- 0
 
 # Calculate of mitoRatio per cell
-metadata[["mitoRatio"]] = metadata$mtUMI/metadata$nUMI
+metadata$mitoRatio <- metadata$mtUMI/metadata$nUMI
 ```
 
 ## Initial filtering
 
-Prior to assessing our metrics, we are going to perform a very minimal filtering of those cells with less than 100 UMIs to get rid of the obviously junk cells.
+Prior to assessing our metrics, we are going to perform a very minimal filtering of those cells with less than 100 UMIs to get rid of the  cells that are clearly junk, containing less than 100 UMIs.
 
 ```r
 # Keep cells with nUMI greater than 100
