@@ -145,6 +145,15 @@ Now let's save the pre-regressed Seurat object:
 saveRDS(pre_regressed_seurat, file = "data/seurat_pre_regress.rds")
 ```
 
+
+
+>**NOTE:** Often we only want to analyze a subset of samples, cells, or genes. To subset the Seurat object, the `SubsetData()` function can be easily used. For example:
+>
+>```r
+> pre_regressed_seurat <- SubsetData(seurat_raw, 
+>                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control")])
+>```
+
 ## Apply regression variables
 
 To run these regression steps outlined below, we have a [`clustering_regress.R`](../scripts/clustering_regress.R) script that can be run on O2. The scripts do not include the visualizations, but these can be included in the final report.
@@ -265,7 +274,7 @@ seurat <- RunTSNE(
 TSNEPlot(object = seurat)
 ```
 
-Once a resolution has been chosen, a useful feature in [Seurat][] v2.0 is the ability to recall the parameters that were used in the latest function calls for commonly used functions. For `FindClusters()`, the authors provide the function `PrintFindClustersParams()` to print a nicely formatted formatted summary of the parameters that were chosen.
+Once a resolution has been chosen, a useful feature in Seurat is the ability to recall the parameters that were used in the latest function calls for commonly used functions. For `FindClusters()`, the authors provide the function `PrintFindClustersParams()` to print a nicely formatted formatted summary of the parameters that were chosen.
 
 ```r
 PrintFindClustersParams(seurat)
@@ -273,30 +282,7 @@ PrintFindClustersParams(seurat)
 
 ```r
 # Save clustered cells
-
-saveRDS(seurat, file = file.path(data_dir, "name_seurat_tsne.rds"))
+saveRDS(seurat, file = file.path(data_dir, "pbmcs_seurat_tsne_res0.8.rds"))
 ```
 
-
-> ### Working with R on the cluster
->
-> ```bash
-> # Copy data from local machine
-> 
-> scp data/se_filtered.rds username@transfer....path/to/folder
-> ```
-> ```bash
-> # Specify R library environment variables
-> vim ~/.Renviron
-> ```
-> ```R
-> R_LIBS_USER="path/to/library/3.4-bioc-release/sc-rnaseq/" 
->
-> R_MAX_NUM_DLLS=150
-> ```
->**NOTE:** Often identifying cell types is easiest for a single sample type. To subset the Seurat object, we can use the `SubsetData()` function. For example:
->
->```r
-> pre_regressed_seurat <- SubsetData(seurat_raw, 
->                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control")])
->```
+> **NOTE:** Most single-cell RNA-seq datasets are too big to work with on a personal laptop, so you will need to use R on O2. To do this requires establishing a personal R library with the appropriate libraries installed. More information about setting up personal libraries [is available](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages) from HMS RC. In addition to a personal R library, the analysis on O2 can be difficult if you cannot view the results. To view plots/images output on O2 requires X11 forwarding, and how to enable X11 configuration on your computer [is also detailed](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely) by HMS RC.
