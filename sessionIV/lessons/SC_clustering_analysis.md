@@ -227,15 +227,15 @@ Based on these metrics, for the clustering of cells in Seurat we will use the fi
 
 ## Cluster the cells
 
-Seurat uses a graph-based clustering approach, inspired by SNN-Cliq [@Xu2015-je] and PhenoGraph [@Levine2015-hr]. This approach embeds cells in a graph structure, by default using a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar gene expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’. Seurat first constructs a KNN graph based on the euclidean distance in PCA space, and refines the edge weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard distance). To cluster the cells, it then applies modularity optimization techniques [@Blondel2008-rf], to iteratively group cells together, with the goal of optimizing the standard modularity function.
+Seurat uses a graph-based clustering approach, which embeds cells in a graph structure, using a K-nearest neighbor (KNN) graph (by default), with edges drawn between cells with similar gene expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’. Seurat first constructs a KNN graph based on the euclidean distance in PCA space, and refines the edge weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard distance). To cluster the cells, it then applies modularity optimization techniques to iteratively group cells together, with the goal of optimizing the standard modularity function.
 
-We will use the `FindClusters()` function to perform the graph-based clustering, and contains a `resolution` argument that sets the "granularity" of the downstream clustering, with increased values leading to a greater number of clusters. We find that setting this parameter between `0.6`-`1.2` typically returns good results for single cell datasets of around 3K cells. Optimal resolution often increases for larger datasets. The cluster IDs are saved in the `seurat@ident` slot.
+We will use the `FindClusters()` function to perform the graph-based clustering. The `resolution` argument that sets the "granularity" of the downstream clustering, will need to be optimized to the experiment, with increased values leading to a greater number of clusters. We find that setting this parameter between `0.6`-`1.2` typically returns good results for single cell datasets of around 3K cells. Optimal resolution often increases for larger datasets. The cluster IDs are saved in the `seurat@ident` slot.
 
-Regarding the value of the `resolution` argument, use lower value if you want to obtain fewer clusters. We provide a series of options and downstream we can choose the best resolution.
+We provide a series of resolution options during clustering, which can be used downstream to choose the best resolution.
+
 
 ```r
 # Find cell clusters
-
 seurat <- FindClusters(
   seurat,
   dims.use = 1:pcs,
@@ -244,9 +244,10 @@ seurat <- FindClusters(
   resolution = c(0.6, 0.8, 1.0, 1.2),
   save.SNN = TRUE)
 ```
+
 ## t-SNE
 
-[Seurat][] continues to use t-distributed stochastic neighbor embedding (t-SNE) as a powerful tool to visualize and explore these datasets. While we no longer advise clustering directly on t-SNE components, cells within the graph-based clusters determined above should co-localize on the t-SNE plot. This is because the t-SNE aims to place cells with similar local neighborhoods in high-dimensional space together in low-dimensional space. As input to the t-SNE, we suggest using the same PCs as input to the clustering analysis, although computing the t-SNE based on scaled gene expression is also supported using the `genes.use` argument.
+Seurat continues to use t-distributed stochastic neighbor embedding (t-SNE) as a powerful tool to visualize and explore these datasets. While we no longer advise clustering directly on t-SNE components, cells within the graph-based clusters determined above should co-localize on the t-SNE plot. This is because the t-SNE aims to place cells with similar local neighborhoods in high-dimensional space together in low-dimensional space. As input to the t-SNE, we suggest using the same PCs as input to the clustering analysis, although computing the t-SNE based on scaled gene expression is also supported using the `genes.use` argument. **Note that distance between clusters on the t-SNE plots does not represent degree of similarity between clusters.**
 
 ```r
 # Choose a resolution
