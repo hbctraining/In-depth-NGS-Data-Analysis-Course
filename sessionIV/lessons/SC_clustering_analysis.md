@@ -282,7 +282,7 @@ PrintFindClustersParams(seurat)
 
 ```r
 # Save clustered cells
-saveRDS(seurat, file = file.path(data_dir, "pbmcs_seurat_tsne_res0.8.rds"))
+saveRDS(seurat, file = file.path(data_dir, "pbmcs_seurat_tsne.rds"))
 ```
 
 # Evaluating clustering
