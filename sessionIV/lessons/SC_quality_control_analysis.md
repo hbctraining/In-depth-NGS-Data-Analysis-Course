@@ -373,10 +373,10 @@ This metric can identify whether there is a large amount of mitochondrial contam
 ```r
 # Visualize the distribution of mitochondrial gene expression detected per cell
 metrics %>% 
-    ggplot(aes(color=lane, x=mitoRatio)) + 
+    ggplot(aes(color=sample, x=mitoRatio)) + 
     geom_density() + 
     scale_x_log10() + 
-    geom_vline(xintercept = params$max_mito_ratio)
+    geom_vline(xintercept = 0.1)
 ```
 <img src="../img/mitoRatio.png" width="350">
 
