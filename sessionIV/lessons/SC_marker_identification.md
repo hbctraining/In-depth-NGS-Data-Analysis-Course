@@ -87,3 +87,18 @@ We can write these results to file as well:
 # Write results to file
 write.csv(top10_markers, "results/top10_markers.csv", quote = F)
 ```
+
+# Assigning cell type identity to clusters
+We can often go through the top markers to identify the cell types. For instance, below are canonical markers of the cell types present in each of the clusters. We have to use what we know about the biology of the expected cells to determine the cell populations represented by each cluster. 
+
+| Cluster ID	| Markers	| Cell Type |
+|:-----:|:-----:|:-----:|
+|0	|CST3	|Dendritic Cells|
+|1	|IL7R	|CD4 T cells|
+|2	|CD14, LYZ	|CD14+ Monocytes|
+|3	|MS4A1	|B cells|
+|4	|CD8A	|CD8 T cells|
+|5	|FCGR3A, MS4A7	|FCGR3A+ Monocytes|
+|6	|GNLY, NKG7	|NK cells|
+
+
