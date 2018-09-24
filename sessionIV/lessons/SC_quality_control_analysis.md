@@ -123,7 +123,7 @@ the number of genes identified per cell,
 
 ```r
 # Add number of genes detected per cell to metadata
-metadata$nGenes <- Matrix::colSums(counts > 0)
+metadata$nGene <- Matrix::colSums(counts > 0)
 ```
 
 the number of genes per UMI for each cell,
