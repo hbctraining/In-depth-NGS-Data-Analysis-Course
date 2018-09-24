@@ -101,4 +101,7 @@ We can often go through the top markers to identify the cell types. For instance
 |5	|FCGR3A, MS4A7	|FCGR3A+ Monocytes|
 |6	|GNLY, NKG7	|NK cells|
 
+We can look at the expression of different markers by cluster using the `FeatureHeatmap()` function:
+
+
 
