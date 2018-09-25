@@ -92,26 +92,24 @@ Your single-cell dataset likely contains "uninteresting" sources of variation. T
 
 ### Cell cycle scoring
 
-Cell cycle variation is a common source of uninteresting variation in single-cell RNA-seq data. To examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. To remind ourselves of the cell cycle phases. 
-
-<img src="../img/cell_cycle.png" width="400">
-	
-	*Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
-	
-	- **G0:** Quiescence or resting phase. The cell is not actively dividing, which is common for cells that are fully differentiated. Some types of cells enter G0 for long periods of time (many neuronal cells), while other cell types never enter G0 by continuously dividing (epithelial cells).
-	- **G1:** Gap 1 phase represents the **beginning of interphase**. During G1 there is growth of the non-chromosomal components of the cells. From this phase, the cell may enter G0 or S phase.
-	- **S:** Synthesis phase for the replication of the chromosomes (also part of interphase).
-	- **G2:** Gap 2 phase represents the **end of interphase**, prior to entering the mitotic phase. During this phase th cell grows in preparation for mitosis and the spindle forms.
-	- **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
-	
-  
-These marker sets should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G1 phase. We assign scores in the `CellCycleScoring()` function, which stores S and G2/M scores in `seurat@meta.data`, along with the predicted classification of each cell in either G2M, S or G1 phase.
+Cell cycle variation is a common source of uninteresting variation in single-cell RNA-seq data. To examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. 
 
 At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. An overview of the phases is given in the image below.
 
+<img src="../img/cell_cycle.png" width="400">
+	
+*Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
+
+- **G0:** Quiescence or resting phase. The cell is not actively dividing, which is common for cells that are fully differentiated. Some types of cells enter G0 for long periods of time (many neuronal cells), while other cell types never enter G0 by continuously dividing (epithelial cells).
+- **G1:** Gap 1 phase represents the **beginning of interphase**. During G1 there is growth of the non-chromosomal components of the cells. From this phase, the cell may enter G0 or S phase.
+- **S:** Synthesis phase for the replication of the chromosomes (also part of interphase).
+- **G2:** Gap 2 phase represents the **end of interphase**, prior to entering the mitotic phase. During this phase th cell grows in preparation for mitosis and the spindle forms.
+- **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
+	
+
 We are going to download this list by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
 
-We can subset out the G2M phase and save as a character vector, and do the same for the S phase genes.
+To save the genes in the G2M and S phases as character vectors, we can subset the data frame:
 
 ```r
 # Read in cell cycle genes
@@ -128,7 +126,7 @@ s_genes <- dplyr::filter(cell_cycle, phase == "S") %>%
   as.character() 
 ```
 
-Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function:
+Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function. The function scores cells based on their expression of the G2M and S phase marker genes, which should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G0/G1 phase. The `CellCycleScoring()` functionstores S and G2/M scores in `seurat@meta.data`, along with the predicted classification of each cell in either G2M, S or G1 phase.
 
 ```r
 # Perform cell cycle scoring
@@ -167,7 +165,7 @@ saveRDS(pre_regressed_seurat,
 >
 >```r
 > pre_regressed_seurat <- SubsetData(seurat_raw, 
->                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
+>                                    cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
 >```
 
 ## Apply regression variables
@@ -187,7 +185,8 @@ In our data, the cell cycle phase did not appear to be a large source of variati
 vars_to_regress <- c("nUMI", "mitoRatio")
 
 # Regress out the uninteresting sources of variation in the data
-seurat <- ScaleData(pre_regressed_seurat, vars.to.regress = vars_to_regress)
+seurat <- ScaleData(pre_regressed_seurat, 
+                    vars.to.regress = vars_to_regress)
 ```
 
 
