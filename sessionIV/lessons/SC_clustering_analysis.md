@@ -96,7 +96,7 @@ Cell cycle variation is a common source of uninteresting variation in single-cel
 
 > An overview of the cell cycle phases is given in the image below:
 > 
-> <img src="../img/cell_cycle.png" width="300">
+> <img src="../img/cell_cycle.png" width="200">
 > 	
 > *Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
 > 
