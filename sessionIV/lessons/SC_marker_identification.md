@@ -90,7 +90,7 @@ write.csv(top10_markers, "results/top10_markers.csv", quote = F)
 
 # Assigning cell type identity to clusters
 
-We can often go through the top markers to identify the cell types. For instance, below are canonical markers of the cell types present in each of the clusters. We have to use what we know about the biology of the expected cells to determine the cell populations represented by each cluster. 
+We can often go through the top markers to identify the cell types. We have to use what we know about the biology of the expected cells to determine the cell populations represented by each cluster. 
 
 Let's remind ourselves of the different clusters:
 
@@ -117,7 +117,7 @@ FeaturePlot(object = seurat,
 
 <img src="../img/tSNE-multiple.png" width="600">
 
-We can explore the range in expression of specific markers by using violin plots:
+We can also explore the range in expression of specific markers by using violin plots:
 
 ```r
 # Vln plot - cluster 3
@@ -127,17 +127,19 @@ VlnPlot(object = seurat,
 
 <img src="../img/violinplot.png" width="600">
 
-Finally, if we would like to determine the genes that are differentially expressed between specific clusters, we can use the `FindMarkers()` function. For instance, if we want to identify potential markers separating cluster 3 from cluster 4:
+These results and plots can help us determine the identity of these clusters or verify what we hypothesize the identity to be after exploring the canonical markers of expected cell types previously.
+
+Sometimes the list of markers returned don't sufficiently separate some of the clusters. For instance, we had previously identified clusters 0 and 1 , if we would like to determine the genes that are differentially expressed between these specific clusters, we can use the `FindMarkers()` function. 
 
 ```r
-markers_3vs4 <- FindMarkers(object = seurat, ident.1 = 3, ident.2 = 4)
+markers_0vs1 <- FindMarkers(object = seurat, ident.1 = 0, ident.2 = 1)
 ```
 
 Now taking all of this information, we can surmise the cell types of the different clusters. Some of the canonical markers for the different cell types were found to be differentially expressed for certain clusters as detailed below.
 
 | Cluster ID	| Markers	| Cell Type |
 |:-----:|:-----:|:-----:|
-|0	|CST3	|Dendritic Cells|
+|0	|IL7R	|CD4 T cells|
 |1	|IL7R	|CD4 T cells|
 |2	|CD14, LYZ	|CD14+ Monocytes|
 |3	|MS4A1	|B cells|
@@ -152,7 +154,7 @@ We can then reassign the identity of the clusters to these cell types:
 current_cluster_ids <- c(0, 1, 2, 3, 4, 5, 6)
 
 # List of new cluster IDs
-new_cluster_ids <- c("Dendritic cells", "CD4 T cells", "CD14+ Monocytes", "B cells", "CD8 T cells", "FCGR3A+ Monocytes", "NK cells")
+new_cluster_ids <- c("CD4 T cells", "CD4 T cells", "CD14+ Monocytes", "B cells", "CD8 T cells", "FCGR3A+ Monocytes", "NK cells")
 
 # Changing IDs to cell type
 seurat@ident <- plyr::mapvalues(x = seurat@ident, 
