@@ -545,7 +545,7 @@ FeaturePlot(object = seurat,
             features.plot = custom_genes$gene_id)
 ```
 
-<img src="../img/SC_featureplot_clusters.png" width="600">
+<img src="../img/SC_featureplot_custom_genes.png" width="600">
 
 However, it is hard to interpret these plots and remember which Ensembl ID corresponds to which gene. Gene symbols are much easier to interpret, so to make these same plots with gene symbols, we cannot use the `FeaturePlot()` function. Instead we need to construct them ourselves.
 
@@ -606,9 +606,11 @@ Based on these markers, we can conjecture the identity of each of the clusters b
 | Unidentified |FCER1A, CST3	|Dendritic Cells|
 | Unidentified |PPBP|	Megakaryocytes|
 
-Based on these results, it indicates that there are some clusters that we are not identifying that are likely to be separate cell types. The megakaryocytes and the dendritic cells appear clustered with other cell type clusters, so what do we do with them? 
+Based on these results, it indicates that there are some clusters that we are not identifying that appear to be separate cell types. The megakaryocytes and the dendritic cells appear clustered with other cell type clusters, so what do we do with them? 
 
-We would generally want to go back through the clustering, but change parameters. Did we use too few principal components that we are just not separating out these cells? Since these cells do seem to be grouping together forming subclusters, it is likely that we just used too low of a resolution on the tSNE plot. We would want to try to re-run the tSNE with higher resolution.
+We would generally want to go back through the clustering, but change parameters. Did we use too few principal components that we are just not separating out these cells? We can look at our PC gene expression overlapping the tSNE plots and see these cell populations separate by PC6 and PC8, so the variation seems to be captured by our PCs. However, we might not have had a high enough resolution for our tSNE when we performed the clustering. We would want to try to re-run the tSNE with higher resolution. 
+
+After we have identified our desired clusters, we can move on to marker identification, which will allow us to verify the identity of certain clusters and help surmise the identity of any unknown clusters. Since we have two clusters identified as CD4 T cells, we may also want to know which genes are differentially expressed between these two clusters.
 
 > **Re-running at a different resolution**
 > ```r
