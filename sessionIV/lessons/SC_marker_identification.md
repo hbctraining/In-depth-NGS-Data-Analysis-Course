@@ -104,6 +104,8 @@ DimPlot(
   ggtitle("tSNE")
 ```
 
+<img src="../img/tSNE.png" width="600">
+
 To get a better idea of cell type identity we can explore the expression of different identified markers by cluster using the `FeaturePlot()` function. For example, we can look at the cluster 3 markers by cluster:
 
 ```r
@@ -113,6 +115,8 @@ FeaturePlot(object = seurat,
             reduction.use = "tsne")
 ```
 
+<img src="../img/tSNE-multiple.png" width="600">
+
 We can explore the range in expression of specific markers by using violin plots:
 
 ```r
@@ -120,6 +124,8 @@ We can explore the range in expression of specific markers by using violin plots
 VlnPlot(object = seurat, 
         features.plot = c("ENSG00000105369", "ENSG00000204287"))
 ```        
+
+<img src="../img/violinplot.png" width="600">
 
 Finally, if we would like to determine the genes that are differentially expressed between specific clusters, we can use the `FindMarkers()` function. For instance, if we want to identify potential markers separating cluster 3 from cluster 4:
 
@@ -157,3 +163,11 @@ TSNEPlot(object = seurat,
          do.label = TRUE, 
          pt.size = 0.5)
 ```
+
+<img src="../img/tSNE-labelled.png" width="600">
+
+***
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *Materials and hands-on activities were adapted from the [Satija Lab's](https://satijalab.org/) [Seurat - Guided Clustering Tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html)*
