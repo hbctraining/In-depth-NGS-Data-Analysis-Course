@@ -28,6 +28,13 @@ seurat_raw <- CreateSeuratObject(raw.data = counts(se_c),
                                  meta.data = colData(se_c) %>% data.frame())
 ```
 
+>**NOTE:** Often we only want to analyze a subset of samples, cells, or genes. To subset the Seurat object, the `SubsetData()` function can be easily used. For example, to only cluster cells using a single sample group, `control`, we could run the following:
+>
+>```r
+> pre_regressed_seurat <- SubsetData(seurat_raw, 
+>                                    cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
+>```
+
 ### Normalizing counts, finding variable genes, and scaling the data
 
 The first step in the analysis is to normalize the raw counts to account for differences in sequencing depth per cell. The raw counts are normalized using global-scaling normalization with the `NormalizeData()` function, which performs the following:
@@ -126,7 +133,9 @@ s_genes <- dplyr::filter(cell_cycle, phase == "S") %>%
   as.character() 
 ```
 
-Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function. The function scores cells based on their expression of the G2M and S phase marker genes, which should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G0/G1 phase. The `CellCycleScoring()` function stores S and G2/M scores in `seurat@meta.data` in the `S.Score` and `G2M.Score` columns, along with the predicted classification of each cell in either G2M, S or G1 phase in the `Phase` column.
+Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function. The function scores cells based on their expression of the G2M and S phase marker genes, which should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G0/G1 phase. 
+
+The `CellCycleScoring()` function stores S and G2/M scores in `seurat@meta.data` in the `S.Score` and `G2M.Score` columns, along with the predicted classification of each cell in either G2M, S or G1 phase in the `Phase` column.
 
 ```r
 # Perform cell cycle scoring
@@ -136,7 +145,7 @@ pre_regressed_seurat <- CellCycleScoring(
   s.genes = s_genes)
 ```
 
-To determine whether the cells group by cell cycle, we can perform PCA using the cell cycle genes. If the cells group by cell cycle in the PCA, then we would want to regress out cell cycle variation. By default in the  `RunPCA()` function, the most variable genes identified previously are used to determine the PCs, but we can select specific genes using the `pc.genes` argument. We will use only the cell cycle genes to determine whether the cells cluster by cell cycle phase. 
+To determine whether the cells group by cell cycle, we can perform PCA using the expression of cell cycle genes. If the cells group by cell cycle in the PCA, then we would want to regress out cell cycle variation, unless cells are differentiating.  
 
 ```r
 # Perform PCA and color by cell cycle phase
@@ -160,12 +169,6 @@ saveRDS(pre_regressed_seurat,
 ```
 
 
->**NOTE:** Often we only want to analyze a subset of samples, cells, or genes. To subset the Seurat object, the `SubsetData()` function can be easily used. For example, to only cluster cells using a single sample group:
->
->```r
-> pre_regressed_seurat <- SubsetData(seurat_raw, 
->                                    cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
->```
 
 ## Apply regression variables
 
