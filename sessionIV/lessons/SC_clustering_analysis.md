@@ -207,7 +207,7 @@ seurat <- seurat %>%
 
 To overcome the extensive technical noise in any single gene for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Determining how many PCs to include downstream is therefore an important step. Often it is useful to explore the PCs prior to identifying the significant principal components to include for the downstream clustering analysis.
 
-We can print out the top most variant genes for select PCs using the `PrintPCA()` function. Here we are identifying the five most positively and negatively variant genes for the top 5 PCs:
+We can print out the top most variant genes for select PCs using the `PrintPCA()` function. Here we are identifying the five most positively and negatively variant genes for the top 10 PCs:
 
 ```r
 # Print out the top 5 most variant genes (up and down) for top 10 PCs
@@ -217,7 +217,7 @@ PrintPCA(object = seurat,
          use.full = FALSE)
 ```
 
-We can also explore the expression of the top most variant genes for select PCs using the `PCHeatmap()` function:
+We can also explore the expression of the top most variant genes for select PCs using the `PCHeatmap()` function. The genes and cells are ordered by PC scores:
 
 ```r
 # Explore expression of most extreme genes per PC
@@ -229,14 +229,16 @@ PCHeatmap(object = seurat,
           use.full = FALSE)
 ```
 
-Finally, to determine how many PCs to use for the downstream analysis, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function. Where the elbow appears is usually the threshold for identifying the most significant PCs to include.
+In this heatmap it is easy to see the first few PCs have clear-cut expression differences for the genes most affecting the principal components. The distinction becomes less clear for more distant principal components and these plots can inform the selection of PCs to use for downstream analysis.
+
+However, the main analysis used to determine how many PCs to use for the downstream analysis is done through plotting the standard deviation of each PC as an elbow plot with Seurat's `plotPCElbow()` function. Where the elbow appears is usually the threshold for identifying the most significant PCs to include.
 
 ```r
 # Create elbow plot
 PCElbowPlot(seurat)
 ```
 
-Based on this plot, we can eye the plot, and the elbow appears to be around PC 7 or 8. While this gives us a good idea of the number of PCs to include, a more quantitative approach may be a bit more reliable.
+Based on this plot, we can eye the plot, and guess that the elbow appears to be around PC 7 or 8. While this gives us a good idea of the number of PCs to include, a more quantitative approach may be a bit more reliable.
 
 PC selection — identifying the true dimensionality of a dataset — is an important step for our clustering analysis, but can be challenging/uncertain. While there are a variety of ways to choose a threshold, we're going to calculate where the principal components start to elbow by taking the larger value of:
 
