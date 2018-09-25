@@ -65,7 +65,12 @@ Open up your `.bashrc` using `vim` and add in the following:
 > export LANGUAGE=en_US.UTF-8
 > ````
  
-Close and save the file. Finally, let's set up the project structure. **Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, we will use `/n/scratch2` space to make sure there is enough disk space to hold all of those files.** Your home directory on O2 will not be able to handle this amount of data, as your quota is 100GB. The `/n/scratch2/` space allows 10TB of space per user and it is ideal for running large scale workflows. Keep in mind that this is a temporary space and files will be purged in 30 days. Another alternative is talking to the folks at HMS-RC to set up a directory in the `/n/groups` folder for your lab. 
+Close and save the file. 
+
+
+### `/n/scratch2`
+
+Finally, let's set up the project structure. **Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, we will use `/n/scratch2` space to make sure there is enough disk space to hold all of those files.** Your home directory on O2 will not be able to handle this amount of data, as your quota is 100GB. The `/n/scratch2/` space allows 10TB of space per user and it is ideal for running large scale workflows. Keep in mind that this is a temporary space and files will be purged in 30 days. Another alternative is talking to the folks at HMS-RC to set up a directory in the `/n/groups` folder for your lab. 
 
 Change directories into `/n/scratch2` and make a directory titled your O2 username (i.e. `mm573`). Since this is a shared space it is useful to make your own personal directory:
 
