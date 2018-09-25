@@ -610,4 +610,24 @@ Based on these results, it indicates that there are some clusters that we are no
 
 We would generally want to go back through the clustering, but change parameters. Did we use too few principal components that we are just not separating out these cells? Since these cells do seem to be grouping together forming subclusters, it is likely that we just used too low of a resolution on the tSNE plot. We would want to try to re-run the tSNE with higher resolution.
 
+> **Re-running at a different resolution**
+> ```r
+> # Choose a resolution
+> seurat <- SetAllIdent(object = seurat, id = "res.1.2")
+> 
+> # Run the TSNE to determine the clusters
+> seurat <- RunTSNE(
+>   seurat,
+>   dims.use = 1:pcs,
+>   do.fast = TRUE)
+> 
+> # Plot the TSNE
+> DimPlot(seurat,
+>         "tsne",
+>         do.label = TRUE,
+>         do.return = TRUE,
+>         label.size = 6,
+>         plot.title = "tSNE") 
+> ```
+
 > **NOTE:** Most single-cell RNA-seq datasets are too big to work with on a personal laptop, so you will need to use R on O2. To do this requires establishing a personal R library with the appropriate libraries installed. More information about setting up personal libraries [is available](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages) from HMS RC. In addition to a personal R library, the analysis on O2 can be difficult if you cannot view the results. To view plots/images output on O2 requires X11 forwarding, and how to enable X11 configuration on your computer [is also detailed](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely) by HMS RC.
