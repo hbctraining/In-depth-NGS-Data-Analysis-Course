@@ -18,7 +18,6 @@ To perform this analysis, we will be mainly using functions available in the Seu
 ```r
 library(Seurat)
 library(tidyverse)
-library(knitr)
 ```
 
 To perform the analysis, Seurat requires the data to be present as a `seurat` object. To create the `seurat` object, we will be extracting the **filtered counts** and **metadata** stored in our `se_c` SingleCellExperiment object created during quality control. 
@@ -234,7 +233,7 @@ PCHeatmap(object = seurat,
           use.full = FALSE)
 ```
 
-<img src="../img/SC_pc_heatmap.png" width="550">
+<img src="../img/SC_pc_heatmap.png" width="650">
 
 In this heatmap it is easy to see the first few PCs have clear-cut expression differences for the genes most affecting the principal components. The distinction becomes less clear for more distant principal components and these plots can inform the selection of PCs to use for downstream analysis.
 
@@ -383,11 +382,11 @@ n_cells <- FetchData(seurat, vars.all = c("ident", "sample")) %>%
   dplyr::count(sample, ident) %>% 
   spread(ident, n)
 
-# View as table
-knitr::kable(n_cells)
+# View table
+View(n_cells)
 ```
 
-<img src="../img/SC_cluster_cells.png" width="350">
+<img src="../img/SC_cluster_cells.png" width="450">
 
 Then, we can acquire the different cluster QC metrics. First we will explore sample and cell cycle to view by tSNE:
 
