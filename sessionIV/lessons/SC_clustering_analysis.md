@@ -1,3 +1,18 @@
+---
+title: "Single-cell RNA-seq: Clustering Analysis"
+author: "Mary Piper, Lorena Pantano, Meeta Mistry, Radhika Khetani"
+date: Tuesday, September 25, 2018
+---
+
+Approximate time: 90 minutes
+
+## Learning Objectives:
+
+* Understand how to determine most variable genes
+* Identify the significant PCs to use for clustering
+* Perform clustering of cells based on significant PCs
+* Evaluate whether artifacts are present and quality of clustering with PCA and tSNE plots
+
 # Single-cell RNA-seq clustering analysis
 
 Now that we have our high quality cells, we want to know the different cell types present within our population of cells. To do this we are going to perform a clustering analysis. The workflow for this analysis is adapted from the following sources:
