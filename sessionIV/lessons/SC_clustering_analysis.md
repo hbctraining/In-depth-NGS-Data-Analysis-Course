@@ -94,7 +94,7 @@ Your single-cell dataset likely contains "uninteresting" sources of variation. T
 
 Cell cycle variation is a common source of uninteresting variation in single-cell RNA-seq data. To examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. 
 
-At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. An overview of the phases is given in the image below.
+An overview of the cell cycle phases is given in the image below:
 
 <img src="../img/cell_cycle.png" width="300">
 	
@@ -107,7 +107,7 @@ At the HBC core, we have accumulated a nice list of genes associated with partic
 - **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
 	
 
-We are going to download the list of cell cycle phase marker genes by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
+At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. We are going to download the list of cell cycle phase marker genes by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
 
 To save the genes in the G2M and S phases as character vectors, we can subset the data frame:
 
