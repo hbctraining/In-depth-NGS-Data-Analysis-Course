@@ -21,9 +21,9 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 10:15 | Single-cell RNA-seq design and methods | Sarah Boswell |
+| 09:00 - 10:15 | Single-cell RNA-seq design and methods | Dr. Sarah Boswell |
 | 10:15 - 10:30 | Coffee | |
-| 10:30 - 12:00 | Single-cell RNA-seq analysis workflow | Ayshwarya Subramanian |
+| 10:30 - 12:00 | Single-cell RNA-seq analysis workflow | Dr. Ayshwarya Subramanian |
 | 12:00 - 13:00 | Lunch | |
 | 13:00 - 14:15 | Single-cell RNA-seq - quality control  | Meeta |
 | 14:15 - 15:00 | Single-cell RNA-seq - clustering  | Mary |
