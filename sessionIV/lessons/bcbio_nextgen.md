@@ -303,7 +303,7 @@ The next set of files correspond **expression matrices** for your dataset genera
 
 > #### Using bcbio output to run `DESeq2` or `sleuth`
 > 
-> * For **gene-level differential expression** analysis, the `quant.sf` files are found within the `final` directory in a sub-directory under each sample. These files can be used as input to the **`tximport/DESeq2`** workflow as described in our [previous lesson](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html). 
+> * For **gene-level differential expression** analysis, the `quant.sf` files are found within the `final` directory in a sub-directory under each sample. These files can be used as input to the **`tximport/DESeq2`** workflow as described in our [previous lesson](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html#loading-data). 
 > 
 > * If you are interested in looking at **differential expression of splice isoforms**, you will want to use the `abundance.h5` files found at the same path listed above. These are the sleuth-compatible format which saves you having to run `wasabi`. These files can be used as input to the **`sleuth` workflow** as described in our [previous lesson](https://hbctraining.github.io/DGE_workshop_salmon/lessons/09b_sleuth.html)
 > * *NOTE: that you will need to setup a directory structure similar to what we had in class in order to follow along. i.e you will need to make sure each directory is named after the sample data it contains.*
