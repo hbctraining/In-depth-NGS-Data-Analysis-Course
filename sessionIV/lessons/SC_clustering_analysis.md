@@ -455,9 +455,9 @@ map(group_by, function(metric) {
 }) %>% invisible()
 ```
 
-<img src="../img/SC_phase_tsne_pca.png" width="400">
+<img src="../img/SC_phase_tsne_pca.png" width="300">
 
-<img src="../img/SC_sample_tsne_pca.png" width="400">
+<img src="../img/SC_sample_tsne_pca.png" width="300">
 
 Next we will explore additional metrics, such as the number of UMIs and genes per cell, S-phase and G2M-phase markers, and mitochondrial gene expression by tSNE:
 
@@ -500,6 +500,7 @@ map(paste0("PC", 1:pcs), function(pc){
     geom_text(data=tsne_label, aes(label=ident, x, y)) +
     ggtitle(pc)
 }) %>% plot_grid(plotlist = .)
+```
 
 <img src="../img/SC_clusters_by_pc.png" width="600">
 
@@ -509,38 +510,47 @@ In order to determine whether our clustering and resolution are appropriate for 
 
 The `FeaturePlot()` function from seurat makes it easy to visualize a handful of genes using the gene IDs stored in the Seurat object. For example if we were interested in exploring known immune cell markers, such as:
 
-- T cells: "ENSG00000010610", "ENSG00000153563"
-- Monocytes: "ENSG00000131495", "ENSG00000150337"
-- B cells: "ENSG00000177455"
-- Natural killer cells: "ENSG00000149294"
-- DC: "ENSG00000140678"
-- CD14: ENSG00000170458
-- CD16a: ENSG00000203747
+|Marker| Cell Type|
+|:---:|:---:|
+|IL7R	|CD4 T cells|
+|CD14, LYZ|	CD14+ Monocytes|
+|MS4A1|	B cells|
+|CD8A|	CD8 T cells|
+|FCGR3A, MS4A7	|FCGR3A+ Monocytes|
+|GNLY, NKG7|	NK cells|
+|FCER1A, CST3	|Dendritic Cells|
+|PPBP|	Megakaryocytes|
 
 We could use the Seurat function, `FeaturePlot()` to easily plot those genes. Since our dataset uses Ensembl ID identifiers, we would need those identifiers for our genes to plot with this function.
 
+To get the Ensembl identifiers, we can use our annotations table:
+
+```r
+colnames(annotations)
+
+custom_genes <- annotations %>% 
+  dplyr::filter(gene_name  %in% c("IL7R", "CD14", "LYZ", "MS4A1", "CD8A", "FCGR3A", "MS4A7", "GNLY", "NKG7", "FCER1A", "CST3", "PPBP")) %>%
+  dplyr::select(gene_id, gene_name) 
+```
+
+Unfortunately, we return duplicates for some genes. We are only interested in those genes with Ensembl IDs starting with 'ENSG', so we are going to only return those lines by using the `grep()` function. The `grep()` function will return the indices for lines that match the pattern, which we can use to subset our list of genes. 
+
+```r
+custom_genes <- custom_genes[grepl(pattern = "ENSG", x=custom_genes$gene_id), ]
+```
+
+
 ```r
 FeaturePlot(object = seurat, 
-            features.plot = c("ENSG00000010610", "ENSG00000153563", "ENSG00000131495", "ENSG00000150337", "ENSG00000177455", "ENSG00000149294", "ENSG00000140678", "ENSG00000203747", "ENSG00000170458"))
+            features.plot = custom_genes$gene_id)
 ```
 
 <img src="../img/SC_featureplot_clusters.png" width="600">
 
 However, it is hard to interpret these plots and remember which Ensembl ID corresponds to which gene. Gene symbols are much easier to interpret, so to make these same plots with gene symbols, we cannot use the `FeaturePlot()` function. Instead we need to construct them ourselves.
 
-First we need to get the gene symbols for these genes of interest (if starting with gene symbols, then could use the same method to get the Ensembl IDs).
 
-```r
-# Listing the names of the columns present in our annotations
-colnames(annotations)
-
-# Subsetting the annotations to return the Ensembl ID and gene symbol for each of our genes of interest
-custom_genes <- annotations %>% 
-  dplyr::filter(gene_id  %in% c("ENSG00000010610", "ENSG00000153563", "ENSG00000131495", "ENSG00000150337", "ENSG00000177455", "ENSG00000149294", "ENSG00000140678", "ENSG00000203747", "ENSG00000170458")) %>%
-  dplyr::select(gene_id, gene_name)
-```
-
-Then we can specify the Ensembl IDs as the gene IDs in the dataset that we want to plot and the gene names as the labels in the plot:
+We can specify the Ensembl IDs as the gene IDs in the dataset that we want to plot and the gene names as the labels in the plot:
 
 ```r
 # Ensembl IDs for the genes to use in the plot
@@ -582,5 +592,22 @@ map(custom_genes$gene_name, function(g){
 ```
 
 <img src="../img/SC_custom_genes_tsne.png" width="600">
+
+Based on these markers, we can conjecture the identity of each of the clusters based on the canonical cell type markers:
+
+| Cluster|Marker| Cell Type|
+|:---:|:---:|:---:|
+| 0-1|IL7R	|CD4 T cells|
+| 2|CD14, LYZ|	CD14+ Monocytes|
+| 3|MS4A1|	B cells|
+| 4|CD8A|	CD8 T cells|
+| 5|FCGR3A, MS4A7	|FCGR3A+ Monocytes|
+| 6|GNLY, NKG7|	NK cells|
+| Unidentified |FCER1A, CST3	|Dendritic Cells|
+| Unidentified |PPBP|	Megakaryocytes|
+
+Based on these results, it indicates that there are some clusters that we are not identifying that are likely to be separate cell types. The megakaryocytes and the dendritic cells appear clustered with other cell type clusters, so what do we do with them? 
+
+We would generally want to go back through the clustering, but change parameters. Did we use too few principal components that we are just not separating out these cells? Since these cells do seem to be grouping together forming subclusters, it is likely that we just used too low of a resolution on the tSNE plot. We would want to try to re-run the tSNE with higher resolution.
 
 > **NOTE:** Most single-cell RNA-seq datasets are too big to work with on a personal laptop, so you will need to use R on O2. To do this requires establishing a personal R library with the appropriate libraries installed. More information about setting up personal libraries [is available](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages) from HMS RC. In addition to a personal R library, the analysis on O2 can be difficult if you cannot view the results. To view plots/images output on O2 requires X11 forwarding, and how to enable X11 configuration on your computer [is also detailed](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely) by HMS RC.
