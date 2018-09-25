@@ -200,19 +200,33 @@ seurat <- seurat %>%
   ProjectPCA(do.print = FALSE)
 ```
 
-## Determine statistically significant principal components
+## Determine significant principal components
 
-To overcome the extensive technical noise in any single gene for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Often it is useful to explore the PCs:
+To overcome the extensive technical noise in any single gene for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Determining how many PCs to include downstream is therefore an important step. Often it is useful to explore the PCs prior to identifying the significant principal components to include for the downstream clustering analysis.
+
+We can print out the top most variant genes for select PCs using the `PrintPCA()` function. Here we are identifying the five most positively and negatively variant genes for the top 5 PCs:
 
 ```r
-# Print out the top 5 most variant genes (up and down) for top 5 PCs
+# Print out the top 5 most variant genes (up and down) for top 10 PCs
 PrintPCA(object = seurat, 
-         pcs.print = 1:5, 
+         pcs.print = 1:10, 
          genes.print = 5, 
          use.full = FALSE)
 ```
 
-Determining how many PCs to include downstream is therefore an important step. To accomplish this, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function.
+We can also explore the expression of the top most variant genes for select PCs using the `PCHeatmap()` function:
+
+```r
+# Explore expression of most extreme genes per PC
+PCHeatmap(object = seurat, 
+          pc.use = 1:10, 
+          cells.use = 500, 
+          do.balanced = TRUE, 
+          label.columns = FALSE, 
+          use.full = FALSE)
+```
+
+Finally, to determine how many PCs to use for the downstream analysis, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function. Where the elbow appears is usually the threshold for identifying the most significant PCs to include.
 
 ```r
 # Create elbow plot
