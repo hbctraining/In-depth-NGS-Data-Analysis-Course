@@ -15,7 +15,7 @@
 | 15:00 - 15:15 | Coffee |  |
 | 15:15 - 16:00 | bcbio-nextgen RNA-seq (contd.) | Meeta |
 | 16:00 - 16:10 | Other applications of RNA sequencing  | Radhika |
-| 16:10 - 17:00 | Small RNA-seq analysis | Lorena Pantano |
+| 16:10 - 17:00 | Small RNA-seq analysis | Dr. Lorena Pantano |
 
 ## Day2
 
