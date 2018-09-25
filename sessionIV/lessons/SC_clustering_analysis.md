@@ -83,7 +83,7 @@ We can plot dispersion (a normalized measure of to cell-to-cell variation) as a 
 VariableGenePlot(pre_regressed_seurat)
 ```
 
-<img src="../img/SC_variable_genes.png" width="550">
+<img src="../img/SC_variable_genes.png" width="600">
 
 The identified variable genes are going to be the genes used to **identify significant principal components** used to determine the **how similar individual cells are to each other for clustering analysis**. 
 
@@ -105,7 +105,7 @@ Cell cycle variation is a common source of uninteresting variation in single-cel
 
 > An overview of the cell cycle phases is given in the image below:
 > 
-> <img src="../img/cell_cycle.png" width="200">
+> <img src="../img/cell_cycle.png" width="300">
 > 	
 > *Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
 > 
@@ -160,7 +160,7 @@ PCAPlot(pre_regressed_seurat,
         group.by= "Phase")
 ```
 
-<img src="../img/SC_preregressed_phase_pca.png" width="450">
+<img src="../img/SC_preregressed_phase_pca.png" width="600">
 
 In our data, the cells don't really cluster by cell cycle, so we do not need to include `S.Score` and `G2M.Score` as variables for regression.
 
@@ -233,7 +233,7 @@ PCHeatmap(object = seurat,
           use.full = FALSE)
 ```
 
-<img src="../img/SC_pc_heatmap.png" width="650">
+<img src="../img/SC_pc_heatmap.png" width="750">
 
 In this heatmap it is easy to see the first few PCs have clear-cut expression differences for the genes most affecting the principal components. The distinction becomes less clear for more distant principal components and these plots can inform the selection of PCs to use for downstream analysis.
 
@@ -244,7 +244,7 @@ However, the main analysis used to determine how many PCs to use for the downstr
 PCElbowPlot(seurat)
 ```
 
-<img src="../img/SC_elbowplot.png" width="450">
+<img src="../img/SC_elbowplot.png" width="600">
 
 Based on this plot, we can eye the plot, and guess that the elbow appears to be around PC 7 or 8. While this gives us a good idea of the number of PCs to include, a more quantitative approach may be a bit more reliable.
 
@@ -329,7 +329,7 @@ DimPlot(seurat,
         plot.title = "tSNE") 
 ```
 
-<img src="../img/SC_dimplot_tsne.png" width="450">
+<img src="../img/SC_dimplot_tsne.png" width="600">
 
 To explore similarity in gene expression between the clusters, plotting the clusters in PCA space can be more informative.
 
@@ -343,7 +343,7 @@ DimPlot(seurat,
         plot.title = "PCA")
 ```
 
-<img src="../img/SC_dimplot_pca.png" width="450">
+<img src="../img/SC_dimplot_pca.png" width="600">
 
 For example, in the PCA plot, we can see the clusters 0 and 1 to be more similar to each other, while cluster 3 is quite different.
 
@@ -440,9 +440,9 @@ map(group_by, function(metric) {
 }) %>% invisible()
 ```
 
-<img src="../img/SC_phase_tsne_pca.png" width="450">
+<img src="../img/SC_phase_tsne_pca.png" width="600">
 
-<img src="../img/SC_sample_tsne_pca.png" width="450">
+<img src="../img/SC_sample_tsne_pca.png" width="600">
 
 Next we will explore additional metrics, such as the number of UMIs and genes per cell, S-phase and G2M-phase markers, and mitochondrial gene expression by tSNE:
 
@@ -464,7 +464,7 @@ map(metrics, function(qc){
   plot_grid(plotlist = .)
 ```
 
-<img src="../img/SC_metrics_tsne.png" width="450">
+<img src="../img/SC_metrics_tsne.png" width="600">
 
 We can also explore how well our clusters separate by the different PCs; we hope that the defined PCs separate the cell types well. In the tSNE plots below, the cells are colored by their PC score for each respective principal component.
 
@@ -486,7 +486,7 @@ map(paste0("PC", 1:pcs), function(pc){
     ggtitle(pc)
 }) %>% plot_grid(plotlist = .)
 
-<img src="../img/SC_clusters_by_pc.png" width="450">
+<img src="../img/SC_clusters_by_pc.png" width="600">
 
 # Evaluating clustering
 
@@ -509,7 +509,7 @@ FeaturePlot(object = seurat,
             features.plot = c("ENSG00000010610", "ENSG00000153563", "ENSG00000131495", "ENSG00000150337", "ENSG00000177455", "ENSG00000149294", "ENSG00000140678", "ENSG00000203747", "ENSG00000170458"))
 ```
 
-<img src="../img/SC_featureplot_clusters.png" width="450">
+<img src="../img/SC_featureplot_clusters.png" width="600">
 
 However, it is hard to interpret these plots and remember which Ensembl ID corresponds to which gene. Gene symbols are much easier to interpret, so to make these same plots with gene symbols, we cannot use the `FeaturePlot()` function. Instead we need to construct them ourselves.
 
@@ -566,6 +566,6 @@ map(custom_genes$gene_name, function(g){
   plot_grid(plotlist = .)
 ```
 
-<img src="../img/SC_custom_genes_tsne.png" width="450">
+<img src="../img/SC_custom_genes_tsne.png" width="600">
 
 > **NOTE:** Most single-cell RNA-seq datasets are too big to work with on a personal laptop, so you will need to use R on O2. To do this requires establishing a personal R library with the appropriate libraries installed. More information about setting up personal libraries [is available](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages) from HMS RC. In addition to a personal R library, the analysis on O2 can be difficult if you cannot view the results. To view plots/images output on O2 requires X11 forwarding, and how to enable X11 configuration on your computer [is also detailed](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely) by HMS RC.
