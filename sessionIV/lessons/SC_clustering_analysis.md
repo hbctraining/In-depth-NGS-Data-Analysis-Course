@@ -18,6 +18,7 @@ To perform this analysis, we will be mainly using functions available in the Seu
 ```r
 library(Seurat)
 library(tidyverse)
+library(knitr)
 ```
 
 To perform the analysis, Seurat requires the data to be present as a `seurat` object. To create the `seurat` object, we will be extracting the **filtered counts** and **metadata** stored in our `se_c` SingleCellExperiment object created during quality control. 
@@ -306,28 +307,163 @@ Seurat continues to use t-distributed stochastic neighbor embedding (t-SNE) as a
 # Choose a resolution
 seurat <- SetAllIdent(object = seurat, id = "res.0.8")
 
-# Run the TSNE and plot
+# Run the TSNE to determine the clusters
 seurat <- RunTSNE(
   seurat,
   dims.use = 1:pcs,
   do.fast = TRUE)
+
+# Plot the TSNE
+DimPlot(seurat,
+        "tsne",
+        do.label = TRUE,
+        do.return = TRUE,
+        label.size = 6,
+        plot.title = "tSNE") 
 ```
+
+To explore similarity in gene expression between the clusters, plotting the clusters in PCA space can be more informative.
 
 ```r
-# Plot the TSNE
-TSNEPlot(object = seurat)
+# Plot the PCA
+DimPlot(seurat,
+        "pca",
+        do.label = TRUE,
+        do.return = TRUE,
+        label.size = 6,
+        plot.title = "PCA")
 ```
 
-Once a resolution has been chosen, a useful feature in Seurat is the ability to recall the parameters that were used in the latest function calls for commonly used functions. For `FindClusters()`, the authors provide the function `PrintFindClustersParams()` to print a nicely formatted formatted summary of the parameters that were chosen.
+For example, in the PCA plot, we can see the clusters 0 and 1 to be more similar to each other, while cluster 3 is quite different.
+
+A useful feature in Seurat is the ability to recall the parameters that were used in the latest function calls for commonly used functions. For `FindClusters()`, the authors provide the function `PrintFindClustersParams()` to print a nicely formatted summary of the parameters that were chosen.
 
 ```r
 PrintFindClustersParams(seurat)
 ```
 
+Before continuing with any further identification, it can be useful to save the regressed seurat object if needed in the future.
+
 ```r
 # Save clustered cells
 saveRDS(seurat, file = file.path(data_dir, "pbmcs_seurat_tsne.rds"))
 ```
+
+> **NOTE:** If we were to load this object into the environment, we would need to again choose the resolution parameter to use going forward before doing any analysis:
+> 
+> ```r
+> # Choose a resolution
+> seurat <- SetAllIdent(object = seurat, id = "res.0.8")
+> ```
+
+# Exploration of quality control metrics
+
+To determine whether our clusters might be due to artifacts such as cell cycle phase or mitochondrial expression, it can be useful to explore these metrics visually to see if any clusters exhibit enrichment or are different from the other clusters. However, if enrichment or differences are observed for particular clusters it may not be worrisome if it can be explained by the cell type. A useful function for extracting data from the `seurat` object is the `FetchData()` function.
+
+We can start by exploring the distribution of cells per cluster for each sample:
+
+```r
+# Extract identity and sample information from seurat object to determine the number of cells per cluster per sample
+n_cells <- FetchData(seurat, vars.all = c("ident", "sample")) %>% 
+  dplyr::count(sample, ident) %>% 
+  spread(ident, n)
+
+# View as table
+knitr::kable(n_cells)
+```
+
+Then, we can acquire the different cluster QC metrics. First we will explore sample and cell cycle to view by tSNE:
+
+```r
+# Establishing groups to color plots by
+group_by <- c("Phase", "sample")
+
+# Getting coordinates for cells to use for tSNE and associated grouping variable information
+class_tsne_data <- FetchData(seurat, vars.all = c("ident", "tSNE_1", "tSNE_2", group_by))
+
+# Adding cluster label to center of cluster on tSNE
+tsne_label <- FetchData(seurat, 
+                        vars.all = c("ident", "tSNE_1", "tSNE_2"))  %>% 
+  as.data.frame() %>% 
+  group_by(ident) %>%
+  summarise(x=mean(tSNE_1), y=mean(tSNE_2))
+```
+
+In addition, we can get the same metrics to view by PCA:
+
+```r
+# Getting coordinates for cells to use for PCA and associated grouping variable information
+class_pca_data = FetchData(seurat, vars.all = c("ident", "PC1", "PC2", group_by))
+
+# Adding cluster label to center of cluster on PCA
+pca_label <- FetchData(seurat, vars.all = c("ident", "PC1", "PC2"))  %>% 
+  as.data.frame() %>% 
+  mutate(ident = seurat@ident) %>% 
+  group_by(ident) %>%
+  summarise(x=mean(PC1), y=mean(PC2))
+```
+
+Then, we can plot the samples and cell cycle by tSNE and PCA
+
+```r
+# Function to plot tSNE and PCA as grids
+map(group_by, function(metric) {
+  cat("\n\n###", metric, "\n\n")
+  p <- plot_grid(
+    ggplot(class_tsne_data, aes(tSNE_1, tSNE_2)) +
+      geom_point(aes_string(color = metric), alpha = 0.7) +
+      scale_color_brewer(palette = "Set2")  +
+      geom_text(data=tsne_label, aes(label=ident, x, y)),
+    ggplot(class_pca_data, aes(PC1, PC2)) +
+      geom_point(aes_string(color = metric), alpha = 0.7) +
+      scale_color_brewer(palette = "Set2")  +
+      geom_text(data=pca_label, aes(label=ident, x, y)),
+    nrow = 1, align = "v"
+  ) 
+  print(p)
+}) %>% invisible()
+```
+
+Next we will explore additional metrics, such as the number of UMIs and genes per cell, S-phase and G2M-phase markers, and mitochondrial gene expression by tSNE:
+
+```r
+# Determine metrics to plot present in seurat@meta.data
+metrics <-  c("nUMI", "nGene", "S.Score", "G2M.Score", "mitoRatio")
+
+# Extract the TSNE coordinates for each cell and include information about the metrics to plot
+qc_data <- FetchData(seurat, vars.all = c(metrics, "ident", "tSNE_1", "tSNE_2"))
+
+# Plot a tSNE plot for each metric
+map(metrics, function(qc){
+  ggplot(qc_data, aes(tSNE_1, tSNE_2)) +
+    geom_point(aes_string(color=qc), alpha = 0.7) +
+    scale_color_gradient(guide = FALSE, low = "grey90", high = "blue")  +
+    geom_text(data=tsne_label, aes(label=ident, x, y)) +
+    ggtitle(qc)
+}) %>% 
+  plot_grid(plotlist = .)
+```
+
+We can also explore how well our clusters separate by the different PCs; we hope that the defined PCs separate the cell types well. In the tSNE plots below, the cells are colored by their PC score for each respective principal component.
+
+```r
+# Defining the information in the seurat object of interest
+columns <- c(paste0("PC", 1:pcs),
+            "ident",
+            "tSNE_1", "tSNE_2")
+
+# Extracting this data from the seurat object
+pc_data <- FetchData(seurat, vars.all = columns)
+
+# Plotting a tSNE plot for each of the PCs
+map(paste0("PC", 1:pcs), function(pc){
+  ggplot(pc_data, aes(tSNE_1, tSNE_2)) +
+    geom_point(aes_string(color=pc), alpha = 0.7) +
+    scale_color_gradient(guide = FALSE, low = "grey90", high = "blue")  +
+    geom_text(data=tsne_label, aes(label=ident, x, y)) +
+    ggtitle(pc)
+}) %>% plot_grid(plotlist = .)
+
 
 # Evaluating clustering
 
@@ -343,17 +479,67 @@ The `FeaturePlot()` function from seurat makes it easy to visualize a handful of
 - CD14: ENSG00000170458
 - CD16a: ENSG00000203747
 
+We could use the Seurat function, `FeaturePlot()` to easily plot those genes. Since our dataset uses Ensembl ID identifiers, we would need those identifiers for our genes to plot with this function.
 
 ```r
 FeaturePlot(object = seurat, 
             features.plot = c("ENSG00000010610", "ENSG00000153563", "ENSG00000131495", "ENSG00000150337", "ENSG00000177455", "ENSG00000149294", "ENSG00000140678", "ENSG00000203747", "ENSG00000170458"))
 ```
 
-# QC
+However, it is hard to interpret these plots and remember which Ensembl ID corresponds to which gene. Gene symbols are much easier to interpret, so to make these same plots with gene symbols, we cannot use the `FeaturePlot()` function. Instead we need to construct them ourselves.
 
-To determine whether our clusters might be due to artifacts such as cell cycle phase or mitochondrial expression, it can be 
+First we need to get the gene symbols for these genes of interest (if starting with gene symbols, then could use the same method to get the Ensembl IDs).
 
+```r
+# Listing the names of the columns present in our annotations
+colnames(annotations)
 
+# Subsetting the annotations to return the Ensembl ID and gene symbol for each of our genes of interest
+custom_genes <- annotations %>% 
+  dplyr::filter(gene_id  %in% c("ENSG00000010610", "ENSG00000153563", "ENSG00000131495", "ENSG00000150337", "ENSG00000177455", "ENSG00000149294", "ENSG00000140678", "ENSG00000203747", "ENSG00000170458")) %>%
+  dplyr::select(gene_id, gene_name)
+```
+
+Then we can specify the Ensembl IDs as the gene IDs in the dataset that we want to plot and the gene names as the labels in the plot:
+
+```r
+# Ensembl IDs for the genes to use in the plot
+plot_selected <- custom_genes$gene_id
+
+# Gene names to use as labels in the plot
+names(plot_selected) <- custom_genes$gene_name
+```
+
+Next, we extract the data we need for plotting and make sure all data is in the same order:
+
+```r
+# Extract tSNE coordinates, sample name, and cluster identity information from the seurat object
+tsne <- FetchData(seurat, 
+                  vars.all = c("tSNE_1", "tSNE_2", "sample", "ident"))
+
+# Extract the count information for each cell for the genes of interest from the seurat object
+gene_data <- FetchData(seurat, vars.all = custom_genes$gene_id)
+
+# Acquire the gene symbols to be column names of the count data for the genes of interest
+colnames(gene_data) <- names(plot_selected)[match(plot_selected, colnames(gene_data))]
+
+# Merge counts for genes of interest with tSNE information
+gene_data <- cbind(tsne, gene_data)
+```
+
+Finally, we can plot the expression of interesting genes upon the tSNE plot. Darker blue represents higher levels of expression. Lighter colors do not necessarily represent little or no expression, the low levels of expression could mainly be blanched by cells that might express very high levels of this gene.
+
+```r
+# Plot the expression of each of the genes of interest on the tSNE
+map(custom_genes$gene_name, function(g){
+  ggplot(gene_data, aes(tSNE_1, tSNE_2)) +
+    geom_point(aes_string(color=g), alpha = 0.7, size = 0.3) +
+    scale_color_gradient(guide = FALSE, low = "grey90", high = "blue")  +
+    geom_text(data=tsne_label, aes(label=ident, x, y)) +
+    ggtitle(g)
+}) %>% 
+  plot_grid(plotlist = .)
+```
 
 
 > **NOTE:** Most single-cell RNA-seq datasets are too big to work with on a personal laptop, so you will need to use R on O2. To do this requires establishing a personal R library with the appropriate libraries installed. More information about setting up personal libraries [is available](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages) from HMS RC. In addition to a personal R library, the analysis on O2 can be difficult if you cannot view the results. To view plots/images output on O2 requires X11 forwarding, and how to enable X11 configuration on your computer [is also detailed](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely) by HMS RC.
