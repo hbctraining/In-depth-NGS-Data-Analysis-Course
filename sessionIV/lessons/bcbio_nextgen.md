@@ -257,30 +257,30 @@ mov10_project/
 ├── work
 └── final
 ```
-Your results may not have populated so take a look in our most recent `final`:
+Your results may not have populated so **take a look in our most recent `final`**:
 
-	$ ls -l /n/scratch2/mm573/bcbio-rnaseq-06-21-2017/mov10_project/final
+	$ ls -l /n/scratch2/mm573/bcbio-rnaseq/mov10_project/final
 	
 There is a date-stamped folder in addition to several folders corresponding to each sample that was run.
 
 ```
 total 28
-drwxrwxr-x 3 mm573 mm573 4096 Jun 21 22:56 2017-06-21_mov10_project
-drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Irrel_kd1
-drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Irrel_kd2
-drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Irrel_kd3
-drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Mov10_oe1
-drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Mov10_oe2
-drwxrwxr-x 4 mm573 mm573 4096 Jun 21 22:56 Mov10_oe3
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 2018-09-25_mov10_project
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 Irrel_kd1
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 Irrel_kd2
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 Irrel_kd3
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 Mov10_oe1
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 Mov10_oe2
+drwxrwxr-x. 4 mm573 mm573 4096 Sep 25 14:54 Mov10_oe3
 ```
 
 #### Sample-specific files
 
 Inside each of the sample directories we have results pertaining to each sample. Take a look at `Irrel_kd1`:
 
-	$ ls -l /n/scratch2/mm573/bcbio-rnaseq-06-21-2017/mov10_project/final/Irrel_kd1
+	$ ls -l /n/scratch2/mm573/bcbio-rnaseq/mov10_project/final/Irrel_kd1
 
-Here you will find the **sorted BAM files** along with an index, in addition to a file containing **count values** from featureCounts. The `transcriptome.bam` file is generated from STAR, but is not something you are likely to use/need. There is also a folder containing all of the **`qc` results** organized into sub-directories corresponding to the tool that was run (i.e. Qualimap, FASTQC, samtools). The **`salmon` folder** is the output from a Salmon run, as we had done in class.
+Here you will find the **sorted BAM files** along with an index. The `transcriptome.bam` file is generated from STAR, but is not something you are likely to use/need. There is also a folder containing all of the **`qc` results** organized into sub-directories corresponding to the tool that was run (i.e. Qualimap, FASTQC, samtools). The **`salmon` folder** is the output from a Salmon run, as we had done in class.
 
 
 ### Aggregated results
@@ -303,8 +303,9 @@ The next set of files correspond **expression matrices** for your dataset genera
 
 > #### Using bcbio output to run `DESeq2` or `sleuth`
 > 
-> * For **gene-level differential expression** analysis, the `quant.sf` files are found within the `final` directory in a sub-directory under each sample. These files can be used as input to the **`tximport/DESeq2`** workflow as described in our [previous lesson](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionIV/lessons/01_salmon.md). 
-> * If you are interested in looking at **differential expression of splice isoforms**, you will want to use the `abundance.h5` files found at the same path listed above. These are the sleuth-compatible format which saves you having to run `wasabi`. These files can be used as input to the **`sleuth` workflow** as described in our [previous lesson](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionIV/lessons/02_sleuth.md)
+> * For **gene-level differential expression** analysis, the `quant.sf` files are found within the `final` directory in a sub-directory under each sample. These files can be used as input to the **`tximport/DESeq2`** workflow as described in our [previous lesson](https://hbctraining.github.io/DGE_workshop_salmon/lessons/01_DGE_setup_and_overview.html). 
+> 
+> * If you are interested in looking at **differential expression of splice isoforms**, you will want to use the `abundance.h5` files found at the same path listed above. These are the sleuth-compatible format which saves you having to run `wasabi`. These files can be used as input to the **`sleuth` workflow** as described in our [previous lesson](https://hbctraining.github.io/DGE_workshop_salmon/lessons/09b_sleuth.html)
 > * *NOTE: that you will need to setup a directory structure similar to what we had in class in order to follow along. i.e you will need to make sure each directory is named after the sample data it contains.*
 
 
@@ -319,7 +320,6 @@ In the `final` folder there are also two log files:
 There is one more log file located in the `work` folder. Here, you will find that there are many new directories and files. For each step of pipeline, new job submission scripts were generated as were various intermediate files and directories. 
 Since the important files were collated and placed in the `final` directory, the only other important directory is the `logs` directory. The last log file is `bcbio-nextgen-debug.log`. It contains detailed information about processes including stdout/stderr from third party software and error traces for failures. **Look here to identify the status of running pipelines or to debug errors.** It labels each line with the hostname of the machine it ran on to ease debugging in distributed cluster environments.
 
-> **NOTE: Coming soon!** We have an R package in development called [`bcbioRnaseq`](https://github.com/hbc/bcbioRnaseq) which can be used downstream of `bcbio` to perform quality control and differential expression for bcbio-nextgen RNA-seq. experiments.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
