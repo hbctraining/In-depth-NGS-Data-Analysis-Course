@@ -351,7 +351,8 @@ For example, in the PCA plot, we can see the clusters 0 and 1 to be more similar
 A useful feature in Seurat is the ability to recall the parameters that were used in the latest function calls for commonly used functions. For `FindClusters()`, the authors provide the function `PrintFindClustersParams()` to print a nicely formatted summary of the parameters that were chosen.
 
 ```r
-PrintFindClustersParams(seurat)
+PrintFindClustersParams(seurat, 
+                        resolution = 0.8)
 ```
 
 <img src="../img/SC_print_parameters.png" width="350">
