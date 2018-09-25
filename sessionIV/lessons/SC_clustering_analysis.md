@@ -94,17 +94,17 @@ Your single-cell dataset likely contains "uninteresting" sources of variation. T
 
 Cell cycle variation is a common source of uninteresting variation in single-cell RNA-seq data. To examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. 
 
-An overview of the cell cycle phases is given in the image below:
-
-<img src="../img/cell_cycle.png" width="300">
-	
-*Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
-
-- **G0:** Quiescence or resting phase. The cell is not actively dividing, which is common for cells that are fully differentiated. Some types of cells enter G0 for long periods of time (many neuronal cells), while other cell types never enter G0 by continuously dividing (epithelial cells).
-- **G1:** Gap 1 phase represents the **beginning of interphase**. During G1 there is growth of the non-chromosomal components of the cells. From this phase, the cell may enter G0 or S phase.
-- **S:** Synthesis phase for the replication of the chromosomes (also part of interphase).
-- **G2:** Gap 2 phase represents the **end of interphase**, prior to entering the mitotic phase. During this phase th cell grows in preparation for mitosis and the spindle forms.
-- **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
+> An overview of the cell cycle phases is given in the image below:
+> 
+> <img src="../img/cell_cycle.png" width="300">
+> 	
+> *Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
+> 
+> - **G0:** Quiescence or resting phase. The cell is not actively dividing, which is common for cells that are fully differentiated. Some types of cells enter G0 for long periods of time (many neuronal cells), while other cell types never enter G0 by continuously dividing (epithelial cells).
+> - **G1:** Gap 1 phase represents the **beginning of interphase**. During G1 there is growth of the non-chromosomal components of the cells. From this phase, the cell may enter G0 or S phase.
+> - **S:** Synthesis phase for the replication of the chromosomes (also part of interphase).
+> - **G2:** Gap 2 phase represents the **end of interphase**, prior to entering the mitotic phase. During this phase th cell grows in preparation for mitosis and the spindle forms.
+> - **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
 	
 
 At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. We are going to download the list of cell cycle phase marker genes by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
