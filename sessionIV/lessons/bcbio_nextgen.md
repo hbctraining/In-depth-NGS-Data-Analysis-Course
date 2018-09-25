@@ -32,7 +32,7 @@ bcbio-nextgen provides *best-practice* piplelines with the goal of being:
 * Reproducible: Tracks configuration, versions, provenance and command lines
 * Analyzable: Results feed into downstream tools to make it easy to query and visualize
 
-It is available for installation on most Linux systems (compute clusters), and also has instructions for setup on the Cloud. It is currently installed on on the Orchestra cluster, and so **we will demonstrate `bcbio-nextgen` for RNA-seq data using our Mov10 dataset as input**.
+It is available for installation on most Linux systems (compute clusters), and also has instructions for setup on the Cloud. It is currently installed on on the O2 cluster, and so **we will demonstrate `bcbio-nextgen` for RNA-seq data using our Mov10 dataset as input**.
 
 > *NOTE:* There is also a [simplified version of how to use bcbio](https://github.com/sorgerlab/rnaseq) for RNA-Seq analysis put together by the Sorger lab, as the [readthedocs](https://bcbio-nextgen.readthedocs.io/en/latest/index.html) can be sometimes be overwhelming with much more detail than you need to get started.
 
@@ -45,19 +45,17 @@ The figure below describes the input (yellow), the workflow for RNA-seq (green) 
 
 ## Setting up
 
-Let's get started by logging on to Orchestra and starting an interactive session:
+Let's get started by logging on to O2 and starting an interactive session:
 
-	$ bsub -Is -q interactive bash
+	$ srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC /bin/bash
 	
 The first thing we need to do in order to run `bcbio`, is **setup some environment variables**. Rather than just modifying them in the command-line, we will be adding it to our `.bashrc` file which is  located in your home directory. The `.bashrc` is a shell script that Bash runs whenever it is started interactively. You can put any command in that file that you could type at the command prompt, and is generally used to set an environment and customize things to your preferences.
 
 Open up your `.bashrc` using `vim` and add in the following:
 
 	# Environment variables for running bcbio -- YOU MAY ALREADY HAVE THIS
-	export PATH=/opt/bcbio/centos/bin:$PATH
+	export PATH=/n/app/bcbio/tools/bin:$PATH
 	
-	unset PYTHONHOME
-	unset PYTHONPATH
 
 > *NOTE:* For people who are using non-english keyboards, you may also want to add the following to your `.bashrc` file:
 >
@@ -67,9 +65,9 @@ Open up your `.bashrc` using `vim` and add in the following:
 > export LANGUAGE=en_US.UTF-8
 > ````
  
-Close and save the file. Finally, let's set up the project structure. **Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, we will **use `/n/scratch2` space to make sure there is enough disk space to hold all of those files.** Your home directory on Orchestra will not be able to handle this amount of data. `/n/scratch2/` allows 10TB of space per user and it is ideal for running large scale workflows. Keep in mind that this is a temporary space and files will be purged in 30 days. Another alternative is talking to the folks at HMS-RC to set up a directory in the `/groups` folder for your lab. 
+Close and save the file. Finally, let's set up the project structure. **Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, we will use `/n/scratch2` space to make sure there is enough disk space to hold all of those files.** Your home directory on O2 will not be able to handle this amount of data, as your quota is 100GB. The `/n/scratch2/` space allows 10TB of space per user and it is ideal for running large scale workflows. Keep in mind that this is a temporary space and files will be purged in 30 days. Another alternative is talking to the folks at HMS-RC to set up a directory in the `/n/groups` folder for your lab. 
 
-Change directories into `/n/scratch2` and make a directory titled your Orchestra username (i.e. `mm573`). Since this is a shared space it is useful to make your own personal directory:
+Change directories into `/n/scratch2` and make a directory titled your O2 username (i.e. `mm573`). Since this is a shared space it is useful to make your own personal directory:
 
 	$ cd /n/scratch2
 	$ mkdir <ecommmons_id>
@@ -88,14 +86,15 @@ There are three things required as input for your `bcbio` run:
 
 The files we will use as input are the **raw untrimmed FASTQ files**. We will need to copy the full dataset over from the `hbctraining` directory and into our current directory:
 
-	$ cp /groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/*.fq bcbio-rnaseq/
+	$ cp /n/groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/*.fq bcbio-rnaseq/
 
+> **NOTE:** These are the same FASTQ files we used previously but we have named them differently. You will notice that we have removed the underscores between the sample name and the replicate number. This is because **`bcbio` identifies samples that have `_1` or `_2` before the `.fastq` extension to be paired-end samples**, and will analyze them that way.
 
 In addition to the data files, `bcbio` requires a **comma separated value file containing sample metadata**. The first column must contain the header `samplename` which corresponds to the FASTQ filenames you are running the analysis on. You can add a `description` column to change the sample name originally supplied by the file name, to this value (i.e. a short name). And finally, any columns that follow can contain additional information on each sample.
 
 We have created this file for you, you will need to copy it over to your current directory.
 
-	$ cp /groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/mov10_project.csv bcbio-rnaseq/
+	$ cp /n/groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/mov10_project.csv bcbio-rnaseq/
 	
 Each line in the file corresponds to a sample, and each column has information about the samples. Move into the directory and take a look at the file:
 
@@ -116,7 +115,7 @@ The final requirement is a **configuration template**, which will contain detail
 
 You can start with one of the provided [best-practice templates](https://github.com/chapmanb/bcbio-nextgen/tree/master/config/templates) and modify it as required, or you can create your own. We have created a template for you based on the experimental details. Copy it over and then use `less` to take a look at what is inside.
 
-	$ cp /groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/mov10-template.yaml .
+	$ cp /n/groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/mov10-template.yaml .
 	$ less mov10-template.yaml
 	
 ```
@@ -124,7 +123,7 @@ You can start with one of the provided [best-practice templates](https://github.
 ---
 details:
   - analysis: RNA-seq
-    genome_build: hg19
+    genome_build: hg38
     algorithm:
       aligner: star
       quality_format: standard
@@ -152,10 +151,11 @@ We can now **apply this template to all samples in our dataset**. To do this we 
 Upon completion of the command you should see the following output:
 
 ```
-Configuration file created at: /home/mm573/ngs_course/rnaseq/bcbio-rnaseq/mov10_project/config/mov10_project.yaml
+Configuration file created at: /n/scratch2/mm573/bcbio-rnaseq/mov10_project/config/mov10_project.yaml
 Edit to finalize and run with:
-  cd /home/mm573/ngs_course/rnaseq/bcbio-rnaseq/mov10_project/work
+  cd /n/scratch2/mm573/bcbio-rnaseq/mov10_project/work
   bcbio_nextgen.py ../config/mov10_project.yaml
+
 ```
 
 If you take a look in your current directory, you will also find that a **new directory** has been created by the same name as your csv file `mov10_project`. Inside that directory you will find the following directory structure:
@@ -203,40 +203,40 @@ Let's move into this directory:
 To run `bcbio` we call the same python script that we used for creating the config file `bcbio_nextgen.py` but we add different parameters:
 
 * `../config/mov10_project.yaml`: specify path to config file relative to the `work` directory
-* `-n 64`: total number of cores to use on the cluster during processing
+* `-n 12`: total number of cores to use on the cluster during processing
 * `-t ipython`: use python for parallel execution
-* `-s lsf`: type of scheduler
-* `-q mcore`: queue to submit jobs to
-* `-r mincores=2` and `-r minconcores=2`: these are parameters specifically used when using the `mcore` because two cores is the minimum requirement for the queue. The former specifies the minimum number of cores to batch together for parallel single core processes. The latter is the minimum number of cores to use for the controller process. 
+* `-s slurm`: type of scheduler
+* `-q medium`: queue/partition to submit jobs to
 * `--retries 3`: number of times to retry a job on failure
-* `--timeout 380`: numbers of minutes to wait for a cluster to start up before timing out
-* `-rW=72:00`: specifies resource options to pass along to the underlying queue scheduler
+* `--timeout 300`: numbers of minutes to wait for a cluster to start up before timing out
+* `-r t=0-100:00`: specifies resource options to pass along to the underlying queue scheduler
 
 
 The job can take on the range of hours to days depending on the size of your dataset, and so rather than running interactively we will create a job submission script. 
 
 Open up a script file using `vim` and create your job script:
 
-	$ vim submit_bcbio.lsf
+	$ vim submit_bcbio.sbatch
 
 ```
-	#!/bin/sh
+#!/bin/sh
 
-	#BSUB -q priority
-	#BSUB -J bcbio_mov10
-	#BSUB -n 1
-	#BSUB -W 3:00
-	#BUSB -R “rusage[mem=10000]”
-	#BSUB -e mov10_project.err
+#SBATCH -p priority
+#SBATCH --job-name bcbio_mov10
+#SBATCH -c 1
+#SBATCH -t 0-3:00
+#SBATCH --mem 10G
+#SBATCH -e mov10_project.err
+#SBATCH -o mov10_project.out
 
-	bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q mcore -r mincores=2 -r minconcores=2 '-rW=72:00' --retries 3 --timeout 380
+/n/app/bcbio/dev/anaconda/bin/bcbio_nextgen.py ../config/mov10_project.yaml -n 12 -t ipython -s slurm -q medium -r t=0-100:00  --timeout 300 --retries 3
 ```
 
 Once you are done, save and close. From within the `work` directory you can now submit the job:
 
-	$ bsub < submit_bcbio.lsf
+	$ sbatch submit_bcbio.sbatch
 
-Use `bjobs` to see the status of your job. *How many jobs do you see?*
+Use `sacct` to see the status of your job. *How many jobs do you see?*
 
 ## `bcbio`: Output
 
