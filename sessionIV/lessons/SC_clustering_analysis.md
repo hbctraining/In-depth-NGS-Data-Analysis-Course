@@ -455,9 +455,9 @@ map(group_by, function(metric) {
 }) %>% invisible()
 ```
 
-<img src="../img/SC_phase_tsne_pca.png" width="600">
+<img src="../img/SC_phase_tsne_pca.png" width="400">
 
-<img src="../img/SC_sample_tsne_pca.png" width="600">
+<img src="../img/SC_sample_tsne_pca.png" width="400">
 
 Next we will explore additional metrics, such as the number of UMIs and genes per cell, S-phase and G2M-phase markers, and mitochondrial gene expression by tSNE:
 
