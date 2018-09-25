@@ -83,7 +83,7 @@ We can plot dispersion (a normalized measure of to cell-to-cell variation) as a 
 VariableGenePlot(pre_regressed_seurat)
 ```
 
-<img src="../img/SC_variable_genes.png" width="450">
+<img src="../img/SC_variable_genes.png" width="550">
 
 The identified variable genes are going to be the genes used to **identify significant principal components** used to determine the **how similar individual cells are to each other for clustering analysis**. 
 
