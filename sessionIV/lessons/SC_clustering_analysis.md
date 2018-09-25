@@ -96,7 +96,7 @@ Cell cycle variation is a common source of uninteresting variation in single-cel
 
 At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. An overview of the phases is given in the image below.
 
-<img src="../img/cell_cycle.png" width="400">
+<img src="../img/cell_cycle.png" width="300">
 	
 *Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
 
@@ -107,7 +107,7 @@ At the HBC core, we have accumulated a nice list of genes associated with partic
 - **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
 	
 
-We are going to download this list by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
+We are going to download the list of cell cycle phase marker genes by **right-clicking** [here](https://github.com/hbc/tinyatlas/raw/master/cell_cycle/Homo_sapiens.csv) and saving to the `data` folder.
 
 To save the genes in the G2M and S phases as character vectors, we can subset the data frame:
 
@@ -126,7 +126,7 @@ s_genes <- dplyr::filter(cell_cycle, phase == "S") %>%
   as.character() 
 ```
 
-Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function. The function scores cells based on their expression of the G2M and S phase marker genes, which should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G0/G1 phase. The `CellCycleScoring()` functionstores S and G2/M scores in `seurat@meta.data`, along with the predicted classification of each cell in either G2M, S or G1 phase.
+Now to score each gene for cell cycle, we can use Seurat's `CellCycleScoring()` function. The function scores cells based on their expression of the G2M and S phase marker genes, which should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G0/G1 phase. The `CellCycleScoring()` function stores S and G2/M scores in `seurat@meta.data` in the `S.Score` and `G2M.Score` columns, along with the predicted classification of each cell in either G2M, S or G1 phase in the `Phase` column.
 
 ```r
 # Perform cell cycle scoring
@@ -151,7 +151,7 @@ PCAPlot(pre_regressed_seurat,
 
 In our data, the cells don't really cluster by cell cycle, so we do not need to include `S.Score` and `G2M.Score` as variables for regression.
 
-Now let's save the pre-regressed Seurat object:
+Before moving on to regressing out variation due to uninteresting sources, let's save the pre-regressed Seurat object so that we can come back to it later if needed:
 
 ```r
 # Save pre-regression Seurat object
@@ -160,8 +160,7 @@ saveRDS(pre_regressed_seurat,
 ```
 
 
-
->**NOTE:** Often we only want to analyze a subset of samples, cells, or genes. To subset the Seurat object, the `SubsetData()` function can be easily used. For example:
+>**NOTE:** Often we only want to analyze a subset of samples, cells, or genes. To subset the Seurat object, the `SubsetData()` function can be easily used. For example, to only cluster cells using a single sample group:
 >
 >```r
 > pre_regressed_seurat <- SubsetData(seurat_raw, 
@@ -203,7 +202,17 @@ seurat <- seurat %>%
 
 ## Determine statistically significant principal components
 
-To overcome the extensive technical noise in any single gene for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Determining how many PCs to include downstream is therefore an important step. To accomplish this, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function.
+To overcome the extensive technical noise in any single gene for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a "metagene" that combines information across a correlated gene set. Often it is useful to explore the PCs:
+
+```r
+# Print out the top 5 most variant genes (up and down) for top 5 PCs
+PrintPCA(object = seurat, 
+         pcs.print = 1:5, 
+         genes.print = 5, 
+         use.full = FALSE)
+```
+
+Determining how many PCs to include downstream is therefore an important step. To accomplish this, we plot the standard deviation of each PC as an elbow plot with our `plotPCElbow()` function.
 
 ```r
 # Create elbow plot
@@ -231,7 +240,7 @@ co1 <- which(cum > 90 & pct < 5)[1]
 
 co1
 ```
-The first metric returns PC18 as the PC matching these requirements. Let's check the second metric:
+The first metric returns PC18 as the PC matching these requirements. Let's check the second metric, which identifies the PC where the percent change in variation between consequtive PCs is less than 0.1%:
 
 ```r
 # Determine the difference between variation of PC and subsequent PC
@@ -253,8 +262,7 @@ Based on these metrics, for the clustering of cells in Seurat we will use the fi
 
 ## Cluster the cells
 
-Seurat uses a graph-based clustering approach, which embeds cells in a graph structure, using a K-nearest neighbor (KNN) graph (by default), with edges drawn between cells with similar gene expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’. Seurat first constructs a KNN graph based on the euclidean distance in PCA space, and refines the edge weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard distance). To cluster the cells, it then applies modularity optimization techniques to iteratively group cells together, with the goal of optimizing the standard modularity function.
-
+We can now use these significant PCs to determine which cells exhibit similar expression patterns for clustering. To do this, Seurat uses a graph-based clustering approach, which embeds cells in a graph structure, using a K-nearest neighbor (KNN) graph (by default), with edges drawn between cells with similar gene expression patterns. Then, it attempts to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’. Details on this clustering methods are available in the Seurat paper.
 We will use the `FindClusters()` function to perform the graph-based clustering. The `resolution` argument that sets the "granularity" of the downstream clustering, will need to be optimized to the experiment, with increased values leading to a greater number of clusters. We find that setting this parameter between `0.6`-`1.2` typically returns good results for single cell datasets of around 3K cells. Optimal resolution often increases for larger datasets. The cluster IDs are saved in the `seurat@ident` slot.
 
 We provide a series of resolution options during clustering, which can be used downstream to choose the best resolution.
