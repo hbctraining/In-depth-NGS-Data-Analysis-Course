@@ -60,24 +60,25 @@ pre_regressed_seurat <-  pre_regressed_seurat %>%
                             do.plot = FALSE)
 ```
 
-It's recommended to set parameters as to mark visual outliers on dispersion plot - default parameters are for ~2,000 variable genes. There are some additional arguments, such as `x.low.cutoff`, `x.high.cutoff`, `y.cutoff`, and `y.high.cutoff`.
+It's recommended to set parameters as to mark visual outliers on dispersion plot - default parameters are for ~2,000 variable genes. There are some additional arguments, such as `x.low.cutoff`, `x.high.cutoff`, `y.cutoff`, and `y.high.cutoff` that can be modified to change the number of variable genes identified. Generally, we might be a bit concerned if we are returning 500 or 4,000 variable genes.
 
-We can check the number of variable genes to see if it meets expectations. Generally, we might be a bit concerned if we are only seeing like 500 genes or 4,000 genes as being variable.
-
+We can check the number of variable genes to see if it meets expectations. 
 
 ```r
 # Check number of variable genes to determine if correct parameters used  
 length(x = pre_regressed_seurat@var.genes)
 ```
 
-We can plot dispersion (a normalized measure of to cell-to-cell variation) as a function of average expression for each gene to identify a set of high-variance genes. To check that the dispersions behave as expected, decreasing with increasing mean, and to identify the most variable genes, we can visualize the dispersions with the `VariableGenePlot()` function.
+We can plot dispersion (a normalized measure of to cell-to-cell variation) as a function of average expression for each gene to **identify a set of high-variance genes**. To check that the dispersions behave as expected, decreasing with increasing mean, and to identify the most variable genes, we can visualize the dispersions with the `VariableGenePlot()` function.
 
 ```r
 # Plot variable genes
 VariableGenePlot(pre_regressed_seurat)
 ```
 
-Finally, the genes should then be scaled and centered using the `ScaleData()` function so that ...
+The identified variable genes are going to be the genes used to **identify significant principal components** used to determine the **how similar individual cells are to each other for clustering analysis**. 
+
+However, to identify the significant principal components the expression values need to be centered and scaled. Centering each gene will center the expression of each gene by subtracting the average expression of the gene for each cell. Scaling will divide the centered gene expression levels by the standard deviation. To perform the centering and scaling, we can use Seurat's `ScaleData()` function.
 
 ```r
 # Scale and center data
@@ -87,11 +88,24 @@ pre_regressed_seurat <- pre_regressed_seurat %>%
 
 ### Examining sources of variation in the data
 
-Your single-cell dataset likely contains "uninteresting" sources of variation. This can include technical noise, batch effects, and/or uncontrolled biological variation (e.g. cell cycle). We can use PCA to identify these sources of variation, which can then be regressed out prior to further analysis.
+Your single-cell dataset likely contains "uninteresting" sources of variation. This can include technical noise, batch effects, and/or uncontrolled biological variation (e.g. cell cycle). Similar to bulk RNA-seq analysis, we can use PCA to identify these sources of variation, which can then be regressed out prior to further analysis.
 
 ### Cell cycle scoring
 
-If we want to examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. These marker sets should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G1 phase. We assign scores in the `CellCycleScoring()` function, which stores S and G2/M scores in `seurat@meta.data`, along with the predicted classification of each cell in either G2M, S or G1 phase.
+Cell cycle variation is a common source of uninteresting variation in single-cell RNA-seq data. To examine cell cycle variation in our data, we assign each cell a score, based on its expression of G2/M and S phase markers. To remind ourselves of the cell cycle phases. 
+
+<img src="../img/cell_cycle.png" width="400">
+	
+	*Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Cell_cycle) (Image License is [CC BY-SA 3.0](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License))*
+	
+	- **G0:** Quiescence or resting phase. The cell is not actively dividing, which is common for cells that are fully differentiated. Some types of cells enter G0 for long periods of time (many neuronal cells), while other cell types never enter G0 by continuously dividing (epithelial cells).
+	- **G1:** Gap 1 phase represents the **beginning of interphase**. During G1 there is growth of the non-chromosomal components of the cells. From this phase, the cell may enter G0 or S phase.
+	- **S:** Synthesis phase for the replication of the chromosomes (also part of interphase).
+	- **G2:** Gap 2 phase represents the **end of interphase**, prior to entering the mitotic phase. During this phase th cell grows in preparation for mitosis and the spindle forms.
+	- **M:** M phase is the nuclear division of the cell (consisting of prophase, metaphase, anaphase and telophase).
+	
+  
+These marker sets should be anticorrelated in their expression levels, and cells expressing neither are likely not cycling and in G1 phase. We assign scores in the `CellCycleScoring()` function, which stores S and G2/M scores in `seurat@meta.data`, along with the predicted classification of each cell in either G2M, S or G1 phase.
 
 At the HBC core, we have accumulated a nice list of genes associated with particular cell cycle phases. An overview of the phases is given in the image below.
 
@@ -124,7 +138,7 @@ pre_regressed_seurat <- CellCycleScoring(
   s.genes = s_genes)
 ```
 
-To determine whether the cells group by cell cycle, we can perform PCA using the cell cycle genes. If the cells group by cell cycle in the PCA, then we would want to regress out cell cycle variation. Let's assess our data:
+To determine whether the cells group by cell cycle, we can perform PCA using the cell cycle genes. If the cells group by cell cycle in the PCA, then we would want to regress out cell cycle variation. By default in the  `RunPCA()` function, the most variable genes identified previously are used to determine the PCs, but we can select specific genes using the `pc.genes` argument. We will use only the cell cycle genes to determine whether the cells cluster by cell cycle phase. 
 
 ```r
 # Perform PCA and color by cell cycle phase
@@ -133,16 +147,18 @@ pre_regressed_seurat = RunPCA(
   pc.genes = c(s_genes, g2m_genes),
   do.print = FALSE)
 
-PCAPlot(pre_regressed_seurat, group.by= "Phase")
+PCAPlot(pre_regressed_seurat, 
+        group.by= "Phase")
 ```
 
-In our data, the cells don't really see the cells cluster by cell cycle, so we do not need to include `S.Score` and `G2M.Score` variables in the metadata for regression.
+In our data, the cells don't really cluster by cell cycle, so we do not need to include `S.Score` and `G2M.Score` as variables for regression.
 
 Now let's save the pre-regressed Seurat object:
 
 ```r
 # Save pre-regression Seurat object
-saveRDS(pre_regressed_seurat, file = "data/seurat_pre_regress.rds")
+saveRDS(pre_regressed_seurat, 
+        file = "data/seurat_pre_regress.rds")
 ```
 
 
@@ -151,18 +167,20 @@ saveRDS(pre_regressed_seurat, file = "data/seurat_pre_regress.rds")
 >
 >```r
 > pre_regressed_seurat <- SubsetData(seurat_raw, 
->                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control")])
+>                                cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
 >```
 
 ## Apply regression variables
 
-To run these regression steps outlined below, we have a [`clustering_regress.R`](../scripts/clustering_regress.R) script that can be run on O2. The scripts do not include the visualizations, but these can be included in the final report.
+Regressing variation due to uninteresting sources can improve downstream identification of principal components and clustering. To mitigate the effect of these signals, Seurat constructs linear models to predict gene expression based on the variables to regress.
 
-In this step, we are regressing out variables of uninteresting variation, using the `vars.to.regress` argument in the `ScaleData()` function. When variables are defined in the `vars.to.regress` argument, [Seurat][] regresses them individually against each gene, then rescales and centers the resulting residuals.
+To regress out these variables of uninteresting variation, we will use the `vars.to.regress` argument in the `ScaleData()` function. 
 
-We generally recommend minimizing the effects of variable read count depth (`nUMI`) and mitochondrial gene expression (`mitoRatio`) as a standard first-pass approach. If the differences in mitochondrial gene expression represent a biological phenomenon that may help to distinguish cell clusters, then we advise not passing in `mitoRatio` here.
+We generally recommend minimizing the effects of variable read count depth (`nUMI`) and mitochondrial gene expression (`mitoRatio`) as a standard first-pass approach. However, if the differences in mitochondrial gene expression represent a biological phenomenon that may help to distinguish cell clusters, then we advise not passing in `mitoRatio`.
 
 When regressing out the effects of cell-cycle variation, include `S.Score` and `G2M.Score` in the `vars.to.regress` argument. Cell-cycle regression is generally recommended but should be avoided for samples containing cells undergoing differentiation.
+
+In our data, the cell cycle phase did not appear to be a large source of variation in the data, so we do not need to regress it out. Therefore, we will only regress out variation due to `nUMI` and `mitoRatio`.
 
 ```r
 # Define variables in metadata to regress
@@ -175,7 +193,7 @@ seurat <- ScaleData(pre_regressed_seurat, vars.to.regress = vars_to_regress)
 
 ## Linear dimensionality reduction
 
-Next, we perform principal component analysis (PCA) on the scaled data with `RunPCA()`. By default, the genes in `seurat@var.genes` are used as input, but can be defined using the `pc.genes` argument. `ProjectPCA()` scores each gene in the dataset (including genes not included in the PCA) based on their correlation with the calculated components.
+Next, we perform principal component analysis (PCA) on the scaled data with `RunPCA()`. `ProjectPCA()` scores each gene in the dataset (including genes not included in the PCA) based on their correlation with the calculated components.
 
 ```r
 # Perform the scoring for all genes
