@@ -40,7 +40,7 @@ We will need to navigate to the `data` folder and **click on the file `pbmc3k_fi
 Finally, create an Rscript and type the following note:
 
 ```r
-# Single-cell RNA-seq analysis with Seurat - QC
+# Single-cell RNA-seq analysis - QC
 ```
 
 Save the Rscript as `quality_control.R`. Your working directory should look something like this:
