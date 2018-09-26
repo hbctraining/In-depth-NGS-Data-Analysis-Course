@@ -32,6 +32,8 @@ To identify clusters, the following steps will be performed:
 To perform this analysis, we will be mainly using functions available in the Seurat package. Therefore, we need to load the Seurat library in addition to the tidyverse library. Create the script `clustering_analysis.R` and load the libraries:
 
 ```r
+# Single-cell RNA-seq analysis - clustering analysis
+
 # Load libraries
 library(Seurat)
 library(tidyverse)
