@@ -29,6 +29,8 @@ To identify clusters, the following steps will be performed:
 4. **Identification of the primary sources of heterogeneity** using principal component (PC) analysis and heatmaps.
 5. **Clustering cells** based on significant PCs (metagenes).
 
+## Set-up
+
 To perform this analysis, we will be mainly using functions available in the Seurat package. Therefore, we need to load the Seurat library in addition to the tidyverse library. Create the script `clustering_analysis.R` and load the libraries:
 
 ```r
@@ -54,6 +56,8 @@ seurat_raw <- CreateSeuratObject(raw.data = counts(se_c),
 > pre_regressed_seurat <- SubsetData(seurat_raw, 
 >                                    cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
 >```
+
+## Clustering analysis
 
 ### Normalizing counts, finding variable genes, and scaling the data
 
