@@ -76,11 +76,11 @@ Generally, all single-cell RNA-seq datasets, regardless of technology or pipelin
 - a matrix of counts per gene for every cell
 - a file with the gene IDs, representing all genes quantified
 
-<img src="../img/genes_tsv.png" width="400">
+<img src="../img/genes.png" width="200">
 
 - a file with the cell IDs, representing all cells quantified
 
-<img src="../img/barcode_tsv.png" width="400">
+<img src="../img/barcodes.png" width="200">
 
 We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg19` folder:
 
