@@ -15,7 +15,7 @@
 | 15:00 - 15:15 | Coffee |  |
 | 15:15 - 16:00 | [bcbio-nextgen RNA-seq (contd.)](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/bcbio_nextgen.html) | Meeta |
 | 16:00 - 16:10 | [Other applications of RNA sequencing](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/slides/other%20rnaseq%20applications.pdf) | Radhika |
-| 16:10 - 17:00 | Small RNA-seq analysis | Dr. Lorena Pantano |
+| 16:10 - 17:00 | [Small RNA-seq analysis](https://github.com/lpantano/mypubs/blob/master/talks/Core_Sept_2018.pdf) | Dr. Lorena Pantano |
 
 ## Day2
 
