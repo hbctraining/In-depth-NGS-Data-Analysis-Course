@@ -29,7 +29,7 @@ To identify clusters, the following steps will be performed:
 4. **Identification of the primary sources of heterogeneity** using principal component (PC) analysis and heatmaps.
 5. **Clustering cells** based on significant PCs (metagenes).
 
-To perform this analysis, we will be mainly using functions available in the Seurat package. Therefore, we need to load the Seurat library in addition to the tidyverse library. Create the script `clustering_analysis` and load the libraries:
+To perform this analysis, we will be mainly using functions available in the Seurat package. Therefore, we need to load the Seurat library in addition to the tidyverse library. Create the script `clustering_analysis.R` and load the libraries:
 
 ```r
 library(Seurat)
