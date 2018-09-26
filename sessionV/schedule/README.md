@@ -9,9 +9,10 @@
 |10:00 - 10:30 | [Setting up for ChIP-seq analysis]() | Mary |
 |10:30 - 10:45 | Break | |
 |10:45 - 11:15 | [Best Practices in Research Data Management]() | Radhika |
-|11:15 - 12:00 | [Sequencing data QC using FastQC]() | Mary |
-|12:00 - 13:00 | Lunch | |
-|13:00 - 14:00 | [Alignment and filtering of reads]) | Mary |
+|11:15 - 11:45 | [Sequencing data QC using FastQC]() | Meeta |
+|11:45 - 12:30 | [Alignment and filtering of reads]() | Mary |
+|12:30 - 13:30 | Lunch | |
+|13:00 - 14:00 | [Alignment and filtering of reads (cont'd)]() | Mary |
 |14:00 - 15:20 | [Automating generation of alignment files]() | Radhika |
 |15:20 - 15:30 | Break | |
 |15:30 - 15:50 | [ChIP-seq File Formats]() | Radhika |
