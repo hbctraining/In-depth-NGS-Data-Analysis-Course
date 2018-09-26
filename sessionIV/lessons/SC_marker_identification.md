@@ -18,16 +18,16 @@ all_markers <-FindAllMarkers(seurat,
 
 The results table output contains the following columns:
 
-- **p_val:** p-value not adjusted for multiple test correction
-- **avg_logFC:** average log2 fold change. Positive values indicate that the gene is more highly expressed in the cluster.
-- **pct.1**: The percentage of cells where the gene is detected in the cluster
-- **pct.2**: The percentage of cells where the gene is detected on average in the other clusters
-- **p_val_adj:** Adjusted p-value, based on bonferroni correction using all genes in the dataset, used to determine significance
-- **cluster:** identity of cluster
-- **gene:** Ensembl gene ID
-- **symbol:** gene symbol
-- **biotype:** type of gene
-- **description:** gene description
+- **`p_val`:** p-value not adjusted for multiple test correction
+- **`avg_logFC`:** average log2 fold change. Positive values indicate that the gene is more highly expressed in the cluster.
+- **`pct.1`**: The percentage of cells where the gene is detected in the cluster
+- **`pct.2`**: The percentage of cells where the gene is detected on average in the other clusters
+- **`p_val_adj`:** Adjusted p-value, based on bonferroni correction using all genes in the dataset, used to determine significance
+- **`cluster`:** identity of cluster
+- **`gene`:** Ensembl gene ID
+- **`symbol`:** gene symbol
+- **`biotype`:** type of gene
+- **`description`:** gene description
 
 ```
 View(all_markers)
