@@ -340,11 +340,11 @@ The UMI counts per cell should generally be above 500, although usable, it's sti
 ```r
 # Visualize the number UMIs/transcripts per cell
 metrics %>% 
-  ggplot(aes(color=sample, x=nUMI)) + 
-  geom_density() + 
-  scale_x_log10() + 
-  ylab("log10 cell density") +
-  geom_vline(xintercept = 500)
+        ggplot(aes(color=sample, x=nUMI, fill= sample)) + 
+        geom_density() + 
+        scale_x_log10() + 
+        ylab("log10 cell density") +
+        geom_vline(xintercept = 500)
 ```
 
 <img src="../img/nUMIs.png" width="350">
@@ -356,16 +356,16 @@ Seeing gene detection in the range of 500-5000 is normal for **inDrop** analysis
 ```r
 # Visualize the distribution of genes detected per cell via histogram
 metrics %>% 
-  ggplot(aes(color=sample, x=nGene)) + 
-  geom_density() + 
-  scale_x_log10() + 
-  geom_vline(xintercept = 200)
+        ggplot(aes(color=sample, x=nGene, fill= sample)) + 
+        geom_density() + 
+        scale_x_log10() + 
+        geom_vline(xintercept = 200)
 
 # Visualize the distribution of genes detected per cell via boxplot
 metrics %>% 
-  ggplot(aes(x=sample, y=log10(nGene))) + 
-  geom_boxplot() + 
-  ggtitle("NCells vs NGenes")
+        ggplot(aes(x=sample, y=log10(nGene), fill=sample)) + 
+        geom_boxplot() + 
+        ggtitle("NCells vs NGenes")
 ```
 
 <img src="../img/genes_detected.png" width="350">
@@ -397,10 +397,10 @@ This metric can identify whether there is a large amount of mitochondrial contam
 ```r
 # Visualize the distribution of mitochondrial gene expression detected per cell
 metrics %>% 
-    ggplot(aes(color=sample, x=mitoRatio)) + 
-    geom_density() + 
-    scale_x_log10() + 
-    geom_vline(xintercept = 0.1)
+        ggplot(aes(color=sample, x=mitoRatio, fill=sample)) + 
+        geom_density() + 
+        scale_x_log10() + 
+        geom_vline(xintercept = 0.1)
 ```
 <img src="../img/mitoRatio.png" width="350">
 
@@ -411,8 +411,8 @@ We can see the samples where we sequenced each cell less have a higher overall n
 ```r
 # Visualize the overall novelty of the gene expression by visualizing the genes detected per UMI
 metrics %>%
-  ggplot(aes(x=log10GenesPerUMI, color = sample)) +
-  geom_density()
+        ggplot(aes(x=log10GenesPerUMI, color = sample, fill=sample)) +
+        geom_density()
 ```
 
 <img src="../img/novelty.png" width="350">
