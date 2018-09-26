@@ -620,16 +620,16 @@ After we have identified our desired clusters, we can move on to marker identifi
 > **Re-running at a different resolution**
 > ```r
 > # Choose a resolution
-> seurat <- SetAllIdent(object = seurat, id = "res.1.2")
+> seurat_res1.2 <- SetAllIdent(object = seurat, id = "res.1.2")
 > 
 > # Run the TSNE to determine the clusters
-> seurat <- RunTSNE(
->   seurat,
+> seurat_res1.2 <- RunTSNE(
+>   seurat_res1.2,
 >   dims.use = 1:pcs,
 >   do.fast = TRUE)
 > 
 > # Plot the TSNE
-> DimPlot(seurat,
+> DimPlot(seurat_res1.2,
 >         "tsne",
 >         do.label = TRUE,
 >         do.return = TRUE,
