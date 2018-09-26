@@ -7,7 +7,7 @@
 | 09:00 - 09:45 | Homework review | Mary |
 | 09:45 - 10:25 | [DGE with the LRT method](https://hbctraining.github.io/DGE_workshop_salmon/lessons/08_DGE_LRT.html) | Meeta |
 | 10:25 - 10:35 | Coffee | |
-| 10:35 - 11:15 | [Summarize DGE workflow with DESeq2](https://hbctraining.github.io/DGE_workshop_salmon/lessons/07_DGE_summarizing_workflow.html) & [Workflow comparisons](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/slides/Workflows.pdf | Radhika |
+| 10:35 - 11:15 | [Summarize DGE workflow with DESeq2](https://hbctraining.github.io/DGE_workshop_salmon/lessons/07_DGE_summarizing_workflow.html) & [Workflow comparisons](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/slides/Workflows.pdf) | Radhika |
 | 11:15 - 12:15 | [Isoform-level differential expression using Sleuth](https://hbctraining.github.io/DGE_workshop_salmon/lessons/09_sleuth.html) | Mary |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 14:15 | [Isoform-level differential expression using Sleuth (contd.)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/09_sleuth.html) | Mary |
