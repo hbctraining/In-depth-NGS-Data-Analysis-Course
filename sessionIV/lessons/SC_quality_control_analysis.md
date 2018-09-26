@@ -75,15 +75,15 @@ Generally, all single-cell RNA-seq datasets, regardless of technology or pipelin
 
 - a file with the **gene IDs**, representing all genes quantified
 
-<img src="../img/genes.png" width="300">
+ <img src="../img/genes.png" width="300">
 
 - a file with the **cell IDs**, representing all cells quantified
 
-<img src="../img/cell_ids_new.png" width="180">
+ <img src="../img/cell_ids_new.png" width="180">
 
 - a **matrix of counts** per gene for every cell
 
-<img src="../img/cell_by_gene.png">
+ <img src="../img/cell_by_gene.png">
 
 We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg19` folder:
 
