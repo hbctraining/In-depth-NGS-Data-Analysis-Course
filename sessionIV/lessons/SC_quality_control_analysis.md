@@ -75,7 +75,7 @@ Generally, all single-cell RNA-seq datasets, regardless of technology or pipelin
 
 - a file with the **gene IDs**, representing all genes quantified
 
- <img src="../img/genes.png" width="300">
+  <img src="../img/genes.png" width="300">
 
 - a file with the **cell IDs**, representing all cells quantified
 
