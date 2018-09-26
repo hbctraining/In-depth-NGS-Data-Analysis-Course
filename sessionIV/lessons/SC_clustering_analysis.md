@@ -374,7 +374,7 @@ PrintFindClustersParams(seurat,
                         resolution = 0.8)
 ```
 
-<img src="../img/SC_print_parameters.png" width="450">
+<img src="../img/SC_print_parameters.png" width="550">
 
 Before continuing with any further identification, it can be useful to save the regressed seurat object if needed in the future.
 
@@ -460,9 +460,9 @@ map(group_by, function(metric) {
 }) %>% invisible()
 ```
 
-<img src="../img/SC_phase_tsne_pca.png" width="300">
+<img src="../img/SC_phase_tsne_pca.png" width="450">
 
-<img src="../img/SC_sample_tsne_pca.png" width="300">
+<img src="../img/SC_sample_tsne_pca.png" width="450">
 
 Next we will explore additional metrics, such as the number of UMIs and genes per cell, S-phase and G2M-phase markers, and mitochondrial gene expression by tSNE:
 
