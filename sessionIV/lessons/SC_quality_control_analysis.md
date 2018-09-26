@@ -79,7 +79,7 @@ Generally, all single-cell RNA-seq datasets, regardless of technology or pipelin
 
 - a file with the **cell IDs**, representing all cells quantified
 
-<img src="../img/cell_ids_new.png" width="200">
+<img src="../img/cell_ids_new.png" width="180">
 
 - a **matrix of counts** per gene for every cell
 
