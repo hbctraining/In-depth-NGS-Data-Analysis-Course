@@ -138,7 +138,7 @@ markers_0vs1 <- FindMarkers(object = seurat, ident.1 = 0, ident.2 = 1)
 View(markers_0vs1)
 ```
 
-<img src="../img/t-cell_markers.png" width="600">
+<img src="../img/t-cell_markers.png" width="450">
 
 When looking through the results, the most significant marker is `ENSG00000196154`, which corresponds to **S100A4**, a gene exclusively expressed by memory T cells of CD4+ or CD8+ subpopulations. Other markers listed also indicate that cluster 0 represents naive T cells, while cluster 1 represents memory T cells.
 
