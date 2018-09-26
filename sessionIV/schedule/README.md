@@ -25,9 +25,9 @@
 | 10:30 - 10:45 | Coffee | |
 | 10:45 - 12:15 | Single-cell RNA-seq analysis workflow | Dr. Ayshwarya Subramanian |
 | 12:15 - 13:15 | Lunch | |
-| 13:15 - 14:30 | [Single-cell RNA-seq - quality control](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/SC_marker_identification.html)  | Meeta |
-| 14:30 - 15:15 | Single-cell RNA-seq - clustering  | Mary |
+| 13:15 - 14:30 | [Single-cell RNA-seq - quality control](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/SC_quality_control.html)  | Meeta |
+| 14:30 - 15:15 | [Single-cell RNA-seq - clustering](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/SC_clustering_analysis.html)  | Mary |
 | 15:15 - 15:30 | Coffee | |
-| 15:30 - 16:15 | Single-cell RNA-seq - clustering (contd.)  | Mary |
-| 16:15 - 17:00 | Single-cell RNA-seq - marker identification | Radhika |
+| 15:30 - 16:15 | [Single-cell RNA-seq - clustering (contd.)](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/SC_clustering_analysis.html)  | Mary |
+| 16:15 - 17:00 | [Single-cell RNA-seq - marker identification](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/SC_marker_identification.html) | Radhika |
 
