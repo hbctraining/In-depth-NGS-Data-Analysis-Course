@@ -429,7 +429,7 @@ In addition, we can get the same metrics to view by PCA:
 
 ```r
 # Getting coordinates for cells to use for PCA and associated grouping variable information
-class_pca_data = FetchData(seurat, vars.all = c("ident", "PC1", "PC2", group_by))
+class_pca_data <- FetchData(seurat, vars.all = c("ident", "PC1", "PC2", group_by))
 
 # Adding cluster label to center of cluster on PCA
 pca_label <- FetchData(seurat, vars.all = c("ident", "PC1", "PC2"))  %>% 
