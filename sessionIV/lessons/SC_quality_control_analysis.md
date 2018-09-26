@@ -161,7 +161,7 @@ metadata$sample <- "pbmcs"
 
 Your final metadata table will have rows that correspond to each cell, and columns with information about those cells:
 
-<img src="../img/metadata_scrnaseq.png" width="650">
+<img src="../img/metadata_scrnaseq.png" width="750">
 
 
 ## Creating annotations file to generate additional QC metrics
