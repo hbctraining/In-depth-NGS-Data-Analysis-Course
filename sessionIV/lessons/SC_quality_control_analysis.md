@@ -37,7 +37,9 @@ Finally, create an Rscript and type the following note:
 # Single-cell RNA-seq analysis with Seurat - QC
 ```
 
-Save the Rscript as `quality_control.R`. 
+Save the Rscript as `quality_control.R`. Your working directory shoudl look something like this:
+
+<img src="../img/Rstudio_singlecell.png" width="500">
 
 Now, we can load the necessary libraries:
 
