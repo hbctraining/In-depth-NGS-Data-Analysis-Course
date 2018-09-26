@@ -32,6 +32,7 @@ To identify clusters, the following steps will be performed:
 To perform this analysis, we will be mainly using functions available in the Seurat package. Therefore, we need to load the Seurat library in addition to the tidyverse library. Create the script `clustering_analysis.R` and load the libraries:
 
 ```r
+# Load libraries
 library(Seurat)
 library(tidyverse)
 ```
@@ -40,6 +41,7 @@ To perform the analysis, Seurat requires the data to be present as a `seurat` ob
 To access the counts from our SingleCellExperiment, we can use the `counts()` function:
 
 ```r
+# Create Seurat object from filtered SingleCellExperiment object
 seurat_raw <- CreateSeuratObject(raw.data = counts(se_c),
                                  meta.data = colData(se_c) %>% data.frame())
 ```
