@@ -73,17 +73,17 @@ Throughout the analysis workflow post-QC, we will rely heavily on the Seurat pac
 
 Generally, all single-cell RNA-seq datasets, regardless of technology or pipeline, will contain three files:
 
-- a file with the gene IDs, representing all genes quantified
+- a file with the **gene IDs**, representing all genes quantified
 
-<img src="../img/genes.png" width="200">
+<img src="../img/genes.png" width="300">
 
-- a file with the cell IDs, representing all cells quantified
+- a file with the **cell IDs**, representing all cells quantified
 
-<img src="../img/barcodes.png" width="150">
+<img src="../img/barcodes.png" width="250">
 
-- a matrix of counts per gene for every cell
+- a **matrix of counts** per gene for every cell
 
-<img src="../img/cell_by_gene.png" width="650">
+<img src="../img/cell_by_gene.png" width="800">
 
 We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg19` folder:
 
@@ -260,7 +260,7 @@ metadata$mitoRatio <- metadata$mtUMI/metadata$nUMI
 
 Now you are **all setup with the metrics you need to assess the quality of your data**! Your final metadata table will have rows that correspond to each cell, and columns with information about those cells:
 
-<img src="../img/metadata_scrnaseq.png" width="750">
+<img src="../img/metadata_scrnaseq.png" width="900">
 
 
 ## Initial filtering
