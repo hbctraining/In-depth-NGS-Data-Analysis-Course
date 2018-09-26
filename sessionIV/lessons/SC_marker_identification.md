@@ -175,7 +175,7 @@ TSNEPlot(object = seurat,
          pt.size = 0.5)
 ```
 
-<img src="../img/tSNE-labelled2.png" width="600">
+<img src="../img/tSNE-labelled3.png" width="600">
 
 ***
 
