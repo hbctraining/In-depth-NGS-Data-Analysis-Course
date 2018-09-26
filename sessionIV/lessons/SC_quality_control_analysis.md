@@ -14,18 +14,24 @@ Approximate time: 90 minutes
 
 ## Dataset
 
-The dataset we will be working with is comprised of 2,700  Peripheral Blood Mononuclear Cells (PBMC) sequenced on  the Illumina NextSeq 500. This dataset is freely available from 10X Genomics and is used as part of the [Seurat tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html). 
+The dataset we will be working with is comprised of 2,700  Peripheral Blood Mononuclear Cells (PBMC) taken from a healthy donr, sequenced on  the Illumina NextSeq 500. This dataset is freely available from 10X Genomics and is used as part of the [Seurat tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html). 
 
-We are going to go through the analysis workflow for quality control through marker identification; however, this dataset has already been filtered for poor quality cells. Therefore, don't be surprised if any data from the sequencing facility looks a bit worse for the metrics we will be exploring.
+We are going to go through the analysis workflow for quality control through marker identification; however, **this dataset has already been filtered for poor quality cells**. Therefore, don't be surprised if any data from the sequencing facility looks a bit worse for the metrics we will be exploring.
 
 
 ## Setting up the R environment
 
 Before we can start our analysis, we need to make sure we have an organized directory structure. Create a new R project entitled `single_cell_rnaseq`. Then, create the following directories:
 
-- data
-- results
-- figures
+```
+single_cell_rnaseq/
+├── data
+├── results
+└── figures
+
+```
+
+### Download data
 
 **Right-click** the link [here](https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz) and download the data into the `data` folder.
 
@@ -37,9 +43,12 @@ Finally, create an Rscript and type the following note:
 # Single-cell RNA-seq analysis with Seurat - QC
 ```
 
-Save the Rscript as `quality_control.R`. Your working directory shoudl look something like this:
+Save the Rscript as `quality_control.R`. Your working directory should look something like this:
 
 <img src="../img/Rstudio_singlecell.png" width="500">
+
+
+### Loading libraries 
 
 Now, we can load the necessary libraries:
 
@@ -58,7 +67,7 @@ library(scales)
 
 ## Creating quality metrics for assessment
 
-Throughout the analysis workflow, we will rely heavily on the Seurat package; however, **Seurat has few functions to explore the QC in depth**. Therefore, we will be extracting the data from the Seurat object to perform our own assessment.
+Throughout the analysis workflow post-QC, we will rely heavily on the Seurat package; however, **Seurat has few functions to explore the QC in depth**. Therefore, we will be extracting the data from the Seurat object to perform our own quality assessment.
 
 ### Creating count data object
 
@@ -66,7 +75,12 @@ Generally, all single-cell RNA-seq datasets, regardless of technology or pipelin
 
 - a matrix of counts per gene for every cell
 - a file with the gene IDs, representing all genes quantified
+
+<img src="../img/genes_tsv.png", width="400">
+
 - a file with the cell IDs, representing all cells quantified
+
+<img src="../img/barcodes_tsv.png", width="400">
 
 We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg19` folder:
 
