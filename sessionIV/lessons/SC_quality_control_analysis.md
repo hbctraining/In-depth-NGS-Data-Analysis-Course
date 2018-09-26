@@ -159,6 +159,11 @@ and the sample names. However, with this dataset we only have a single sample.
 metadata$sample <- "pbmcs"
 ```
 
+Your final metadata table will have rows that correspond to each cell, and columns with information about those cells:
+
+<img src="../img/metadata_scrnaseq.png" width="500">
+
+
 ## Creating annotations file to generate additional QC metrics
 
 We will be using [AnnotationHub](https://bioconductor.org/packages/release/bioc/vignettes/AnnotationHub/inst/doc/AnnotationHub.html), which allows accession to a wide variety of online databases and other resources, to query Ensembl annotations made available through [ensembldb](https://bioconductor.org/packages/release/bioc/vignettes/ensembldb/inst/doc/ensembldb.html). Ensembldb is a package that retrieves annotation for the databases directly from the Ensembl Perl API.
