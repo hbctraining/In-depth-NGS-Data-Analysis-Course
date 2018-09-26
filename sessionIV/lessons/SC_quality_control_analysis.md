@@ -272,10 +272,10 @@ Prior to assessing our metrics, we are going to perform a very minimal filtering
 idx <- which(metadata$nUMI > 100)
 
 # Extract the counts for those cells
-counts_c = counts[, idx]
+counts_c <- counts[, idx]
 
 # Extract the metadata for those cells
-metadata_c = metadata[idx,]
+metadata_c <- metadata[idx,]
 ```
 
 ## Saving metrics to single cell experiment 
