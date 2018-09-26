@@ -57,9 +57,7 @@ seurat_raw <- CreateSeuratObject(raw.data = counts(se_c),
 >                                    cells.use = rownames(seurat_raw@meta.data[which(seurat_raw@meta.data$interestingGroups == "control"), ])
 >```
 
-## Clustering analysis
-
-### Normalizing counts, finding variable genes, and scaling the data
+## Normalizing counts, finding variable genes, and scaling the data
 
 The first step in the analysis is to normalize the raw counts to account for differences in sequencing depth per cell. The raw counts are normalized using global-scaling normalization with the `NormalizeData()` function, which performs the following:
 
@@ -119,7 +117,7 @@ pre_regressed_seurat <- pre_regressed_seurat %>%
                         ScaleData(model.use = "linear")
 ```
 
-### Examining sources of variation in the data
+## Examining sources of variation in the data
 
 Your single-cell dataset likely contains "uninteresting" sources of variation. This can include technical noise, batch effects, and/or uncontrolled biological variation (e.g. cell cycle). Similar to bulk RNA-seq analysis, we can use PCA to identify these sources of variation, which can then be regressed out prior to further analysis.
 
