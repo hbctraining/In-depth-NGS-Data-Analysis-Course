@@ -132,18 +132,27 @@ These results and plots can help us determine the identity of these clusters or 
 Sometimes the list of markers returned don't sufficiently separate some of the clusters. For instance, we had previously identified clusters 0 and 1 , if we would like to determine the genes that are differentially expressed between these specific clusters, we can use the `FindMarkers()` function. 
 
 ```r
+# Determine differentiating markers for CD4 T cell clusters 0 versus 1
 markers_0vs1 <- FindMarkers(object = seurat, ident.1 = 0, ident.2 = 1)
+
+View(markers_0vs1)
 ```
+
+<img src="../img/t-cell_markers.png" width="600">
+
+When looking through the results, the most significant marker is `ENSG00000196154`, which corresponds to **S100A4**, a gene exclusively expressed by memory T cells of CD4+ or CD8+ subpopulations. Other markers listed also indicate that cluster 0 represents naive T cells, while cluster 1 represents memory T cells.
+
+While we are not going to explore these genes in more depth, you would probably want to explore the expression of these genes in more depth visually using feature plots and violin plots.
 
 Now taking all of this information, we can surmise the cell types of the different clusters. Some of the canonical markers for the different cell types were found to be differentially expressed for certain clusters as detailed below.
 
 | Cluster ID	| Markers	| Cell Type |
 |:-----:|:-----:|:-----:|
-|0	|IL7R	|CD4 T cells|
-|1	|IL7R	|CD4 T cells|
+|0	|IL7R	|CD4+ Naive T cells|
+|1	|IL7R	|CD4+ Memory T cells|
 |2	|CD14, LYZ	|CD14+ Monocytes|
 |3	|MS4A1	|B cells|
-|4	|CD8A	|CD8 T cells|
+|4	|CD8A	|CD8+ T cells|
 |5	|FCGR3A, MS4A7	|FCGR3A+ Monocytes|
 |6	|GNLY, NKG7	|NK cells|
 
@@ -154,7 +163,7 @@ We can then reassign the identity of the clusters to these cell types:
 current_cluster_ids <- c(0, 1, 2, 3, 4, 5, 6)
 
 # List of new cluster IDs
-new_cluster_ids <- c("CD4 T cells", "CD4 T cells", "CD14+ Monocytes", "B cells", "CD8 T cells", "FCGR3A+ Monocytes", "NK cells")
+new_cluster_ids <- c("CD4+ Naive T cells", "CD4+ Memory T cells", "CD14+ Monocytes", "B cells", "CD8+ T cells", "FCGR3A+ Monocytes", "NK cells")
 
 # Changing IDs to cell type
 seurat@ident <- plyr::mapvalues(x = seurat@ident, 
