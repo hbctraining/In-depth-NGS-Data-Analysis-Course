@@ -78,7 +78,7 @@ gen_marker_table <- function(x){
 # Create a data frame of results for clusters 0-6
 top10_markers <- map_dfr(0:6, gen_marker_table)
 
-# View(top10_markers)
+View(top10_markers)
 ```
 
 We can write these results to file as well:
