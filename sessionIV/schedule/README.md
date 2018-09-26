@@ -5,16 +5,16 @@
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
 | 09:00 - 09:45 | Homework review | Mary |
-| 09:45 - 10:25 | DGE with the LRT method | Meeta |
+| 09:45 - 10:25 | [DGE with the LRT method](https://hbctraining.github.io/DGE_workshop_salmon/lessons/08_DGE_LRT.html) | Meeta |
 | 10:25 - 10:35 | Coffee | |
-| 10:35 - 11:15 | Summarize DGE workflow with DESeq2 & Workflow comparisons | Radhika |
-| 11:15 - 12:15 | Isoform-level differential expression using Sleuth | Mary |
+| 10:35 - 11:15 | [Summarize DGE workflow with DESeq2](https://hbctraining.github.io/DGE_workshop_salmon/lessons/07_DGE_summarizing_workflow.html) & [Workflow comparisons](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/slides/Workflows.pdf | Radhika |
+| 11:15 - 12:15 | [Isoform-level differential expression using Sleuth](https://hbctraining.github.io/DGE_workshop_salmon/lessons/09_sleuth.html) | Mary |
 | 12:15 - 13:15 | Lunch | |
-| 13:15 - 14:15 | Isoform-level differential expression using Sleuth (contd.) | Mary |
-| 14:15 - 15:00 | bcbio-nextgen RNA-seq | Meeta |
+| 13:15 - 14:15 | [Isoform-level differential expression using Sleuth (contd.)](https://hbctraining.github.io/DGE_workshop_salmon/lessons/09_sleuth.html) | Mary |
+| 14:15 - 15:00 | [bcbio-nextgen RNA-seq](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/bcbio_nextgen.html) | Meeta |
 | 15:00 - 15:15 | Coffee |  |
-| 15:15 - 16:00 | bcbio-nextgen RNA-seq (contd.) | Meeta |
-| 16:00 - 16:10 | Other applications of RNA sequencing  | Radhika |
+| 15:15 - 16:00 | [bcbio-nextgen RNA-seq (contd.)](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/bcbio_nextgen.html) | Meeta |
+| 16:00 - 16:10 | [Other applications of RNA sequencing](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/slides/other%20rnaseq%20applications.pdf) | Radhika |
 | 16:10 - 17:00 | Small RNA-seq analysis | Dr. Lorena Pantano |
 
 ## Day2
