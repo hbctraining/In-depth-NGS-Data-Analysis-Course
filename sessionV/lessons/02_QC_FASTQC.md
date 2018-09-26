@@ -10,8 +10,6 @@ Approximate time: 55 minutes
 
 ## Learning Objectives
 
-* Become familiar with the Illumina sequencing technology
-* Understanding how to use modules in the cluster environment
 * Evaluate the quality of your sequencing data using FastQC
 
 ## Quality control of sequence reads
