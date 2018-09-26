@@ -1,5 +1,5 @@
 ---
-title: "ChIP-Seq Quality Assessment"
+title: "ChIP-seq Quality Assessment"
 author: "Mary Piper, Meeta Mistry"
 date: "June 12, 2017"
 ---
@@ -10,10 +10,9 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
-* Discuss other quality metrics for evaluating ChIP-Seq data
+* Discuss other quality metrics for evaluating ChIP-seq data
 * Generate a report containing quality metrics using `ChIPQC`
 * Identify sources of low quality data
-
 
 
 ## Additional Quality Metrics for ChIP-seq data
@@ -81,14 +80,14 @@ biocLite("ChIPQC")
 
 Now let's move over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
 
-1. Move over the **BAM files (`chr12_aln.bam`)** and the corresponding **indices (`chr12_aln.bam.bai`)** from `~/ngs_course/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
+1. Move over the **BAM files (`_aln.bam`)** and the corresponding **indices (`_aln.bam.bai`)** from `~/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
 
 > *NOTE*: Do not copy over the input file that we initially ran QC and alignment on (i.e `H1hesc_Input_Rep1_chr12_aln_sorted.bam`). Only the files you had copied over to your home directory is what you need.
 
 
-2. Move over the **narrowPeak files (`.narrowPeak`)** `~/ngs_course/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
+2. Move over the **narrowPeak files (`.narrowPeak`)** `~/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
 
-3. Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
+3. Download the sample data sheet available from [this link](https://github.com/hbctraining/Intro-to-ChIPseq/raw/master/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
 
 
 ### Running `ChIPQC` 
@@ -133,13 +132,13 @@ ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolde
 
 ```
 
-If you were unable to run the code successfully you can take a look an example report found [here](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport/ChIP%20QC%20report%3A%20Nanog%20and%20Pou5f1.html).
+If you were unable to run the code successfully you can take a look an example report found [here]().
 
 
 ### `ChIPQC` report
 
 
-Since our report is based only on a small suubset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** [Open up the report](https://u35207958.dl.dropboxusercontent.com/u/35207958/chipseq-devel/ChIPQCreport-full/ChIP%20QC%20report%20full%3A%20Nanog%20and%20Pou5f1.html) in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
 Let's start with the **QC summary table**:
 

@@ -10,9 +10,9 @@ Approximate time: 90 minutes
 
 ## Learning Objectives
 
-* Learning how to use the DiffBind workflow to assess differential binding between two sample classes
-* Assessing relationship between samples using PCA
-* Evaluating consensus diff peaks between two different tools
+* Learn how to use the DiffBind workflow to assess differential binding between two sample classes
+* Assess the relationship between samples using PCA
+* Evaluate results from different tools
 
 
 ## Tools for evaluating differential peak enrichment
@@ -48,6 +48,9 @@ DiffBind is an R package that is used for identifying sites that are differentia
 
 ### Setting up
 
+> **NOTE:** In order for you to follow this lesson you will need to have all of the required input files. The instructions for this can be found in the "Setting up" section of the [ChIPQC using R lesson](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/QC_quality_metrics_R.html). **Please run through this before proceeding.**
+
+
 1. Open up RStudio and open up the `chipseq-project` that we created previously.
 2. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `diffbind.R`
 
@@ -65,7 +68,7 @@ library(DiffBind)
 The first step is to **read in a set of peaksets and associated metadata**. This is done using the sample sheet. Once the peaksets are read in, a merging function finds all overlapping peaks and derives a single set of unique genomic intervals covering all the supplied peaks (a consensus peakset for the experiment). *A region is considered for the **consensus set** if it appears in more than two of the samples.* This consensus set represents the overall set of candidate binding sites to be used in further analysis.
 
 ```
-samples <- read.csv('diffBind/samples_chr12_DiffBind.csv')
+samples <- read.csv('meta/samplesheet_chr12.csv')
 dbObj <- dba(sampleSheet=samples)
 
 ```

@@ -11,7 +11,7 @@ Approximate time: 60 minutes
 ## Learning Objectives
 
 * Learn how to perform coordinate-based analysis using *bedtools*
-* Explore ChIP-Seq data in IGV
+* Explore ChIP-seq data in IGV
 
 
 ## How much overlap exists between SPP and MACS2?
@@ -105,9 +105,9 @@ How many overlapping peaks did we get?
 
 ### Getting set up for IGV 
 
-Once you generate your overlapping peaks from ChIP-Seq data, you might want to visualize it in a genome browser like IGV. In addition to peak calls, it is useful to look at the BAM files (IP and input) that were used to generate the peaks.
+Once you generate your overlapping peaks from ChIP-seq data, you might want to visualize it in a genome browser like IGV. In addition to peak calls, it is useful to look at the BAM files (IP and input) that were used to generate the peaks.
 
-Use FileZilla to transfer the following files to a new directory on your computer called `ChIP-Seq_visualization`:
+Use FileZilla to transfer the following files to a new directory on your computer called `ChIP-seq_visualization`:
 
 * `bowtie2/H1hesc_Input_Rep1_chr12_aln.bam` and `bowtie2/H1hesc_Input_Rep1_chr12_aln.bam.bai`
 

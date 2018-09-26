@@ -1,6 +1,6 @@
 ## Quality assessment using `deepTools`
 
-Another way in which we can assess the quality of our samples is by investigating the read coverages for each sample and determine the variability in coverage per sample group. Replicate samples that vary greatly in where the reads stack up is indicative of a weak ChIP-Seq experiment. In addition, we can identify outlier samples or batch effects.
+Another way in which we can assess the quality of our samples is by investigating the read coverages for each sample and determine the variability in coverage per sample group. Replicate samples that vary greatly in where the reads stack up is indicative of a weak ChIP-seq experiment. In addition, we can identify outlier samples or batch effects.
 
 To evaluate read coverage we will be using the [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), a suite of python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. `deepTools` has a wide variety of tools that go beyond those that are covered in this lesson. We encourage you to look through the docuementation and explore on your own time.
 
