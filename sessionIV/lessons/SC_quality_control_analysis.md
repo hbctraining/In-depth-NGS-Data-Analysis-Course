@@ -83,7 +83,7 @@ Generally, all single-cell RNA-seq datasets, regardless of technology or pipelin
 
 - a **matrix of counts** per gene for every cell
 
-<img src="../img/cell_by_gene.png" width="800">
+<img src="../img/cell_by_gene.png">
 
 We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg19` folder:
 
