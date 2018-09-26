@@ -239,7 +239,7 @@ PrintPCA(object = seurat,
          use.full = FALSE)
 ```
 
-<img src="../img/SC_printpca.png" width="350">
+<img src="../img/SC_printpca.png" width="450">
 
 We can also explore the expression of the top most variant genes for select PCs using the `PCHeatmap()` function. The genes and cells are ordered by PC scores:
 
