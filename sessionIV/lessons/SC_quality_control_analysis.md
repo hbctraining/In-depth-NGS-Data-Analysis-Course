@@ -65,7 +65,7 @@ library(ggplot2)
 library(scales)
 ```
 
-## Creating quality metrics for assessment
+## Obtaining quality metrics for assessment
 
 Throughout the analysis workflow post-QC, we will rely heavily on the Seurat package; however, **Seurat has few functions to explore the QC in depth**. Therefore, we will be extracting the data from the Seurat object to perform our own quality assessment.
 
@@ -120,7 +120,7 @@ rownames(counts) <- gene_ids
 colnames(counts) <- cell_ids
 ```
 
-### Creating metadata object with QC metrics
+### Creating metadata object with some QC metrics
 
 Now that we have a counts matrix with the genes as row names and cells as columns, we can create our metadata with information about the different metrics to evaluate during quality control assessment.
 
@@ -159,12 +159,7 @@ and the sample names. However, with this dataset we only have a single sample.
 metadata$sample <- "pbmcs"
 ```
 
-Your final metadata table will have rows that correspond to each cell, and columns with information about those cells:
-
-<img src="../img/metadata_scrnaseq.png" width="750">
-
-
-## Creating annotations file to generate additional QC metrics
+## Using annotations file to generate additional QC metrics
 
 We will be using [AnnotationHub](https://bioconductor.org/packages/release/bioc/vignettes/AnnotationHub/inst/doc/AnnotationHub.html), which allows accession to a wide variety of online databases and other resources, to query Ensembl annotations made available through [ensembldb](https://bioconductor.org/packages/release/bioc/vignettes/ensembldb/inst/doc/ensembldb.html). Ensembldb is a package that retrieves annotation for the databases directly from the Ensembl Perl API.
 
@@ -262,6 +257,11 @@ metadata$mtUMI[is.na(metadata$mtUMI)] <- 0
 # Calculate of mitoRatio per cell
 metadata$mitoRatio <- metadata$mtUMI/metadata$nUMI
 ```
+
+Now you are **all setup with the metrics you need to assess the quality of your data**! Your final metadata table will have rows that correspond to each cell, and columns with information about those cells:
+
+<img src="../img/metadata_scrnaseq.png" width="750">
+
 
 ## Initial filtering
 
