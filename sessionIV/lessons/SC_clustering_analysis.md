@@ -8,10 +8,11 @@ Approximate time: 90 minutes
 
 ## Learning Objectives:
 
-* Understand how to determine most variable genes
-* Identify the significant PCs to use for clustering
+* Understand how to determine the most variable genes for the gene expression
+* Utilize methods for evaluating the selection of PCs to use for clustering
 * Perform clustering of cells based on significant PCs
-* Evaluate whether artifacts are present and quality of clustering with PCA and tSNE plots
+* Evaluate whether clustering artifacts are present 
+* Determine the quality of clustering with PCA and tSNE plots and understand when to re-cluster
 
 # Single-cell RNA-seq clustering analysis
 
