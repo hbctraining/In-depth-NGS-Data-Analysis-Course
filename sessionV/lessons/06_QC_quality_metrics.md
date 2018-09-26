@@ -1,5 +1,5 @@
 ---
-title: "ChIP-seq Quality Assessment: Cross-correlation"
+title: "ChIP Quality Assessment Metrics"
 authors: "Mary Piper and Meeta Mistry"
 date: "March 17, 2018"
 ---
