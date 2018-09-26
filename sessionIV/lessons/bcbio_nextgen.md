@@ -234,7 +234,7 @@ Open up a script file using `vim` and create your job script:
 #SBATCH -e mov10_project.err
 #SBATCH -o mov10_project.out
 
-/n/app/bcbio/dev/anaconda/bin/bcbio_nextgen.py ../config/mov10_project.yaml -n 12 -t ipython -s slurm -q medium -r t=0-100:00  --timeout 300 --retries 3
+bcbio_nextgen.py ../config/mov10_project.yaml -n 12 -t ipython -s slurm -q medium -r t=0-100:00  --timeout 300 --retries 3
 ```
 
 Once you are done, save and close. From within the `work` directory you can now submit the job:
