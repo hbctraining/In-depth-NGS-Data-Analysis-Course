@@ -14,7 +14,7 @@ Approximate time: 60 minutes
 
 ## ChIP-seq quality assessment
 
-Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-seq data. What we are looking for is good	quality	ChIP-seq enrichment over background.
+Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-seq data. What we are looking for is good quality ChIP enrichment over background.
 
 <img src="../img/chip_workflow_june2017_step3.png" width="700">
 
@@ -34,11 +34,13 @@ The + strand of DNA is sequenced from the 5' end, generating the red reads in th
 
 Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yield maximum correlation between the two peaks**, which **should** correspond to the predominant **fragment length**. We can calculate the shift yielding the maximum correlation using the **cross-correlation metric**.
 
-<img src="../img/model_shift.png" width ="300">
+**REPLACE THIS BIMODAL FIGURE**
 
-### Cross-correlation metric
+### Computing Cross-Correlation Scores
 
 The cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand, after shifting minus strand by k base pairs.** Using a small genomic window as an example, let's walk through the details of the cross-correlation below.
+
+**REPLACE ALL OF THESE FIGURES**
 
 <img src="../img/cc1.png" width ="500">
 
@@ -54,7 +56,7 @@ We can then **plot cross-correlation values (y-axis) against the shift value (x-
 
 The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak).
 
-### Cross-correlation plot examples
+### Examples of Cross-Correlation Plots
 
 **Strong signal**
 
@@ -75,7 +77,7 @@ A failed experiment will resemble a cross-correlation plot using **input only**,
 <img src="../img/input.png" width="300"> 
 
 
-### Cross-correlation quality metrics
+### Quality Metrics Based on Cross-Correlation
 
 Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-seq data. These metrics are described in more detail below:
 
