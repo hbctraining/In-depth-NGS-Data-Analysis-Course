@@ -1,3 +1,16 @@
+---
+title: "Single-cell RNA-seq: Marker identification"
+author: "Mary Piper, Lorena Pantano, Meeta Mistry, Radhika Khetani"
+date: Tuesday, September 25, 2018
+---
+
+Approximate time: 45 minutes
+
+## Learning Objectives:
+
+* Understand how to determine markers of individual clusters
+* Understand the iterative processes of clustering and marker identification
+
 # Single-cell RNA-seq marker identification
 
 Now that we have the single cells clustered based on different cell types,  we are ready to move forward with identifying cluster markers. 
