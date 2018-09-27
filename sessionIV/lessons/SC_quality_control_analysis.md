@@ -12,6 +12,10 @@ Approximate time: 90 minutes
 * Construct QC metrics to explore visually
 * Evaluate the QC metrics to filter out low quality cells
 
+# Single-cell RNA-seq: Quality control
+
+<img src="../img/sc_workflow.png" width="800">
+
 ## Dataset
 
 The dataset we will be working with is comprised of 2,700  Peripheral Blood Mononuclear Cells (PBMC) taken from a healthy donr, sequenced on  the Illumina NextSeq 500. This dataset is freely available from 10X Genomics and is used as part of the [Seurat tutorial](https://satijalab.org/seurat/pbmc3k_tutorial.html). 
