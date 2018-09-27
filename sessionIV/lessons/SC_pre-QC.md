@@ -18,7 +18,7 @@ The scRNA-seq method-specific steps are required for the generation of the count
 
 We are going to start by discussing the first part of this workflow: generating the count matrix from the raw sequencing data.
 
-<img src="../img/sc_gen_matrix_workflow.png" width="600">
+<img src="../img/sc_gen_matrix_workflow.png" width="200">
 
 The sequencing facility will either output the raw sequencing data as BCL format or FASTQ. If the reads are in BCL format, then we will need to convert into FASTQ format. There is a useful tool on O2 called `bcl2fastq` that can easily perform this conversion. We do not demultiplex at this step in the workflow. You may have sequenced 6 samples, but the reads for all samples may be present all in the same BCL or FASTQ file.
 
