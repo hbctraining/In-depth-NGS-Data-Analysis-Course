@@ -22,13 +22,13 @@ The analysis workflow for scRNA-seq is generally similar for the differing scRNA
 
 <img src="../img/sc_seq_method.png" width="600">
 
-*Image credit: Sarah Boswell, Director of the Single Cell Sequencing Core at HMS*
+*Image credit: [Sarah Boswell](https://scholar.harvard.edu/saboswell), Director of the Single Cell Sequencing Core at HMS*
 
 While the 10X sequence reads have the UMI and barcodes placed differently:
 
 <img src="../img/10_seq_method.png" width="600">
 
-*Image credit: Sarah Boswell, Director of the Single Cell Sequencing Core at HMS*
+*Image credit: [Sarah Boswell](https://scholar.harvard.edu/saboswell), Director of the Single Cell Sequencing Core at HMS*
 
 The scRNA-seq method will determine the how to parse the barcodes and UMIs from the sequencing reads. So, although a few of the specific steps will slightly differ, the overall workflow will generally follow the same steps regardless of method. The general workflow is shown below:
 
