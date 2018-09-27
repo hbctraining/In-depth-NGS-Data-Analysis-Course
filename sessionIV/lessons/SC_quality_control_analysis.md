@@ -71,25 +71,26 @@ Throughout the analysis workflow post-QC, we will rely heavily on the Seurat pac
 
 ### Creating count data object
 
-Generally, all single-cell RNA-seq datasets, regardless of technology or pipeline, will contain three files:
+Generally, all single-cell RNA-seq datasets, regardless of technology or pipeline, will contain **three files**:
 
-- a file with the **gene IDs**, representing all genes quantified
+1. a file with the **gene IDs**, representing all genes quantified
+2. a file with the **cell IDs**, representing all cells quantified
+3. a **matrix of counts** per gene for every cell
 
-  <img src="../img/genes.png" width="300">
-
-- a file with the **cell IDs**, representing all cells quantified
-
-  <img src="../img/cell_ids_new.png" width="180">
-
-- a **matrix of counts** per gene for every cell
-
-  <img src="../img/cell_by_gene.png">
 
 We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg19` folder:
 
 - **`barcodes.tsv`:** cellular barcodes present in dataset
+
+  <img src="../img/genes.png" width="300">
+  
 - **`genes.tsv`:** IDs of quantified genes
+
+  <img src="../img/cell_ids_new.png" width="180">
+
 - **`matrix.mtx`:** counts assigned to each gene for each single cell
+
+  <img src="../img/sparse_matrix.png">
 
 Let's read these files into R to generate our quality metrics.
 
