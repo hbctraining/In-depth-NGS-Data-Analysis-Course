@@ -50,12 +50,16 @@ The generation of the count matrix from the raw sequencing data will go through 
 sequencing of end tags of transcript, and incorporate molecular tags to
 correct for amplification bias.' The steps in this process include the following:
 
- 1. Formatting reads and filtering noisy cellular barcodes
- 2. Pseudo-mapping to cDNAs
- 3. Counting molecular identifiers
- 4. Demultiplexing the samples
+ 1. Demultiplexing the samples
+ 2. Formatting reads and filtering noisy cellular barcodes
+ 3. Pseudo-mapping to cDNAs
+ 4. Counting molecular identifiers 
 
-## 1. Formatting reads and filtering noisy cellular barcodes
+## 1. Demultiplexing sample reads
+
+The first step of the process is to demultiplex the samples, if sequencing more than a single sample. This is the one step of this process not handled by the 'umis' tools. We would need to parse the reads to determine the sample barcode associated with each cell.
+
+## 2. Formatting reads and filtering noisy cellular barcodes
 
 The FASTQ files can then be used to parse out the cell barcodes, UMIs, and sample barcodes. Many of the cellular barcodes will match a low number of reads (< 1000 reads) due to encapsulation of free floating RNA from dying cells, small cells, or set of cells that failed for some reason. These excess barcodes need to be filtered out of the sequence data prior to read alignment.
 
@@ -72,12 +76,12 @@ Barcode. To later be able to extract the optional CB and the MB these are put in
 will be barcodes that don't come from a set of known barcodes.' Unknown
 barcodes will be dropped, with an argument to specify the number of mismatches acceptable. 
 
-## 2. Pseudo-mapping to cDNAs
+## 3. Pseudo-mapping to cDNAs
 
 'This is done by pseudo-aligners, either Kallisto or RapMap. The SAM (or BAM) file output
 from these tools need to be saved.'
 
-## 3. Counting molecular identifiers
+## 4. Counting molecular identifiers
 
 'The final step is to infer which cDNA was the origin of the tag a UMI was
 attached to. We use the pseudo-alignments to the cDNAs, and consider a tag
@@ -89,9 +93,7 @@ At this point of the workflow, the duplicate UMIs will be collapsed for the coun
 
 <img src="../img/sc_collapsing_umis.png" width="400">
 
-## 4. Demultiplexing sample reads
-
-The last step of the process is to demultiplex the samples, if sequencing more than a single sample. This is the one step of this process not handled by the 'umis' tools. After demultiplexing, we are ready to explore our data for quality information.
+Now we have our count matrix containing the counts per gene for each cell, which we can use to explore our data for quality information.
 
 ***
 
