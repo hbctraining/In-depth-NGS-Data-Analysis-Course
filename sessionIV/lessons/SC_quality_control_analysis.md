@@ -548,5 +548,8 @@ metrics_clean %>%
 
 <img src="../img/novelty_filtered.png" width="350">
 
+> ### Evaluating QC in another dataset
+> It can be hard to get an idea of quality steps with this data since for the most part the data appears to be pretty good quality. To get an idea of how the QC might look if we had more than one sample and non-perfect data, we have [this HTML](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionIV/lessons/QC_report.html) linked for you . to look through.
+
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
