@@ -32,7 +32,7 @@ The results table output contains the following columns:
 ```
 View(all_markers)
 ```
-<img src="../img/all_markers1.png" width="650">
+<img src="../img/all_markers1.png" width="750">
 
 ## Interpretation of the marker results
 
@@ -50,7 +50,7 @@ all_markers <- left_join(all_markers,
 
 View(all_markers)                         
 ```
-<img src="../img/all_markers2.png" width="650">
+<img src="../img/all_markers2.png" width="750">
 
 After the merge, the order of the columns is not as intuitive, so we will reorder the columns to make the results table more readable.
 
@@ -60,7 +60,7 @@ all_markers <- all_markers[, c(6:8, 1:5, 9:10)]
 
 View(all_markers)
 ```
-<img src="../img/all_markers3.png" width="650">
+<img src="../img/all_markers3.png" width="750">
 
 Usually, we would want to save all of the identified markers to file.
 
@@ -83,7 +83,7 @@ top10_markers <- map_dfr(0:6, gen_marker_table)
 
 View(top10_markers)
 ```
-<img src="../img/all_markers4.png" width="650">
+<img src="../img/all_markers4.png" width="750">
 
 We can write these results to file as well:
 
@@ -154,7 +154,7 @@ markers_0vs1 <- left_join(markers_0vs1,
 View(markers_0vs1)
 ```
 
-<img src="../img/t-cell_markers2.png" width="650">
+<img src="../img/t-cell_markers2.png" width="750">
 
 When looking through the results, the most significant marker is `ENSG00000196154`, which corresponds to **S100A4**, a gene exclusively expressed by memory T cells of CD4+ or CD8+ subpopulations. Other markers listed also indicate that cluster 0 represents naive T cells, while cluster 1 represents memory T cells.
 
