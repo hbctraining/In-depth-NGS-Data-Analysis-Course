@@ -22,6 +22,8 @@ The analysis workflow for scRNA-seq is generally similar for the differing scRNA
 
 <img src="../img/sc_seq_method.png" width="600">
 
+*Image credit: Sarah Boswell, Harvard Staff Scientist for Sequencing Technologies*
+
 While the 10X sequence reads have the UMI and barcodes placed differently:
 
 <img src="../img/10_seq_method.png" width="600">
