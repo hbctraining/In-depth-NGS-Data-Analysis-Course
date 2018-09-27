@@ -22,9 +22,47 @@ We are going to start by discussing the first part of this workflow: generating 
 
 The sequencing facility will either output the raw sequencing data as BCL format or FASTQ. If the reads are in BCL format, then we will need to convert into FASTQ format. There is a useful tool on O2 called `bcl2fastq` that can easily perform this conversion. We do not demultiplex at this step in the workflow. You may have sequenced 6 samples, but the reads for all samples may be present all in the same BCL or FASTQ file.
 
+The generation of the count matrix from the raw sequencing data will go through the following steps for many of the scRNA-seq methods. 
+
 <sc_pre-QC_workflow.png>
 
-The generation of the count matrix from the raw sequencing data will go through the following steps for many of the scRNA-seq methods.
+'[**umis**](https://github.com/vals/umis) provides tools for estimating expression in RNA-seq data which performs
+sequencing of end tags of transcript, and incorporate molecular tags to
+correct for amplification bias.' The steps in this process include the following:
+
+ 1. Formatting reads and filtering noisy cellular barcodes
+ 2. Pseudo-mapping to cDNAs
+ 3. Counting molecular identifiers
+
+## 1. Formatting reads and filtering noisy cellular barcodes
+
 The FASTQ files can then be used to parse out the cell barcodes, UMIs, and sample barcodes. Many of the cellular barcodes will match a low number of reads (< 1000 reads) due to encapsulation of free floating RNA from dying cells, small cells, or set of cells that failed for some reason. These excess barcodes need to be filtered out of the sequence data prior to read alignment.
+
+'All non-biological segments of the sequenced reads for the sake of mapping. While also keeping this information for later use. We
+consider non-biological information such as Cellular Barcode and Molecular
+Barcode. To later be able to extract the optional CB and the MB these are put in the read header, with the following format.'
+
+    @HWI-ST808:130:H0B8YADXX:1:1101:2088:2222:CELL_GGTCCA:UMI_CCCT
+    AGGAAGATGGAGGAGAGAAGGCGGTGAAAGAGACCTGTAAAAAGCCACCGN
+    +
+    @@@DDBD>=AFCF+<CAFHDECII:DGGGHGIGGIIIEHGIIIGIIDHII#
+
+'Not all cellular barcodes identified will be real. Some will be low abundance barcodes that do not represent an actual cell. Others
+will be barcodes that don't come from a set of known barcodes.' Unknown
+barcodes will be dropped, with an argument to specify the number of mismatches acceptable. 
+
+## 3. Pseudo-mapping to cDNAs
+
+'This is done by pseudo-aligners, either Kallisto or RapMap. The SAM (or BAM) file output
+from these tools need to be saved.'
+
+## 4. Counting molecular identifiers
+
+'The final step is to infer which cDNA was the origin of the tag a UMI was
+attached to. We use the pseudo-alignments to the cDNAs, and consider a tag
+assigned to a cDNA as a partial _evidence_ for a (cDNA, UMI) pairing. For
+actual counting, we **only count unique UMIs** for (gene, UMI) pairings with
+sufficient evidence.'
+
 
 
