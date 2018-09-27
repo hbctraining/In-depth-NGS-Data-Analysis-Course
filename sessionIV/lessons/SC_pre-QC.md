@@ -4,7 +4,7 @@ author: "Mary Piper, Lorena Pantano, Meeta Mistry, Radhika Khetani, Rory Kirchne
 date: Thursday, September 27, 2018
 ---
 
-Approximate time: 90 minutes
+Approximate time: 30 minutes
 
 ## Learning Objectives:
 
