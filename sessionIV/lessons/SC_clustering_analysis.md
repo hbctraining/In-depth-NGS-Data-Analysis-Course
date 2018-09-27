@@ -16,7 +16,12 @@ Approximate time: 90 minutes
 
 # Single-cell RNA-seq clustering analysis
 
-Now that we have our high quality cells, we want to know the different cell types present within our population of cells. To do this we are going to perform a clustering analysis. The workflow for this analysis is adapted from the following sources:
+
+Now that we have our high quality cells, we want to know the different cell types present within our population of cells. 
+
+<img src="../img/sc_workflow.png" width="800">
+
+To do this we are going to perform a clustering analysis. The workflow for this analysis is adapted from the following sources:
 
 - Satija Lab: [Seurat v2 Guided Clustering Tutorial](http://satijalab.org/seurat/pbmc3k_tutorial.html)
 - Paul Hoffman: [Cell-Cycle Scoring and Regression](http://satijalab.org/seurat/cell_cycle_vignette.html)
