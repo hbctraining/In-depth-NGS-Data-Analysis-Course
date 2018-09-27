@@ -200,7 +200,7 @@ Since we want the most recent, we will return the AnnotationHub ID for this data
 id <- ahDb %>%
   mcols() %>%
   rownames() %>%
-  tail(n = 1L)
+  tail(n = 1)
 ```
   
 Finally, we can use the AnnotationHub connection to download the appropriate Ensembl database, which should be version GRCh38.92.
