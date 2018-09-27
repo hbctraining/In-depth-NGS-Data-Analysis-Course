@@ -216,7 +216,7 @@ annotations <- genes(edb,
 View(annotations)                    
 ```
 
-### Exracting IDs for mitochondrial, rRNA, and tRNA genes
+### Exracting IDs for mitochondrial genes
 
 We aren't interested in all of the information present in this `annotations` file, so we are going to extract that which is useful to us.
 
