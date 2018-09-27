@@ -18,6 +18,8 @@ Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA b
 
 During this session we will be performing **a complete workflow for ChIP-seq analysis**, starting with the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
 
+<img src="../img/chip_workflow_june2017.png" width="700">	
+
 
 ## Setting up
 
@@ -120,7 +122,7 @@ scripts:
 
 ## Exploring the dataset
 
-Our goal for this session is to compare the the binding profiles of [Nanog](https://www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](https://www.nature.com/articles/7290134) (Oct4). The ChIP was performed on H1 human embryonic stem cell line (h1-ESC) cells, and sequenced using Illumina. The datasets were obtained from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/). These 2 transcription factors are involved in **stem cell pluripotency** and one of the goals is to understand their roles, individually and together, in transriptional regulation. 
+Our goal for this session is to compare the the binding profiles of [Nanog](https://www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](https://www.nature.com/articles/7290134) (Oct4). The ChIP was performed on H1 human embryonic stem cell line (h1-ESC) cells, and sequenced using Illumina. The datasets were obtained from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/). For these 6 samples, we will be using reads from only a 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000), so we can get through the workflow in a reasonable amount of time. 
 
 Two replicates were collected and each was divided into 3 aliquots for the following:
 
@@ -130,13 +132,8 @@ Two replicates were collected and each was divided into 3 aliquots for the follo
 
 <img src="../img/chipseq_exp_design.png" width="500">
 
-For these 6 samples, we will be using reads from only a 32.8 Mb of chromosome 12 (chr12:1,000,000-33,800,000), so we can get through the workflow in a reasonable amount of time. 
+These 2 transcription factors are involved in **stem cell pluripotency** and one of the **goals is to understand their roles, individually and together, in transriptional regulation.** 
 
-## The ChIP-seq workflow
-
-Below is the workflow that we will be using today. Bioinformatics workflows, like this one, adopt a plug-and-play approach in that the output of one tool can be easily used as input to another tool without any extensive configuration. The tools that are used to analyze data at different stages of the workflow are built under the assumption that the data will be provided in a specific format to facilitate a more streamlined analysis. Hence different tools that can be implemented at specific steps in the workflow will have similar outputs.
-
-<img src="../img/chip_workflow_june2017.png" width="700">	
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
