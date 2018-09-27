@@ -32,6 +32,7 @@ The results table output contains the following columns:
 ```
 View(all_markers)
 ```
+<img src="../img/all_markers1.png" width="450">
 
 ## Interpretation of the marker results
 
@@ -49,6 +50,7 @@ all_markers <- left_join(all_markers,
 
 View(all_markers)                         
 ```
+<img src="../img/all_markers2.png" width="450">
 
 After the merge, the order of the columns is not as intuitive, so we will reorder the columns to make the results table more readable.
 
@@ -58,6 +60,7 @@ all_markers <- all_markers[, c(6:8, 1:5, 9:10)]
 
 View(all_markers)
 ```
+<img src="../img/all_markers3.png" width="450">
 
 Usually, we would want to save all of the identified markers to file.
 
@@ -139,6 +142,18 @@ View(markers_0vs1)
 ```
 
 <img src="../img/t-cell_markers.png" width="450">
+
+```r
+# Add gene symbols to the DE table
+markers_0vs1$gene <- rownames(markers_0vs1)
+markers_0vs1 <- left_join(markers_0vs1, 
+                         annotations[, c(1:2, 3, 5)], 
+                         by = c("gene" = "gene_id"))
+
+View(markers_0vs1)
+```
+
+<img src="../img/t-cell_markers2.png" width="450">
 
 When looking through the results, the most significant marker is `ENSG00000196154`, which corresponds to **S100A4**, a gene exclusively expressed by memory T cells of CD4+ or CD8+ subpopulations. Other markers listed also indicate that cluster 0 represents naive T cells, while cluster 1 represents memory T cells.
 
