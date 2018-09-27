@@ -4,7 +4,7 @@ Single-cell RNA-seq (scRNA-seq) is an exciting and cutting-edge method for analy
 
 <img src="../img/sc_analyses.png" width="700">
 
-The complexity of scRNA-seq data, which is generally characterized as a large volume of data, representing thousands of cells, and by a low depth of sequencing per cell, resulting in a large number of genes without any corresponding reads, makes analysis of the data more involved than bulk RNA-seq. In addition, the analysis goals can vary depending whether the goal is marker identification, lineage tracing, or some other custom analysis. Therefore, tools specific for scRNA-seq and it's different methods of library preparation are needed. 
+The complexity of scRNA-seq data, which is generally characterized as a large volume of data, representing thousands of cells, and by a low depth of sequencing per cell, resulting in a large number of genes without any corresponding reads (zero inflation), makes analysis of the data more involved than bulk RNA-seq. In addition, the analysis goals can vary depending whether the goal is marker identification, lineage tracing, or some other custom analysis. Therefore, tools specific for scRNA-seq and it's different methods of library preparation are needed. 
 
 The analysis workflow for scRNA-seq is generally similar for the differing scRNA-seq methods, but some specifics regarding the parsing of the UMIs, cell IDs, and sample IDs will differ between them. For example, below is a schematic of the inDrop sequence reads:
 
