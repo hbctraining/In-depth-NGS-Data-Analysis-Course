@@ -300,8 +300,7 @@ Now that we have generated the various metrics to assess, we can explore them wi
 # Create a data frame containing the metrics for visualizations
 metrics <- colData(se) %>%
   as.data.frame
-  
-View(metrics)
+
 ```
 
 We will explore the following metrics through visualizations to decide on which cells are low quality and should be removed from the analysis:
