@@ -21,7 +21,7 @@
 
 | Time |  Topic  | Instructor |
 |:-----------:|:----------:|:--------:|
-| 09:00 - 10:30 | Single-cell RNA-seq design and methods | Dr. Sarah Boswell |
+| 09:00 - 10:30 | [Single-cell RNA-seq design and methods](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/slides/Single_Cell_Sept_2018.pdf) | Dr. Sarah Boswell |
 | 10:30 - 10:45 | Coffee | |
 | 10:45 - 12:15 | Single-cell RNA-seq analysis workflow | Dr. Ayshwarya Subramanian |
 | 12:15 - 13:15 | Lunch | |
