@@ -82,13 +82,13 @@ We can explore these files by clicking on the `data/filtered_gene_bc_matrices/hg
 
 - **`barcodes.tsv`:** cellular barcodes present in dataset
 
-  <img src="../img/genes.png" width="300">
+  <img src="../img/cell_ids_new.png" width="180">
   
 - **`genes.tsv`:** IDs of quantified genes
 
-  <img src="../img/cell_ids_new.png" width="180">
+  <img src="../img/genes.png" width="300">
 
-- **`matrix.mtx`:** counts assigned to each gene for each single cell
+- **`matrix.mtx`:** a matrix of count values, where rows are associated with the gene IDs above and columns correspond to the cellular barcodes. Note that there are many zero values in this matrix.
 
   <img src="../img/sparse_matrix.png">
 
