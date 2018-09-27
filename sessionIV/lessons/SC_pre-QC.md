@@ -53,7 +53,7 @@ correct for amplification bias.' The steps in this process include the following
  1. Formatting reads and filtering noisy cellular barcodes
  2. Pseudo-mapping to cDNAs
  3. Counting molecular identifiers
- 4. Demultiplex the samples
+ 4. Demultiplexing the samples
 
 ## 1. Formatting reads and filtering noisy cellular barcodes
 
@@ -89,7 +89,7 @@ At this point of the workflow, the duplicate UMIs will be collapsed for the coun
 
 <img src="../img/sc_collapsing_umis" width="400">
 
-## 4. Demultiplex sample reads
+## 4. Demultiplexing sample reads
 
 The last step of the process is to demultiplex the samples, if sequencing more than a single sample. This is the one step of this process not handled by the 'umis' tools. After demultiplexing, we are ready to explore our data for quality information.
 
