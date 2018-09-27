@@ -4,27 +4,27 @@ Single-cell RNA-seq (scRNA-seq) is an exciting and cutting-edge method for analy
 
 The analysis workflow for scRNA-seq is generally similar for the differing scRNA-seq methods, but some specifics regarding the parsing of the UMIs, cell IDs, and sample IDs will differ between them. For example, below is a schematic of the inDrop sequence reads:
 
-<sc_seq_method.png>
+<img src="../img/sc_seq_method.png" width="600">
 
 While the 10X sequence reads have the UMI and barcodes placed differently:
 
-<10_seq_method.png>
+<img src="../img/10_seq_method.png" width="600">
 
 The scRNA-seq method will determine the how to parse the barcodes and UMIs from the sequencing reads. However, the overall workflow will generally follow the same steps regardless of method. The general workflow is shown below:
 
-<sc_workflow.png>
+<img src="../img/sc_workflow.png" width="600">
 
 The scRNA-seq method-specific steps are required for the generation of the count matrix, and we will cover what is involved in this later, but after this step, the same methods can be utilized. After generating the count matrix, the raw counts will be assessed to filter out poor quality cells with a low number of genes or UMIs, high mitochondrial gene expression indicative of dying cells, or low number of genes per UMI. After removing the poor quality cells, the cells are clustered based on similarities in transcriptional activity, with the idea that the different cell types separate into the different clusters. After clustering, we can explore genes that are markers for different clusters, which can help identify the cell type of each cluster. Finally, after identification of cell types, there are various types of analyses that can be performed depending on the goal of the experiment.
 
 We are going to start by discussing the first part of this workflow: generating the count matrix from the raw sequencing data.
 
-<sc_gen_matrix_workflow.png>
+<img src="../img/sc_gen_matrix_workflow.png" width="600">
 
 The sequencing facility will either output the raw sequencing data as BCL format or FASTQ. If the reads are in BCL format, then we will need to convert into FASTQ format. There is a useful tool on O2 called `bcl2fastq` that can easily perform this conversion. We do not demultiplex at this step in the workflow. You may have sequenced 6 samples, but the reads for all samples may be present all in the same BCL or FASTQ file.
 
 The generation of the count matrix from the raw sequencing data will go through the following steps for many of the scRNA-seq methods. 
 
-<sc_pre-QC_workflow.png>
+<img src="../img/sc_pre-QC_workflow.png" width="600">
 
 '[**umis**](https://github.com/vals/umis) provides tools for estimating expression in RNA-seq data which performs
 sequencing of end tags of transcript, and incorporate molecular tags to
@@ -51,12 +51,12 @@ Barcode. To later be able to extract the optional CB and the MB these are put in
 will be barcodes that don't come from a set of known barcodes.' Unknown
 barcodes will be dropped, with an argument to specify the number of mismatches acceptable. 
 
-## 3. Pseudo-mapping to cDNAs
+## 2. Pseudo-mapping to cDNAs
 
 'This is done by pseudo-aligners, either Kallisto or RapMap. The SAM (or BAM) file output
 from these tools need to be saved.'
 
-## 4. Counting molecular identifiers
+## 3. Counting molecular identifiers
 
 'The final step is to infer which cDNA was the origin of the tag a UMI was
 attached to. We use the pseudo-alignments to the cDNAs, and consider a tag
