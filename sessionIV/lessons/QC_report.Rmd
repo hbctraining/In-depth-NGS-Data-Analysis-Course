@@ -1,0 +1,158 @@
+---
+title: "Quality Control"
+author: "`r getOption('author')`"
+date: "`r Sys.Date()`"
+
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+# Single-cell RNA-seq analysis with Seurat - QC
+# Load libraries
+library(Seurat)
+library(tidyverse)
+library(SingleCellExperiment)
+library(Matrix)
+library(AnnotationHub)
+library(ensembldb)
+library(cowplot)
+library(ggplot2)
+library(scales)
+
+# Read in `matrix.mtx`
+counts <- readMM("data/test_matrices/counts.mtx")
+
+# Read in `genes.tsv`
+genes <- read_tsv("data/test_matrices/counts.mtx.gz.rownames", col_names = FALSE)
+gene_ids <- genes$X1
+
+# Read in `barcodes.tsv`
+cell_ids <- read_tsv("data/test_matrices/counts.mtx.gz.colnames", col_names = FALSE)$X1
+
+# Create a sparse matrix for more efficient computation
+counts <- as(counts, "dgCMatrix")
+
+# Make the column names as the cell IDs and the row names as the gene IDs
+rownames(counts) <- gene_ids
+colnames(counts) <- cell_ids
+
+# metrics
+metrics <- read.csv("data/test_matrices/metrics.csv")
+```
+
+
+# Sample-level analysis {.tabset}
+
+In the first set of plots we **evaluate various metrics on a per sample basis**. 
+
+
+## Number of cells per sample 
+
+```{r}
+
+# Plot the number of cells per samples
+metrics %>% 
+  ggplot(aes(x=sampleName, fill= group)) + 
+  geom_bar() + 
+  theme(axis.text.x =element_text(angle = 45, hjust=1))
+```
+
+
+## Reads per sample
+
+
+```{r}
+metrics %>% 
+  group_by(sampleName) %>% 
+  summarise(Reads = sum(nCount)) %>%
+  add_column(group=rep(paste0("Sample", 1:3),each=3)) %>% 
+  ggplot(aes(x=sampleName, y=Reads, fill=group)) + 
+  geom_bar(stat = "identity") +
+  theme(axis.text.x =element_text(angle = 45, hjust=1))
+
+```
+
+## UMIs per sample
+
+There is a significantly greater number of UMIs for all of the Sample3 libraries.
+
+```{r}
+metrics %>% 
+  group_by(sampleName) %>% 
+  summarise(UMIs = sum(nUMI)) %>%
+    add_column(group=rep(paste0("Sample", 1:3),each=3)) %>% 
+  ggplot(aes(x=sampleName, y=UMIs, fill=group)) + geom_bar(stat = "identity") +
+    theme(axis.text.x=element_text(angle = 45, hjust=1))
+```
+
+
+# Visualize the number UMIs/transcripts per cell
+
+```{r}
+metrics %>% 
+  ggplot(aes(color=sampleName, x=nUMI)) + 
+  geom_density() + 
+  scale_x_log10() + 
+  ylab("log10 cell density") +
+  geom_vline(xintercept = 500)
+```
+
+# Visualize the distribution of genes detected per cell via histogram
+
+```{r}
+metrics %>% 
+  ggplot(aes(color=sampleName, x=nGene)) + 
+  geom_density() + 
+  scale_x_log10() + 
+  geom_vline(xintercept = 200)
+```
+
+
+# Visualize the distribution of genes detected per cell via boxplot
+
+```{r}
+metrics %>% 
+  ggplot(aes(x=sampleName, y=log10(nGene), fill=group)) + 
+  geom_boxplot() + 
+  ggtitle("NCells vs NGenes") +
+  theme(axis.text.x = element_blank())
+
+```
+
+# Visualize the correlation between genes detected and number of UMIs
+This will help determine whether there is a strong presence of cells with low numbers of genes/UMIs.
+
+```{r}
+metrics %>% 
+  ggplot(aes(x=nUMI, y=nGene, color=mitoRatio)) + 
+  geom_point() + 
+  stat_smooth(method=lm) +
+  scale_x_log10() + 
+  scale_y_log10() + 
+  geom_vline(xintercept = 800) +
+  facet_wrap(~sampleName)
+
+```
+
+# Visualize the distribution of mitochondrial gene expression detected per cell
+
+```{r}
+metrics %>% 
+  ggplot(aes(color=sampleName, x=mitoRatio)) + 
+  geom_density() + 
+  scale_x_log10() + 
+  geom_vline(xintercept = 0.1)
+```
+
+# Visualize the overall novelty of the gene expression
+
+```{r}
+metrics %>%
+  ggplot(aes(x=log10GenesPerUMI, color = sampleName)) +
+  geom_density()
+
+```
+
+
+
+
+
