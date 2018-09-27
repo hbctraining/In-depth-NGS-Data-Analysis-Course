@@ -15,6 +15,8 @@ Approximate time: 45 minutes
 
 Now that we have the single cells clustered based on different cell types,  we are ready to move forward with identifying cluster markers. 
 
+<img src="../img/sc_workflow.png" width="800">
+
 ## Identifying gene markers for each cluster
 
 Seurat has the functionality to perform a variety of analyses for marker identification; for instance, we can identify markers of each cluster relative to all other clusters by using the `FindAllMarkers()` function. This function essentially performs a differential expression test of the expression level in a single cluster versus the average expression in all other clusters.
