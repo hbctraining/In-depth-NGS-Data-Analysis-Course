@@ -1,3 +1,15 @@
+---
+title: "Single-cell RNA-seq: Generation of count matrix"
+author: "Mary Piper, Lorena Pantano, Meeta Mistry, Radhika Khetani, Rory Kirchner"
+date: Thursday, September 27, 2018
+---
+
+Approximate time: 90 minutes
+
+## Learning Objectives:
+
+* Understand the general steps leading to generation of the count matrix
+
 # Single-cell RNA-seq: raw sequencing data to counts
 
 Single-cell RNA-seq (scRNA-seq) is an exciting and cutting-edge method for analyzing differences in cellular gene expression, particularly for tissue heterogeneity analyses, lineage tracing, and cell population dynamics. 
