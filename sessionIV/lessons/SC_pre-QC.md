@@ -1,6 +1,10 @@
 # Single-cell RNA-seq: raw sequencing data to counts
 
-Single-cell RNA-seq (scRNA-seq) is an exciting and cutting-edge method for analyzing differences in cellular gene expression, particularly for tissue heterogeneity analyses, lineage tracing, and cell population dynamics. The complexity of scRNA-seq data, which is generally characterized as a large volume of data, representing thousands of cells, and by a low depth of sequencing per cell, resulting in a large number of genes without any corresponding reads, makes analysis of the data more involved than bulk RNA-seq. In addition, the analysis goals can vary depending whether the goal is marker identification, lineage tracing, or some other custom analysis. Therefore, tools specific for scRNA-seq and it's different methods of library preparation are needed. 
+Single-cell RNA-seq (scRNA-seq) is an exciting and cutting-edge method for analyzing differences in cellular gene expression, particularly for tissue heterogeneity analyses, lineage tracing, and cell population dynamics. 
+
+<img src="../img/sc_analyses.png" width="700">
+
+The complexity of scRNA-seq data, which is generally characterized as a large volume of data, representing thousands of cells, and by a low depth of sequencing per cell, resulting in a large number of genes without any corresponding reads, makes analysis of the data more involved than bulk RNA-seq. In addition, the analysis goals can vary depending whether the goal is marker identification, lineage tracing, or some other custom analysis. Therefore, tools specific for scRNA-seq and it's different methods of library preparation are needed. 
 
 The analysis workflow for scRNA-seq is generally similar for the differing scRNA-seq methods, but some specifics regarding the parsing of the UMIs, cell IDs, and sample IDs will differ between them. For example, below is a schematic of the inDrop sequence reads:
 
@@ -33,6 +37,7 @@ correct for amplification bias.' The steps in this process include the following
  1. Formatting reads and filtering noisy cellular barcodes
  2. Pseudo-mapping to cDNAs
  3. Counting molecular identifiers
+ 4. Demultiplex the samples
 
 ## 1. Formatting reads and filtering noisy cellular barcodes
 
@@ -63,6 +68,14 @@ attached to. We use the pseudo-alignments to the cDNAs, and consider a tag
 assigned to a cDNA as a partial _evidence_ for a (cDNA, UMI) pairing. For
 actual counting, we **only count unique UMIs** for (gene, UMI) pairings with
 sufficient evidence.'
+
+At this point of the workflow, the duplicate UMIs will be collapsed for the counting of the identifiers.
+
+<img src="../img/sc_collapsing_umis" width="400">
+
+## 4. Demultiplex sample reads
+
+The last step of the process is to demultiplex the samples, if sequencing more than a single sample. This is the one step of this process not handled by the 'umis' tools. After demultiplexing, we are ready to explore our data for quality information.
 
 
 
