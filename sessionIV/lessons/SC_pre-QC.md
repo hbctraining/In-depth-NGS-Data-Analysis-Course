@@ -87,7 +87,7 @@ sufficient evidence.'
 
 At this point of the workflow, the duplicate UMIs will be collapsed for the counting of the identifiers.
 
-<img src="../img/sc_collapsing_umis" width="400">
+<img src="../img/sc_collapsing_umis.png" width="400">
 
 ## 4. Demultiplexing sample reads
 
