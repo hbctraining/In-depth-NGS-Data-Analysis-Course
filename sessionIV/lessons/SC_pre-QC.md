@@ -14,13 +14,13 @@ While the 10X sequence reads have the UMI and barcodes placed differently:
 
 <img src="../img/10_seq_method.png" width="600">
 
-	*Image credit: Sarah Boswell, Harvard Staff Scientist for Sequencing Technologies*
+*Image credit: Sarah Boswell, Harvard Staff Scientist for Sequencing Technologies*
 
 The scRNA-seq method will determine the how to parse the barcodes and UMIs from the sequencing reads. However, the overall workflow will generally follow the same steps regardless of method. The general workflow is shown below:
 
 <img src="../img/sc_workflow.png" width="700">
 
-	*Image credit: Sarah Boswell, Harvard Staff Scientist for Sequencing Technologies*
+*Image credit: Sarah Boswell, Harvard Staff Scientist for Sequencing Technologies*
  
 The scRNA-seq method-specific steps are required for the generation of the count matrix, and we will cover what is involved in this later, but after this step, the same methods can be utilized. After generating the count matrix, the raw counts will be assessed to filter out poor quality cells with a low number of genes or UMIs, high mitochondrial gene expression indicative of dying cells, or low number of genes per UMI. After removing the poor quality cells, the cells are clustered based on similarities in transcriptional activity, with the idea that the different cell types separate into the different clusters. After clustering, we can explore genes that are markers for different clusters, which can help identify the cell type of each cluster. Finally, after identification of cell types, there are various types of analyses that can be performed depending on the goal of the experiment.
 
