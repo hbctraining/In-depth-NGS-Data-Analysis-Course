@@ -122,34 +122,34 @@ An example read mapping is displayed above. *Note that the example above spans t
   > | Flag | Description |
   > | ------:|:----------------------:|
   > | 1 | read is mapped |
- > | 2 | read is mapped as part of a pair |
- > | 4 | read is unmapped |
- > | 8 | mate is unmapped |
- > | 16| read reverse strand|
- > | 32 | mate reverse strand |
- > | 64 | first in pair |
- > | 128 | second in pair |
- > | 256 | not primary alignment |
- > | 512 | read fails platform/vendor quality checks |
- > | 1024| read is PCR or optical duplicate |
- > 
- > * For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**. 
- > * The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
- > * The beauty of the flag values is that **any combination of flags can only result in one sum**.
- > 
- > **There are tools that help you translate the bitwise flag, for example [this one from Picard](https://broadinstitute.github.io/picard/explain-flags.html)**
+  > | 2 | read is mapped as part of a pair |
+  > | 4 | read is unmapped |
+  > | 8 | mate is unmapped |
+  > | 16| read reverse strand|
+  > | 32 | mate reverse strand |
+  > | 64 | first in pair |
+  > | 128 | second in pair |
+  > | 256 | not primary alignment |
+  > | 512 | read fails platform/vendor quality checks |
+  > | 1024| read is PCR or optical duplicate |
+  > 
+  > * For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**. 
+  > * The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
+  > * The beauty of the flag values is that **any combination of flags can only result in one sum**.
+  > 
+  > **There are tools that help you translate the bitwise flag, for example [this one from Picard](https://broadinstitute.github.io/picard/explain-flags.html)**
 
 - **`RNAME`:** is the reference sequence name, giving the chromosome to which the read mapped. The example read is from chromosome 1 which explains why we see 'chr1'. 
 - **`POS`:** refers to the 1-based leftmost position of the alignment. 
 - **`MAPQ`:** is giving us the alignment quality, the scale of which will depend on the aligner being used. 
 - **`CIGAR`:** is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
 
- | Operation | Description |
- | ------:|:----------------------:|
- | M | sequence match or mismatch |
- | I | insertion to the reference |
- | D | deletion from reference |
- | N | skipped region from the reference|
+   | Operation | Description |
+   | ------:|:----------------------:|
+   | M | sequence match or mismatch |
+   | I | insertion to the reference |
+   | D | deletion from reference |
+   | N | skipped region from the reference|
 
 
 Now to the remaning fields in our SAM file:
