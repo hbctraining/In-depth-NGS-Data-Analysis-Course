@@ -210,7 +210,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 ***
 
-Once the final cross-correlation values (Y-axis have been they can be plotted against the shift value (X-axis) to generate a cross-correlation plot! The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak).
+Once the final cross-correlation values have been calculated, they can be plotted (Y-axis) against the shift value (X-axis) to generate a cross-correlation plot! The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak).
 
 Let's take a look at the cross-correlation plot ChIPQC generated for us:
 
