@@ -121,8 +121,10 @@ $ cd ~/chipseq/results/
 ```
 
 Since we only created a filtered BAM file for a single sample, **we will need to copy over BAM files for all 6 files**. We have created these for you and you can copy them over using the command below:
-> 
->`$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/`
+
+```bash
+$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/
+```
 
 ### MACS2 parameters
 
