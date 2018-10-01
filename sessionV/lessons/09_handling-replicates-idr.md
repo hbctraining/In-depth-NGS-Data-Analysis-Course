@@ -198,7 +198,7 @@ Once you have IDR values for true replicates, you want to see how this compares 
 
 <img src="../img/idr-pool.png" width="500"> 
 
-**We will not be running this analysis in class. If you are interested in running it you can download the script to get started with it at the link in the note below.** 
+**We will not be running this analysis in class. If you are interested in running it you can download the script to get started in the note below.** 
 
 > To run [this script](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionV/scripts/IDR_consistency_pseudoreps.sh) you will need to:
 > 
