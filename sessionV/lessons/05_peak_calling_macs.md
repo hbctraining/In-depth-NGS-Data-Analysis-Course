@@ -58,7 +58,7 @@ To find paired peaks to **build the model**, MACS first scans the whole dataset 
 
 MACS randomly **samples 1,000 of these high-quality peaks**, separates their positive and negative strand tags, and aligns them by the midpoint between their centers. The **distance between the modes of the two peaks in the alignment is defined as 'd'** and represents the estimated fragment length. MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
 
-<img src="../img/peak_shift2.png" width="400">
+<img src="../img/peak_shift3.png" width="400">
 
 
 ### Scaling libraries
