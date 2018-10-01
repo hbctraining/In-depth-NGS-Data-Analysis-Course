@@ -174,9 +174,9 @@ To find out how may of those shared regions have an IDR < 0.05, we can take a lo
 ```bash
 $ awk '{if($5 >= 540) print $0}' Nanog-idr | wc -l
 $ awk '{if($5 >= 540) print $0}' Pou5f1-idr | wc -l
-```	
-_Which of the two TFs show better reproducibility between replicates? How does this compare to the `bedtools` overlaps?_
+```
 
+*Which of the two TFs show better reproducibility between replicates? How does this compare to the `bedtools` overlaps?*
 
 #### Output plots
 
@@ -198,102 +198,14 @@ Once you have IDR values for true replicates, you want to see how this compares 
 
 <img src="../img/idr-pool.png" width="500"> 
 
-_We will not run this analysis, but have provided a bash script below if you wanted to take a stab at it._ To run this script you will need to:
+**We will not be running this analysis in class. If you are interested in running it you can download the script to get started with it at the link in the note below.** 
 
-* Provide BAM files and run it for each TF separately. These are located at `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2`. Or you can point to the BAM files generated from Bowtie2 in the home directory.
-* Be sure to also ask for enough memory in your `sbatch` command.
-* Change the paths for output to the directories that are relevant to you
-
-> NOTE 1: For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files.
-
-> NOTE 2: To run the script below you will have to replace every instance of `mm573` with your account name.
-
-```bash
-#!/bin/sh
-
-# USAGE: sh pseudorep_idr.sh <input BAM rep1> <chip BAM rep1> <input BAM rep2> <chip BAM rep2> <NAME for IDR output>
-
-# This script will take the BAM files and perform the following steps: 
-    ## Merge BAMs for ChiP files,
-    ## Shuffle reads and split into two new BAM files (pseudo-replicates), 
-    ## Merge BAMs for Input files,
-    ## Shuffle reads and split into two new BAM files (pseudo-replicates), 
-    ## Call peaks on pseudo-replicates with MACS2 , 
-    ## Sort peaks called on pseudo-replicates,
-    ## IDR analysis using pseudo-replicate peak calls
-
-# Please use the following SLURM directives:
-	## -t 0-12:00
-	## -p short
-	## --mem=40G
-
-date 
-
-inputFile1=`basename $1`
-treatFile1=`basename $2`
-inputFile2=`basename $3`
-treatFile2=`basename $4`
-EXPT=$5
-
-NAME1=`basename $treatFile1 _full.bam`
-NAME2=`basename $treatFile2 _full.bam`
-
-# Make Directories
-mkdir -p /n/scratch2/mm573/idr_chipseq/macs
-mkdir -p /n/scratch2/mm573/idr_chipseq/pooled_pseudoreps
-mkdir -p /n/scratch2/mm573/idr_chipseq/tmp
-
-# Set paths
-baseDir=/n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2
-macsDir=/n/scratch2/mm573/idr_chipseq/macs
-outputDir=/n/scratch2/mm573/idr_chipseq/pooled_pseudoreps
-tmpDir=/n/scratch2/mm573/idr_chipseq/tmp
-
-#Merge treatment BAMS
-echo "Merging BAM files for pseudoreplicates..."
-samtools merge -u ${tmpDir}/${NAME1}_${NAME2}_merged.bam $baseDir/${treatFile1} $baseDir/${treatFile2}
-samtools view -H ${tmpDir}/${NAME1}_${NAME2}_merged.bam > ${tmpDir}/${EXPT}_header.sam
-
-#Split merged treatments
-nlines=$(samtools view ${tmpDir}/${NAME1}_${NAME2}_merged.bam | wc -l ) # Number of reads in the BAM file
-nlines=$(( (nlines + 1) / 2 )) # half that number
-samtools view ${tmpDir}/${NAME1}_${NAME2}_merged.bam | shuf - | split -d -l ${nlines} - "${tmpDir}/${EXPT}" # This will shuffle the lines in the file and split it
- into two SAM files
-cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}00 | samtools view -bS - > ${outputDir}/${EXPT}00.bam
-cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}01 | samtools view -bS - > ${outputDir}/${EXPT}01.bam
-
-#Merge input BAMS
-echo "Merging input BAM files for pseudoreplicates..."
-samtools merge -u ${tmpDir}/${NAME1}input_${NAME2}input_merged.bam $baseDir/${inputFile1} $baseDir/${inputFile2}
-
-#Split merged treatment BAM
-nlines=$(samtools view ${tmpDir}/${NAME1}input_${NAME2}input_merged.bam | wc -l ) # Number of reads in the BAM file
-nlines=$(( (nlines + 1) / 2 )) # half that number
-samtools view ${tmpDir}/${NAME1}input_${NAME2}input_merged.bam | shuf - | split -d -l ${nlines} - "${tmpDir}/${EXPT}_input" # This will shuffle the lines in the file and split in two 
-cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}_input00 | samtools view -bS - > ${outputDir}/${EXPT}_input00.bam
-cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}_input01 | samtools view -bS - > ${outputDir}/${EXPT}_input01.bam
-
-
-#Peak calling on pseudoreplicates
-echo "Calling peaks for pseudoreplicate1 "
-macs2 callpeak -t ${outputDir}/${EXPT}00.bam -c ${outputDir}/${EXPT}_input00.bam -f BAM -g hs -n $macsDir/${NAME1}_pr -B -p 1e-3  2> $macsDir/${NAME1}_pr_macs2.log
-
-echo "Calling peaks for pseudoreplicate2"
-macs2 callpeak -t ${outputDir}/${EXPT}01.bam -c ${outputDir}/${EXPT}_input01.bam -f BAM -g hs -n $macsDir/${NAME2}_pr -B -p 1e-3  2> $macsDir/${NAME2}_pr_macs2.log
-
-#Sort peak by -log10(p-value)
-echo "Sorting peaks..."
-sort -k8,8nr $macsDir/${NAME1}_pr_peaks.narrowPeak | head -n 100000 > $macsDir/${NAME1}_pr_sorted.narrowPeak
-sort -k8,8nr $macsDir/${NAME2}_pr_peaks.narrowPeak | head -n 100000 > $macsDir/${NAME2}_pr_sorted.narrowPeak
-
-#Independent replicate IDR
-echo "Running IDR on pseudoreplicates..."
-idr --samples $macsDir/${NAME1}_pr_sorted.narrowPeak $macsDir/${NAME2}_pr_sorted.narrowPeak --input-file-type narrowPeak --output-file ${EXPT}_pseudorep-idr --rank p.value --plot
-
-
-# Remove the tmp directory
-rm -r $tmpDir
-```
+> To run [this script](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionV/scripts/IDR_consistency_pseudoreps.sh) you will need to:
+> 
+> * Provide BAM files and run it for each TF separately. These are located at `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2`. Or you can point to the BAM files generated from Bowtie2 in the home directory.
+> * Be sure to also ask for a fair amount of memory (~40G) in your `sbatch` command.
+> * Change the paths for output to the directories that are relevant to you
+> * For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files.
 
 ### Self-consistency analysis
 
@@ -311,11 +223,6 @@ An example for our analysis is described below:
 For true replicates and self-consistency replicates an IDR threshold of 0.05 is more appropriate 
 * Use a tighter threshold for pooled-consistency since pooling and subsampling equalizes the pseudo-replicates in terms of data quality. Err on the side of caution and use more stringent IDR threshold of 0.01
 
-
-
 ***
 
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-
-
