@@ -114,27 +114,29 @@ Following the header is the **alignment section**. Each line that follows corres
 
 An example read mapping is displayed above. *Note that the example above spans two lines, but in the file it is a single line.* Let's go through the fields one at a time. First, you have the read name (`QNAME`), followed by a `FLAG` 
 
-The `FLAG` value that is displayed can be translated into information about the mapping. 
+The `FLAG` value that is displayed can be translated into information about the mapping and pair information.
 
-| Flag | Description |
-| ------:|:----------------------:|
-| 1 | read is mapped |
-| 2 | read is mapped as part of a pair |
-| 4 | read is unmapped |
-| 8 | mate is unmapped |
-| 16| read reverse strand|
-| 32 | mate reverse strand |
-| 64 | first in pair |
-| 128 | second in pair |
-| 256 | not primary alignment |
-| 512 | read fails platform/vendor quality checks |
-| 1024| read is PCR or optical duplicate |
-
-* For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**. 
-* The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
-* The beauty of the flag values is that **any combination of flags can only result in one sum**.
-
-**There are tools that help you translate the bitwise flag, for example [this one from Picard](https://broadinstitute.github.io/picard/explain-flags.html)**
+ > **NOTE:** The information stored inside the FLAG is additive based on the following information being TRUE or FALSE:
+ > 
+> | Flag | Description |
+> | ------:|:----------------------:|
+> | 1 | read is mapped |
+> | 2 | read is mapped as part of a pair |
+> | 4 | read is unmapped |
+> | 8 | mate is unmapped |
+> | 16| read reverse strand|
+> | 32 | mate reverse strand |
+> | 64 | first in pair |
+> | 128 | second in pair |
+> | 256 | not primary alignment |
+> | 512 | read fails platform/vendor quality checks |
+> | 1024| read is PCR or optical duplicate |
+> 
+> * For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**. 
+> * The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
+> * The beauty of the flag values is that **any combination of flags can only result in one sum**.
+> 
+> **There are tools that help you translate the bitwise flag, for example [this one from Picard](https://broadinstitute.github.io/picard/explain-flags.html)**
 
 Moving along the fields of the SAM file, we then have `RNAME` which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. `POS` refers to the 1-based leftmost position of the alignment. `MAPQ` is giving us the alignment quality, the scale of which will depend on the aligner being used. 
 
