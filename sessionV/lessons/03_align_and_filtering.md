@@ -17,9 +17,9 @@ Approximate time: 45 minutes
 
 ## Quality control of raw sequencing data
 
-<img src="../img/chip_workflow_june2017_step1_align.png" width="400">
-
 After receiving the raw FASTQ files from the sequencing facility, the quality of the data should be explored, similar to other NGS analyses. We have explored the sequencing quality using the FastQC tool to ensure the quality of the data is good prior to moving on to alignment. To explore on your own, we have the FastQC lesson for ChIP-seq data [available](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/02_QC_FASTQC.html). 
+
+<img src="../img/chip_workflow_june2017_step1_align.png" width="400">
 
 ## Alignment to Genome
 
