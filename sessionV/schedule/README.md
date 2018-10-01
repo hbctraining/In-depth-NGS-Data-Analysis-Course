@@ -23,9 +23,9 @@
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
 |9:00 - 10:15 | [ChIPQC: Assessing ChIP quality]() | Mary |
-|10:15 - 10:45 | [Handling Replicates with IDR]() | Radhika |
+|10:15 - 10:45 | [Handling Replicates with Bedtools]() | Radhika |
 |10:45 - 10:55 | Break | |
-|10:55 - 11:15 | [Handling Replicates with IDR (cont'd)]() | Radhika |
+|10:55 - 11:15 | [Handling Replicates with IDR]() | Radhika |
 |11:15 - 12:30 | [Visualization and exploration of ChIP-seq data]() | Meeta |
 |12:30 - 13:30 | Lunch | |
 |13:30 - 14:30 | [Differentially enriched peaks using DiffBind]() | Meeta |
