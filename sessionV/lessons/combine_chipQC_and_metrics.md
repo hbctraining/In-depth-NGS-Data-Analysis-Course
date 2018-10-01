@@ -185,6 +185,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 *The + strand of DNA is sequenced from the 5' end, generating the red reads in the figure below, and the - strand of DNA is sequenced from the 5' end, generating the blue reads in the figure below.* 
 
 <img src="../img/chip-fragments.png" width ="300">
+
 *Figure adapted from Nat Biotechnol. 2008 Dec; 26(12): 1351–1359*
 
 *Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yield maximum correlation between the two peaks**, which **should** correspond to the predominant **fragment length**. We can calculate the shift yielding the maximum correlation using the **cross-correlation metric**.*
@@ -195,7 +196,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 ***How are the Cross-Correlation scores calculated?***
 
-*Using a small genomic window as an example, let's walk through the details of the cross-correlation below. It is important to note that the cross-correlation metric is computed as the* **Pearson's linear correlation between the minus strand and the plus strand**, after shifting minus strand by k base pairs.*
+*Using a small genomic window as an example, let's walk through the details of the cross-correlation below. It is important to note that the cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand**, after shifting minus strand by k base pairs.*
 
 **REPLACE ALL OF THESE FIGURES**
 
@@ -205,7 +206,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 <img src="../img/cc3.png" width ="500">
 
-*In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. **These Pearson correlation values are computed for *every peak* for *each chromosome* and values are multiplied by a scaling factor and then summed across all chromosomes.***
+*In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. **These Pearson correlation values are computed for every peak for each chromosome and values are multiplied by a scaling factor and then summed across all chromosomes.** *
 
 ***
 
