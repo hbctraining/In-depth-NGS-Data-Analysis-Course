@@ -206,7 +206,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 <img src="../img/cc3.png" width ="500">
 
-*In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. **These Pearson correlation values are computed for every peak for each chromosome and values are multiplied by a scaling factor and then summed across all chromosomes.** *
+*In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value.* ***These Pearson correlation values are computed for every peak for each chromosome and values are multiplied by a scaling factor and then summed across all chromosomes.***
 
 ***
 
