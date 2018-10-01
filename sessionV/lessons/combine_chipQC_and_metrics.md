@@ -124,7 +124,7 @@ In our dataset, higher scores are observed for the Pou5f1 replicates which indic
 
 This value reports the percentage of reads that overlap within called peaks. This is another good indication of how ”enriched” the sample is, or the success of the immunoprecipitation. It can be considered a ”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
 
-**RiP (also called FRiP) values will vary depending on the protein of interest:**
+RiP (also called FRiP) values will vary depending on the protein of interest:
 
  * A typical good quality TF with successful enrichment would exhibit a RiP around 5% or higher. 
  * A good quality PolII would exhibit a RiP of 30% or higher. 
