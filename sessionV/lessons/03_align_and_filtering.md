@@ -117,9 +117,9 @@ An example read mapping is displayed above. *Note that the example above spans t
 - **`QNAME`:** Query name or read name - this is the same read name present in the header of the FASTQ file
 - **`FLAG`:** numerical value providing information about read mapping and whether the read is part of a pair.
  
- > **NOTE:** The information stored inside the FLAG is additive based on the following information being TRUE or FALSE:
- > 
- > | Flag | Description |
+  > **NOTE:** The information stored inside the FLAG is additive based on the following information being TRUE or FALSE:
+  > 
+  > | Flag | Description |
  > | ------:|:----------------------:|
  > | 1 | read is mapped |
  > | 2 | read is mapped as part of a pair |
