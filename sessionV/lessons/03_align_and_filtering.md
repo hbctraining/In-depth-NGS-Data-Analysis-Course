@@ -14,14 +14,17 @@ Approximate time: 45 minutes
 * Examining a SAM file and understanding the information stored in it
 * Filtering aligned reads to keep only uniquely mapped ones
 
+<img src="../img/chip_workflow_june2017_step1_align.png" width="400">
+
+After receiving the raw FASTQ files from the sequencing facility, the quality of the data should be explored, similar to other NGS analyses. We have explored the sequencing quality using the FastQC tool to ensure the quality of the data is good prior to moving on to alignment. To explore on your own, we have the FastQC lesson for ChIP-seq data [available](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/02_QC_FASTQC.html). 
 
 ## Alignment to Genome
 
-Now that we have assessed the quality of our sequence data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform method to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
+[Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform method to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should explore alignment with [bwa](http://bio-bwa.sourceforge.net/) or Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
-<img src="../img/chip_workflow_june2017_step1_align.png" width="400">
+
 
 > #### How do other aligners compare?
 > In this workshop we are using Bowtie2 to align our reads, but there are a number of other options. We have explored the use of [bwa](http://bio-bwa.sourceforge.net/) for ChIP-seq analysis and found some differences. For **bwa**, the mapping rates are higher (~ 2%), with an equally similar increase in the number of duplicate mappings identified. Post-filtering this translates to a significantly higher number of mapped reads and results in a much larger number of peaks being called (30% increase). When we compare the peak calls generated from the different aligners, the **bwa** peak calls are a superset of those called from the Bowtie2 aligments. Whether or not these additional peaks are true positives, is something that is yet to be determined. 
