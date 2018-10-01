@@ -120,8 +120,8 @@ An example read mapping is displayed above. *Note that the example above spans t
   > **NOTE:** The information stored inside the FLAG is additive based on the following information being TRUE or FALSE:
   > 
   > | Flag | Description |
- > | ------:|:----------------------:|
- > | 1 | read is mapped |
+  > | ------:|:----------------------:|
+  > | 1 | read is mapped |
  > | 2 | read is mapped as part of a pair |
  > | 4 | read is unmapped |
  > | 8 | mate is unmapped |
