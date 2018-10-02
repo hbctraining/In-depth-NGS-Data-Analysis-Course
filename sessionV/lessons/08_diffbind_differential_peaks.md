@@ -11,13 +11,18 @@ Approximate time: 90 minutes
 ## Learning Objectives
 
 * Learn how to use the DiffBind workflow to assess differential binding between two sample classes
-* Assess the relationship between samples using PCA
-* Evaluate results from different tools
+* Assess the relationship between samples using various plots
+* Evaluate results and output to file
 
+## Differential enrichment analysis
 
-## Tools for evaluating differential peak enrichment
+Identifying differential enrichment across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.  For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. For this analysis, we will use as input not only the peak calls but also incorporate the BAM files.
 
-An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.
+<img src="../img/chip_workflow_sept2018_diffbind.png" width="800"> 
+
+## Tools for evaluating differential enrichment
+
+An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, more tools have become available for this type of analysis.
 
 <img src="../img/diffpeaks-software.png" width="800"> 
 
@@ -31,19 +36,11 @@ When choosing which tool to use there are several criterion to consider.
 
 4. Some tools have been specifically designed for particular ChIP-seq data (**signal type**), such as histone modifications or transcription factor (TF) binding.
 
-
-Which tool you need will depend heavily on your experimental design, and so the **decision tree** below can be helpful in narrowing down your choice.
-
-<img src="../img/diff-peaks.png" width="600">
-
-In our case, we are interested in identifying differences in binding between two transcription factors. For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. 
-
-> **NOTE:** The required input for DiffBind is all samples in the dataset and all peaks (not just the high confidence peaks) for each sample. Replicate peak calls are used individually, and not merged. 
-
-
 ## DiffBind
 
 DiffBind is an R package that is used for identifying sites that are **differentially bound between two or more sample groups**. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including **overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites** based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more information take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
+
+> **NOTE:** The required input for DiffBind is all samples in the dataset and all peaks (not just the high confidence peaks) for each sample. **Replicate peak calls are used individually, and not merged.** 
 
 
 ### Setting up
