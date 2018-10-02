@@ -188,22 +188,6 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 ***
 
-***Why do we see a bimodal enrichment?***
-
-*During the ChIP-seq experiment, the DNA is fragmented and the protein-bound fragments are immunoprecipitated. This generates DNA fragments containing the protein-bound region.*
-
-*The + strand of DNA is sequenced from the 5' end, generating the red reads in the figure below, and the - strand of DNA is sequenced from the 5' end, generating the blue reads in the figure below.* 
-
-<img src="../img/chip-fragments.png" width ="300">
-
-*Figure adapted from Nat Biotechnol. 2008 Dec; 26(12): 1351–1359*
-
-*Due to the sequencing of the 5' ends of the fragments, this results in an enrichment of reads from the + strand (blue in the image below) being slightly offset from the enrichment of reads from the - strand (red in the image below). We need to **determine the number of bases to shift the peaks to yield maximum correlation between the two peaks**, which **should** correspond to the predominant **fragment length**. We can calculate the shift yielding the maximum correlation using the **cross-correlation metric**.*
-
-**REPLACE THIS BIMODAL FIGURE**
-
-***
-
 ***How are the Cross-Correlation scores calculated?***
 
 *Using a small genomic window as an example, let's walk through the details of the cross-correlation below. It is important to note that the cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand**, after shifting minus strand by k base pairs.*
