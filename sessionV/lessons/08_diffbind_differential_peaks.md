@@ -71,22 +71,22 @@ dbObj <- dba(sampleSheet=samples)
 
 ```
 
-Take a look at what information gets summarized in the `dbObj`. *How many consensus sites were identified for this dataset? Which sample has a disproportionatley larger number of peaks?*
+Take a look at what information gets summarized in the `dbObj`. **How many consensus sites were identified for this dataset? Which sample has a disproportionatley larger number of peaks?**
 
 ```
 > dbObj
 	
-4 Samples, 83 sites in matrix (263 total):
+4 Samples, 85 sites in matrix (280 total):
            ID Factor Replicate Caller Intervals
-1  Nanog-Rep1  Nanog         1 narrow        95
-2  Nanog-Rep2  Nanog         2 narrow       162
-3 Pou5f1-Rep1 Pou5f1         1 narrow        89
-4 Pou5f1-Rep2 Pou5f1         2 narrow        33
+1  Nanog.Rep1  Nanog         1 narrow       108
+2  Nanog.Rep2  Nanog         2 narrow       157
+3 Pou5f1.Rep1 Pou5f1         1 narrow        98
+4 Pou5f1.Rep2 Pou5f1         2 narrow        36
 ```
 
 ### Affinity binding matrix
 
-The next step is to take the alignment files and **compute count information for each of the peaks/regions**. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. The peaks in the consensus peakset may be re-centered and trimmed based on calculating their summits (point of greatest read overlap) in order to provide more standardized peak intervals.
+The next step is to take the alignment files and **compute count information for each of the peaks/regions** in the consensus set. In this step, for each of the consensus regions DiffBind takes the number of aligned reads in the ChIP sample and the input sample, to compute a normalized read count for each sample at every potential binding site. The peaks in the consensus peakset may be re-centered and trimmed based on calculating their summits (point of greatest read overlap) in order to provide more standardized peak intervals.
 
 We use the `dba.count()` function with the following additional parameter:
 
@@ -96,47 +96,44 @@ We use the `dba.count()` function with the following additional parameter:
 dbObj <- dba.count(dbObj, bUseSummarizeOverlaps=TRUE)
 ```
 
-Take a look at the `dbObj` again. You should know see a column that contains the FRiP values for each sample. 
+Take a look at the `dbObj` again. You should now see a column that contains the FRiP values for each sample. *These values may look slightly different from those reported in ChIPQC since we are looking at only the consensus peaks.*
 
 ```
 > dbObj
-4 Samples, 83 sites in matrix:
+4 Samples, 85 sites in matrix:
            ID Factor Replicate Caller Intervals FRiP
-1  Nanog-Rep1  Nanog         1 counts        83 0.03
-2  Nanog-Rep2  Nanog         2 counts        83 0.04
-3 Pou5f1-Rep1 Pou5f1         1 counts        83 0.03
-4 Pou5f1-Rep2 Pou5f1         2 counts        83 0.02
+1  Nanog.Rep1  Nanog         1 counts        85 0.04
+2  Nanog.Rep2  Nanog         2 counts        85 0.04
+3 Pou5f1.Rep1 Pou5f1         1 counts        85 0.03
+4 Pou5f1.Rep2 Pou5f1         2 counts        85 0.02
 ```
 
-To see how well the samples cluster with one another, we can draw a **PCA plot** using all 83 consensus sites. You should see both Nanog and Pou5f1 replicates clustering together. 
+### Exploratory data analysis
+
+To see how well the samples cluster with one another, we can draw a **PCA plot** using all 85 consensus sites. You should see both Nanog and Pou5f1 replicates clustering together. 
 
 	dba.plotPCA(dbObj,  attributes=DBA_FACTOR, label=DBA_ID)
 	
 
-<img src="../img/pcaplot.png" width="600">
+<img src="../img/pca_diffbind.png" width="600">
 
 
 We can also plot a **correlation heatmap**, to evaluate the relationship between samples.
 
 	plot(dbObj)
-	
 
-<img src="../img/db-heatmap.png" width="600">
+<img src="../img/heatmap_diffbind.png" width="600">
 
-To evaluate how many peaks overlap between all samples we can plot a **Venn diagram**:
+**In our data, we see that the replicates appear to cluster together**, which is what we would hope for. Although there is variability between the replicates, the largest amount of variability can be attributed to differences between the two groups.
 
-	dba.plotVenn(dbObj, 1:4)
-	
-<img src="../img/venn-db.png" width="600"> 
-	
 
 ### Establishing a contrast
 
-Before running the differential analysis, we need to tell DiffBind **which samples we want to compare to one another**. In our case we only have one factor of interest which is the different transcription factor IPs. Contrasts are set up using the `dba.contrast` function, as follows:
+Before running the differential enrichment analysis, we need to tell DiffBind **which samples we want to compare to one another**. In our case we only have one factor of interest which is the different transcription factor IPs. Contrasts are set up using the `dba.contrast` function, as follows:
 	
 	dbObj <- dba.contrast(dbObj, categories=DBA_FACTOR, minMembers = 2)
 	
-### Performing the differential analysis
+### Performing the differential enrichment analysis
 
 The core functionality of DiffBind is the differential binding affinity
 analysis, which enables binding sites to be identified that are **statistically significantly differentially bound between sample groups**. The core analysis routines are executed, by default using **DESeq2** with an option to also use **edgeR**. Each tool will assign a p-value and FDR to each candidate binding site indicating confidence that they are differentially bound.
@@ -153,61 +150,88 @@ To see a summary of results for each tool we can use `dba.show`:
 dba.show(dbObj, bContrasts=T)	
 
   Group1 Members1 Group2 Members2 DB.edgeR DB.DESeq2
-1  Nanog        2 Pou5f1        2       11        36
+1  Nanog        2 Pou5f1        2        7        34
 ```
 
-	
-**Note that the default threshold is padj < 0.05.** *How many regions are differentially bound between Nanog and Pou5f1? How does this change with a more stringent threshold of 0.01? (HINT: use `th=0.01`)*	
+It appears as though edgeR is a bit more stringent and results in fewer peaks (by almost a factor of 5) being called as differentially enriched. This is not unsual, as we also see a lack of complete agreement with these tools during RNA-seq analysis.
+
+***
+
+**Exercise**
+
+**The default threshold is padj < 0.05.** *How many regions are differentially bound between Nanog and Pou5f1? How does this change with a more stringent threshold of 0.01? (HINT: use `th=0.01`)*	
+
+***
 
 Try plotting a PCA but this time **only use the regions that were identified as significant by DESeq2** using the code below.
 
-
 	dba.plotPCA(dbObj, contrast=1, method=DBA_DESEQ2, attributes=DBA_FACTOR, label=DBA_ID)
 	
-<img src="../img/deseq2-pca.png" width="600"> 
+<img src="../img/pca_deseq2_diffbind.png" width="600"> 
 
 *Modify the code above so that you only plot a PCA using the regions identified as significant by edgeR. Do the plots differ?*
 
-### Differential enrichment of peaks
+### Visualizing the results
 
-For a quick look at the **overlapping peaks** identified by the two different tools (DESeq2 and edgeR) we can plot a Venn diagram. 
+We can see that edgeR identifies alot fewer peaks, but it would be good to see if those peaks are a subset of the DESeq2 results. For a quick look at the **overlapping peaks** identified by the two different tools (DESeq2 and edgeR) we can plot a Venn diagram. 
 
 	dba.plotVenn(dbObj,contrast=1,method=DBA_ALL_METHODS)
 	
-<img src="../img/venn-deseq-edger.png" width="600"> 
+<img src="../img/venn_methods.png" width="600"> 
 
-> **NOTE:** Normally, we would keep the list of consensus peaks from edgeR and DESeq2 to use as our *high confidence set* to move forward with. But since we have an overlap of only two regions we will keep the results from both tools.
+**MA plots** are a useful way to visualize the effect of normalization on data, as well as seeing which of the data points are being identified as differentially bound. 
 
-To extract the full results from each method we use `dba.report`:
+	dba.plotMA(dbObj, method=DBA_DESEQ2)
+	
+<img src="../img/maplot_diffbind.png" width="600">
+
+Each point represents a binding site. Points in red represent sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the **concentrations of each sample groups plotted against each other**.
+
+
+	dba.plotMA(dbObj, bXY=TRUE)
+	
+<img src="../img/maplot_xy_diffbind.png" width="600">
+
+If we want to see **how the reads are distributed amongst the different classes of differentially bound sites and sample group**s, we can use a boxplot:
+
+	pvals <- dba.plotBox(dbObj)
+	
+<img src="../img/boxplot_diffbind.png" width="600">
+
+The left two boxes show distribution of reads over all differentially bound sites in the Nanog and Pou5f1 groups. Samples have a somewhat higher mean read concentration in Nanog samples. The next two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Pou5f1 samples, while the final two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Nanog samples. `dba.plotBox()` returns a matrix of p-values (computed using a two-sided Wilcoxon Mann-Whitney test and are stored in the `pvals` variable. 
+
+
+### Extracting results
+
+To extract the full results from DESeq2 we use `dba.report`:
 
 ```
-comp1.edgeR <- dba.report(dbObj, method=DBA_EDGER, contrast = 1, th=1)
-comp1.deseq <- dba.report(dbObj, method=DBA_DESEQ2, contrast = 1, th=1)
+res.deseq <- dba.report(dbObj, method=DBA_DESEQ2, contrast = 1, th=1)
 
 ```
 
-**These results files contain the genomic coordinates for all consensus site and statistics for differential enrichment including fold-change, p-value and FDR.**
+> **NOTE:** Normally, we would keep the list of consensus peaks from edgeR and DESeq2 to use as our *high confidence set* to move forward with. But since we have an overlap of only two regions we will keep only the results from DESeq2.
+
+**These results files contain the genomic coordinates for all consensus sites and statistics for differential enrichment including fold-change, p-value and FDR.**
 
 ```
-> head(comp1.edgeR)
+> res.deseq
 
-GRanges object with 6 ranges and 6 metadata columns:
-     seqnames               ranges strand |      Conc Conc_Nanog Conc_Pou5f1
-        <Rle>            <IRanges>  <Rle> | <numeric>  <numeric>   <numeric>
-  23    chr12 [ 7941791,  7941989]      * |      4.31       0.98        5.24
-  62    chr12 [25991058, 25991248]      * |      3.52      -0.72        4.48
-  19    chr12 [ 7243330,  7243609]      * |      5.47       2.55        6.37
-  41    chr12 [14347305, 14347638]      * |      4.17       1.37        5.06
-  36    chr12 [13241391, 13241794]      * |       6.1       4.21        6.89
-  37    chr12 [13408751, 13409414]      * |      6.23       4.56        6.98
-          Fold   p-value       FDR
-     <numeric> <numeric> <numeric>
-  23     -4.26  1.14e-08  5.85e-07
-  62      -5.2  1.41e-08  5.85e-07
-  19     -3.82  5.38e-08  1.49e-06
-  41     -3.69  2.52e-07  5.22e-06
-  36     -2.69  1.88e-06  3.12e-05
-  37     -2.43  9.53e-06  0.000132
+GRanges object with 85 ranges and 6 metadata columns:
+     seqnames            ranges strand |      Conc Conc_Nanog Conc_Pou5f1      Fold
+        <Rle>         <IRanges>  <Rle> | <numeric>  <numeric>   <numeric> <numeric>
+  64    chr12 25644533-25644920      * |      4.45       5.42       -0.06      5.48
+  28    chr12 12162157-12162655      * |         6       6.92         2.8      4.12
+  35    chr12 13898546-13898828      * |      4.24       5.19        0.26      4.93
+  46    chr12 16266148-16266518      * |      4.42       5.32         1.4      3.92
+  36    chr12 13902296-13902867      * |      5.35       6.24        2.59      3.65
+     p-value       FDR
+     <numeric> <numeric>
+  64  7.73e-06  0.000657
+  28  3.14e-05   0.00133
+  35  0.000129   0.00366
+  46  0.000281   0.00597
+  36  0.000594   0.00894
   -------
   seqinfo: 1 sequence from an unspecified genome; no seqlengths
 
@@ -220,58 +244,24 @@ The value columns are described below:
 * **Conc_Pou5f1**: mean concentration over the second (Pou5f1) group
 * **Fold**: shows the difference in mean concentrations between the two groups, with a positive value indicating increased binding affinity in the Nanog group and a negative value indicating increased binding affinity in the Pou5f1 group.
 
-### Visualization
 
-**MA plots** are a useful way to visualize the effect of normalization on data, as well as seeing which of the data points are being identified as differentially bound. 
-
-	dba.plotMA(dbObj, method=DBA_DESEQ2)
-	
-<img src="../img/maplot.png" width="600">
-
-Each point represents a binding site. Points in red representing sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the **concentrations of each sample groups plotted against each other**.
-
-
-	dba.plotMA(dbObj, bXY=TRUE)
-	
-<img src="../img/maplotXY.png" width="600">
-
-If we want to see **how the reads are distributed amongst the different classes of differentially bound sites and sample group**s, we can use a boxplot:
-
-	pvals <- dba.plotBox(dbObj)
-	
-<img src="../img/boxplot-db.png" width="600">
-
-The left two boxes show distribution of reads over all differentially bound sites in the Nanog and Pou5f1 groups. Samples have a somewhat higher mean read concentration in Nanog samples. The next two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Pou5f1 samples, while the final two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Nanog samples. `dba.plotBox()` returns a matrix of p-values (computed using a two-sided Wilcoxon Mann-Whitney test and are stored in the `pvals` variable. 
-
-### Writing results to file
-
-The full results from each of the tools will be written to file. In this way we have the statistics computed for each of the consensus sites and can filter by changing the thresholds as we see fit. Before writing to file we need to convert it to a data frame so that genomic coordinates get written as columns and not GRanges.
+Before **writing to file** we need to convert it to a data frame so that genomic coordinates get written as columns and not GRanges.
 
 ```
 
-# EdgeR
-out <- as.data.frame(comp1.edgeR)
-write.table(out, file="results/Nanog_vs_Pou5f1_edgeR.txt", sep="\t", quote=F, col.names = NA)
-
-# DESeq2
-out <- as.data.frame(comp1.deseq)
+# Write to file
+out <- as.data.frame(res.deseq)
 write.table(out, file="results/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
 
 ````
 
-Additionally, we will want to create BED files for each set of significant regions identified by DESeq2 and edgeR. For these we will only write to file the **first three columns (minimal BED format)**, in this way we can use it as **input for IGV visualization**. 
+Additionally, we will want to create BED files for each set of significant regions identified by DESeq2, separating them based on the gain or loss of enrichment. For these we will only write to file the **first three columns (minimal BED format)**, in this way we can use it as **input for downstream visualization**. 
 
+ MODIFY THIS TO TIDYVERSE AND CORRECT FILES. ALSO CHANGE THE DOT IN VARIABLE NAMES TO UNDERSCORE
 ```
 # Create bed files for each keeping only significant peaks (p < 0.05)
-# EdgeR
-out <- as.data.frame(comp1.edgeR)
-edge.bed <- out[ which(out$FDR < 0.05), 
-                 c("seqnames", "start", "end", "strand", "Fold")]
-write.table(edge.bed, file="results/Nanog_vs_Pou5f1_edgeR_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
 
-# DESeq2
-out <- as.data.frame(comp1.deseq)
-deseq.bed <- out[ which(out$FDR < 0.05), 
+deseq.bed.incr <- out[ which(out$FDR < 0.05 & Fold > 0), 
                  c("seqnames", "start", "end", "strand", "Fold")]
 write.table(deseq.bed, file="results/Nanog_vs_Pou5f1_deseq2_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
 ```
