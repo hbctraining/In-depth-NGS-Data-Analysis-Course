@@ -43,12 +43,12 @@ In our case, we are interested in identifying differences in binding between two
 
 ## DiffBind
 
-DiffBind is an R package that is used for identifying sites that are differentially bound between two sample groups. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including **overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites** based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more information take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
+DiffBind is an R package that is used for identifying sites that are **differentially bound between two or more sample groups**. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including **overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites** based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more information take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
 
 
 ### Setting up
 
-> **NOTE:** In order for you to follow this lesson you will need to have all of the required input files. The instructions for this can be found in the "Setting up" section of the [ChIPQC using R lesson](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/QC_quality_metrics_R.html). **Please run through this before proceeding.**
+> **NOTE:** In order for you to follow this lesson you will need to have all of the required input files. The instructions for this can be found in the "Setting up" section of the [ChIPQC using R lesson](). **Please run through this before proceeding.**
 
 
 1. Open up RStudio and open up the `chipseq-project` that we created previously.
