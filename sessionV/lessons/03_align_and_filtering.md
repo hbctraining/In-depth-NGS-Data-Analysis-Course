@@ -23,7 +23,9 @@ After receiving the raw FASTQ files from the sequencing facility, the quality of
 
 ## Alignment to Genome
 
-After assessing the quality of the raw sequence data, we can move on to perform alignment of the reads to the genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml). Bowtie2 is a **fast and accurate alignment tool** that indexes the genome with an FM Index based on the Burrows-Wheeler Transform method to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are **at least 50 bp** (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global *end-to-end read alignment*, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
+After assessing the quality of the raw sequence data, we can move on to perform alignment of the reads to the genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml). Bowtie2 is a **fast and accurate alignment tool** that indexes the genome with an FM Index based on the Burrows-Wheeler Transform method to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are **at least 50 bp** (shorter read lengths should use Bowtie1). 
+
+By default, Bowtie2 will perform a global *end-to-end read alignment*, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should explore alignment with [bwa](http://bio-bwa.sourceforge.net/) or Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
