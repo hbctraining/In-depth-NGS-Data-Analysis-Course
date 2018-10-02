@@ -6,7 +6,7 @@ date: "October 1, 2018"
 
 Contributors: Mary Piper, Meeta Mistry and Radhika Khetani
 
-Approximate time: 1.75 hours
+Approximate time: 1.5 hours
 
 ## Learning Objectives
 
@@ -160,15 +160,19 @@ This table contains **the mapping quality, and duplication rate,** however since
 
 #### Plot of percentage of reads in blacklists
 
-ADD TEXT
+Next is a plot showing the effect of blacklisting, with the proportion of reads that do and don't overlap with blacklisted regions. 
 
-#### Heatmap of log2 enrichment of reads in genomic features
+ADD TEXT AND IMAGE
 
-Next is a plot showing the effect of blacklisting, with the proportion of reads that do and don't overlap with blacklisted regions. The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
+#### Relative Enrichment of Genomic Intervals (REGI)
+
+Using the genomic regions identified as called peaks along with genome annotation information, we can obtain **see where reads map in terms of various genomic features**. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
+
+This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. This plot is useful when you expect enrichment of specific genomic regions.  
  
 <img src="../img/GenomicFeatureEnrichment.png" width="500">
 
-In our dataset, the "Promoters500" and "All5UTRs" categories seem to be lighting up, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
+In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
 
 #### Coverage histogram
 
@@ -218,19 +222,19 @@ NOTE LINKING TO SHORT MARKDOWN ABOUT CALCULATING RSC, NSC AND AN EXPLANATION OF 
 
 ***Examples of Cross-Correlation Plots***
 
-*Strong signal*
+*Strong signal:*
 
 *High-quality ChIP-seq data sets tend to have a larger fragment-length peak compared with the read-length peak. An example of a **strong signal** is shown below using data from **CTCF (zinc-finger transcription factor)** in human cells. With a good antibody, transcription factors will typically result in 45,000 - 60,000 peaks. The red vertical line shows the dominant peak at the true peak shift, with a small bump at the blue vertical line representing the read length.*
 
 <img src="../img/ctcf.png" width="300"> 
 
-*Weak signal*
+*Weak signal:*
 
 *An example of **weaker signal** is demonstrated below with a **Pol2** data. Here, this particular antibody is not very efficient and these are broad scattered peaks. We observe two peaks in the cross-correlation profile: one at the true peak shift (~185-200 bp) and the other at read length. For weak signal datasets, the **read-length peak will start to dominate**.*
 
 <img src="../img/Pol2.png" width ="300">
  
-*No signal*
+*No signal:**
 
 *A failed experiment will resemble a cross-correlation plot using **input only**, in which we observe little or no peak for fragment length. Note in the example below the **strongest peak is the blue line (read length)** and there is basically no other significant peak in the profile. The absence of a peak is expected since there should be no significant clustering of fragments around specific target sites (except potentially weak biases in open chromatin regions depending on the protocol used).*
  
@@ -259,7 +263,7 @@ Next we have two plots that summarize the number of **Reads in Peaks**. ChIP sam
 
 #### Sample similarity
 
-Finally, there are plots to show **how the samples are clustered** using methods we have seen in the RNA-seq lessons. 
+Finally, there are plots to show **how the samples are clustered** using methods we have seen in the RNA-seq lessons. We will be plotting this in a
 
 The correlation heatmap is based on correlation values for all the peak scores for each sample. 
 
@@ -277,7 +281,7 @@ In the PCA plot however, Nanog and Pou5f1 replicates are clustering appropriatel
 
 In general, our data look good. There is some discordance apparent between the Nanog replicates and this combined with lower SSD scores might indicate that while there are many peaks identified it is mainly due to noise. 
 
-## Experimental biases: sources of low quality ChIP-seq data
+#### Experimental biases: sources of low quality ChIP-seq data
 
 Once you have identified low quality samples, the next logical step is to troubleshoot what might be causing it.
 
@@ -298,74 +302,8 @@ The way in which sonication is carried out can result in different fragment size
 
 *PCR amplification:* Biases arise because DNA sequence content and length determine the kinetics of annealing and denaturing in each cycle of PCR. The combination of temperature profile, polymerase and buffer used during PCR can therefore lead to differential efficiencies in amplification between different sequences, which could be exacerbated with increasing PCR cycles. This is often manifest as a bias towards GC rich fragments [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4473780/). **Limited use of PCR amplification is recommended because bias increases with every PCR cycle.**
 
-
-
-***
-
-> **NOTE:** Many of the plots that were generated in the ChIPQC report can also be generated using [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), a suite of python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. If you are interested in learning more we have a [lesson on quality assessment using deepTools](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/qc_deeptools.md).
-
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
 *Details on ChIPQC plots was taken from the [ChIPQC vignette](http://bioconductor.org/packages/release/bioc/vignettes/ChIPQC/inst/doc/ChIPQC.pdf), which provides a walkthrough with examples and thorough explanations.*
-
-
 ***
-
-
----
-title: "ChIP Quality Assessment Metrics"
-authors: "Mary Piper and Meeta Mistry"
-date: "March 17, 2018"
----
-
-Approximate time: 60 minutes
-
-## Learning Objectives
-
-* Discuss sources of low quality ChIP-seq data
-* Understand strand cross-correlation
-* Evaluate and interpret QC metrics and the cross-correlation plot
-
-
-
-
-
-## Additional Quality Metrics for ChIP-seq data
-
-
-
-
-### Quality Metrics Based on Cross-Correlation
-
-Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-seq data. These metrics are described in more detail below:
-
-#### Normalized strand cross-correlation coefficent (NSC):
-
-The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). 
-
-<img src="https://latex.codecogs.com/gif.latex?\frac{max(CC&space;values)}{min(CCvalues)}" title="\frac{max(CC values)}{min(CCvalues)}" />
-
-- higher NSC values indicate more enrichment (better signal:noise)
-- low signal-to-noise: NSC values < 1.1
-- minimum possible NSC value: 1 (no enrichment) 
-
-#### Relative strand cross-correlation coefficient (RSC):
-
-The ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. 
-
-<img src="https://latex.codecogs.com/gif.latex?\frac{max(CCvalues)&space;-&space;background}{phantomCCvalue&space;-&space;background}" title="\frac{max(CCvalues) - background}{phantomCCvalue - background}" />
-
-- high enrichment: RSC values > 1
-- low signal-to-noise: RSC values < 0.8
-- minimum possible RSC value: 0 (no enrichment)
-
-
-> **NOTE:** Low NSC and RSC values can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Datasets with few binding sites (< 200) could be due to biological reasons, such as a factor that truly binds only a few sites in a particular tissue type, which would output low NSC and RSC scores.
-
-
-
-### Relative Enrichment of Genomic Intervals (REGI)
-
-Using the genomic regions identified as called peaks, we can obtain **genomic annotation to show where reads map in terms of various genomic features**. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
-
