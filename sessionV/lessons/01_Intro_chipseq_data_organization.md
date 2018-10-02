@@ -20,6 +20,14 @@ During this session we will be performing **a complete workflow for ChIP-seq ana
 
 <img src="../img/chip_workflow_june2017.png" width="700">	
 
+## Decision Tree
+
+For ChIP-seq the above workflow is a good guide to the analysis however, there are several steps along the way which require one to use different tools and assess metrics in a fairly subjective manner.
+
+We will be going deeper into each component of the tree below tomorrow afternoon, but for now we wanted to give you a rough idea of what to expect as we go through the rest of the lessons for ChIP-seq.
+
+<img src="../img/decision_tree.png" width="700">	
+
 
 ## Setting up
 
