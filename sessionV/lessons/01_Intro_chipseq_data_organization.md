@@ -26,7 +26,7 @@ For ChIP-seq the above workflow is a good guide to the analysis however, there a
 
 We will be going deeper into each component of the tree below tomorrow afternoon, but for now we wanted to give you a rough idea of what to expect as we go through the rest of the lessons for ChIP-seq.
 
-<img src="../img/decision_tree.png" width="700">	
+<img src="../img/decision_tree-2.png" width="700">	
 
 
 ## Setting up
