@@ -210,7 +210,9 @@ Let's take a look at the cross-correlation plot ChIPQC generated for us:
 
 <img src="../img/CCPlot.png" width ="500">
 
-In our dataset, ADD SOME TEXT HERE THAT EVALUATES THIS PLOT BRIEFLY
+In our dataset, ADD SOME TEXT HERE THAT EVALUATES THIS PLOT BRIEFLY. CONNECT THIS PLOT BACK TO FRAGL DETERMINATION, RSC AND NSC.
+
+> NOTE LINKING TO SHORT MARKDOWN ABOUT CALCULATING RSC, NSC AND AN EXPLANATION OF THE PHANTOM PEAK.
 
 > **Examples of Cross-Correlation Plots**
 > 
