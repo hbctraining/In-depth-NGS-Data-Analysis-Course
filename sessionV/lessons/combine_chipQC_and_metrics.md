@@ -160,9 +160,9 @@ This table contains **the mapping quality, and duplication rate,** however since
 
 #### Plot of percentage of reads in blacklists
 
-Next is a plot showing the effect of blacklisting, with the proportion of reads that do and don't overlap with blacklisted regions. 
+Next is a plot showing the effect of blacklisting, with the proportion of reads that are either inside (dark blue) or outside (lighter blue) the blacklisted regions. *If the black listed regions had already been filtered out before peak calling, this plot would not be informative.*
 
-ADD TEXT AND IMAGE
+<img src="../img/Ribl.png" width="500">
 
 #### Relative Enrichment of Genomic Intervals (REGI)
 
@@ -196,15 +196,19 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 *Using a small genomic window as an example, let's walk through the details of the cross-correlation below. It is important to note that the cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand**, after shifting minus strand by k base pairs.*
 
-**REPLACE ALL OF THESE FIGURES**
+***Plot 1:** At strand shift of zero, the Pearson correlation between the two vectors is 0.*
 
-<img src="../img/cc1.png" width ="500">
+<img src="../img/cc1-new.png" width ="500">
 
-<img src="../img/cc2.png" width ="500">
+**Plot 2:** At strand shift of 100bp, the Pearson correlation between the two vectors is 0.389.*
 
-<img src="../img/cc3.png" width ="500">
+<img src="../img/cc2-new.png" width ="500">
 
-*In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value.* ***These Pearson correlation values are computed for every peak for each chromosome and values are multiplied by a scaling factor and then summed across all chromosomes.***
+***Plot 3:** At strand shift of 175bp, the Pearson correlation between the two vectors is 0.831.*
+
+<img src="../img/cc3-new.png" width ="500">
+
+*When this process is completed we will have a table of values mapping each base pair shift to a Pearson correlation value.* ***These Pearson correlation values are computed for every peak for each chromosome and values are multiplied by a scaling factor and then summed across all chromosomes.***
 
 ***
 
