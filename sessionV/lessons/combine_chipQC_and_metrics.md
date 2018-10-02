@@ -148,9 +148,11 @@ The RiBL score acts as a guide for the level of background signal in a ChIP or i
 >
 > **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species including and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
 
-> Additional metrics:
-> 
-> In addition to the 3 metrics above, we see other statistics related to the strand cross-correlation, FragLength and RelCC, with **RelCC values larger than 1 for all ChIP samples suggest good enrichment**. We will discuss cross-correlation later in this lesson and we will come back to RelCC breifly then.
+**Metrics from cross-correlation: FragL and RelCC (RSC):**
+ 
+In addition to the 3 metrics above, we see other statistics related to the strand cross-correlation: FragLength and RelCC (also called RSC). **RelCC values larger than 1 for all ChIP samples suggest good enrichment** and the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
+
+***Please note we will discuss cross-correlation later in this lesson and we will come back to both of these metrics then.***
 
 #### Mapping Quality table
 
