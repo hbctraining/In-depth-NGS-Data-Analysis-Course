@@ -200,7 +200,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 <img src="../img/cc1-new.png" width ="500">
 
-**Plot 2:** At strand shift of 100bp, the Pearson correlation between the two vectors is 0.389.*
+***Plot 2:** At strand shift of 100bp, the Pearson correlation between the two vectors is 0.389.*
 
 <img src="../img/cc2-new.png" width ="500">
 
