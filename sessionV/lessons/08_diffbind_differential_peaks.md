@@ -16,13 +16,13 @@ Approximate time: 90 minutes
 
 ## Differential enrichment analysis
 
-Identifying differential enrichment across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.  For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. For this analysis, we will use as input not only the peak calls but also incorporate the BAM files.
+To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. In our dataset, we have peak calls from two different transcription factors: Nanog and Pou5f1. For each factor **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. For this analysis, we will use as input not only the peak calls but also incorporate the BAM files.
 
 <img src="../img/chip_workflow_sept2018_diffbind.png" width="800"> 
 
 ## Tools for evaluating differential enrichment
 
-An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Thus, more tools have become available for this type of analysis.
+An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Because differential enrichment has become of practical importance in biological and medical research, more tools have become available for this type of analysis. 
 
 <img src="../img/diffpeaks-software.png" width="800"> 
 
@@ -35,6 +35,7 @@ When choosing which tool to use there are several criterion to consider.
 3. What is the underlying **statistical model** used for signal distribution? Is it based either on the Poisson distribution or on a more flexible negative binomial distribution.
 
 4. Some tools have been specifically designed for particular ChIP-seq data (**signal type**), such as histone modifications or transcription factor (TF) binding.
+
 
 ## DiffBind
 
