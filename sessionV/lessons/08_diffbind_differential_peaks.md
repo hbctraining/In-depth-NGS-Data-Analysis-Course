@@ -122,7 +122,7 @@ We can also plot a **correlation heatmap**, to evaluate the relationship between
 
 	plot(dbObj)
 
-<img src="../img/heatmap_diffbind.png" width="600">
+<img src="../img/heatmap_diffbind.png" width="400">
 
 **In our data, we see that the replicates appear to cluster together**, which is what we would hope for. Although there is variability between the replicates, the largest amount of variability can be attributed to differences between the two groups.
 
@@ -183,20 +183,20 @@ We can see that edgeR identifies alot fewer peaks, but it would be good to see i
 
 	dba.plotMA(dbObj, method=DBA_DESEQ2)
 	
-<img src="../img/maplot_diffbind.png" width="600">
+<img src="../img/maplot_diffbind.png" width="400">
 
 Each point represents a binding site. Points in red represent sites identified by DESeq2 as differentially bound (FDR < 0.05). The plot shows how the differentially bound sites appear to have an absolute log fold difference of at least 2. It also suggests that more binding sites gain binding affinity in the Nanog than loss, as evidenced by red dots above the center line. This same data can also be shown with the **concentrations of each sample groups plotted against each other**.
 
 
 	dba.plotMA(dbObj, bXY=TRUE)
 	
-<img src="../img/maplot_xy_diffbind.png" width="600">
+<img src="../img/maplot_xy_diffbind.png" width="400">
 
 If we want to see **how the reads are distributed amongst the different classes of differentially bound sites and sample group**s, we can use a boxplot:
 
 	pvals <- dba.plotBox(dbObj)
 	
-<img src="../img/boxplot_diffbind.png" width="600">
+<img src="../img/boxplot_diffbind.png" width="400">
 
 The left two boxes show distribution of reads over all differentially bound sites in the Nanog and Pou5f1 groups. Samples have a somewhat higher mean read concentration in Nanog samples. The next two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Pou5f1 samples, while the final two boxes show the distribution of reads in differentially bound sites that exhibit increased affinity in the Nanog samples. `dba.plotBox()` returns a matrix of p-values (computed using a two-sided Wilcoxon Mann-Whitney test and are stored in the `pvals` variable. 
 
