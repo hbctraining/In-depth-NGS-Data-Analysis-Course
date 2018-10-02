@@ -158,6 +158,10 @@ In addition to the 3 metrics above, we see other statistics related to the stran
 
 This table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers do not report much for us.
 
+#### Plot of percentage of reads in blacklists
+
+ADD TEXT
+
 #### Heatmap of log2 enrichment of reads in genomic features
 
 Next is a plot showing the effect of blacklisting, with the proportion of reads that do and don't overlap with blacklisted regions. The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
