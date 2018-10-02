@@ -176,8 +176,11 @@ The next section, **ChIP Signal Distribution and Structure**, looks at the inher
 
 **A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have lower genome wide low pile-up. 
 
-In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
 <img src="../img/CoverageHistogramPlot.png" width="500">
+
+In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
+
+MEETA: CLARIFY THE LANGUAGE ABOUT CURVE HEAVINESS
 
 #### Strand cross-correlation
 
