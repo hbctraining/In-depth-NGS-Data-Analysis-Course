@@ -263,19 +263,7 @@ Next we have two plots that summarize the number of **Reads in Peaks**. ChIP sam
 
 #### Sample similarity
 
-Finally, there are plots to show **how the samples are clustered** using methods we have seen in the RNA-seq lessons. We will be plotting this in a
-
-The correlation heatmap is based on correlation values for all the peak scores for each sample. 
-
-<img src="../img/PeakCorHeatmap.png" width="500">
-
-The other plot shows the first two principal component values for each sample. 
-
-<img src="../img/PeakPCA.png" width="500">
-
-According to the heatmap the Pou5f1 replicates cluster together, which is good. However, for Nanog we see that Replicate 1 appears to correlate slightly better with the Pou5f1 replicates than with Replicate 2.
-
-In the PCA plot however, Nanog and Pou5f1 replicates are clustering appropriately in the context of PC1. 
+Finally, there are plots to show **how similar the samples are** using methods we have seen in the RNA-seq lessons. We will take a closer look at these when we plot them during differential enrichment analysis. 
 
 ### Final takehome from ChIPQC
 
