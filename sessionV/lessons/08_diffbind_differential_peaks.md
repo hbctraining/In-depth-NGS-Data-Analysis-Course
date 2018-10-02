@@ -206,7 +206,7 @@ The left two boxes show distribution of reads over all differentially bound site
 To extract the full results from DESeq2 we use `dba.report`:
 
 ```
-res.deseq <- dba.report(dbObj, method=DBA_DESEQ2, contrast = 1, th=1)
+res_deseq <- dba.report(dbObj, method=DBA_DESEQ2, contrast = 1, th=1)
 
 ```
 
@@ -215,7 +215,7 @@ res.deseq <- dba.report(dbObj, method=DBA_DESEQ2, contrast = 1, th=1)
 **These results files contain the genomic coordinates for all consensus sites and statistics for differential enrichment including fold-change, p-value and FDR.**
 
 ```
-> res.deseq
+> res_deseq
 
 GRanges object with 85 ranges and 6 metadata columns:
      seqnames            ranges strand |      Conc Conc_Nanog Conc_Pou5f1      Fold
@@ -250,20 +250,25 @@ Before **writing to file** we need to convert it to a data frame so that genomic
 ```
 
 # Write to file
-out <- as.data.frame(res.deseq)
+out <- as.data.frame(res_deseq)
 write.table(out, file="results/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
 
 ````
 
 Additionally, we will want to create BED files for each set of significant regions identified by DESeq2, separating them based on the gain or loss of enrichment. For these we will only write to file the **first three columns (minimal BED format)**, in this way we can use it as **input for downstream visualization**. 
 
- MODIFY THIS TO TIDYVERSE AND CORRECT FILES. ALSO CHANGE THE DOT IN VARIABLE NAMES TO UNDERSCORE
+
 ```
 # Create bed files for each keeping only significant peaks (p < 0.05)
 
-deseq.bed.incr <- out[ which(out$FDR < 0.05 & Fold > 0), 
-                 c("seqnames", "start", "end", "strand", "Fold")]
-write.table(deseq.bed, file="results/Nanog_vs_Pou5f1_deseq2_sig.bed", sep="\t", quote=F, row.names=F, col.names=F)
+nanog_enrich <- out %>% 
+  filter(FDR < 0.05 & Fold > 0) %>% 
+  select(seqnames, start, end, strand, Fold)
+
+
+pou5f1_enrich <- out %>% 
+  filter(FDR < 0.05 & Fold < 0) %>% 
+  select(seqnames, start, end, strand, Fold)
 ```
 
 
