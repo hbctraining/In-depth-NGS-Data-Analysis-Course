@@ -18,7 +18,7 @@ Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA b
 
 During this session we will be performing **a complete workflow for ChIP-seq analysis**, starting with the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
 
-<img src="../img/chip_workflow_june2017.png" width="700">	
+<img src="../img/chip_workflow_june2017.png" width="850">	
 
 ## Decision Tree
 
