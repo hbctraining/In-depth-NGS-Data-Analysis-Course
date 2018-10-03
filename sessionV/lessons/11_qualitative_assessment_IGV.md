@@ -33,8 +33,8 @@ Open up `FileZilla` and connect to the transfer node on O2. Navigate to the corr
 * Pou5f1_Rep1 BAM index (bai) - `~/chipseq/results/bowtie2/H1hesc_Pou5f1_Rep1_aln.bam.bai`
 
 **Peak Calls (BED/narrowpeak):**
-* Nanog-only - `~/chipseq/results/macs2/Nanog-rep2_peaks.narrowPeak`
-* Pou5f1-only - `~/chipseq/results/macs2/Pou5f1-rep1_peaks.narrowPeak`
+* Nanog_Rep2 - `~/chipseq/results/macs2/Nanog-rep2_peaks.narrowPeak`
+* Pou5f1_Rep1 - `~/chipseq/results/macs2/Pou5f1-rep1_peaks.narrowPeak`
 
 **Read density or coverage data (BigWig):**
 * Nanog_Rep2 - `~/chipseq/results/visualization/bigWig/H1hesc_Nanog_Rep2.bw`
