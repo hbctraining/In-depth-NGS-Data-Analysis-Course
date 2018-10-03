@@ -8,7 +8,7 @@
 |09:00 - 9:30 | [Homework Review]() | All |
 |09:30 - 10:15 | [Single-cell RNA-seq - marker identification](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionIV/lessons/SC_marker_identification.html) | Mary |
 |10:15 - 10:30 | Break | |
-|10:30 - 11:30 | [Introduction to ChIP-seq]() | Dr. Shannan Ho Sui |
+|10:30 - 11:30 | [Introduction to ChIP-seq](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionV/slides/Introduction%20to%20ChIP-seq%20Summer%202018.pdf) | Dr. Shannan Ho Sui |
 |11:30 - 12:00 | [Setting up for ChIP-seq analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/01_Intro_chipseq_data_organization.html) | Meeta |
 |12:00 - 13:00 | Lunch | |
 |13:00 - 14:15 | [Alignment and filtering of reads](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/03_align_and_filtering.html) | Mary |
