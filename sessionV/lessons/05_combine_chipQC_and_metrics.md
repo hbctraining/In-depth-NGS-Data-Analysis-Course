@@ -44,7 +44,7 @@ biocLite("ChIPQC")
 
 ### Get data 
 
-Now let's move over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
+Now let's move over the appropriate files from O2 to our laptop. You can do this using `FileZilla` or the `scp` command.
 
 1. Move over the **BAM files (`_aln.bam`)** and the corresponding **indices (`_aln.bam.bai`)** from `~/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
 
