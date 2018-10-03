@@ -1,23 +1,22 @@
-
-
 ---
-title: "ChIP Quality Assessment Metrics"
+title: "Cross-correlation Metrics"
 authors: "Mary Piper and Meeta Mistry"
-date: "March 17, 2018"
+date: "October 2, 2018"
 ---
 
-Approximate time: 60 minutes
+## Quality Metrics Based on Cross-Correlation
 
-## Learning Objectives
+Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment**. Poor signal-to-noise can indicate problems with the ChIP-seq data. 
 
-* Discuss sources of low quality ChIP-seq data
-* Understand strand cross-correlation
-* Evaluate and interpret QC metrics and the cross-correlation plot
+### Cross-correlation plot
 
+Strand cross-correlation is computed as the Pearson's linear correlation between the minus strand and the plus strand, after shifting minus strand by k base pairs. In the end we will have a cross-correlation value for each shift value, and they can be plotted against each other to generate a cross-correlation plot as shown below. The **cross-correlation plot typically produces two peaks**: a peak of enrichment corresponding to the predominant fragment length (highest correlation value) and a peak corresponding to the read length (“phantom” peak).
 
-### Quality Metrics Based on Cross-Correlation
+<img src="../img/cc-example.png">
 
-Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-seq data. These metrics are described in more detail below:
+### Metrics based on the cross-correlation plot
+
+There are two metrics that are computed using the cross-correlation described below. If you are interested in computing these and drawing cross-correlation plots outside of the ChIPQC package you can use [phantompeakqualtools](https://github.com/kundajelab/phantompeakqualtools). 
 
 #### Normalized strand cross-correlation coefficent (NSC):
 
@@ -39,9 +38,13 @@ The ratio of the fragment-length cross-correlation value minus the background cr
 - low signal-to-noise: RSC values < 0.8
 - minimum possible RSC value: 0 (no enrichment)
 
+> **NOTE:** Low NSC and RSC values can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Also, datasets with few binding sites (< 200) which could be due to biological reasons (i.e. a factor that truly binds only a few sites in a particular tissue type) would output low NSC and RSC scores.
 
-> **NOTE:** Low NSC and RSC values can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Datasets with few binding sites (< 200) could be due to biological reasons, such as a factor that truly binds only a few sites in a particular tissue type, which would output low NSC and RSC scores.
+
+### Fragment length 
+
+The shift value at which we observe the highest correlation value is considered to be the estimated fragment length. Some tools will report to you the top three fragment length values if the peak is not entirely clear. You will want the fragment length estimate to roughly resemble the actual fragment length you had decided on when size selecting during your library preparation.
 
 
-ADD IMAGES ABOUT PHANTOM PEAK = READ LENGTH FROM KAYLEIGH
+### 'phantom peak'
 
