@@ -268,11 +268,13 @@ Finally, there are plots to show **how similar the samples are** using methods w
 
 ### Final takehome from ChIPQC
 
-In general, our data look good with all of the reported metrics falling within our suggested thresholds. Each sample group, appears to have one replicate exhibiting stronger signal than the other. This difference is more pronounced with the Nanog replicates based on the cross-correlation plots and coverage plots. Although there is a difference in the amount of signal/enrichment between the replicates, it is encouraging to see similar trends. For example, two replicates that displayed totally different cross-correlation plots would suggest something went wrong.
+In general, our data look good with **all of the reported metrics falling within our suggested thresholds**. This type of QC is generally used to evaluate each sample individually and ensure that we are observing values that are good enough that we are comfortable moving forward with. Below, we briefly we compare and contrast these metrics for added discussion.
 
-Comparing the metrics from one sample group to one another, it is difficult to conclude whether one is better than the other. The SSD and RelCC scores appear to be higher for Pou5f1 indicating good enrichment, yet the coverage plots and cross-correlation plots suggest more signal in the Nanog samples. It is worth noting that this ChIP QC is to evaluate each sample individually based on these metrics. The difference between the groups is just something to take note of and we will revisit this later during differential enrichment and visualization.
+**Within sample group:** Each sample group, appears to have one replicate exhibiting stronger signal than the other. This difference is more pronounced with the Nanog replicates based on the cross-correlation plots and coverage plots. Although there is a difference in the amount of signal/enrichment between the replicates, it is encouraging to see similar trends. For example, two replicates that displayed totally different cross-correlation plots would suggest something went wrong.
 
-**What are these sources of low quality data?**
+**Between sample groups:** Comparing the metrics from one sample group to one another, it is difficult to conclude whether one is better than the other. The SSD and RelCC scores appear to be higher for Pou5f1 indicating good enrichment, yet the coverage plots and cross-correlation plots suggest more signal in the Nanog samples. The difference between the groups is something to take note of and we will revisit this later during differential enrichment and visualization.
+
+**What are possible sources of low quality data?**
 
 Once you have identified low quality samples based on some of the quality metrics discussed above, the next logical step is to troubleshoot what might be causing it.
 
