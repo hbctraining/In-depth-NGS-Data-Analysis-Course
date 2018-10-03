@@ -45,5 +45,9 @@ The ratio of the fragment-length cross-correlation value minus the background cr
 The shift value at which we observe the highest correlation value is considered to be the estimated fragment length. Some tools will report to you the top three fragment length values if the peak is not entirely clear. You will want the fragment length estimate to roughly resemble the actual fragment length you had decided on when size selecting during your library preparation.
 
 
-### 'phantom peak'
+### "phantom peak"
+
+The concept is that if you have a read that maps uniquely on strand `x` at position `i` (where `i` is the starting position); it follows that you will have a read mapping to strand `y` at position `i+r`. Because the way the counts are stored, with the number of reads starting at each coordinate, you will get a bunch of reads at `x[i]` and a bunch of reads at `y[i+r]` that are `r` distance away from each other.
+
+
 
