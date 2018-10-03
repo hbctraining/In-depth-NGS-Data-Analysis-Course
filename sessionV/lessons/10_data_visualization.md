@@ -233,6 +233,54 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
 
 > **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. Explore the documentation to find out more detail.
 
+### Visualizing enrichment in sites specific to each factor
+
+Previously, we had evaluated differential enrichment between the two factors in our study. We had found almost all of the peaks that were identfied were specific to Nanog and onlly one region that had significantly higher enrichment in Pou5f1. We can use the resulting BED files as input to `deepTools` and visualize enrichment in those regions to see the differences in read density.
+
+We can do this by **using some of the `deepTools` commands we had explored previously.**
+
+```bash
+
+ $ computeMatrix scale-regions \
+-R ~/chipseq/results/bedtools/Nanog_only_peaks.bed \
+-S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
+--skipZeros -p 6 \
+-a 500 -b 500 \
+-o ~/chipseq/results/visualization/matrixAll_Nanog_binding_sites.gz
+
+
+$ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
+-out visualization/figures/Allsamples_NanogSites_profile.png \
+--perGroup  --plotTitle "" \
+--samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
+-T "Nanog only binding sites"  -z "" \
+--startLabel "" --endLabel "" \
+--colors red red darkblue darkblue
+```
+
+<img src="../img/Allsamples_NanogSites_profile.png" width="500">
+
+```bash
+
+ $ computeMatrix scale-regions \
+-R ~/chipseq/results/bedtools/Pou5f1_only_peaks.bed \
+-S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
+--skipZeros -p 6 \
+-a 500 -b 500 \
+-o ~/chipseq/results/visualization/matrixAll_Pou5f1_binding_sites.gz 
+
+
+$ plotProfile -m visualization/matrixAll_Pou5f1_binding_sites.gz \
+-out visualization/figures/Allsamples_Pou5f1Sites_profile.png \
+--perGroup  --plotTitle "" \
+--samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
+-T "Pou5f1 only binding sites"  -z "" \
+--startLabel "" --endLabel "" \
+--colors red red darkblue darkblue
+```
+
+<img src="../img/Allsamples_Pou5f1Sites_profile.png" width="500">
+
 
 
 
