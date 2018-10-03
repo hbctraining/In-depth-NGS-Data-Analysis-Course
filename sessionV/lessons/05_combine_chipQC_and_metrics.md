@@ -217,7 +217,7 @@ Let's take a look at the cross-correlation plot ChIPQC generated for us:
 
 In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cross-correlation curve as described above with the two peaks. The maximum corrleation value (the highest point of the larger peak) is higher in Nanog then in Pou5f1 suggesting a higher amount of signal. The corresponding shift value (x-axis) for that maximum correlation gives us the estimated fragment length. Since this data was obtained from ENCODE and we do not have information at the level of library preparation we have nothing to cross-reference fragment length (FragL) with. 
 
-> **NOTE:** The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials]().
+> **NOTE:** The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/CC_metrics_extra.html).
 
 ***
 
