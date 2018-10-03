@@ -6,7 +6,6 @@ date: "October 2, 2018"
 
 ## Quality Metrics Based on Cross-Correlation
 
-Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment**. Poor signal-to-noise can indicate problems with the ChIP-seq data. 
 
 ### Cross-correlation plot
 
