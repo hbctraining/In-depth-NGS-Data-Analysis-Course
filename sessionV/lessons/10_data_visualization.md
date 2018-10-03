@@ -16,7 +16,7 @@ The first part of ChIP-sequencing analysis uses common processing pipelines, whi
 
 There are various strategies for visualizing enrichment patterns and we will explore a few of them. To start, we will create bigWig files for our samples, a standard file format commonly used for ChIP-seq data visualization.
 
-### Creating bigWig files
+## Creating bigWig files
 
 The first thing we want to do is take our alignment files (BAM) and convert them into bigWig files. The bigWig format is an indexed binary format useful for dense, continuous data that will be displayed in a genome browser as a graph/track, but also is used as input for some of the visualization commands we will be running in `deepTools`. 
 
@@ -124,7 +124,7 @@ $ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_aln.bam \
 Since we are using a toy dataset which contains only a subset of the data, using these bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can use for the rest of this lesson.**
 
 
-### Profile plots and heatmaps
+## Profile plots and heatmaps
 
 Once you have bigWig files you can use them to get a global look at enrichment patterns in your data at specified regions. In our example, we will assess enrichment around the TSS and plot this separately for the Nanog and Pou5f1 samples (two replicates in each plot). 
 
@@ -233,7 +233,7 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
 
 > **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. Explore the documentation to find out more detail.
 
-### Visualizing enrichment in differentially enriched regions
+## Visualizing enrichment in differentially enriched regions
 
 Previously, we had evaluated differential enrichment between the two factors in our study. We had found **almost all of the peaks that were identfied were specific to Nanog and only one region that had significantly higher enrichment in Pou5f1**. We can use the BED files we generated with DiffBind as input to `deepTools` and visualize enrichment in those regions to evaluate the differences in read density.
 
