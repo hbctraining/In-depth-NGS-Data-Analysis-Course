@@ -185,7 +185,8 @@ While the SAM alignment file output by Bowtie2 is human readable, we need a BAM 
 To use `samtools` we will need to load the module:
 
 ```bash
-module load samtools/1.3.1
+$ module load samtools/1.3.1
+$ module load gcc/6.2.0 # you may not need to load this if you are working in the same session from Bowtie2
 ```
 
 The command we will use is `samtools view` with the following parameters:
