@@ -237,11 +237,11 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
 
 Previously, we had evaluated differential enrichment between the two factors in our study. We had found **almost all of the peaks that were identfied were specific to Nanog and only one region that had significantly higher enrichment in Pou5f1**. We can use the BED files we generated with DiffBind as input to `deepTools` and visualize enrichment in those regions to evaluate the differences in read density.
 
-Open up `FileZilla` and copy over the BED files to O2 in`~/chipseq/results/visualization`:
+* Open up `FileZilla` and **copy over the BED files to O2** in`~/chipseq/results/visualization`:
 
 <img src="../img/filezilla_diffbind.png">
 
-Now we can **use some of the `deepTools` commands we had explored previously.** Let's start with Nanog file in which we are looking at cumulative read density across 33 regions. The plot confirms what we had expected, that is, Pou5f1 don't exhibit much read depth in these regions. 
+Now we can **use some of the `deepTools` commands we had explored previously.** Let's start with Nanog file which contains 33 regions that were identified as increased in enrichment compared to Pou5f1. The plot confirms what we had expected, that is, Pou5f1 don't have much read depth in these regions. 
 
 ```bash
 
