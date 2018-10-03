@@ -233,9 +233,13 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
 
 > **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. Explore the documentation to find out more detail.
 
-### Visualizing enrichment in sites specific to each factor
+### Visualizing enrichment in differentially enriched regions
 
-Previously, we had evaluated differential enrichment between the two factors in our study. We had found almost all of the peaks that were identfied were specific to Nanog and onlly one region that had significantly higher enrichment in Pou5f1. We can use the resulting BED files as input to `deepTools` and visualize enrichment in those regions to see the differences in read density.
+Previously, we had evaluated differential enrichment between the two factors in our study. We had found **almost all of the peaks that were identfied were specific to Nanog and only one region that had significantly higher enrichment in Pou5f1**. We can use the BED files we generated with DiffBind as input to `deepTools` and visualize enrichment in those regions to evaluate the differences in read density.
+
+Open up `FileZilla` and copy over the BED files to O2 in`~/chipseq/results/visualization`:
+
+<img src="../img/filezilla_diffbind.png" width="500">
 
 We can do this by **using some of the `deepTools` commands we had explored previously.**
 
