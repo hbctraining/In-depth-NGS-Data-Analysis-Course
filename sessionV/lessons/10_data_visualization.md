@@ -285,7 +285,7 @@ $ plotProfile -m visualization/matrixAll_Pou5f1_binding_sites.gz \
 --colors red red darkblue darkblue
 ```
 
-<img src="../img/Allsamples_Pou5f1Sites_profile.png" width="500">
+<img src="../img/Allsamples_Pou5f1Sites_profile2.png" width="500">
 
 
 
