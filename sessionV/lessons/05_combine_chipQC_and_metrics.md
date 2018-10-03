@@ -56,7 +56,7 @@ Now let's move over the appropriate files from O2 to our laptop. You can do this
 3. Download the sample data sheet available from [this link](https://github.com/hbctraining/Intro-to-ChIPseq/raw/master/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
 
 
-### Run `ChIPQC` 
+### Run ChIPQC
 
 Let's start by loading the `ChIPQC` library and the samplesheet into R. Use the `View()` function to take a look at what the samplesheet contains.
 
@@ -97,10 +97,10 @@ ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolde
 > If you were unable to run the code successfully you download [this zipped folder](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionV/results/ChIPQCreport.zip), and open the html within. However, it may be better to download the report for the full dataset linked below instead.
 
 
-### `ChIPQC` report
+### ChIPQC report
 
 
-Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=1). Uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=1), uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled "Expand All", click on that to expand all sections.
 
 #### The QC summary table:
 
@@ -116,7 +116,9 @@ Let's take a closer look what these metrics are telling us:
 
 The SSD score is a measure used to indicate evidence of enrichment. It provides a measure of read pileup across the genome and is computed by looking at the standard deviation of signal pile-up along the genome normalised to the total number of reads. A "good" or enriched sample typically has regions of significant read pile-up so **a higher SSD is more indicative of better enrichment**. 
 
-In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that  there is greater enrichment in the Pou5f1 samples, but we cannot conclude that without first looking at some of the other metrics described below. Since SSD scores are dependent on the degree of total genome wide signal pile-up, they can be sensitive to regions of artificially high signal as well as genuine ChIP enrichment. Thus, we must make sure that the high SSD in Pou5f1 is actually a result of ChIP enrcihment and not some unknown artifacts.
+In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that  there is greater enrichment in the Pou5f1 samples, but we cannot conclude that without first looking at some of the other metrics described below. 
+
+Basically, SSD scores are dependent on the degree of total genome wide signal pile-up, and therefore they are sensitive to regions of artificially high signal in addition to genuine ChIP enrichment. So we need to look closely at the rest of the output of ChIPQC to be sure that the high SSD in Pou5f1 is actually a result of ChIP enrichment and not some unknown artifact(s).
 
 
 **RiP: Fraction of Reads in Peaks**
@@ -129,7 +131,7 @@ RiP (also called FRiP) values will vary depending on the protein of interest:
  * A good quality PolII would exhibit a RiP of 30% or higher. 
  * There are also known examples of good datasets with FRiP < 1% (i.e. RNAPIII).
 
-In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low.
+In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This is perhaps an indication that the poor SSD scores for Nanog may not be predictive of poor quality.
 
 **RiBL: Reads overlapping in Blacklisted Regions**
 
@@ -143,18 +145,19 @@ The RiBL score acts as a guide for the level of background signal in a ChIP or i
 
 > **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
 
-
 > **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species including and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
 
-**Metrics from cross-correlation: FragL and RelCC (RSC):**
+**Metrics from cross-correlation: FragL (Fragment Length Cross Coverage) and RelCC (Relative Cross Coverage):**
  
-In addition to the three metrics above, we see other statistics related to the strand cross-correlation: FragLength and RelCC (also called RSC). **RelCC values larger than 1 for all ChIP samples suggest good enrichment** and the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
+In addition to the three metrics above, we see other statistics related to the strand cross-correlation: FragLength and RelCC (also called Relative strand cross-correlation coefficient or RSC). 
+
+**RelCC values larger than 1 for all ChIP samples suggest good enrichment** & the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
 
 ***Please note we will discuss cross-correlation later in this lesson and we will come back to both of these metrics then.***
 
 #### Mapping Quality table
 
-This table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers do not report much for us.
+This table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us.
 
 #### Plot of percentage of reads in blacklists
 
@@ -191,7 +194,7 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 ***How are the Cross-Correlation scores calculated?***
 
-*Using a small genomic window as an example, let's walk through the details of the cross-correlation below. It is important to note that the cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand**, after shifting minus strand by k base pairs.*
+*Using a small genomic window as an example, let's walk through the details of the cross-correlation below. It is important to note that the cross-correlation metric is computed as the **Pearson's linear correlation between coverage for each complementary base** (i.e. on the minus strand and the plus strands), by systematically shifting minus strand by k base pairs at a time. This shift is performed over and over again to obtain the correlations for a given area of the genome.*
 
 ***Plot 1:** At strand shift of zero, the Pearson correlation between the two vectors is 0.*
 
@@ -209,9 +212,9 @@ A very useful ChIP-seq quality metric that is independent of peak calling is **s
 
 ***
 
-Once the final cross-correlation values have been calculated, they can be plotted (Y-axis) against the shift value (X-axis) to generate a cross-correlation plot! The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak).
+Once the final cross-correlation values have been calculated, they can be plotted (Y-axis) against the shift value (X-axis) to generate a cross-correlation plot! 
 
-Let's take a look at the cross-correlation plot ChIPQC generated for us:
+The cross-correlation plot **typically produces two peaks**: a peak of enrichment corresponding to the predominant **fragment length** (highest correlation value) and a peak corresponding to the **read length** (“phantom” peak). Let's take a look at the cross-correlation plot `ChIPQC` generated for us:
 
 <img src="../img/CCPlot.png" width ="500">
 
@@ -247,11 +250,9 @@ In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cr
 
 This final set of plots are based on metric computed using the supplied peaks if available. These show average peak profiles, centered on the summit (point of highest pileup) for each peak.
 
-The **shape of these profiles can vary depending on what type of mark is being studied** – transcription factor, histone mark, or other DNA-binding protein such as a polymerase – but similar marks usually have a distinctive profile in successful ChIPs. 
-
 <img src="../img/PeakProfile.png" width="500">
 
-In our dataset, ADD SOME TEXT HERE THAT EVALUATES THIS PLOT BRIEFLY
+The **shape of these profiles can vary depending on what type of mark is being studied** – transcription factor, histone mark, or other DNA-binding protein such as a polymerase – but similar marks usually have a distinctive profile in successful ChIPs. 
 
 #### Reads in Peaks
 
@@ -268,9 +269,9 @@ Finally, there are plots to show **how similar the samples are** using methods w
 
 ### Final takehome from ChIPQC
 
-In general, our data look good with **all of the reported metrics falling within our suggested thresholds**. This type of QC is generally used to evaluate each sample individually and ensure that we are observing values that are good enough that we are comfortable moving forward with. Below, we briefly we compare and contrast these metrics for added discussion.
+In general, taking all of the evaluated metrics together our data look good even though individually they may not fall within the thresholds we have outlined earlier. This type of QC is first and foremost used to evaluate each sample on it's own to ensure that we are observing values that are good enough that we are comfortable moving forward with. Below, we briefly we compare and contrast these metrics between replicates and the 2 for added discussion.
 
-**Within sample group:** Each sample group, appears to have one replicate exhibiting stronger signal than the other. This difference is more pronounced with the Nanog replicates based on the cross-correlation plots and coverage plots. Although there is a difference in the amount of signal/enrichment between the replicates, it is encouraging to see similar trends. For example, two replicates that displayed totally different cross-correlation plots would suggest something went wrong.
+**Within sample group:** Each sample group appears to have one replicate exhibiting stronger signal than the other. This difference is more pronounced with the Nanog replicates based on the cross-correlation plots and coverage plots. Although there is a difference in the amount of signal/enrichment between the replicates, it is encouraging to see similar trends. For example, two replicates that displayed totally different cross-correlation plots would suggest something went wrong.
 
 **Between sample groups:** Comparing the metrics from one sample group to one another, it is difficult to conclude whether one is better than the other. The SSD and RelCC scores appear to be higher for Pou5f1 indicating good enrichment, yet the coverage plots and cross-correlation plots suggest more signal in the Nanog samples. The difference between the groups is something to take note of and we will revisit this later during differential enrichment and visualization.
 
