@@ -239,14 +239,14 @@ Previously, we had evaluated differential enrichment between the two factors in 
 
 Open up `FileZilla` and copy over the BED files to O2 in`~/chipseq/results/visualization`:
 
-<img src="../img/filezilla_diffbind.png" width="500">
+<img src="../img/filezilla_diffbind.png">
 
-We can do this by **using some of the `deepTools` commands we had explored previously.**
+Now we can **use some of the `deepTools` commands we had explored previously.** Let's start with Nanog file in which we are looking at cumulative read density across 33 regions. The plot confirms what we had expected, that is, Pou5f1 don't exhibit much read depth in these regions. 
 
 ```bash
 
  $ computeMatrix scale-regions \
--R ~/chipseq/results/bedtools/Nanog_only_peaks.bed \
+-R ~/chipseq/results/visualization/Nanog_enriched.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
 --skipZeros -p 6 \
 -a 500 -b 500 \
@@ -264,10 +264,12 @@ $ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
 
 <img src="../img/Allsamples_NanogSites_profile.png" width="500">
 
+With Pou5f1, remember we only had one region. We are still able to plot this data but you will notice that it is a bit more boxy in nature. This is because values are not being averaged over multiple regions.
+
 ```bash
 
  $ computeMatrix scale-regions \
--R ~/chipseq/results/bedtools/Pou5f1_only_peaks.bed \
+-R ~/chipseq/results/visualization/Pou5f1_enriched.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
 --skipZeros -p 6 \
 -a 500 -b 500 \
