@@ -114,13 +114,10 @@ Let's take a closer look what these metrics are telling us:
 
 **SSD**
 
-The SSD score is a measure used to indicate evidence of enrichment. It provides a measure of read pileup across the genome and is computed by looking at the standard deviation of signal pile-up along the genome normalised to the total number of reads. 
+The SSD score is a measure used to indicate evidence of enrichment. It provides a measure of read pileup across the genome and is computed by looking at the standard deviation of signal pile-up along the genome normalised to the total number of reads. A "good" or enriched sample typically has regions of significant read pile-up so **a higher SSD is more indicative of better enrichment**. 
 
-A "good" or enriched sample typically has regions of significant read pile-up so **a higher SSD is more indicative of better enrichment**. SSD scores are dependent on the degree of total genome wide signal pile-up and therefore are sensitive to regions of high signal found with Blacklisted regions as well as genuine ChIP enrichment. 
+In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that  there is greater enrichment in the Pou5f1 samples, but we cannot conclude that without first looking at some of the other metrics described below. Since SSD scores are dependent on the degree of total genome wide signal pile-up, they can be sensitive to regions of artificially high signal as well as genuine ChIP enrichment. Thus, we must make sure that the high SSD in Pou5f1 is actually a result of ChIP enrcihment and not some unknown artifacts.
 
-In our dataset, higher scores are observed for the Pou5f1 replicates which indicates greater enrichment relative to sequencing depth as compared to Nanog reps.
-
-MEETA: ADD A NOTE ABOUT WHY NANOG SAMPLES ARE STILL BETTER.
 
 **RiP: Fraction of Reads in Peaks**
 
@@ -140,17 +137,18 @@ It is important to keep track of and filter artifact regions that tend to show a
 
 <img src="../img/blacklist.png" width="600">
 
-The RiBL score acts as a guide for the level of background signal in a ChIP or input and is found to be correlated with SSD in input samples and the read length cross coverage score in both input and ChIP samples. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
+The RiBL score acts as a guide for the level of background signal in a ChIP or input. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
 
 **Lower RiBL percentages are better than higher.** In our experiment, the RiBL percentages look reasonable since they not incredibly high (also shown in the plot in the next section).
 
 > **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
->
+
+
 > **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species including and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
 
 **Metrics from cross-correlation: FragL and RelCC (RSC):**
  
-In addition to the 3 metrics above, we see other statistics related to the strand cross-correlation: FragLength and RelCC (also called RSC). **RelCC values larger than 1 for all ChIP samples suggest good enrichment** and the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
+In addition to the three metrics above, we see other statistics related to the strand cross-correlation: FragLength and RelCC (also called RSC). **RelCC values larger than 1 for all ChIP samples suggest good enrichment** and the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
 
 ***Please note we will discuss cross-correlation later in this lesson and we will come back to both of these metrics then.***
 
@@ -178,13 +176,12 @@ In our dataset, the "Promoters500" and "All5UTRs" categories have the highest le
 
 The next section, **ChIP Signal Distribution and Structure**, looks at the inherent ”peakiness” of the samples. The first plot is a **coverage histogram**. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. 
 
-**A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have lower genome wide low pile-up. 
+**A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
 
 <img src="../img/CoverageHistogramPlot.png" width="500">
 
-In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
+In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. "Heavy tail" refers to the curve being heavier than an exponential curve, with more bulk under the curve. It shows that Nanog samples have more positions in the genome with higher depth. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
 
-MEETA: CLARIFY THE LANGUAGE ABOUT CURVE HEAVINESS
 
 #### Strand cross-correlation
 
@@ -218,9 +215,9 @@ Let's take a look at the cross-correlation plot ChIPQC generated for us:
 
 <img src="../img/CCPlot.png" width ="500">
 
-In our dataset, ADD SOME TEXT HERE THAT EVALUATES THIS PLOT BRIEFLY. CONNECT THIS PLOT BACK TO FRAGL DETERMINATION, RSC AND NSC.
+In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cross-correlation curve as described above with the two peaks. The maximum corrleation value (the highest point of the larger peak) is higher in Nanog then in Pou5f1 suggesting a higher amount of signal. The corresponding shift value (x-axis) for that maximum correlation gives us the estimated fragment length. Since this data was obtained from ENCODE and we do not have information at the level of library preparation we have nothing to cross-reference fragment length (FragL) with. 
 
-NOTE LINKING TO SHORT MARKDOWN ABOUT CALCULATING RSC, NSC AND AN EXPLANATION OF THE PHANTOM PEAK.
+> **NOTE:** The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials]().
 
 ***
 
@@ -271,28 +268,26 @@ Finally, there are plots to show **how similar the samples are** using methods w
 
 ### Final takehome from ChIPQC
 
-In general, our data look good. There is some discordance apparent between the Nanog replicates and this combined with lower SSD scores might indicate that while there are many peaks identified it is mainly due to noise. 
+In general, our data look good with all of the reported metrics falling within our suggested thresholds. Each sample group, appears to have one replicate exhibiting stronger signal than the other. This difference is more pronounced with the Nanog replicates based on the cross-correlation plots and coverage plots. Although there is a difference in the amount of signal/enrichment between the replicates, it is encouraging to see similar trends. For example, two replicates that displayed totally different cross-correlation plots would suggest something went wrong.
 
-#### Experimental biases: sources of low quality ChIP-seq data
+Comparing the metrics from one sample group to one another, it is difficult to conclude whether one is better than the other. The SSD and RelCC scores appear to be higher for Pou5f1 indicating good enrichment, yet the coverage plots and cross-correlation plots suggest more signal in the Nanog samples. It is worth noting that this ChIP QC is to evaluate each sample individually based on these metrics. The difference between the groups is just something to take note of and we will revisit this later during differential enrichment and visualization.
 
-Once you have identified low quality samples, the next logical step is to troubleshoot what might be causing it.
+**What are these sources of low quality data?**
 
-* **Strength/efficiency and specificity of the immunoprecipitation** 
+Once you have identified low quality samples based on some of the quality metrics discussed above, the next logical step is to troubleshoot what might be causing it.
+
+* *Strength/efficiency and specificity of the immunoprecipitation* 
 
 The quality of a ChIP experiment is ultimately dictated by the specificity of the antibody and the degree of enrichment achieved in the affinity precipitation step [[1]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/). Antibody deficiencies are of two main types:
 
 1. Poor reactivity against the intended target
 2. Non-specific antibody, causing cross-reactivity with other DNA-associated proteins
 
-Antibodies directed against transcription factors must be characterized using both a primary (i.e immunoblot, immunofluorescence) and secondary characterization (i.e knockout of target protein, IP with multiple antibodies).
 
-* **Fragmentation/digestion**
+* *Fragmentation/digestion*
 
 The way in which sonication is carried out can result in different fragment size distributions and, consequently, sample-specific chromatin configuration induced biases. As a result, it is not recommended to use a single input sample as a control for ChIP-seq peak calling if it is not sonicated together with the ChIP sample. 
 
-* **Biases during library preparation:** 
-
-*PCR amplification:* Biases arise because DNA sequence content and length determine the kinetics of annealing and denaturing in each cycle of PCR. The combination of temperature profile, polymerase and buffer used during PCR can therefore lead to differential efficiencies in amplification between different sequences, which could be exacerbated with increasing PCR cycles. This is often manifest as a bias towards GC rich fragments [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4473780/). **Limited use of PCR amplification is recommended because bias increases with every PCR cycle.**
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
