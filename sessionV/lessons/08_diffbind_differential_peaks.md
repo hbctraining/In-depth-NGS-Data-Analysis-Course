@@ -263,19 +263,20 @@ Additionally, we will want to create BED files for each set of significant regio
 
 nanog_enrich <- out %>% 
   filter(FDR < 0.05 & Fold > 0) %>% 
-  select(seqnames, start, end, strand, Fold)
+  select(seqnames, start, end)
   
 # Write to file
-write.table(nanog_enrich, file="Nanog_enriched.bed", sep="\t", quote=F, row.names=F)
+write.table(nanog_enrich, file="Nanog_enriched.bed", sep="\t", quote=F, row.names=F, col.names=F)
 
 pou5f1_enrich <- out %>% 
   filter(FDR < 0.05 & Fold < 0) %>% 
-  select(seqnames, start, end, strand, Fold)
+  select(seqnames, start, end)
 
 # Write to file
-write.table(nanog_enrich, file="Pou5f1_enriched.bed", sep="\t", quote=F, row.names=F)
+write.table(nanog_enrich, file="Pou5f1_enriched.bed", sep="\t", quote=F, row.names=F, col.names=F)
 ```
 
+> **NOTE:** BED files cannot contain headers and so we have added the `col.names=F` argument to address that. Additionally, we took only the first three columns from the results (genomic coordinates) to adhere to a minimal BED file format.
 
 
 ***
