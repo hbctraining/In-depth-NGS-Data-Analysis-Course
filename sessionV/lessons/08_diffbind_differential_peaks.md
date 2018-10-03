@@ -251,11 +251,11 @@ Before **writing to file** we need to convert it to a data frame so that genomic
 
 # Write to file
 out <- as.data.frame(res_deseq)
-write.table(out, file="results/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, col.names = NA)
+write.table(out, file="results/Nanog_vs_Pou5f1_deseq2.txt", sep="\t", quote=F, row.names=F)
 
 ````
 
-Additionally, we will want to create BED files for each set of significant regions identified by DESeq2, separating them based on the gain or loss of enrichment. For these we will only write to file the **first three columns (minimal BED format)**, in this way we can use it as **input for downstream visualization**. 
+Additionally, we will want to create BED files for each set of significant regions identified by DESeq2, separating them based on the gain or loss of enrichment. We will write these regions to file and use as **input for downstream visualization**. 
 
 
 ```
@@ -264,11 +264,16 @@ Additionally, we will want to create BED files for each set of significant regio
 nanog_enrich <- out %>% 
   filter(FDR < 0.05 & Fold > 0) %>% 
   select(seqnames, start, end, strand, Fold)
-
+  
+# Write to file
+write.table(nanog_enrich, file="Nanog_enriched.bed", sep="\t", quote=F, row.names=F)
 
 pou5f1_enrich <- out %>% 
   filter(FDR < 0.05 & Fold < 0) %>% 
   select(seqnames, start, end, strand, Fold)
+
+# Write to file
+write.table(nanog_enrich, file="Pou5f1_enriched.bed", sep="\t", quote=F, row.names=F)
 ```
 
 
