@@ -13,9 +13,9 @@
 |12:00 - 13:00 | Lunch | |
 |13:00 - 14:15 | [Alignment and filtering of reads](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/03_align_and_filtering.html) | Mary |
 |14:15 - 14:35 | [ChIP-seq File Formats](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionV/slides/Workflows_and_fileformats.pdf) | Radhika |
-|14:35 - 15:05 | [Peak calling with MACS2](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/01_Intro_chipseq_data_organization.html) | Meeta |
+|14:35 - 15:05 | [Peak calling with MACS2](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/04_peak_calling_macs.html) | Meeta |
 |15:05 - 15:15 | Break | |
-|15:15 - 16:00 | [Peak calling with MACS2 (contd.)](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/04_peak_calling_macs.html) | Meeta |
+|15:15 - 16:00 | [Peak calling with MACS2 (contd.)](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/04_peak_calling_macs.html#running-macs2) | Meeta |
 |16:00 - 17:00 | [ChIPQC: generating a report with quality metrics](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/05_combine_chipQC_and_metrics.html) | Radhika |
 
 ## Day 2
