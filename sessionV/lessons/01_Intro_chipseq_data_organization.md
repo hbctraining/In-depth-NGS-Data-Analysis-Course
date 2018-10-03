@@ -4,7 +4,7 @@ author: "Mary Piper, Radhika Khetani, Meeta Mistry"
 date: "March 14th, 2018"
 ---
 
-Approximate time: 45 minutes
+Approximate time: 30 minutes
 
 ## Learning Objectives
 
@@ -24,7 +24,7 @@ During this session we will be performing **a complete workflow for ChIP-seq ana
 
 For ChIP-seq the above workflow is a good guide to the analysis however, there are several steps along the way which require one to use different tools and assess metrics in a fairly subjective manner.
 
-We will be going deeper into each component of the tree below tomorrow afternoon, but for now we wanted to give you a rough idea of what to expect as we go through the rest of the lessons for ChIP-seq.
+We will be going deeper into each component of the tree below as we introduce you to each step, but for now we wanted to give you a rough idea of what to expect as we go through the rest of the lessons for ChIP-seq.
 
 <img src="../img/decision_tree-2.png" width="700">	
 
@@ -98,34 +98,6 @@ $ cp /n/groups/hbctraining/chip-seq/reference_data/chr12* reference_data/
 ```
 
 Now we are all set up for our analysis!
-
-
-### README files
-
-After setting up the directory structure and when the analysis is running it is useful to have a **[README file](https://datamanagement.hms.harvard.edu/readme-files) within your project directory**. This file will usually contain a quick one line summary about the project and any other lines that follow will describe the files/directories found within it. An example README is shown below. Within each sub-directory you can also include README files to describe the analysis and the files that were generated.
-
-```
-## README ##
-## This directory contains data generated during the Intro to ChIP-seq course
-## Date: 
-
-There are six subdirectories in this directory:
-
-raw_data : contains raw data
-meta:  contains...
-logs:
-reference_data:
-results:
-scripts:
-```
-
-*** 
-
-### Exercise
-
-- Create a README for the `chipseq/` folder (hint: use `vim` to create the file). Give a short description of the project and as homework add brief descriptions of the types of files you will be storing within each of the sub-directories. 
-
-***
 
 
 ## Exploring the dataset
