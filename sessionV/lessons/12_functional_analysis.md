@@ -107,7 +107,7 @@ We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to
 
 To identify over-represented motifs, we will use DREME from the MEME suite of sequence analysis tools. [DREME](http://meme-suite.org/tools/dreme) is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.
 
-DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes.
+DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes. This analysis takes quite a while to run, but [materials are available](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/12_functional_analysis.html) for walking through on your own.
 
 
 ### DREME
