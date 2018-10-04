@@ -70,6 +70,7 @@ library(ChIPseeker)
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 library(clusterProfiler)
 library(annotables)
+library(org.Hs.eg.db)
 ```
 
 Now let's load all of the data. As input we need to provide the names of our BED files in a list format.
@@ -251,8 +252,13 @@ Let's start with something we have seen before with RNA-seq functional analysis.
 
 ```
 # Run GO enrichment analysis 
-ego <- enrichGO(gene = entrez, 
-                    keytype = "ENTREZID", 
+entrezids <- nanog_annot$geneId %>% 
+  as.character() %>% 
+  unique()
+
+
+ego <- enrichGO(gene = entrezids, 
+                    keyType = "ENTREZID", 
                     OrgDb = org.Hs.eg.db, 
                     ont = "BP", 
                     pAdjustMethod = "BH", 
@@ -277,11 +283,11 @@ dotplot(ego, showCategory=50)
 Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
 
 ```
-ekegg <- enrichKEGG(gene = entrez,
+ekegg <- enrichKEGG(gene = entrezids,
                  organism = 'hsa',
                  pvalueCutoff = 0.05)
 
-dotplot(kk)
+dotplot(ekegg)
 ```
 
 <img src="../img/kegg-dotplot.png">
