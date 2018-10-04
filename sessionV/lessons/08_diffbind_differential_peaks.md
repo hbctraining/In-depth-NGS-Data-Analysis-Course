@@ -54,10 +54,11 @@ DiffBind is an R package that is used for identifying sites that are **different
 
 We do not need to download any data because everything we need is already in the current project. The **samplesheet** that we used for `ChIPQC` is also required here.
 
-Now that we are setup let's load the DiffBind library.
+Now that we are setup let's load the DiffBind and Tidyverse libraries.
 
 ```
 library(DiffBind)
+library(Tidyverse)
 ```	
 > **NOTE:** You may not need to load this library since it was loaded as a dependency of the ChIPQC package.
 
@@ -273,7 +274,7 @@ pou5f1_enrich <- out %>%
   select(seqnames, start, end)
 
 # Write to file
-write.table(nanog_enrich, file="Pou5f1_enriched.bed", sep="\t", quote=F, row.names=F, col.names=F)
+write.table(pou5f1_enrich, file="Pou5f1_enriched.bed", sep="\t", quote=F, row.names=F, col.names=F)
 ```
 
 > **NOTE:** BED files cannot contain headers and so we have added the `col.names=F` argument to address that. Additionally, we took only the first three columns from the results (genomic coordinates) to adhere to a minimal BED file format.
