@@ -317,6 +317,7 @@ We have only scratched the surface here with functional analyses. Since the data
 
 ## Motif Analysis
 
+### DREME 
 ![MEME_suite](../img/meme_suite.png)
 
 The MEME suite of sequence analysis tools offers an enormous amount of functioality for motif analysis and discovery. [DREME](http://meme-suite.org/tools/dreme) is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.
@@ -325,9 +326,14 @@ DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleot
 
 ![dreme_output](../img/dreme_output.png)
 
-DREME’s HTML output provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. 
+**DREME’s HTML output** provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. 
 
+### Tomtom
+To determine if the identified motifs resemble the binding motifs of known transcription factors, we can submit the motifs to Tomtom, which searches a database of known motifs to find potential matches and provides a statistical measure of motif-motif similarity. We can run the analysis individually for each motif prediction by performing the following steps:
 
+**The HTML output for Tomtom** shows a list of possible motif matches for the DREME motif prediction generated from your Nanog regions. Clicking on the match name shows you an alignment of the predicted motif versus the match.
+
+![tomtom_output](../img/tomtom_output.png)
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
