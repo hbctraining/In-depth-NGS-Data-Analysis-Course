@@ -311,8 +311,22 @@ dotplot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
 
 <img src="../img/compareCluster_2018.png"> 
 
-
 We have only scratched the surface here with functional analyses. Since the data is compatible with many current R packages for functional enrichment the possibilities there is alot of flexibility and room for customization. For more detailed analysis we encourage you to browse through the [ChIPseeker vignette](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) and the [clusterProfiler vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html).
+
+
+
+## Motif Analysis
+
+![MEME_suite](../img/meme_suite.png)
+
+The MEME suite of sequence analysis tools offers an enormous amount of functioality for motif analysis and discovery. [DREME](http://meme-suite.org/tools/dreme) is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.
+
+DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes.
+
+![dreme_output](../img/dreme_output.png)
+
+DREME’s HTML output provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. 
+
 
 
 ***
