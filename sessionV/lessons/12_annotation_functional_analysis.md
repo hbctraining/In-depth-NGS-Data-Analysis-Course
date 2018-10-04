@@ -277,7 +277,7 @@ We can visualize the results using the `dotplot` function. We find many terms re
 dotplot(ego, showCategory=50)
 ```
 
-<img src="../img/dotplot.png">
+<img src="../img/dotplot_2018.png">
 
 
 Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
