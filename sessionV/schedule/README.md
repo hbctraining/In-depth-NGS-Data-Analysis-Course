@@ -33,4 +33,4 @@
 |15:30 - 15:40 | Break | |
 |15:20 - 16:20 | [Functional analysis](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/12_annotation_functional_analysis.html) | Mary |
 |16:20 - 16:40 | [Integrating ChIP-seq data with RNA-seq](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/integrating_rna-seq_and_chip-seq.html) | Meeta |
-|16:40 - 17:00 | [Overview of ChIP-seq workflow](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionV/slides/ChIP-seq_troubleshooting.pdf) | Meeta |
+|16:40 - 17:00 | [Overview of ChIP-seq workflow](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/master/sessionV/slides/ChIP-seq_troubleshooting_slides.pdf) | Meeta |
