@@ -202,35 +202,41 @@ Take a look at this dataframe. You should see columns corresponding to your inpu
 * Downstream (defined as the downstream of gene end)
 * Intergenic
 
-One thing we **don't have is gene symbols** listed in table, but we can fetch them using **`annotables`** and add them to the data frame before we write to file. This makes it easier to browse through the results.
+One thing we **don't have is gene symbols** listed in table, but we can fetch them using **`annotables`** and add them to the data frame before we write to file. This makes it easier to browse through the results. Let's start with **Nanog**.
 
 ```
-# Get entrez gene Ids
-entrez <- nanog_annot$geneId
+# Get unique entrez gene Ids
+entrezids <- unique(nanog_annot$geneId)
 
-# Choose Biomart database
-ensembl_genes <- useMart('ENSEMBL_MART_ENSEMBL',
-                        host =  'www.ensembl.org')
+# Get hg19 entrez to gene symbol mappings
+entrez2gene <- grch37 %>% 
+  filter(entrez %in% entrezids) %>% 
+  dplyr::select(entrez, symbol)
 
-# Create human mart object
-human <- useDataset("hsapiens_gene_ensembl", useMart('ENSEMBL_MART_ENSEMBL',
-                           host =  'www.ensembl.org'))
+# Match to each annotation dataframe
+m <- match(nanog_annot$geneId, entrez2gene$entrez)
+nanog_annot <- cbind(nanog_annot[,1:14], geneSymbol=entrez2gene$symbol[m], nanog_annot[,15:16])
 
-# Get entrez to gene symbol mappings
-entrez2gene <- getBM(filters = "entrezgene",
-                     values = entrez,
-                     attributes = c("external_gene_name", "entrezgene"),
-                     mart = human)
-
-# Match the rows and add gene symbol as a column                   
-m <- match(nanog_annot$geneId, entrez2gene$entrezgene)
-out <- cbind(nanog_annot[,1:13], geneSymbol=entrez2gene$external_gene_name[m], nanog_annot[,14:ncol(nanog_annot)])
-
-# Write to file
-write.table(out, file="results/Nanog_annotation.txt", sep="\t", quote=F, row.names=F)
+write.table(nanog_annot, file="results/Nanog_annotation.txt", sep="\t", quote=F, row.names=F)
 ```
 
+Now we can do the same for the **Pou5f1**:
 
+```
+# Get unique entrez gene Ids
+entrezids <- unique(pou5f1_annot$geneId)
+
+# Get hg19 entrez to gene symbol mappings
+entrez2gene <- grch37 %>% 
+  filter(entrez %in% entrezids) %>% 
+  dplyr::select(entrez, symbol)
+
+# Match to each annotation dataframe
+m <- match(pou5f1_annot$geneId, entrez2gene$entrez)
+pou5f1_annot <- cbind(pou5f1_annot[,1:14], geneSymbol=entrez2gene$symbol[m], pou5f1_annot[,15:16])
+
+write.table(pou5f1_annot, file="results/Pou5f1_annotation.txt", sep="\t", quote=F, row.names=F)
+```
 
 ## Functional enrichment analysis
 
