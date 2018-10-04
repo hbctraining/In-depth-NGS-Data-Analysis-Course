@@ -290,7 +290,7 @@ ekegg <- enrichKEGG(gene = entrezids,
 dotplot(ekegg)
 ```
 
-<img src="../img/kegg-dotplot.png">
+<img src="../img/kegg-dotplot_2018.png">
 
 ### Multiple samples
 
@@ -306,10 +306,10 @@ compKEGG <- compareCluster(geneCluster = genes,
                          organism = "human",
                          pvalueCutoff  = 0.05, 
                          pAdjustMethod = "BH")
-plot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
+dotplot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
 ```
 
-<img src="../img/compareCluster.png"> 
+<img src="../img/compareCluster_2018.png"> 
 
 
 We have only scratched the surface here with functional analyses. Since the data is compatible with many current R packages for functional enrichment the possibilities there is alot of flexibility and room for customization. For more detailed analysis we encourage you to browse through the [ChIPseeker vignette](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) and the [clusterProfiler vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html).
