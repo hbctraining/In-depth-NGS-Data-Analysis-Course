@@ -102,11 +102,12 @@ The **`annotatePeak` function by default uses the TSS method, and provides param
 Let's start by retrieving annotations for our Nanog and Pou5f1 peaks calls:
 
 ```
+# Get annotations
 peakAnnoList <- lapply(samplefiles, annotatePeak, TxDb=txdb, 
                        tssRegion=c(-1000, 1000), verbose=FALSE)
 ```
 
-If you take a look at what is stored in `peakAnnoList`, you will see a summary of genomic features for each sample:
+If you take a look at what is stored in `peakAnnoList`, you will see a summary of the genomic features for each sample:
 
 ```
 > peakAnnoList
@@ -141,9 +142,11 @@ Genomic Annotation Summary:
 5  Distal Intergenic 52.6526835
 ```
 
-To visualize this annotation data ChIPseeker provides several functions. We will demonstrate a few using the Nanog sample only. We will also show how some of the functions can also support comparing across samples.
+To visualize this annotation data ChIPseeker provides several functions. We will **demonstrate a few visualizations** using the Nanog sample only. We will also show how some of the functions can also support comparing across samples.
 
-### Pie chart of genomic region annotation
+#### Pie chart of genomic region annotation
+
+These next two figures are two ways of presenting the same information, that is the percentage of peaks that fall into the various categories of genomic features. For the Nanog peaks we find a large number of peaks in distal intergenic regions, and only 17% of peaks falling in promoter regions.
 
 ```
 plotAnnoPie(peakAnnoList[["Nanog"]])
@@ -151,27 +154,28 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 
 <img src="../img/pie.png" width="500">
 
-### Vennpie of genomic region annotation
+#### Barchart of genomic region annotations
 
 ```
-vennpie(peakAnnoList[["Nanog"]])
+plotAnnoBar(peakAnnoList[["Nanog"]])
 ```
+<img src="../img/" width="500">
 
-<img src="../img/vennpie.png" width="500">
 
-### Barchart (multiple samples for comparison)
+#### Barchart (multiple samples for comparison)
 
-**Here, we see that Nanog has a much larger percentage of peaks in promotor regions.**
+When we compare those numbers across the two factors, we see that the peaks in promoter regions are much fewer for Pou5f1.
 
 ```
 plotAnnoBar(peakAnnoList)
-
 ```
+
 <img src="../img/feature-distribution.png">
 
-### Distribution of TF-binding loci relative to TSS (multiple samples)
 
-**Nanog has also majority of binding regions falling in closer proximity to the TSS (0-10kb).**
+#### Distribution of TF-binding loci relative to TSS 
+
+This plot breaks down the location of each peak relative to the TSS. The x-axis give you the percentage of sites, while the color represents the distance from the TSS. Since we observed almost 50% of the peaks to be in distal intergenic regions, it's not surprising that a large percentage of sites are far away from the TSS.
 
 ```
 plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding loci \n relative to TSS")
@@ -183,7 +187,10 @@ plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding 
 
 It would be nice to have the annotations for each peak call written to file, as it can be useful to browse the data and subset calls of interest. The **annotation information** is stored in the `peakAnnoList` object. To retrieve it we use the following syntax:
 
+	# Get annotation data frame
 	nanog_annot <- as.data.frame(peakAnnoList[["Nanog"]]@anno)
+	pou5f1_annot <- as.data.frame(peakAnnoList[["Pou5f1"]]@anno)
+
 
 Take a look at this dataframe. You should see columns corresponding to your input BED file and addditional columns containing nearest gene(s), the distance from peak to the TSS of its nearest gene, genomic region of the peak and other information. Since some annotation may overlap, ChIPseeker has adopted the following priority in genomic annotation.
 
@@ -195,7 +202,7 @@ Take a look at this dataframe. You should see columns corresponding to your inpu
 * Downstream (defined as the downstream of gene end)
 * Intergenic
 
-One thing we **don't have is gene symbols** listed in table, but we can fetch them using **Biomart** and add them to the table before we write to file. This makes it easier to browse through the results.
+One thing we **don't have is gene symbols** listed in table, but we can fetch them using **`annotables`** and add them to the data frame before we write to file. This makes it easier to browse through the results.
 
 ```
 # Get entrez gene Ids
