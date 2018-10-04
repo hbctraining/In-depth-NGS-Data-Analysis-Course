@@ -159,7 +159,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 ```
 plotAnnoBar(peakAnnoList[["Nanog"]])
 ```
-<img src="../img/" width="500">
+<img src="../img/annobar_nanog" width="500">
 
 
 #### Barchart (multiple samples for comparison)
