@@ -1,29 +1,50 @@
 ## Using R on a Unix system
 
-Sleuth is an R package, and while some R packages are automatically available to us on Orchestra, some of the packages we need to run Sleuth are not. Therefore, to run Sleuth on Orchestra, we need to manually install these programs into our personal R library. If you haven't created a personal R library, you can do so by entering the following code ([Orchestra Wiki](https://wiki.med.harvard.edu/Orchestra/WebHome)):
+For many analyses using R tools, the ability to utilize the resources of the cluster can greatly improve the speed and allocate greater memory to perform more efficient analyses, particularly for steps in single-cell RNA-seq (clustering, marker identification, and DE analysis) and ChIP-seq (ChIPQC and DiffBind) analyses. To run these analyses on the O2 cluster requires a set-up of a personal R library and X11 forwarding, if you want to interactively visualize output plots. 
+
+Any non-base R packages needed for an analysis need to be downloaded to a personal R library prior to use. To create a personal R library, we can create a special directory. More information on personal R libraries on O2 are available on the [O2 Wiki](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages).
 
 ```bash
-$ mkdir -p ~/R/library
+$ mkdir -p ~/R/3.5.1/library
 ```
 
 ### Installing R packages
 
-Since Sleuth was designed to use the output of Kallisto as input, our Salmon transcript abundance estimates need to be massaged into the format of the Kallisto output. To do this, we are going to use the package [Wasabi](https://github.com/COMBINE-lab/wasabi). 
-
-We have installed all of these packages for you to copy to your personal libraries:
+To add packages to our personal R library, we should have the path to our library designated in a special file in our home directory that R explores for settings/information during every R session, called `.Renviron`. Let's create/open this file:
 
 ```bash
-
-$ export R_LIBS_USER="/home/mp298/R/library"
+vim ~/.Renviron
 ```
 
-Now, start R:
+```bash
+R_LIBS_USER="~/R/3.5.1/library"
+```
+
+It is possible to have multiple R libraries if you need to use different versions of R - perhaps you performed an analysis a year ago and want to analyze it a bit more with the same versions of all the tools. You could just comment out your current library and point your `.Renviron` to the older library:
 
 ```bash
+DO NOT RUN!
+
+# R_LIBS_USER="~/R/3.5.1/library"
+
+R_LIBS_USER="~/R/3.4.1/library"
+```
+
+This can help with making your research more reproducible.
+
+Once we have are library created, we can load the R module of appropriate version for our library and start R.
+
+```bash
+$ module load R/3.5.1
+
 $ R
 ```
 
 The terminal window should now turn into the R console with the R prompt `>`. 
+
+Let's explore how to install packages by installing `tidyverse` and `Seurat`.
+
+ADD INSTALLATIONS OF PACKAGES
 
 If you were to manually install a package on Orchestra from CRAN we would have to specify where our library is using the following: `install.packages("name-of-your-package", lib="~/R/library")`. For Bioconductor packages nothing would change since we have already modified the environment variable to point to the library.You can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few last session. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment will need to have all the packages installed and available. 
 
