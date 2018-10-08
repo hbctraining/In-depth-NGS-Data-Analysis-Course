@@ -233,7 +233,7 @@ ASSUME_SORTED=true \
 VALIDATION_STRINGENCY=SILENT
 ```
 
-> We use `java -Xmx8G` in the command above to make sure that Java stays within the memory limits we have asked SLURM for. If you are marking duplicates in a large file, it is not unheard of to set up your script or interactive session with over 40G of memmory.
+> We use `java -Xmx8G` in the command above to make sure that Java stays within the memory limits we have asked SLURM for. If you are marking duplicates in a large file, it is not unheard of to set up your script or interactive session with over 40G of memory.
 
 #### Creating index for BAM file
 
