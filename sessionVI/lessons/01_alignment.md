@@ -171,7 +171,7 @@ Using the Picard suite on O2 is a little different from tools we have used this 
 $ module spider picard
 ```
 
-In addition to usual information it gives is some information about how to use it. 
+In addition to usual information it gives some information about how to use it. 
 
 ```
       To use, type
@@ -184,7 +184,7 @@ Java tools usually have a `.jar` executable file and it needs to be run using `j
 $ module load picard/2.8.0
 ```
 
-Let's check what option or specific tools are available to us with *Picard*:
+Let's check what options or specific tools are available to us with *Picard*:
 
 ```bash
 $ java -jar $PICARD/picard-2.8.0.jar
