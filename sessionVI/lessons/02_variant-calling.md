@@ -36,31 +36,57 @@ Some of the more popular tools for calling variants include [SAMtools mpileup](h
 
 ### Running FreeBayes
 
-	$ mkdir ~/ngs_course/var-calling/results/variants
-	$ cd ~/ngs_course/var-calling/results/variants/
+```bash
+$ mkdir ~/var-calling/results/variants
+$ cd ~/var-calling/results/variants/
 
-	$ which freebayes
+$ which freebayes
+```
 
-> *If you don't have `freebayes` available, please add `/opt/bcbio/centos/bin` to your path.*
-	
-	$ freebayes -h
-	$ freebayes -f ../../reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
-	
+If the output of the `which` command is `/n/app/bcbio/tools/bin/freebayes`, then you are all set! Since there is no module for freebayes on O2, we are using the bcbio version of the tool.
+
+> If you don't get `/n/app/bcbio/tools/bin/freebayes` as the output, do one of the following options below:
+>
+> **Option #1**:
+>
+>```bash
+>$ PATH=:$PATH
+>```
+>
+> **Option #2**, add the following line to your `.bashrc` file:
+>
+>```bash
+>export PATH=/n/app/bcbio/tools/bin:$PATH
+>```
+
+Once you have freebayes in your path, let's check out our options:
+
+```bash
+$ freebayes -h
+```
+
+```bash
+$ freebayes -f ~/var-calling/reference_data/chr20.fa ~/var-calling/results/bwa/na12878_sorted_marked.bam > ~/var-calling/results/variants/na12878.vcf
+```
+
 ### Variant Call Format (VCF)
 
 VCF is a text format. It usually has several header lines before the actual data; the header lines start with `##`. There is usually only 1 VCF file generated for all the samples in an experiment. Variants are represented in the rows, and each sample has a column with the status of a given variant:
 
-	##format=VCFv4.0
-	##fileDate=20090805
-	##source=myImputationProgramV3.1
-	##reference=1000GenomesPilot-NCBI36
-	##phasing=partial
-	#CHROM  POS     ID        REF   ALT    QUAL  FILTER  INFO                                 FORMAT       NA00001         NA00002         
-	20      14370   rs6054257 G     A      29    0       NS=55;DP=255;AF=0.768;DB;H2          GT:GQ:DP:HQ  0|0:48:1:51,51  1|0:48:8:51,51  
-	20      13330   .         T     A      3     q10     NS=55;DP=202;AF=0.024                GT:GQ:DP:HQ  0|0:49:3:58,50  0|1:3:5:65,3    
-	20      1110696 rs6040355 A     G,T    67    0       NS=55;DP=276;AF=0.421,0.579;AA=T;DB  GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2    
-	20      10237   .         T     .      47    0       NS=57;DP=257;AA=T                    GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51  
-	20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
+```
+##format=VCFv4.0
+##fileDate=20090805
+##source=myImputationProgramV3.1
+##reference=1000GenomesPilot-NCBI36
+##phasing=partial
+#CHROM  POS     ID        REF   ALT    QUAL  FILTER  INFO                                 FORMAT       NA00001         NA00002         
+20      14370   rs6054257 G     A      29    0       NS=55;DP=255;AF=0.768;DB;H2          GT:GQ:DP:HQ  0|0:48:1:51,51  1|0:48:8:51,51  
+20      13330   .         T     A      3     q10     NS=55;DP=202;AF=0.024                GT:GQ:DP:HQ  0|0:49:3:58,50  0|1:3:5:65,3    
+20      1110696 rs6040355 A     G,T    67    0       NS=55;DP=276;AF=0.421,0.579;AA=T;DB  GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2    
+20      10237   .         T     .      47    0       NS=57;DP=257;AA=T                    GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51  
+20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
+```
+
 Often the header lines will have some explanation about the various columns in the VCF, including the confusing looking INFO column. Here's an explanation of the INFO column for the first entry in the example above (the example below is representing the same variant as above, "rs6054257", but the VCF was excerpted from a much larger experiment):
 
 <img src="../img/vcf_3.png" width="600">
@@ -71,7 +97,9 @@ Below is another example with slightly different fields in the INFO column:
 
 Now, let's take a look at the one we just generated:
 
-	$ less na12878.vcf
+```bash
+$ less na12878.vcf
+```
 
 How does this compare to the 2 examples we have seen so far? How does the ID column compare?
 
@@ -81,9 +109,9 @@ It is very important to filter out low-quality variants before moving to the ass
 
 Today we are going to use `vcftools` to remove entries that have calls with a quality score of lower than 20.
 
-	$ module avail seq/vcf
-
-	$ module load seq/vcftools/0.1.14
+```bash
+$ module load gcc/6.2.0 vcftools/0.1.15
+```
 
 The manual for `vcftools` is [available here](https://vcftools.github.io/man_latest.html), let's take a quick look at it.
 
@@ -113,8 +141,10 @@ So the most basic options you need to specify are input `--vcf <name>` and outpu
 
 We are going to stick with using only the quality score for today's class:
 	
-	$ vcftools --vcf na12878.vcf --minQ 20 --recode --recode-INFO-all --out na12878_q20  
-	
+```bash
+$ vcftools --vcf na12878.vcf --minQ 20 --recode --recode-INFO-all --out na12878_q20  
+```
+
 Now we are *(almost)* ready to annotate this VCF with known information from dbSNP, and add functional annotation information to enable variant prioritization.
 	
 ***
