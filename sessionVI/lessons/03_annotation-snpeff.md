@@ -25,17 +25,16 @@ At this stage, we have a large tab-delimited file containing loci at which a var
 <img src="../img/prioritize.png" width="200">
 
 
-
 ### Setting up
 
 For this section we are going to need to copy over some reference data required for annotation. Start an interactive session and move into `var-calling` directory. Then copy over the required data.
 
 ```
-$ bsub -Is -q interactive bash
+$ srun --pty -p interactive -c 2 -t 0-6:00 --mem 8G -reservation=HBC bash
 
-$ cd ~/ngs_course/var-calling
+$ cd ~/var-calling
 
-$ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* \
+$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* \
 reference_data/
 
 ```
@@ -46,27 +45,7 @@ Let's also create a new directory for the results of our annotation steps:
 $ mkdir results/annotation
 $ cd results/annotation
 ```
-Your directory structure should now look something like this:
 
-```bash
-~/
-├── ngs_course/
-    ├── var-calling/
-	├── reference_data/
-        	├── chr20.amb
-		├── chr20.ann
-		├── chr20.bwt
-		├── chr20.fa
-		├── chr20.fa.fai
-		├── chr20.pac
-		├── chr20.sa
-		├── dbsnp.138.chr20.vcf.gz
-		└── dbsnp.138.chr20.vcf.gz.tbi
-        ├── results/
-     		├── bwa/
-     		├── variants/
-            	└── annotation/
-```
 
 ## Annotation with known variants 
 
@@ -83,26 +62,29 @@ To annotate our data with dbSNP information we wil be using [`bcftools`](https:/
 The `bcftools annotate` command allows the user to **add or remove annotations**. 
 
 ```bash
+$ module load gcc/6.2.0 bcftools/1.9
+
 $ bcftools annotate --help
 ```
 
 The annotation we wish to add and the file we are annotating must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format). Tabix indexes a tab-delimited genome position file and creates an index file (.tbi), which facilitates quick retrieval of data lines overlapping regions. *NOTE: this has already been done for our dbSNP file*
 
 ```bash
-$ bgzip ../variants/na12878_q20.recode.vcf 
-$ tabix ../variants/na12878_q20.recode.vcf.gz
+$ bgzip ~/var-calling/results/variants/na12878_q20.recode.vcf 
+$ tabix ~/var-calling/results/variants/na12878_q20.recode.vcf.gz
 ```
+
+> Both `bgzip` and `tabix` are not available on O2 as modules, we are using bcbio's installations of these tools.
 
 When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
 
 ```bash
-$ bcftools annotate -c ID -a ../../reference_data/dbsnp.138.chr20.vcf.gz \
-	../variants/na12878_q20.recode.vcf.gz \
-	> na12878_q20_annot.vcf
+$ bcftools annotate -c ID -a ~/var-calling/reference_data/dbsnp.138.chr20.vcf.gz \
+~/var-calling/results/variants/na12878_q20.recode.vcf.gz \
+> ~/var-calling/results/annotation/na12878_q20_annot.vcf
 ```
-Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants that are not known, you will find the `.` in place of an ID indicating novelty of that sequence change.
 
- 
+Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants that are not known, you will find the `.` in place of an ID indicating novelty of that sequence change.
 
 ## Functional annotation with SnpEff
 
@@ -124,33 +106,37 @@ provides a more comprehensive list.
 Take a look at the options available. We will be using `snpEff` to annotate our variants.
 
 ```bash
-$ snpEff -h
+$ module load snpEff/4.3g
+
+$ java -jar $SNPEFF/snpEff.jar -h
 ```
+
+> `snpEff` is also a java based tool, similar to `picard` and we have to use a similar syntax to run it.
+
 To run the snpEff command we will need to specify two things:
 
 1. The appropriate genome
 2. The VCF file we want to annotate
 	
-An additional parameter to add to our command is `Xmx2G`, a Java parameter to define available memory. Since we are in an interactive session by default we have 2GB available to us, if we had requested more before starting the session we could increase the number here.
+An additional parameter to add to our command is `Xmx8G`, a Java parameter to define available memory. Since we are in an interactive session with 8GB, if we had requested more before starting the session we could increase the number here.
 
 The final command will look like this:
 
 ```bash
 ## DO NOT RUN THIS CODE
 
-$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
-     > results/annotation/na12878_q20_annot_snpEff.vcf
+$ java -Xmx8G -jar $SNPEFF/snpEff.jar eff hg19 \
+results/annotation/na12878_q20_annot.vcf \
+> results/annotation/na12878_q20_annot_snpEff.vcf
 ```	
 
 By default snpEff downloads and install databases automatically (since version 4.0) for the organism that is specified. To see what databases are available for human you can use the `databases` command:
 
 ```bash
-$ snpEff databases | grep Homo_sapiens | less
+$ java -jar $SNPEFF/snpEff.jar databases | grep Homo_sapiens
 ```
-	    
-> *NOTE:* SnpEff is a Java program and is normally run using JAR files (Java Archive), a package file format which requires the use of `java -jar snpEff.jar` notation. You will see this when reading through the [documentation](http://snpeff.sourceforge.net/SnpEff_manual.html). Because this is a bcbio install, similar to `picard`, the program has been setup with an alias and typing in `snpEff` alone works.
 
-Before we run SnpEff, we need to do a few [pre-processing steps](https://gemini.readthedocs.org/en/latest/#new-gemini-workflow) which will prepare us for the use of [GEMINI](http://gemini.readthedocs.org/en/latest/index.html), a tool used downstream of SnpEff for variant prioritization. **If you are not using GEMINI, you would be able to proceed with the command above.**
+Before we run SnpEff, we need to do a few [pre-processing steps](https://gemini.readthedocs.org/en/latest/#new-gemini-workflow) which will prepare us for the use of [GEMINI](http://gemini.readthedocs.org/en/latest/index.html), a tool used downstream of SnpEff for variant prioritization. **If you are not using GEMINI downstream, you would be able to proceed with the command above.**
 
 ### Pre-processing the VCF
 
@@ -195,22 +181,31 @@ POS	REF	ALT	→	POS	REF	ALT
 1001	CTCC	CCCC	→	1002	T	C
 ```
 
-For both steps we will be using the `vt` toolset. First, the command to decompose:
+For both steps we will be using the `vt` toolset (available as a bcbio installation on O2). First, the command to decompose:
 
-	$ vt decompose -s -o na12878_q20_annot_decompose.vcf na12878_q20_annot.vcf
-	
+```bash
+$ vt decompose \
+-s -o na12878_q20_annot_decompose.vcf \
+na12878_q20_annot.vcf
+```
+
 We then apply the `normalize` command, providing the path to the reference genome:
 
 ```bash
-$ vt normalize -r ~/ngs_course/var-calling/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
-      na12878_q20_annot_decompose.vcf  	
+$ vt normalize \
+-r ~/ngs_course/var-calling/reference_data/chr20.fa \
+-o na12878_q20_annot_normalize.vcf \
+na12878_q20_annot_decompose.vcf  	
 ```
 
 **Now we are ready to run SnpEff**. We can modify the command above to specify the relevant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses `ANN` (as described above), but GEMINI is expecting information to be written in `EFF`. By adding the `-classic` and `-formatEff` the results are written using the old format with EFF.
 
 ```bash
-$ snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
-     > na12878_q20_annot_snpEff.vcf
+$ java -Xmx8G -jar $SNPEFF/snpEff.jar \
+-dataDir /n/groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/hg19_snpeff_data \
+-classic -formatEff hg19 \
+na12878_q20_annot_normalize.vcf \
+> na12878_q20_annot_snpEff.vcf
 ```
 
 
@@ -225,19 +220,17 @@ SnpEff produces three output files:
 Let's take a look at the **text file**:
 
 ```bash
-$ less snpEff_genes.txt
+$ head snpEff_genes.txt
 ```
-Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they harbour, if any.
+Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they contain, if any.
 
-To look at the **HTML file**, we will need to **mount Orchestra**. You can do this using the command below, but modifying it to use your own eCommons ID:
+To look at the **HTML file**, we will need to use `scp` or FileZilla to bring it over to our local machine. 
 
-	$ sshfs ecommonsID@transfer.orchestra.med.harvard.edu:. ~/Orchestra -o volname="Orchestra" -o follow_symlinks
-
-> **NOTE:** The above command assumes that you have Orchestra mounting setup from last class. If not, please see instructions [here](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/orchestra_mounting.md) on how to set that up (for now just use `FileZilla`). Also, you **may have an alias setup on your personal laptop**. In that case, you will not need to run the above command and you can simply type in the alias to the terminal (i.e **`orch_mount`**)
+> You can [download this report](https://www.dropbox.com/s/31k9y1935qh4k7p/snpEff_summary.html?dl=1) here if there are any issues with generating it.
 
 Let's scroll through the report. The first part of the report is a summary, which outlines what was run and what was found.
 
-![summary](../img/snpeff_summary3.png)
+<img src="../img/snpeff_summary3.png">
 
 As we scroll through the report, we can obtain more details on the categories of variants in our file. 
 
