@@ -24,7 +24,7 @@ Before we start with variant calling, we need to set-up our directory structure,
 Login to Orchestra and start an interactive session with four cores:
 
 ```
-$ srun --pty -p short -t 0-6:00 --mem 8G -c 2 --reservation=HBC bash
+$ srun --pty -p interactive -t 0-6:00 --mem 8G -c 2 --reservation=HBC bash
 ```
 
 Create the following directory structure for the variant calling project in your home directory:
