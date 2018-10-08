@@ -22,13 +22,17 @@ GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (milli
 <img src="../img/Gemini.png" width="600">
 
 
-Let's start by opening an interactive session:
+Let's start an interactive session:
 	
 ```bash
-$ bsub -Is -q interactive bash
+$ srun --pty -p interactive -c 4 -t 0-6:00 --mem 8G -reservation=HBC bash
 ```
 
-The next step is to load our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as specified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses and for this file can take up to 30 minutes on a single core. In the interest of time **we have loaded the VCF file into a database for you**. 
+We will be using the bcbio install of Gemini today, since it is not available as a module on O2.
+
+The first step is to create a Gemini database with the annotated VCF file. This command assumes that the VCF has been pre-annotated with snpEff as specified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses. 
+
+**We have loaded the VCF file into a database for you, since this step takes very long.** 
 
 ```bash
 ### DO NOT RUN
@@ -39,8 +43,8 @@ $ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff --cores 4 na12878_q20.db
 Since we are not running the above, we will need to copy over the database:
 
 ```bash
-$ cd ~/mm573/ngs_course/var-calling/results/annotation
-$ cp /groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .
+$ cd ~/var-calling/results/annotation
+$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/var-calling/annotation/na12878_q20.db .
 ```
 
 
@@ -76,7 +80,8 @@ The final touches to the command involve wrapping the entire statement in double
 
 **Exercise**
 
-1. Try running the query in the example above and pipe (`|`) the results to `less`. What is returned to you? How many variants are SNPs?
+1. Try running the query in the example above and pipe (`|`) the results to `less`. What is returned to you? 
+2. How many of the variants are SNPs?
 2. Modify the `where` clause in your query in Q#1 to instead find out how many variants are indels (*hint: type = 'indel'*)
 
 ***
@@ -122,7 +127,6 @@ $ gemini query -q "select type, count(*) \
 2. Modify the query from Q#1 to get the count breakdown for impact but **only for SNP variants** (hint: add a `where` clause).
 
 ***
-
 
 
 ### Query fields with boolean values
@@ -192,7 +196,9 @@ If we had **multiple samples**, we use an extended syntax which uses the wild ca
 
 The syntax for multiple sample filtering is:
 
-	--gt-filters is (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT).	
+```bash
+--gt-filters is (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT).	
+```
 
 We can try an example query, but because we have ony one sample this will retrieve the same results as the query above:	
 
