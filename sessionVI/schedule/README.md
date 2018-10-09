@@ -4,19 +4,19 @@
 
 | Time            |   Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-| 09:00 - 09:30 | Homework Review | Meeta |
+| 09:00 - 09:30 | Homework Review | Mary |
 | 09:30 - 10:15 | [Introduction to Variant Detection]() | Radhika |
 | 10:15 - 10:30 | Coffee | |
 | 10:30 - 11:45 | [Variant Calling Methods]() | Dr. Brad Chapman |
 | 11:45 - 12:15 | [Alignment]() | Mary |
 | 12:15 - 13:15 | Lunch | |
-| 13:15 - 13:45 | [Alignment]() | Mary |
-| 13:45 - 14:30 | [Variant Calling]() | Radhika |
-| 14:30 - 15:00 | [Variant Annotation]() | Meeta |
+| 13:15 - 13:45 | [Alignment (BWA-mem)]() | Mary |
+| 13:45 - 14:30 | [Variant Calling (FreeBayes)]() | Radhika |
+| 14:30 - 15:00 | [Variant Annotation (SnpEff)]() | Meeta |
 | 15:00 - 15:15 | Coffee | |
-| 15:15 - 15:50 | [Variant Annotation]() | Meeta |
+| 15:15 - 15:50 | [Variant Annotation (SnpEff)]() | Meeta |
 | 15:50 - 16:10 | [Visualization with IGV]() | Radhika |
-| 16:10 - 17:00 | [Variant Prioritization]() | Mary |
+| 16:10 - 17:00 | [Variant Prioritization (Gemini)]() | Meeta |
 
 ## Day 2
 
