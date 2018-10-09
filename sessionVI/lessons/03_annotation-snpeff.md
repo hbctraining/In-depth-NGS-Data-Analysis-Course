@@ -249,13 +249,13 @@ To look at the **HTML file**, we will need to use `scp` or FileZilla to bring it
 
 Let's scroll through the report. The first part of the report is a summary, which outlines what was run and what was found.
 
-<img src="../img/snpeff_summary4.png">
+<img src="../img/snpeff_summary3.png">
 
 As we scroll through the report, we can obtain more details on the categories of variants in our file. 
 
 There is a section **summarizing variant by type**:
 
-<img src="../img/snpeff_by_variant.png">
+<img src="../img/snpeff_bytype.png">
 
 These different types are defined as follows:
 
@@ -270,7 +270,7 @@ These different types are defined as follows:
 
 Additionally, variants are **categorized by their 'impact'**: {High, Moderate, Low, Modifier}. These impact levels are [pre-defined categories](http://snpeff.sourceforge.net/SnpEff_manual.html#input) based on the 'Effect' of the variant, to help users find more significant variants. 
 
-<img src="../img/snpeff_impact.png">
+<img src="../img/snpeff_byimpact.png">
 
 ***
 
