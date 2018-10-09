@@ -5,10 +5,10 @@
 | Time            |   Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
 | 09:00 - 09:30 | Homework Review | Mary |
-| 09:30 - 10:15 | [Introduction to Variant Detection]() | Radhika |
+| 09:30 - 10:15 | [Introduction to Variant Detection](../slides/Variant_Intro_rsk.pdf) | Radhika |
 | 10:15 - 10:30 | Coffee | |
 | 10:30 - 11:45 | Variant Calling Methods | Dr. Brad Chapman |
-| 11:45 - 12:15 | [Alignment (BWA-mem)](../lessons/01_alignment.html) | Mary |
+| 11:45 - 12:15 | [Alignment (BWA-mem)](../lessons/01_alignment.md) | Mary |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Alignment (BWA-mem)](../lessons/01_alignment.html) | Mary |
 | 13:45 - 14:30 | [Variant Calling (FreeBayes)](../lessons/02_variant-calling.html) | Radhika |
