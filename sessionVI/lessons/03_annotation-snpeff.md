@@ -43,7 +43,6 @@ Let's also create a new directory for the results of our annotation steps:
 
 ```
 $ mkdir results/annotation
-$ cd results/annotation
 ```
 
 
