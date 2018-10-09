@@ -172,7 +172,23 @@ POS	REF	ALT
 1001	CTCC	CCCC
 ```
 
-2) **Normalize**: this step is to left-aligns indels. Aligning requires first removing any suffix shared between the REF and ALT alleles,then remove any prefix shared between the REF and ALT alleles. Finally, increment POS by the number of characters you removed from each.
+2) **Normalize**: This is a 3-step process and we'll use the first variant as an example below.
+
+First right align the ALT and REF:
+
+```bash 
+CTCC REF
+ CCC ALT
+```
+
+Then remove any suffix shared between the REF and ALT alleles.
+
+```bash 
+CTCC REF →   CT REF
+ CCC ALT →    C ALT
+```
+
+Finally, remove any prefix shared between the REF and ALT alleles and increment POS by the number of characters you removed from each. With the first variant example, there is no shared prefix so the POS value doesn't change. You can however see that for the last variant from the original example:
 
 ```bash
 POS	REF	ALT	→	POS	REF	ALT
