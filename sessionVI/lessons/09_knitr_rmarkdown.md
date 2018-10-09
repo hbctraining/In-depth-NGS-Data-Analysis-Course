@@ -201,8 +201,7 @@ There are some other functions that allow for more powerful customization of tab
 
 ## Generating the report
 
-`knit()` (recommended)
-----------------------
+### `knit()` (recommended)
 
 ``` r
 help("knit", "knitr")
@@ -216,8 +215,7 @@ Once we've finished creating an [RMarkdown](http://rmarkdown.rstudio.com/) file 
 
 RStudio now supports a [number of formats](http://rmarkdown.rstudio.com/formats.html), each with their own customization options. Consult their website for more details.
 
-`render()` (advanced)
----------------------
+### `render()` (advanced)
 
 ``` r
 help("render", "rmarkdown")
@@ -236,10 +234,10 @@ The `knit()` command works great if you only need to generate a single document 
         toc: true
         toc_depth: 1
 
-**Note**: PDF rendering is sometimes problematic, especially when running [R](https://www.r-project.org/) remotely, like on the Orchestra cluster. If you run into problems, it's likely an issue related to [pandoc](http://pandoc.org).
+**NOTE**: PDF rendering is sometimes problematic, especially when running [R](https://www.r-project.org/) remotely, like on the O2 cluster. If you run into problems, it's likely an issue related to [pandoc](http://pandoc.org).
 
 
-> ## Working directory behavior
+> #### Working directory behavior
 > 
 > knitr redefines the working directory of an RMarkdown file in a manner that can be confusing. If you're working in RStudio with an RMarkdown file that is not at the same location as the current R working directory (`getwd()`), you can run into problems with broken file paths. Suppose you have RStudio open without a project loaded. My working directory is set to `~/Users/mike`. Now, if I load an RMarkdown file from my desktop at `~/Users/mike/Desktop`, knitr will set the working directory within chunks to be relative to my desktop. We advise against coding paths in a script to only work with knitr and not base R.
 > 
@@ -266,8 +264,6 @@ Once the report has been knit, it should open up in a separate window. If not, y
 * Take a look at the "Summarizing and Visualizing Results" section to see how we have incorporated **inline R code**
 * **Remove the warnings** from the Volcano Plot code chunk and change the **width of the figure** output using `fig.width=12`.
 * Separate the code for the last set of heatmaps into OE and KD. Add a sub-heading for each.
-
-
 
 
 Additional resources
