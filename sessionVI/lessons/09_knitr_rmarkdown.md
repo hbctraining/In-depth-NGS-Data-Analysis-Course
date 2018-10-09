@@ -22,7 +22,7 @@ So far, any code that we have written in R has been in the form of an R script (
 
 ## Markdown 
 
-Before we get started with RMarkdown, we have a short digression on Markdown, a text-to-HTML conversion tool for web writers. Simply put, Markdown is a way to style text on the web. It is mostly just regular text with a few non-alphabetic characters thrown in, like `#` or `*` to help with stylistic details. 
+Before we get started with RMarkdown, we have a short digression on Markdown, a text-to-HTML conversion tool for web writers. Simply put, **Markdown is a way to style text on the web**. It is mostly just regular text with a few non-alphabetic characters thrown in, like `#` or `*` to help with stylistic details. 
 
 > **NOTE:** You can use Markdown most places around GitHub. This lesson is all written in Markdown!
 
@@ -86,7 +86,17 @@ _You **can** combine them!_
 1. Item 2
    1. Item 2a
    1. Item 2b
-  
+
+This is really just scratching the surface of what you can do in Markdown. There are also ways in which you can include images, links, block quotes and code (inline and code chunks). In the interest of time, we won't go into detail here but we will point you to some very useful resources. 
+
+#### Resources for Markdown
+
+* [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+* [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+* [Markdown Guide](https://www.markdownguide.org/getting-started/)
+
+> **NOTE:** If you are working with Markdown most text editors will automatically syntax highlight but there are also various Markdown specific editors which allow you to see see the rendered version of your text as you type (i.e. [MacDown](https://macdown.uranusjr.com/) for Macs, [MarkdownPad](http://markdownpad.com/) for Windows).
+
 ## RMarkdown
 
 Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below.
