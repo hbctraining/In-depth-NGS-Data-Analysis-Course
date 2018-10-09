@@ -36,12 +36,13 @@ This can help with making your research more reproducible.
 
 ## R on O2:
 
-Once we have our library created, we can load the R module of the appropriate version for our library and start R. You can do all of the things we did on our laptops on the cluster instead. As you can see, various versions of R are available on O2, but there is no RStudio-like GUI.
+Once we have our library created, we can load the R module appropriate for the version of our R library and start R. 
 
 ```bash
 $ module spider R
 ```
 
+There are various versions of R available on O2.
 
 ```bash
 $ module load R/3.5.1
@@ -49,11 +50,11 @@ $ module load R/3.5.1
 $ R
 ```
 
-The terminal window should now turn into the R console with the R prompt `>`. 
+The terminal window should now turn into the R console with the R prompt `>`. You can run all of the analyses performed on our laptops on the cluster, but there is no RStudio-like GUI.
 
 Let's explore how to install packages by installing `tidyverse`, `Seurat` and `DESeq2`. 
 
-To manually install a package on O2 from **CRAN**, including packages `tidyverse` and `Seurat`, we need to specify where our library is using the following: `install.packages("name-of-your-package", lib="~/R/3.5.1/library")`. For **Bioconductor** packages, including `DESeq2`, nothing would change since we have already modified the environment variable to point to the library. 
+To manually install a package on O2 from **CRAN**, we need to specify where our library is using the following: `install.packages("name-of-your-package", lib="~/R/3.5.1/library")`. 
 
 Let's start with installing tidyverse:
 
@@ -67,7 +68,7 @@ Now, for Seurat:
 install.packages("Seurat", lib="~/R/3.5.1/library")
 ```
 
-And, finally, DESeq2:
+For **Bioconductor** packages nothing would change since we have already modified the environment variable to point to the library. 
 
 ```r
 source("https://bioconductor.org/biocLite.R")
@@ -78,7 +79,7 @@ You can quit R and get back to the `$` command prompt by typing `CTL + C`, and t
 
 ## R scripts
 
-In addition to running R interactively on the cluster, you can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few last session. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment will need to have all the packages installed and available. 
+In addition to running R interactively on the cluster, you can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few in the past sessions. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment will need to have all the packages installed and available. 
 
 You can run an R script from the shell command prompt in several ways, 3 different ways are listed below for a script called `mean.R`:
 **Do not run this**
@@ -97,18 +98,15 @@ You can use any of the above ways to run an Rscript on O2. But, you will need a 
 #!/usr/bin/env Rscript
 ```
 
-And, you can also submit it as a job to the Slurm queue as follows:
+And, you can also submit it as a job to a Slurm queue as follows:
 
 ```bash
-$ bsub -q short -W 12:00 -R "rusage[mem=16000]" "Rscript mean.R" 
+$ sbatch -q short -W 12:00 -R "rusage[mem=16000]" "Rscript mean.R" 
 # note the high memory usage above
 ```
 
-Talk to the folks at HMS RC to find out which packages are already installed, and also about the best way to install R packages locally. They have a [how-to guide available online](https://wiki.med.harvard.edu/Orchestra/PersonalRPackages) for installing packages locally, if you feel comfortable trying it on your own.
+Talk to the folks at HMS RC to find out which packages are already installed. They have a [how-to guide available online]() for installing packages locally, if you feel comfortable trying it on your own.
 
 ***
 
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
-All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
