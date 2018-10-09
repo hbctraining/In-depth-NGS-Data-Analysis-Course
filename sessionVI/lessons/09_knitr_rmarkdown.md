@@ -13,12 +13,10 @@ author: Michael J. Steinbaugh and Meeta Mistry
 
 ## Reproducible reports in R
 
-So far, any code that we have written in R has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. But, **what if we wanted to communicate this with our collaborators**; wouldn't it be nice to be able to **share the code along with tables, figures, and text describing the interpretation**? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown.  
+So far, any code that we have written in R has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. But, **what if we wanted to communicate this with our collaborators**; wouldn't it be nice to be able to **share the code along with tables, figures, and text describing the interpretation**? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown.R Markdown has built in support for HTML, PDF, MS_Word, ODT, RTF, Markdown, and Github flavored Markdown documents.
 
+![knitr](../img/RMarkdownOutputFormats.png)  
 
-## Introduction to knitr
-
-[knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. ![knitr](../img/knit-logo.png) It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using knitr to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
 
 ## Markdown 
 
@@ -99,7 +97,12 @@ This is really just scratching the surface of what you can do in Markdown. **The
 
 ## RMarkdown
 
-Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. ![knitr](../img/R_markdown.jpeg) **RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below**.
+Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. **RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below**. Rather than creating a `.R` script, you would create an `.Rmd` file which would contain code and plain text. 
+
+
+## Introduction to knitr
+
+[knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. ![knitr](../img/knit-logo.png) It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using knitr to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
 
 
 
