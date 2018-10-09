@@ -87,7 +87,7 @@ _You **can** combine them!_
    1. Item 2a
    1. Item 2b
 
-This is really just scratching the surface of what you can do in Markdown. There are also ways in which you can include images, links, block quotes and code (inline and code chunks). In the interest of time, we won't go into detail here but we will point you to some very useful resources. 
+This is really just scratching the surface of what you can do in Markdown. **There are also ways in which you can include images, links, block quotes and code (inline and code chunks)**. In the interest of time, we won't go into detail here but we will point you to some very useful resources. 
 
 #### Resources for Markdown
 
@@ -99,12 +99,11 @@ This is really just scratching the surface of what you can do in Markdown. There
 
 ## RMarkdown
 
-Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below.
+Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. ![knitr](../img/R_markdown.jpeg) **RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below**.
 
 
-# Features of knitr with RMarkdown
 
-## Code chunks
+### Code chunks
 
 The basic idea of [knitr](https://yihui.name/knitr/) (along with [RMarkdown](http://rmarkdown.rstudio.com/)) is that you can write your analysis workflow in plain text and intersperse chunks of code delimited with a special marker (\`\`\`). Backticks (\`) commonly indicate code and are also used on [GitHub](https://github.com). Each chunk should be given a **unique** name. [knitr](https://yihui.name/knitr/) isn't very picky how you name the code chunks, but we recommend using `snake_case` for the names whenever possible. 
 
