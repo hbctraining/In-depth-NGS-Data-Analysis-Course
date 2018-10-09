@@ -106,6 +106,9 @@ provides a more comprehensive list.
 Take a look at the options available. We will be using `snpEff` to annotate our variants.
 
 ```bash
+
+$ cd results/annotation
+
 $ module load snpEff/4.3g
 
 $ java -jar $SNPEFF/snpEff.jar -h
@@ -126,8 +129,8 @@ The final command will look like this:
 ## DO NOT RUN THIS CODE
 
 $ java -Xmx8G -jar $SNPEFF/snpEff.jar eff hg19 \
-results/annotation/na12878_q20_annot.vcf \
-> results/annotation/na12878_q20_annot_snpEff.vcf
+na12878_q20_annot.vcf \
+> na12878_q20_annot_snpEff.vcf
 ```	
 
 By default snpEff downloads and install databases automatically (since version 4.0) for the organism that is specified. To see what databases are available for human you can use the `databases` command:
@@ -209,7 +212,7 @@ We then apply the `normalize` command, providing the path to the reference genom
 
 ```bash
 $ vt normalize \
--r ~/ngs_course/var-calling/reference_data/chr20.fa \
+-r ~/var-calling/reference_data/chr20.fa \
 -o na12878_q20_annot_normalize.vcf \
 na12878_q20_annot_decompose.vcf  	
 ```
