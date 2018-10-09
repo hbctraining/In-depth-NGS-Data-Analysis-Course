@@ -18,7 +18,7 @@ So far in the course any R code we have written to file has been in the form of 
 
 # Introduction to knitr
 
-[knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using [knitr](https://yihui.name/knitr/) to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
+[knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. ![knitr](../img/knit-logo.png) It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using [knitr](https://yihui.name/knitr/) to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
 
 # RMarkdown
 
