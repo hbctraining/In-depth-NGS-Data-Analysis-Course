@@ -22,6 +22,15 @@
 
 | Time            |   Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-| 45 min |[Accessing publicly available NGS experimental data from Gene Expression Omnibus (GEO)](https://hbctraining.github.io//Accessing_public_genomic_data/lessons/accessing_public_experimental_data.html)| ? |
-| 60 min |[Accessing publicly available NGS experimental data from the Sequence Read Archive (SRA)](https://hbctraining.github.io/Accessing_public_genomic_data/lessons/downloading_from_SRA.html)| ? |
-| 60 min |[Accessing genome reference data](https://hbctraining.github.io/Accessing_public_genomic_data/lessons/accessing_genome_reference_data.html) | ? |
+| 09:00 - 09:15 | [Introduction to Git]() | Meeta |
+| 09:15 - 10:15 | [Basics of Git]() | Mary |
+| 10:15 - 10:30 | Coffee | |
+| 10:30 - 11:15 | [Github]() | Radhika |
+| 11:15 - 12:15 | [Generating Reports in R with RMarkdown]() | Meeta |
+| 12:15 - 13:15 | Lunch | |
+| 13:15 - 14:00 | [Using R on O2]() | Mary |
+| 14:00 - 14:45 | [More Bash]() | Radhika |
+| 14:45 - 15:00 | Coffee | |
+| 15:00 - 15:45 |[Accessing data from Gene Expression Omnibus (GEO)](https://hbctraining.github.io//Accessing_public_genomic_data/lessons/accessing_public_experimental_data.html)| Meeta |
+| 15:45 - 16:30 |[Accessing data from the Sequence Read Archive (SRA)](https://hbctraining.github.io/Accessing_public_genomic_data/lessons/downloading_from_SRA.html)| Mary |
+| 16:30 - 17:00 |[Accessing genome reference data](https://hbctraining.github.io/Accessing_public_genomic_data/lessons/accessing_genome_reference_data.html) | Radhika |
