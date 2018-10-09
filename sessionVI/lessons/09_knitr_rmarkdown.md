@@ -11,16 +11,83 @@ author: Michael J. Steinbaugh and Meeta Mistry
 *   Creating reports using knitr
 
 
-# Reproducible reports in R
+## Reproducible reports in R
 
-So far in the course any R code we have written to file has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. But what if we wanted to communicate this with our collaborators; wouldn't it be nice to be able to share the code along with tables, figures, and text describing the interpretation? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown.  
+So far, any code that we have written in R has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. But, **what if we wanted to communicate this with our collaborators**; wouldn't it be nice to be able to **share the code along with tables, figures, and text describing the interpretation**? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown.  
 
 
-# Introduction to knitr
+## Introduction to knitr
 
-[knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. ![knitr](../img/knit-logo.png) It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using [knitr](https://yihui.name/knitr/) to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
+[knitr](https://yihui.name/knitr/), developed by [Yihui Xie](https://yihui.name), is an R package designed for report generation within RStudio. ![knitr](../img/knit-logo.png) It enables dynamic generation of multiple file formats from an [RMarkdown](http://rmarkdown.rstudio.com/) file, including HTML and PDF documents. As [RMarkdown](http://rmarkdown.rstudio.com/) grows as an acceptable [reproducible manuscript](https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown) format, using knitr to generate a report summary is becoming common practice. Knit report generation is now integrated into RStudio, and can be accessed using the GUI or console.
 
-# RMarkdown
+## Markdown 
+
+Before we get started with RMarkdown, we have a short digression on Markdown, a text-to-HTML conversion tool for web writers. Simply put, Markdown is a way to style text on the web. It is mostly just regular text with a few non-alphabetic characters thrown in, like `#` or `*` to help with stylistic details. 
+
+> **NOTE:** You can use Markdown most places around GitHub. This lesson is all written in Markdown!
+
+Some commonly used formatting options are listed below:
+
+* The `#` character is used to denote a **header** 
+
+```
+# This is a Heading1 tag
+## This is a Heading2 tag
+###### This is a Heading6 tag
+```
+
+# This is a Heading1 tag
+## This is a Heading2 tag
+###### This is a Heading6 tag
+
+* The asterik `*` and underscore `_` characters are used to **add emphasis** to select words
+
+```
+*This text will be italicized.*
+_This will also be italicized._
+
+**This text will be bold.**
+__This will also be bold.__
+
+_You **can** combine them!_
+```
+*This text will be italicized.*
+_This will also be italicized._
+
+**This text will be bold.**
+__This will also be bold.__
+
+_You **can** combine them!_
+
+* Lists can be displayed using **bullet points** 
+
+```
+* Item 1
+* Item 2
+  * Item 2a
+  * Item 2b
+ ```
+
+* Item 1
+* Item 2
+  * Item 2a
+  * Item 2b 
+    
+* Lists can be **ordered with numbers**
+
+```
+1. Item 1
+1. Item 2
+   1. Item 2a
+   1. Item 2b
+```
+
+1. Item 1
+1. Item 2
+   1. Item 2a
+   1. Item 2b
+  
+## RMarkdown
 
 Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below.
 
