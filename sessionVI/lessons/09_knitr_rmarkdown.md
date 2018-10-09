@@ -99,6 +99,8 @@ This is really just scratching the surface of what you can do in Markdown. **The
 
 Markdown has proved so useful that many different coding groups adopted it, but also adding there own ‘flavours’. **RStudio implements something called “R-flavoured markdown” (or RMarkdown) which has various features that we describe below**. Rather than creating a `.R` script, you would create an `.Rmd` file which would contain code and plain text. 
 
+![rmd](../img/R_markdown.jpeg) 
+
 
 ## Introduction to knitr
 
@@ -115,7 +117,7 @@ The basic idea of [knitr](https://yihui.name/knitr/) (along with [RMarkdown](htt
 Additionally, you can write inline [R](https://www.r-project.org/) code enclosed by single backticks (\`) containing a lowercase `r` (like \`\`\` code chunks). This allows for variable returns outside of code chunks, and is extremely useful for making report text more dynamic. For example, you can print the current date inline with this syntax: `` ` r Sys.Date() ` `` (no spaces).
 
 
-## Per chunk options
+### Per chunk options
 
 knitr provides a lot of customization options for code chunks, which are written in the form of `tag=value`.
 
@@ -136,7 +138,7 @@ There are also a few options commonly used for plots to easily resize images:
 * `fig.width = 4`
 
 
-## The setup chunk
+### The setup chunk
 
 The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all `library()` loads required for the script and other `load()` requests for external files here. In our RMarkdown templates, such as the bcbioRnaseq [differential expression template](https://github.com/hbc/bcbioRnaseq/blob/master/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd), we store all the user-defined parameters in the `setup` chunk that are required for successful knitting.
 
@@ -144,7 +146,7 @@ The `setup` chunk is a special knitr chunk that should be placed at the start of
     knitr::opts_chunk$set(echo = TRUE)
 
 
-## Global options
+### Global options
 
 knitr allows for global options to be set on all chunks in an [RMarkdown](http://rmarkdown.rstudio.com/) file. These are options that should be placed inside your `setup` chunk at the top of your RMarkdown document.
 
@@ -168,12 +170,12 @@ opts_chunk$set(
 An additional cool trick is that you can save `opts_chunk$set` settings in `~/.Rprofile` and these knitr options will apply to all of your RMarkdown documents.
 
 
-## Figures
+### Figures
 
 A neat feature of knitr is how much simpler it makes generating figures. You can simply return a plot in a chunk, and knitr will automatically write the files to disk, in an organized subfolder. By specifying options in the `setup` chunk, you can have R automatically save your plots in multiple file formats at once, including PNG, PDF, and SVG. A single chunk can support multiple plots, and they will be arranged in squares below the chunk in RStudio.
 
 
-## Tables
+### Tables
 
 knitr includes a simple but powerful function for generating stylish tables in a knit report named `kable()`. Here's an example using R's built-in `mtcars` dataset:
 
@@ -198,7 +200,7 @@ There are some other functions that allow for more powerful customization of tab
 
 
 
-# Generating the report
+## Generating the report
 
 `knit()` (recommended)
 ----------------------
