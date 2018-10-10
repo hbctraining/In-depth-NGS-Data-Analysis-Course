@@ -208,6 +208,10 @@ Finally, it is helpful to know that these R scripts can take positional paramete
 $ vim marker_id.R
 ```
 
+Go to top of file using `gg` in command mode and delete the entire file with `dG`.
+
+Now paste in the following script with command line arguments and save.
+
 ```r
 #!/usr/bin/env Rscript
 
