@@ -13,7 +13,7 @@ duration: 30
 
 ***
 
-# Setting up some `alias`es <a name="alias"></a>
+### Setting up some `alias`es <a name="alias"></a>
 
 On your local machine do the following:
 
@@ -47,9 +47,9 @@ alias o2='ssh <your_ecommons_ID>@orchestra.med.harvard.edu'
 
 Now, open a new Terminal window, and try these out! You will still need to add your password, if you want to set up some "ssh keys" so that you don't have to enter your password you can find more information [within the O2 documentation](https://wiki.rc.hms.harvard.edu/display/O2/How+to+Generate+SSH+Keys).
 
-# Copying files with `rsync` <a name="rsync"></a>
+### Copying files with `rsync` <a name="rsync"></a>
 
-# Symbolic Links or "sym links" <a name="symlink"></a>
+### Symbolic Links or "sym links" <a name="symlink"></a>
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
