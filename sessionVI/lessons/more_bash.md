@@ -42,7 +42,7 @@ Let's open either `~/.bash_profile` or `~/.bashrc` files on your laptop (*not on
 ```bash
 alias ll='ls -l'
 
-alias o2='ssh <your_ecommons_ID>@orchestra.med.harvard.edu'
+alias o2='ssh <your_ecommons_ID>@o2.hms.harvard.edu'
 ```
 
 Now, open a new Terminal window, and try these out! You will still need to add your password, if you want to set up some "ssh keys" so that you don't have to enter your password you can find more information [within the O2 documentation](https://wiki.rc.hms.harvard.edu/display/O2/How+to+Generate+SSH+Keys).
@@ -63,6 +63,36 @@ Similar to what we did above, you can put this (or a similar) command in the `.b
 
 
 ## Copying files with `rsync` <a name="rsync"></a>
+
+`rsync` is used to copy or synchronize data between directories. It has many advantages over `cp`, `scp` etc. It works in a specific direction, i.e. from the first diretory **to** the second directory, similar to `cp`.
+
+
+### Between directories on the same machine
+
+```bash
+#DO NOT RUN
+$ rsync -av ~/large_dataset/. /n/groups/dir/groupdata/
+```
+
+### Between different machines
+
+When copying over large datasets to or from a remote machine, `rsync` works similarly to `scp`.
+
+```bash
+#DO NOT RUN
+$ rsync -av -e ssh testfile <your_ecommons_ID>@transfer.o2.hms.harvard.edu:~/large_files/
+```
+
+> Please do not use Orchestra’s login servers for heavy I/O jobs like rsync or sftp. When transfering large files to and from O2, use their transfer server `transfer.o2.hms.harvard.edu`.
+
+** Salient Features of `rsync`**
+
+* If the command (or transfer) is interrupted, you can start it again and *it will restart from where it was interrupted*.
+* Once a folder has been synced between 2 locations, the next time you run `rsync` it will *only update and not copy everything over again*. 
+* It runs a check to ensure that every file it is "syncing" over is the exact same in both locations. This check is run using a version of ["checksum"](https://en.wikipedia.org/wiki/Checksum). 
+
+> You can run the checksum function yourself when transferring large datasets without `rsync` using one of the following commands (or similar): `md5`, `md5sum`.
+
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
 
