@@ -85,8 +85,11 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("DESeq2")
 ```
 
-You can quit R and get back to the `$` command prompt by typing `CTL + C`, and there is no need to save the workspace image. 
-Talk to the folks at HMS RC to find out which packages are already installed for each of the R modules available. They have a [how-to guide available online]() for installing packages locally, when you feel comfortable trying it on your own.
+If typing in R and wanting to use `esc` to return the command prompt, on the command line we need to use `CTL + C` instead.
+
+You can quit R and get back to the `$` command prompt by typing `q()`, and there is no need to save the workspace image.
+
+> **NOTE:** Talk to the folks at HMS RC to find out which packages are already installed for each of the R modules available. 
 
 For the rest of this session, we are going to use an R library in which we have already installed these libraries, so we are going to add this library to our `.Renviron` file. 
 
