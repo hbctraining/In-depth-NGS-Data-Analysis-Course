@@ -128,7 +128,8 @@ We will perform alignment on our paired-end reads for sample `na12878`. Details 
 The basic options for aligning reads to the genome using BWA-MEM are:
 
 * `-t`: number of threads / cores
-* `-M`: mark shorter split hits as secondary (for compatibility with Picard, a downstream tool)
+* `-M`: mark shorter split hits as secondary
+	> This is optional for Picard compatibility as MarkDuplicates can directly process BWA's alignment, whether or not the alignment marks secondary hits. However, if we want MergeBamAlignment to reassign proper pair alignments, to generate data comparable to that produced by the Broad Genomics Platform, then we must mark secondary alignments [GATK discussion forum](https://gatkforums.broadinstitute.org/gatk/discussion/6483/how-to-map-and-clean-up-short-read-sequence-data-efficiently#step3).
 
 Additionally we will specify:
 
