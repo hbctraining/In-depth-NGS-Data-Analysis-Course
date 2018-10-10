@@ -50,39 +50,36 @@ $ module spider R
 There are various versions of R available on O2.
 
 ```bash
-$ module load gcc/6.2.0 R/3.5.1
+$ module load gcc/6.2.0 R/3.5.1 hdf5/1.10.1
 
 $ R
 ```
 
 The terminal window should now turn into the R console with the R prompt `>`. You can run all of the analyses performed on our laptops on the cluster, but there is no RStudio-like GUI.
 
-As we know, to do many of the analyses performed throughout the course requires many different R packages. To install packages on O2 is a bit different than installing on our laptops. While we will explore how to install the packages `dplyr`, `Seurat` and `DESeq2`, it takes quite a bit of time to install, so we encourage you to do this on your own later. 
+As we know, to do many of the analyses performed throughout the course requires many different R packages. To install packages on O2 is a bit different than installing on our laptops. While we will explore how to install the packages `dplyr`, `Seurat`, `AnnotationHub`, and `ensembldb`, it takes quite a bit of time to install, so we encourage you to do this on your own later. 
 
 To manually install a package on O2 from **CRAN**, we would need to specify where our library is using the following: `install.packages("name-of-your-package", lib="~/R/3.5.1/library")`. 
 
-For instance, for installing `dplyr`, we would run the following code:
+For instance, for installing `dplyr` and `Seurat`, we would run the following code:
 
 ```r
 # DO NOT RUN
 install.packages("dplyr", lib="~/R/3.5.1/library")
+
+install.packages("Seurat", lib="~/R/3.5.1/library")
 ```
 
 > **NOTE:** You will be prompted to choose a CRAN mirror or server to download from - try to pick a relatively close location.
-
-Similar code would be run to install Seurat:
-
-```r
-# DO NOT RUN
-install.packages("Seurat", lib="~/R/3.5.1/library")
-```
 
 However, for **Bioconductor** packages we do not need to specify the library path since we have already modified the environment variable to point to the library. 
 
 ```r
 # DO NOT RUN
 source("https://bioconductor.org/biocLite.R")
-biocLite("DESeq2")
+biocLite("AnnotationHub")
+
+biocLite("ensembldb")
 ```
 
 If typing in R and wanting to use `esc` to return the command prompt, on the command line we need to use `CTL + C` instead.
@@ -138,6 +135,7 @@ seurat <- readRDS("pbmcs_seurat_tsne.rds")
 all_markers <-FindAllMarkers(seurat,
                              min.pct =  0.25,
                              min.diff.pct = 0.25)
+# Bring in annotations
 
 all_markers <- dplyr::left_join(all_markers, annotations[ , c(1:3, 5)],
                          by = c("gene" = "gene_id"))
