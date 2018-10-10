@@ -47,6 +47,21 @@ alias o2='ssh <your_ecommons_ID>@orchestra.med.harvard.edu'
 
 Now, open a new Terminal window, and try these out! You will still need to add your password, if you want to set up some "ssh keys" so that you don't have to enter your password you can find more information [within the O2 documentation](https://wiki.rc.hms.harvard.edu/display/O2/How+to+Generate+SSH+Keys).
 
+You can now create an alias to run an interactive session on O2!
+
+```bash
+alias interactive=`srun --pty -p interactive bash`
+
+# and/OR
+
+alias interactive6='srun --pty -p interactive -n 6 --mem 8G bash'
+```
+
+You can not try one of them out from the login node.
+
+Similar to what we did above, you can put this (or a similar) command in the `.bashrc` or `.bashprofile` files so it is available when you log on next time.
+
+
 ## Copying files with `rsync` <a name="rsync"></a>
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
