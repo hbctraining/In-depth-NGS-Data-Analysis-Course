@@ -127,6 +127,8 @@ $ vim marker_id.R
 # Load libraries
 library(dplyr)
 library(Seurat)
+library(AnnotationHub)
+library(ensembldb)
 
 # Load Seurat clustered data
 seurat <- readRDS("pbmcs_seurat_tsne.rds")
@@ -168,7 +170,7 @@ all_markers <- all_markers[, c(6:8, 1:5, 9:10)]
 
 print("Writing to file")
 # Write results to file
-write.csv(all_markers, "all_markers.csv", quote = F)
+write.csv(all_markers, "all_markers.csv", quote = F, row.names = FALSE)
 ```
 	
 Before we can run the script we don't want to forget the shebang line, which is slightly different since we are running an R script:
@@ -209,7 +211,62 @@ $ vim marker_id.R
 ```r
 #!/usr/bin/env Rscript
 
-# Usage: this Rscript is using Seurat to identify cell cluster markers. The input is an RDS file containing a Seurat object with clustering information contained within, and the output is a csv file containing the cluster markers. The script expects as a command line argument the path to the Seurat object and prefix to output file. To run:  Rscript marker_id.R "path/to/seurat.rds" "prefix_to_output_file_"
+# Usage: this Rscript is using Seurat to identify cell cluster markers. The input is an RDS file containing a Seurat object with clustering information contained within, and the output is a csv file containing the cluster markers. The script expects as a command line argument the path to the Seurat object and prefix to output file. To run:  Rscript marker_id.R "path/to/seurat.rds" "prefix_to_output_file"
+
+# Single-cell RNA-seq - Marker identification
+
+# Load libraries
+library(dplyr)
+library(Seurat)
+library(AnnotationHub)
+library(ensembldb)
+
+#options(echo=TRUE)
+args <- commandArgs(trailingOnly = TRUE)
+
+# Load Seurat clustered data
+seurat <- readRDS(args[1])
+
+
+print("Identifying markers")
+# Identify gene markers
+all_markers <-FindAllMarkers(seurat,
+                             min.pct =  0.25,
+                             min.diff.pct = 0.25)
+
+print("Acquiring annotations")
+# Connect to AnnotationHub
+ah <- AnnotationHub()
+
+# Access the Ensembl database for organism
+ahDb <- query(ah, 
+              pattern = c("Homo sapiens", "EnsDb"), 
+              ignore.case = TRUE)
+	      
+# Acquire the latest annotation files
+id <- ahDb %>%
+  mcols() %>%
+  rownames() %>%
+  tail(n = 1)
+  
+# Download the appropriate Ensembldb database
+edb <- ah[[id]]
+
+# Extract gene-level information from database
+annotations <- genes(edb, 
+                     return.type = "data.frame")
+		     
+# Merge annotations with all markers		     
+all_markers <- dplyr::left_join(all_markers, annotations[ , c(1:3, 5)],
+                         by = c("gene" = "gene_id"))
+
+# Rearrange order of columns to make clearer
+all_markers <- all_markers[, c(6:8, 1:5, 9:10)]
+
+print("Writing to file")
+# Write results to file
+write.csv(all_markers,  paste0(args[2], "_all_markers.csv"), quote = F, row.names = FALSE)
+
 
 # Single-cell RNA-seq - Marker identification
 
