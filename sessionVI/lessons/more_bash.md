@@ -96,5 +96,24 @@ $ rsync -av -e ssh testfile <your_ecommons_ID>@transfer.o2.hms.harvard.edu:~/lar
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
 
+Symbolic links are like shortcuts you may create on mac. Make a file or directory and then a symlink to it called myshortcut:
+
+```bash
+ls -l /n/app/bcbio/tools/bin/
+```
+
+
+```bash
+$ cd
+
+$ ln -s /n/groups/hbctraining/ngs-data-analysis-longcourse/sessionIV_hmwk/ rnaseq_homework_NGScourse
+
+$ ls -l
+```
+
+We recommend that you create something like this for your raw data so it does not accidentally get corrupted or overwritten. 
+
+> Note: a “hard” link (just `ln` without the `-s` option) is very different. Always use “ln -s” unless you really know what you’re doing!
+
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
