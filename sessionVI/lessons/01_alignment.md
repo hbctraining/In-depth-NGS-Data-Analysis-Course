@@ -77,7 +77,7 @@ While the sample NA12878 was sequenced at a depth of 300x, we will only be using
 
 ## QC and Alignment
 
-In our workflow, we are going to skip over the Quality Control steps, but we will assume that we used *FastQC* to ensure there are no obvious problems with our samples and no adapter or vector contamination. Since the aligner we will use performs soft-clipping, we done't need to perform any read trimming.
+In our workflow, we are going to skip over the Quality Control steps, but we will assume that we used *FastQC* to ensure there are no obvious problems with our samples and no adapter or vector contamination. Since the aligner we will use performs soft-clipping, we don't need to perform any read trimming.
 
 Choice of alignment tool is often determined by the type of NGS application being conducted. We have previously used STAR for RNA-seq data because it is fast and optimized for aligning spliced reads. For ChIP-Seq we used Bowtie2 to align the reads because it is fast and accurate. For variant calling we will use [BWA (Burrows-Wheeler Aligner)](http://bio-bwa.sourceforge.net) for alignment. 
 
@@ -138,7 +138,7 @@ Additionally we will specify:
 * `2>`: save standard error to file
 * `>`: save alignment output to a SAM file
 
-**NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
+ >**NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
 
 ```bash
 $ bwa mem -M -t 2 \
@@ -175,8 +175,8 @@ $ module spider picard
 In addition to usual information it gives some information about how to use it. 
 
 ```
-      To use, type
-          java -jar $PICARD/picard-2.8.0.jar [options]
+To use, type
+      java -jar $PICARD/picard-2.8.0.jar [options]
 ```
 
 Java tools usually have a `.jar` executable file and it needs to be run using `java -jar` as well as the full path to the executable file. *You can check what is stored in the `$PICARD` environment variable, before and after you load the module.*
