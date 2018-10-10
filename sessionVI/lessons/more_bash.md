@@ -85,7 +85,7 @@ $ rsync -av -e ssh testfile <your_ecommons_ID>@transfer.o2.hms.harvard.edu:~/lar
 
 > Please do not use Orchestra’s login servers for heavy I/O jobs like rsync or sftp. When transfering large files to and from O2, use their transfer server `transfer.o2.hms.harvard.edu`.
 
-** Salient Features of `rsync`**
+**Salient Features of `rsync`**
 
 * If the command (or transfer) is interrupted, you can start it again and *it will restart from where it was interrupted*.
 * Once a folder has been synced between 2 locations, the next time you run `rsync` it will *only update and not copy everything over again*. 
