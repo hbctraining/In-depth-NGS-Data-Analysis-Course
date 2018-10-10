@@ -272,7 +272,17 @@ print("Writing to file")
 write.csv(all_markers,  paste0(args[2], "_all_markers.csv"), quote = F, row.names = FALSE)
 ```
 
+Now to run we can provide the parameters:
 
+```bash
+Rscript marker_id.R "pbmcs_seurat_tsne.rds" "seurat_res0.8_all_clusters"
+```
+
+The print statements will output as the script proceeds. When completed take a quick peek at the markers file generated:
+
+```bash
+less seurat_res0.8_all_clusters_all_markers.csv
+```
 
 ***
 
