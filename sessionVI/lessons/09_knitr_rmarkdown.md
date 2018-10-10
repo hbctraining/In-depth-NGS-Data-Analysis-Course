@@ -255,8 +255,7 @@ The `knit()` command works great if you only need to generate a single document 
 > 
 > A simple way to resolve this issue is by creating an R project for the analysis, and saving all RMarkdown files at the top level, to avoid running into unexpected problems related to this behavior.
 
-Convert an R script to an RMarkdown knit report
-===============================================
+## Convert an R script to an RMarkdown knit report
 
 Now that we know some of the basics of RMarkdown, let's convert our Mov10 DE analysis script into an RMarkdown report! 
 
