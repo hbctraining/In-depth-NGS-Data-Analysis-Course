@@ -136,15 +136,6 @@ There are also a few options commonly used for plots to easily resize images:
 * `fig.height = 6`
 * `fig.width = 4`
 
-
-### The setup chunk
-
-The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all the user-defined parameters in the `setup` chunk that are required for successful knitting. Also you could include all `library()` loads required for the script and other `load()` requests for external files here. 
-
-    {r setup, include=FALSE}
-    knitr::opts_chunk$set(echo = TRUE)
-
-
 ### Global options
 
 knitr allows for global options to be set on all chunks in an [RMarkdown](http://rmarkdown.rstudio.com/) file. These are options that should be placed inside your `setup` chunk at the top of your RMarkdown document.
@@ -166,7 +157,31 @@ opts_chunk$set(
     warning = FALSE)
 ```
 
-An additional cool trick is that you can save `opts_chunk$set` settings in `~/.Rprofile` and these knitr options will apply to all of your RMarkdown documents.
+### The setup chunk
+
+The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all the user-defined parameters in the `setup` chunk that are required for successful knitting. Also you could include all `library()` loads required for the script and other `load()` requests for external files here. 
+
+    {r setup, include=FALSE}
+    
+    #=================
+    # Load packages (load all the packages here at the beginning)
+    #=================
+    library(xtable) ## for making awesome tables
+    library(ggplot2) ## for plotting
+
+    # Set some basic options. You usually do not want your code, messages, 
+    # warnings etc to show in your actual manuscript however for the first
+    # run or two these will be set on.
+  
+    knitr::opts_chunk$set(warning=TRUE,
+                message=TRUE,
+                echo=TRUE,
+                cache = FALSE,
+                tidy = FALSE, ## remove the auto-formatting
+                error=TRUE)   
+
+
+> **NOTE:** An additional cool trick is that you can save `opts_chunk$set` settings in `~/.Rprofile` and these knitr options will apply to all of your RMarkdown documents.
 
 
 ### Figures
@@ -194,9 +209,6 @@ mtcars %>%
 | Hornet Sportabout |  18.7|    8|   360|  175|  3.15|  3.440|  17.02|    0|    0|     3|     2|
 | Valiant           |  18.1|    6|   225|  105|  2.76|  3.460|  20.22|    1|    0|     3|     1|
 
-There are some other functions that allow for more powerful customization of tables, including `pander::pander()` and `xtable::xtable()`, but I generally prefer the simplicity and cross-platform reliability of `knitr::kable()`.
-
-
 
 
 ## Generating the report
@@ -221,7 +233,7 @@ RStudio now supports a [number of formats](http://rmarkdown.rstudio.com/formats.
 help("render", "rmarkdown")
 ```
 
-The `knit()` command works great if you only need to generate a single document format. [RMarkdown](http://rmarkdown.rstudio.com/) also supports a more advanced function named `rmarkdown::render()`, allows for output of multiple document formats. To accomplish this, we recommend saving a special file named `_output.yaml` in your project root. Here's an [example](https://github.com/hbc/bcbioRnaseq/blob/master/docs/downloads/_output.yaml) from our [bcbioRnaseq](https://github.com/hbc/bcbioRnaseq) package:
+The `knit()` command works great if you only need to generate a single document format. [RMarkdown](http://rmarkdown.rstudio.com/) also supports a more advanced function named `rmarkdown::render()`, allows for output of multiple document formats. To accomplish this, we recommend saving a special file named `_output.yaml` in your project root. 
 
     rmarkdown::html_document:
         code_folding: hide
@@ -239,7 +251,7 @@ The `knit()` command works great if you only need to generate a single document 
 
 > #### Working directory behavior
 > 
-> knitr redefines the working directory of an RMarkdown file in a manner that can be confusing. If you're working in RStudio with an RMarkdown file that is not at the same location as the current R working directory (`getwd()`), you can run into problems with broken file paths. Suppose you have RStudio open without a project loaded. My working directory is set to `~/Users/mike`. Now, if I load an RMarkdown file from my desktop at `~/Users/mike/Desktop`, knitr will set the working directory within chunks to be relative to my desktop. We advise against coding paths in a script to only work with knitr and not base R.
+> knitr redefines the working directory of an RMarkdown file in a manner that can be confusing. If you're working in RStudio with an RMarkdown file that is not at the same location as the current R working directory (`getwd()`), you can run into problems with broken file paths. Suppose you have RStudio open without a project loaded, the working directory is usually set to your home directory. Now, if you load an RMarkdown file from the desktop at `~/Users/myserame/Desktop`, knitr will set the working directory within chunks to be relative to the desktop. We advise against coding paths in a script to only work with knitr and not base R.
 > 
 > A simple way to resolve this issue is by creating an R project for the analysis, and saving all RMarkdown files at the top level, to avoid running into unexpected problems related to this behavior.
 
