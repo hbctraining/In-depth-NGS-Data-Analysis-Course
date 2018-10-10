@@ -7,7 +7,7 @@
 | 09:00 - 09:30 | Homework Review | Mary |
 | 09:30 - 10:15 | [Introduction to Variant Detection](../slides/Variant_Intro_rsk.pdf) | Radhika |
 | 10:15 - 10:30 | Coffee | |
-| 10:30 - 11:45 | Variant Calling Methods | Dr. Brad Chapman |
+| 10:30 - 11:45 | [Variant Calling Methods](https://github.com/chapmanb/bcbb/blob/master/talks/ngscourse2018_teaching/ngscourse2018_teaching.pdf) | Dr. Brad Chapman |
 | 11:45 - 12:15 | [Alignment (BWA-mem)](../lessons/01_alignment.md) | Mary |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 13:45 | [Alignment (BWA-mem)](../lessons/01_alignment.md) | Mary |
