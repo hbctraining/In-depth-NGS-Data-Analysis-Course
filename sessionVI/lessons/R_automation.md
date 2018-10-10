@@ -7,10 +7,13 @@ Any non-base R packages needed for an analysis need to be downloaded to a person
 Let's create our personal R library, if not already created, in our `HOME` directory. Be sure to include the R version number for any R library created.
 
 ```bash
-$ srun --pty -p interactive -t 0-12:00 --x11 --mem 36G /bin/bash
+$ srun --pty -p interactive -t 0-12:00 --mem 36G /bin/bash
 
 $ mkdir -p ~/R/3.5.1/library
 ```
+
+> **NOTE:** If you were using X11 forwarding to view images, you could include the `--x11` flag in the interactive command:
+srun --pty -p interactive -t 0-12:00 --x11 --mem 36G /bin/bash
 
 ### Installing R packages
 
