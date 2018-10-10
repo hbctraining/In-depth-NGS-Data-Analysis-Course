@@ -13,7 +13,7 @@ author: Michael J. Steinbaugh and Meeta Mistry
 
 ## Reproducible reports in R
 
-So far, any code that we have written in R has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. But, **what if we wanted to communicate this with our collaborators**; wouldn't it be nice to be able to **share the code along with tables, figures, and text describing the interpretation**? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown. The combination of these two things allow users to combine code and stylized text to output information in various formats including HTML, PDF, MS_Word, ODT, RTF, Markdown, and Github flavored Markdown documents.
+So far, any code that we have written in R has been in the form of an R script (`.R`). Any figures that we generated, were either plotted to the RStudio device and/or exported to file. **What if we wanted to communicate this with our collaborators?** Wouldn't it be nice to be able to **share the code along with tables, figures, and text describing the interpretation**? Thankfully, in RStudio there is a way to compile all of that information into a report by using the `knitr` package and a simple text-markup language called RMarkdown. The combination of these two things allow users to combine code and stylized text to output information in various formats including HTML, PDF, MS_Word, ODT, RTF, Markdown, and Github flavored Markdown documents.
 
 ![knitr](../img/RMarkdownOutputFormats.png)  
 
