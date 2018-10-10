@@ -270,33 +270,6 @@ all_markers <- all_markers[, c(6:8, 1:5, 9:10)]
 print("Writing to file")
 # Write results to file
 write.csv(all_markers,  paste0(args[2], "_all_markers.csv"), quote = F, row.names = FALSE)
-
-
-# Single-cell RNA-seq - Marker identification
-
-# Load libraries
-library(dplyr)
-library(Seurat)
-
-#options(echo=TRUE)
-args <- commandArgs(trailingOnly = TRUE)
-
-# Load Seurat clustered data
-seurat <- readRDS(args[1])
-
-# Identify gene markers
-all_markers <-FindAllMarkers(seurat,
-                             min.pct =  0.25,
-                             min.diff.pct = 0.25)
-
-all_markers <- dplyr::left_join(all_markers, annotations[ , c(1:3, 5)],
-                         by = c("gene" = "gene_id"))
-
-# Rearrange order of columns to make clearer
-all_markers <- all_markers[, c(6:8, 1:5, 9:10)]
-
-# Write results to file
-write.csv(all_markers, paste0(args[2], "all_markers.csv", quote = F)
 ```
 
 
