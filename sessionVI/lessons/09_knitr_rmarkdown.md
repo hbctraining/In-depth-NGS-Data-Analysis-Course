@@ -31,12 +31,12 @@ Some commonly used formatting options are listed below:
 ```
 # This is a Heading1 tag
 ## This is a Heading2 tag
-###### This is a Heading6 tag
+
 ```
 
 # This is a Heading1 tag
 ## This is a Heading2 tag
-###### This is a Heading6 tag
+
 
 * The asterik `*` and underscore `_` characters are used to **add emphasis** to select words
 
