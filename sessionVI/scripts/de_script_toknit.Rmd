@@ -159,3 +159,9 @@ annotation= annotation_kd, border_color=NA, fontsize = 10, scale="row",
      fontsize_row = 10, height=20)
 ```
 
+
+## Packages and versions
+
+```{r}
+sessionInfo()
+```
