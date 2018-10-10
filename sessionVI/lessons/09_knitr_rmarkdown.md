@@ -139,7 +139,7 @@ There are also a few options commonly used for plots to easily resize images:
 
 ### The setup chunk
 
-The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all `library()` loads required for the script and other `load()` requests for external files here. In our RMarkdown templates, such as the bcbioRnaseq [differential expression template](https://github.com/hbc/bcbioRnaseq/blob/master/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd), we store all the user-defined parameters in the `setup` chunk that are required for successful knitting.
+The `setup` chunk is a special knitr chunk that should be placed at the start of the document. We recommend storing all the user-defined parameters in the `setup` chunk that are required for successful knitting. Also you could include all `library()` loads required for the script and other `load()` requests for external files here. 
 
     {r setup, include=FALSE}
     knitr::opts_chunk$set(echo = TRUE)
