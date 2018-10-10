@@ -207,7 +207,7 @@ The description of base options for the `SortSam` tool:
 ```bash
 $ cd results/bwa
 
-$ java -jar $PICARD/picard-2.8.0.jar SortSam \
+$ java -Xmx8G -jar $PICARD/picard-2.8.0.jar SortSam \
 INPUT=na12878.sam \
 OUTPUT=na12878_sorted.sam \
 SORT_ORDER=coordinate \
