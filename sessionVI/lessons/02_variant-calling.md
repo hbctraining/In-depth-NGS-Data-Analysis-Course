@@ -145,6 +145,12 @@ We are going to stick with using only the quality score for today's class:
 $ vcftools --vcf na12878.vcf --minQ 20 --recode --recode-INFO-all --out na12878_q20  
 ```
 
+> "`--recode` : These options are used to generate a new file in either VCF or BCF from the input VCF or BCF file after applying the filtering options specified by the user. The output file has the suffix ".recode.vcf" or ".recode.bcf". By default, the INFO fields are removed from the output file, as the INFO values may be invalidated by the recoding (e.g. the total depth may need to be recalculated if individuals are removed). This behavior may be overriden by the following options. By default, BCF files are written out as BGZF compressed files."
+> 
+> "`--recode-INFO-all` : These options can be used with the above recode options to define an INFO key name to keep in the output file. This option can be used multiple times to keep more of the INFO fields. The second option is used to keep all INFO values in the original file."
+> 
+> Information about `recode` adapted from the [VCFtools manual](https://vcftools.github.io/man_latest.html).
+
 Now we are *(almost)* ready to annotate this VCF with known information from dbSNP, and add functional annotation information to enable variant prioritization.
 	
 ***
