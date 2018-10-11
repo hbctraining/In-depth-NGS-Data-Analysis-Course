@@ -116,7 +116,7 @@ $ vim ~/.Renviron
 ```
 
 ```bash
-R_LIBS_USER="/n/groups/hbctraining/R/R-3.5.1"
+R_LIBS_USER="/n/groups/hbctraining/R/R-3.5.1/library"
 ```
 
 ## R scripts
