@@ -4,7 +4,7 @@ For many analyses using R tools, the ability to utilize the resources of the clu
 
 Any non-base R packages needed for an analysis need to be downloaded to a personal R library prior to use. To create a personal R library, we can create a special directory. More information on personal R libraries on O2 are available on the [O2 Wiki](https://wiki.rc.hms.harvard.edu/display/O2/Personal+R+Packages).
 
-Let's create our personal R library, if not already created, in our `HOME` directory. Be sure to include the R version number for any R library created.
+Let's create our personal R library, if not already created, in our `HOME` directory. Be sure to include the R version number for any R library created. Since R can be memory intensive, we often need to adjust the `--mem` parameter when running R interactively or submitting jobs.
 
 ```bash
 $ srun --pty -p interactive -t 0-12:00 --mem 36G /bin/bash
