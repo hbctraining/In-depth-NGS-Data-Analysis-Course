@@ -22,28 +22,47 @@ Using these data, we will evaluate transcriptional patterns associated with pert
 ```{r load-libraries}
 
 ### Bioconductor and CRAN libraries used
-library(ggplot2)
-library(RColorBrewer)
 library(DESeq2)
-library(pheatmap)
-library(grid)
-library(gridExtra)
+library(tidyverse)
 library(RColorBrewer)
+library(pheatmap)
+library(DEGreport)
+library(tximport)
+library(annotables)
+library(ggplot2)
+library(grid) # may have to install
+library(gridExtra) # may have to install
 library(knitr)
 ```
 
 ### Load Data
 
 ```{r}
-data <- read.table("data/Mov10_full_counts.txt", header=T, row.names=1) 
-meta <- read.table("meta/Mov10_full_meta.txt", header=T, row.names=1)
-kable(meta, format="markdown", row.names=F)
+## List all directories containing data  
+samples <- list.files(path = "./data", full.names = T, pattern="\\.salmon$")
+
+## Obtain a vector of all filenames including the path
+files <- file.path(samples, "quant.sf")
+
+## Since all quant files have the same name it is useful to have names for each element
+names(files) <- str_replace(samples, "./data/", "") %>% 
+                str_replace(".salmon", "")
+
+# Run tximport
+txi <- tximport(files, type="salmon", tx2gene=grch38_tx2gene, countsFromAbundance=“lengthScaledTPM”)
+
+## Create a sampletable/metadata
+sampletype <- factor(c(rep("control",3), rep("MOV10_knockdown", 2), rep("MOV10_overexpression", 3)))
+meta <- data.frame(sampletype, row.names = colnames(txi$counts))
+
 ```
 
 ## DESeq2 Analysis
 
 ```{r}
-dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
+
+# Create DESeq2Dataset object
+dds <- DESeqDataSetFromTximport(txi, colData = metadata, design = ~ sampletype)
 dds <- DESeq(dds)
 ```
 
@@ -62,6 +81,9 @@ rld_cor <- cor(rld_mat)
 
 ### Plot heatmap
 pheatmap(rld_cor)
+
+# Plot dispersion estimates
+plotDispEsts(dds)
 ```
 
 
@@ -69,25 +91,42 @@ pheatmap(rld_cor)
 
 ```{r}
 
-## Extract results
-res_tableOE <- results(dds, contrast = c("sampletype", "MOV10_overexpression", "control"))
-res_tableKD <- results(dds, contrast = c("sampletype", "MOV10_knockdown", "control"))
+## Define contrasts, extract results table and shrink log2 fold changes OE
+contrast_oe <-  c("sampletype", "MOV10_overexpression", "control")
+res_tableOE <- results(dds, contrast=contrast_oe, alpha = 0.05)
+res_tableOE <- lfcShrink(dds, contrast=contrast_oe, res=res_tableOE)
+
+## Define contrasts, extract results table and shrink log2 fold changes KD
+contrast_kd <-  c("sampletype", "MOV10_knockdown", "control")
+res_tableKD <- results(dds, contrast=contrast_kd, alpha = 0.05)
+res_tableKD <- lfcShrink(dds, contrast=contrast_kd, res=res_tableKD)
 
 ## Set thresholds
 padj.cutoff <- 0.05
-lfc.cutoff <- 0.58
 
-# Significant results for mov10OE relative to control
-sigOE <- subset(data.frame(res_tableOE), padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+# Significant results for Mov10OE relative to control
+res_tableOE_tb <- res_tableOE %>%
+  data.frame() %>%
+  rownames_to_column(var="gene") %>% 
+  as_tibble()
+  
+sigOE <- res_tableOE_tb %>%
+        filter(padj < padj.cutoff)
 
-# Significant results for mov10KD relative to control
-sigKD <- subset(data.frame(res_tableKD), padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+# Significant results for Mov10KD relative to control
 
+res_tableKD_tb <- res_tableKD %>%
+  data.frame() %>%
+  rownames_to_column(var="gene") %>% 
+  as_tibble()
+  
+sigKD <- res_tableKD_tb %>%
+        filter(padj < padj.cutoff)
 ```
 
 ## Summarizing and Visualizing Results
 
-At an adjusted p-value cutoff of `r padj.cutoff` and an absolute log2FoldChange cutoff of `r lfc.cutoff` we find the follwing number of significant genes:
+At an adjusted p-value cutoff of `r padj.cutoff` we find the follwing number of significant genes:
 
 * Mov10 overepression vs. Control: `r nrow(sigOE)` genes
 * Mov10 knockdown vs. Control: `r nrow(sigKD)` genes
@@ -97,36 +136,34 @@ At an adjusted p-value cutoff of `r padj.cutoff` and an absolute log2FoldChange 
 ```{r}
 
 # Identify significant OE genes
-res_tableOE$threshold <- res_tableOE$padj < padj.cutoff & abs(res_tableOE$log2FoldChange) > lfc.cutoff
-
-# Convert the DESeq results object to a data frame
-resOE_df <- data.frame(res_tableOE)
-
-# Volcano plot
-p1 <- ggplot(resOE_df) +
-  geom_point(aes(x=log2FoldChange, y=-log10(padj), colour=threshold)) +
-  ggtitle("Mov10 overexpression") +
-  xlab("log2 fold change") + 
-  ylab("-log10 adjusted p-value") +
-  theme(legend.position = "none",
-        plot.title = element_text(size = rel(1.5), hjust = 0.5),
-        axis.title = element_text(size = rel(1.25))) 
+res_tableOE_tb <- res_tableOE_tb %>% 
+                  mutate(threshold_OE = padj < padj.cutoff & abs(log2FoldChange) >= 0.58)
+                  
+## Volcano plot
+p1 <- ggplot(res_tableOE_tb) +
+        geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold_OE)) +
+        ggtitle("Mov10 overexpression") +
+        xlab("log2 fold change") + 
+        ylab("-log10 adjusted p-value") +
+        #scale_y_continuous(limits = c(0,50)) +
+        theme(legend.position = "none",
+              plot.title = element_text(size = rel(1.5), hjust = 0.5),
+              axis.title = element_text(size = rel(1.25)))  
 
 # Identify significant KD genes
-res_tableKD$threshold <- res_tableKD$padj < padj.cutoff & abs(res_tableKD$log2FoldChange) > lfc.cutoff
-
-# Convert the DESeq results object to a data frame
-resKD_df <- data.frame(res_tableKD)
-
+res_tableKD_tb <- res_tableKD_tb %>% 
+                  mutate(threshold_KD = padj < padj.cutoff & abs(log2FoldChange) >= 0.58)
+   
 # Volcano plot
-p2 <- ggplot(resKD_df) +
-  geom_point(aes(x=log2FoldChange, y=-log10(padj), colour=threshold)) +
-  ggtitle("Mov10 knockdown") +
-  xlab("log2 fold change") + 
-  ylab("-log10 adjusted p-value") +
-  theme(legend.position = "none",
-        plot.title = element_text(size = rel(1.5), hjust = 0.5),
-        axis.title = element_text(size = rel(1.25))) 
+p2 <- ggplot(res_tableKD_tb) +
+        geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold_KD)) +
+        ggtitle("Mov10 knockdown") +
+        xlab("log2 fold change") + 
+        ylab("-log10 adjusted p-value") +
+        #scale_y_continuous(limits = c(0,50)) +
+        theme(legend.position = "none",
+              plot.title = element_text(size = rel(1.5), hjust = 0.5),
+              axis.title = element_text(size = rel(1.25)))  
 
 grid.arrange(p1, p2, nrow=1)
 ```
@@ -135,28 +172,7 @@ grid.arrange(p1, p2, nrow=1)
 
 ```{r}
 
-## normalized counts 
-normalized_counts <- counts(dds, normalized=T)
 
-### Extract normalized expression for significant genes
-norm_OEsig <- normalized_counts[rownames(sigOE), which(meta$sampletype != "MOV10_knockdown")]
-norm_KDsig <- normalized_counts[rownames(sigKD), which(meta$sampletype != "MOV10_overexpression")]
-
-### Annotate our heatmap 
-annotation_oe <- meta[which(meta$sampletype != "MOV10_knockdown"), 'sampletype', drop=F]
-annotation_kd <- meta[which(meta$sampletype != "MOV10_overexpression"), 'sampletype', drop=F]
-
-### Set a color palette
-heat.colors <- brewer.pal(6, "YlOrRd")
-
-### Run pheatmap
-pheatmap(norm_OEsig, color = heat.colors, cluster_rows = T, show_rownames=F,
-annotation= annotation_oe, border_color=NA, fontsize = 10, scale="row",
-     fontsize_row = 10, height=20)
-
-pheatmap(norm_KDsig, color = heat.colors, cluster_rows = T, show_rownames=F,
-annotation= annotation_kd, border_color=NA, fontsize = 10, scale="row",
-     fontsize_row = 10, height=20)
 ```
 
 
