@@ -96,12 +96,14 @@ $ rsync -av -e ssh testfile <your_ecommons_ID>@transfer.o2.hms.harvard.edu:~/lar
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
 
-Symbolic links are like shortcuts you may create on mac. Make a file or directory and then a symlink to it called myshortcut:
+Symbolic links are like shortcuts you may create on mac. Let's check out an example of a folder with lots of symlinks.
+
 
 ```bash
 ls -l /n/app/bcbio/tools/bin/
 ```
 
+Now, let's create a shortcut in our home directory for that folder with the scripts for session IV homework.
 
 ```bash
 $ cd
