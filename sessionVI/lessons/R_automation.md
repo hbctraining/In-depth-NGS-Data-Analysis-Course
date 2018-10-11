@@ -62,6 +62,8 @@ $ R
 
 The terminal window should now turn into the R console with the R prompt `>`. You can run all of the analyses performed on our laptops on the cluster, but there is no RStudio-like GUI.
 
+### R package installations
+
 As we know, to do many of the analyses performed throughout the course requires many different R packages. To install packages on O2 is a bit different than installing on our laptops. While we will explore how to install the packages `dplyr`, `Seurat`, `AnnotationHub`, and `ensembldb`, it takes quite a bit of time to install, so we encourage you to do this on your own later. 
 
 To manually install a package on O2 from **CRAN**, we would need to specify where our library is using the following: `install.packages("name-of-your-package", lib="~/R/3.5.1/library")`. 
@@ -214,6 +216,8 @@ $ sbatch -p priority -t 0-12:00 --job-name sc_marker_id --mem 36G -o %j.out -e %
 ```
 
 > **NOTE:** It is not uncommon to require additional memory if needed, especially for single-cell RNA-seq (some projects have required up to 128G memory). Since requesting so much memory can take a while to receive, submitting the job to the `priority` queue can be helpful.
+
+### R positional parameters
 
 Finally, it is helpful to know that these R scripts can take positional parameters as well. Therefore, we could use the same script to process different clustering analyses. We can add command line arguments to the script using the `commandArgs()` function:
 
