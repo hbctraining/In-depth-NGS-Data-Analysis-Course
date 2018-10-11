@@ -22,6 +22,8 @@ $ mkdir -p ~/R/3.5.1/library
 
 > **NOTE:** If you were using X11 forwarding to view images, you could include the `--x11` flag in the interactive command:
 `srun --pty -p interactive -t 0-12:00 --x11 --mem 36G /bin/bash`
+>
+> Details regarding X11 forwarding are available on the [HMS RC wiki](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely).
 
 
 ### Installing R packages
