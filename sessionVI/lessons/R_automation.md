@@ -1,10 +1,3 @@
----
-title: "Using R on a Unix system"
-date: "October 11th, 2018"
----
-
-Contributors: Mary Piper
-
 Approximate time: 45 minutes
 
 ## Learning Objectives
