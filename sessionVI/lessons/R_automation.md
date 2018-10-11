@@ -75,8 +75,11 @@ install.packages("Seurat", lib="~/R/3.5.1/library")
 ```
 
 > **NOTE:** You will be prompted to choose a CRAN mirror or server to download from - try to pick a relatively close location. 
+> 
 > Often during installations you might encounter errors such as: 
-> `Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : there is no package called ‘R.utils’`
+>
+> `Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : there is no package called ‘R.utils’`.
+>
 > Whenever dealing with these messages try to install the packages mentioned (i.e. `R.utils`).
 
 However, for **Bioconductor** packages we do not need to specify the library path since we have already modified the environment variable to point to the library. 
