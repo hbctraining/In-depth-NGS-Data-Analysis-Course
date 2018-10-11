@@ -29,7 +29,7 @@
 | 11:15 - 12:15 | [Generating Reports in R with RMarkdown](../lessons/09_knitr_rmarkdown.md) | Meeta |
 | 12:15 - 13:15 | Lunch | |
 | 13:15 - 14:00 | [Using R on O2](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionVI/lessons/R_automation.html) | Mary |
-| 14:00 - 14:45 | [More Bash]() | Radhika |
+| 14:00 - 14:45 | [More Bash](../lessons/more_bash.md) | Radhika |
 | 14:45 - 15:00 | Coffee | |
 | 15:00 - 15:45 |[Accessing data from Gene Expression Omnibus (GEO)](https://hbctraining.github.io/Accessing_public_genomic_data/lessons/accessing_public_experimental_data.html)| Meeta |
 | 15:45 - 16:30 |[Accessing data from Sequence Read Archive (SRA)](https://hbctraining.github.io/Accessing_public_genomic_data/lessons/downloading_from_SRA.html)| Mary |
