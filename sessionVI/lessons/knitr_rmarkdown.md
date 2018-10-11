@@ -264,6 +264,10 @@ Now that we know some of the basics of RMarkdown, let's convert our Mov10 DE ana
 3. Move your RMarkdown file into the project working directory.
 4. Open up the .Rmd file and <kbd>Knit</kbd> the report.
 
+> Download to data folder [https://tinyurl.com/download-data-DE](https://tinyurl.com/download-data-DE)
+>
+> Download to meta folder [https://tinyurl.com/download-meta-DE](https://tinyurl.com/download-meta-DE)
+
 Once the report has been knit, it should open up in a separate window. If not, you will now see an html file in your workindg directory (`de_script_toknit.html`) which you can open in a web browser. **This report contains some of the commands we ran in Session III.**  This report is a great template but it can use a **few tweaks** to make it a bit more aesthetically pleasing.
 
 * Add a **title** to your report
