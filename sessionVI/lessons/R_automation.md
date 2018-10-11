@@ -13,7 +13,8 @@ $ mkdir -p ~/R/3.5.1/library
 ```
 
 > **NOTE:** If you were using X11 forwarding to view images, you could include the `--x11` flag in the interactive command:
-srun --pty -p interactive -t 0-12:00 --x11 --mem 36G /bin/bash
+`srun --pty -p interactive -t 0-12:00 --x11 --mem 36G /bin/bash`
+
 
 ### Installing R packages
 
@@ -110,9 +111,11 @@ R_LIBS_USER="/n/groups/hbctraining/R/R-3.5.1"
 
 ## R scripts
 
-In addition to running R interactively on the cluster, you can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few in the past sessions. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment will need to have all the packages installed and available. 
+In addition to running R interactively on the cluster, you can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few in the past sessions. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment (library specified in the `.Renviron` file) will need to have all the packages installed and available. 
 
-Let's explore R scripts in a bit more detail by using the script we created for the single-cell RNA-seq marker identification. Let's make a new folder in our home directory called `Rscripts` and run code from our `marker_id.R` script using the `pbmcs_seurat_tsne.rds` .RData object.
+Let's explore R scripts in a bit more detail by using part of the script we created for the **single-cell RNA-seq marker identification**. Let's make a new folder in our home directory called `Rscripts` and run code from our `marker_id.R` script using the `pbmcs_seurat_tsne.rds` .RData object.
+
+We have added `print()` statements to the script to help with trouble-shooting if necessary:
 
 ```bash
 # Create directory for lesson
@@ -212,13 +215,15 @@ $ sbatch -p priority -t 0-12:00 --job-name sc_marker_id --mem 36G -o %j.out -e %
 # note the high memory usage above
 ```
 
+> **NOTE:** It is not uncommon to require additional memory if needed, especially for single-cell RNA-seq (some projects have required up to 128G memory). Since requesting so much memory can take a while to receive, submitting the job to the `priority` queue can be helpful.
+
 Finally, it is helpful to know that these R scripts can take positional parameters as well. Therefore, we could use the same script to process different clustering analyses. We can add command line arguments to the script using the `commandArgs()` function:
 
 ```bash
 $ vim marker_id.R
 ```
 
-Go to top of file using `gg` in command mode and delete the entire file with `dG`.
+Go to top of file using `gg` in command mode and **delete the entire file** with `dG`.
 
 Now paste in the following script with command line arguments and save.
 
