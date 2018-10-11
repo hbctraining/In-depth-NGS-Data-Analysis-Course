@@ -115,8 +115,6 @@ In addition to running R interactively on the cluster, you can also run R script
 
 Let's explore R scripts in a bit more detail by using part of the script we created for the **single-cell RNA-seq marker identification**. Let's make a new folder in our home directory called `Rscripts` and run code from our `marker_id.R` script using the `pbmcs_seurat_tsne.rds` .RData object.
 
-We have added `print()` statements to the script to help with trouble-shooting if necessary:
-
 ```bash
 # Create directory for lesson
 $ mkdir ~/Rscripts
@@ -128,7 +126,7 @@ $ cd ~/Rscripts
 $ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/sessionVI/pbmcs_seurat_tsne.rds .
 ```
 
-Now let's create the R script with vim:
+Now let's create the R script with vim. We have added `print()` statements to the script to help with trouble-shooting, if necessary:
 
 ```bash
 $ vim marker_id.R
