@@ -223,7 +223,7 @@ $ sbatch -p priority -t 0-12:00 --job-name sc_marker_id --mem 36G -o %j.out -e %
 # note the high memory usage above
 ```
 
-> **NOTE:** It is not uncommon to require additional memory if needed, especially for single-cell RNA-seq (some projects have required up to 128G memory). Since requesting so much memory can take a while to receive, submitting the job to the `priority` queue can be helpful.
+> **NOTE:** It is not uncommon to require additional memory, especially for single-cell RNA-seq (some projects have required up to 128G memory). Since requesting so much memory can take a while to receive, submitting the job to the `priority` queue can be helpful.
 
 ### R positional parameters
 
