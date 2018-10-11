@@ -1,3 +1,18 @@
+---
+title: "Using R on a Unix system"
+date: "October 11th, 2018"
+---
+
+Contributors: Mary Piper
+
+Approximate time: 45 minutes
+
+## Learning Objectives
+
+* Illustrate how to set-up personal R libraries on O2 and install packages
+* Demonstrate how to run an R script using `interactive` and `sbatch` jobs
+* Employ positional parameters in an R script to make scripts more flexible
+
 ## Using R on a Unix system
 
 For many analyses using R tools, the ability to utilize the resources of the cluster can greatly improve the speed and allocate greater memory to perform more efficient analyses, particularly for steps in single-cell RNA-seq (clustering, marker identification, and DE analysis) and ChIP-seq (ChIPQC and DiffBind) analyses. To run these analyses on the O2 cluster requires a set-up of a personal R library and X11 forwarding, if you want to interactively visualize output plots. 
