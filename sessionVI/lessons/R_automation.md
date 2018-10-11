@@ -53,7 +53,7 @@ There are various versions of R available on O2.
 $ module load gcc/6.2.0 R/3.5.1 hdf5/1.10.1
 ```
 
-"The `hdf5` package provides an interface between HDF5 and R. HDF5's main features are the ability to store and access very large and/or complex datasets and a wide variety of metadata on mass storage (disk) through a completely portable file format. The rhdf5 package is thus suited for the exchange of large and/or complex datasets between R and other software package, and for letting R applications work on datasets that are larger than the available RAM" [[Bioconductor discription](https://bioconductor.org/packages/release/bioc/html/rhdf5.html)].
+"The `hdf5` package provides an interface between HDF5 and R. HDF5's main features are the ability to store and access very large and/or complex datasets and a wide variety of metadata on mass storage (disk) through a completely portable file format. The rhdf5 package is thus suited for the exchange of large and/or complex datasets between R and other software package, and for letting R applications work on datasets that are larger than the available RAM" [[Bioconductor hdf5 package discription](https://bioconductor.org/packages/release/bioc/html/rhdf5.html)].
 
 ```bash
 $ R
