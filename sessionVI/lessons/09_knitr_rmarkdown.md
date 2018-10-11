@@ -259,7 +259,7 @@ The `knit()` command works great if you only need to generate a single document 
 
 Now that we know some of the basics of RMarkdown, let's convert our Mov10 DE analysis script into an RMarkdown report! 
 
-1. [Download the .Rmd file](https://raw.githubusercontent.com/hbctraining/In-depth-NGS-Data-Analysis-Course/may2017/sessionVI/scripts/de_script_toknit.Rmd)
+1. [Download the .Rmd file](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionVI/scripts/de_script_toknit.rmd)
 2. Open up your DEanalysis R project in Rstudio.
 3. Move your RMarkdown file into the project working directory.
 4. Open up the .Rmd file and <kbd>Knit</kbd> the report.
