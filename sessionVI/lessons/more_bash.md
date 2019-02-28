@@ -8,7 +8,7 @@ duration: 30
 ## Overview
 
 * [Creating shortcuts or `alias`](#alias)
-* [Copying files with `rsync`](#rsync) 
+* [Copying files using `scp` and `rsync`](#rsync) 
 * [Symbolic Links or "sym links"](#symlink)
 
 ***
@@ -61,8 +61,19 @@ You can not try one of them out from the login node.
 
 Similar to what we did above, you can put this (or a similar) command in the `.bashrc` or `.bashprofile` files so it is available when you log on next time.
 
+## Copying files to and from the cluster <a name="rsync"></a>
 
-## Copying files with `rsync` <a name="rsync"></a>
+### `scp`
+
+So far we have used FileZilla to copy files over form O2, but there are other way to do so using the command line interface. Similar to the `cp` command to copy there is a command that allows you to **securely copy files between computers**. The command is called `scp` and allows files to be copied to, from, or between different hosts. It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
+
+The first argument in the example below is the location on the remote server and the second argument is the destination on your local machine. *You can also do this in the opposite direction by swapping the arguments.*
+
+```bash
+$ scp username@transfer.rc.hms.harvard.edu:/path/to/file_on_O2 Path/to/directory/local_machine
+```
+
+### `rsync` 
 
 `rsync` is used to copy or synchronize data between directories. It has many advantages over `cp`, `scp` etc. It works in a specific direction, i.e. from the first diretory **to** the second directory, similar to `cp`.
 
