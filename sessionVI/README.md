@@ -1,28 +1,23 @@
-## Session VI: Variant Calling
+## Session VI: Variant Calling, Version Control, Intermediate Shell
 
 ### Description
 
-Session VI will explore variant calling with students learning about methods and tools for resequencing and identifying sequence variations. We will explore pre-call sequence processing, methods for variant calling and workflows, and functional interpretation of variant calls.
+Session VI will explore variant calling methods and tools for resequencing and identifying sequence variations. We will explore pre-call sequence processing, methods for variant calling and workflows, and functional interpretation of variant calls.
 
-Following the variant calling session, NGS workflow commonalities and suggestions for troubleshooting will be discussed. After a short break, students will explore Git and Github for version control. This will be followed by several short topics including, incorporating version control into R, using the markdown language, using Rmarkdowns to generate reports in RStudio, using R packages like tidyr and others that make up tidyverse, and regular expressions in shell along with a couple of bash commands that can help to improve efficiency.
+**Day1:** We will start the first day with an introduction to variant calling and a guest lecture from Dr. Brad Chapman. Following the lecture, we will discuss alignment tools and pre-call processing. After performing variant calling with FreeBayes we will filter our variant call data for quality. Next, we will annotate the high-confidence variants with known information and use SnpEff to obtain a functional annotation report, and we will finish the day finish with variant prioritization using Gemini.
 
-### Contents
+**Day2:** The second day of this session will start with visualizing the variants identified on Day1 using IGV. Following the variant calling session, NGS workflow commonalities and suggestions for troubleshooting will be discussed (bring any questions regarding any of the NGS workflows!). After the coffee break, students will explore Git and Github for version control. This will be followed by several short topics including, incorporating version control into R, using Rmarkdowns to generate reports in RStudio, and regular expressions in shell along with a couple of bash commands that can help to improve efficiency.   
 
-| Lessons | Estimated Duration |
-|:------------------------|:----------:|
-| [Introduction to variant calling](lectures/) | 60 min |
-| [Variant calling: tools, validation, genomes and output](lectures/) | 90 min |
-| [Alignment with BWA and pre-call processing](lessons/01_alignment.md) | 65 min |
-| [Variant calling with Freebayes, VCF format and filtering VCF](lessons/02_variant-calling.md) | 35 min |
-| [Annotation and Snpeff](lessons/03_annotation-snpeff.md) | 35 min |
-| [Variant prioritization with Gemini](lessons/04_prioritization-gemini.md) | 70 min |
-| Visualization of variant calls with IGV | 30 min |
-| [Workflow comparisons and Troubleshooting](lectures/) | 45 min |
-| [Git: Introduction](lessons/05_git_intro.md) | 15 min |
-| [Git: Basics](lessons/06_git_basics.md) | 60 min |
-| [Git: Github](lessons/07.1_git_github.md) | 45 min |
-| [Introduction to the Markdown language in Github](lessons/07.2_markdown-syntax.md) | 30 min |
-| [RStudio and Github](lessons/08_github_rstudio.md) | 20 min |
-| [R-related Tools: Generating reports with Rmarkdown (Rstudio, knitr)](lessons/09_knitr_rmarkdown.md) | 45 min |
-| [R-related Tools: tidyverse](lessons/10_tidyverse.md) | 45 min |
-| [Bash-related Tools: Regex, grep, sed, awk](lessons/11_bash_tools.md) | 55 min |
+### Lessons
+[Click here for the schedule with links to the lessons.](schedule)
+
+### Learning Objectives
+* Define appropriate BWA alignment parameters and clean-up steps
+* Call variants with Freebayes
+* Demonstrate how to access and add information to the Variant Call Format (VCF)
+* Use vcftools to perform some simple filtering on the variants in the VCF file
+* Incorporate annotation information to filter out important variants
+* Explore variant information through the GEMINI framework
+* Utilize git and Github for version control of scripts and R projects
+* Create professional R analysis reports with Rmarkdown and knitr
+* Demonstrate how to access genomic data, including genome builds, SRA, and other FTP sites
