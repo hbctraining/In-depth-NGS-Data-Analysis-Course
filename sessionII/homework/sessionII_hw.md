@@ -1,4 +1,4 @@
-## Session II: Abundance estimation and R Homework 
+# Session II: Abundance estimation and R Homework 
 
 ### Exploring the STAR parameters when creating an index using the [STAR manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), investigate the parameters of the STAR command to answer the questions following each STAR command script.
 
@@ -22,13 +22,13 @@
 (13) --sjdbOverhang 99
 ```
 
-a. Which line number(s) in the script would you change if you were aligning your reads to the entire genome (instead of chr1)?
+ a. Which line number(s) in the script would you change if you were aligning your reads to the entire genome (instead of chr1)?
 
-b. Provide the modified lines you would use in the script to use reference files from `/groups/shared_databases` on O2. (Hint: see [markdown](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.html) for path information)
+ b. Provide the modified lines you would use in the script to use reference files from `/groups/shared_databases` on O2. (Hint: see [markdown](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/03_QC_STAR_and_Qualimap_run.html) for path information)
 
-c. Could you run this indexing/alignment in STAR if you had no GTF annotation file? If so, which line(s) would change, and how would the line(s) change? 
+ c. Could you run this indexing/alignment in STAR if you had no GTF annotation file? If so, which line(s) would change, and how would the line(s) change? 
 
-d. Which line(s) in the script would you change if the length of your reads were 150nt? How would the line(s) change? 
+ d. Which line(s) in the script would you change if the length of your reads were 150nt? How would the line(s) change? 
 
 
 ### Exploring the Salmon quasi-alignment parameters
@@ -54,13 +54,13 @@ d. Which line(s) in the script would you change if the length of your reads were
 (15) —useVBOpt
 ```
 
-a. Which line(s) in the script would you change if you wanted to change the number of cores you use to use only 3 cores? How would the line(s) change? 
+ a. Which line(s) in the script would you change if you wanted to change the number of cores you use to use only 3 cores? How would the line(s) change? 
 
-b. Would any line(s) in the script change if you used an unstranded library preparation method for sequencing? If so, how would the line(s) change? 
+ b. Would any line(s) in the script change if you used an unstranded library preparation method for sequencing? If so, how would the line(s) change? 
 
-c. Would any line(s) in the script change if you had paired-end data? If so, which line(s) would change, and how would the line(s) change?  
+ c. Would any line(s) in the script change if you had paired-end data? If so, which line(s) would change, and how would the line(s) change?  
 
-d. After performing QC you realized that you have GC bias present in your data. Is there anything you would change to address this when mapping and quantifying with Salmon?
+ d. After performing QC you realized that you have GC bias present in your data. Is there anything you would change to address this when mapping and quantifying with Salmon?
 
 
 ### Positional parameters for scripting
@@ -69,11 +69,11 @@ d. After performing QC you realized that you have GC bias present in your data. 
 
 Run the new script as follows and report back on what the contents of the variable `$0`, `$1`, `$2` and `$@` are in each case.
 
-a. `sh pos_param_test.sh ngs_course 2018 "4" 6`
+ a. `sh pos_param_test.sh ngs_course 2018 "4" 6`
 
-b. `sh pos_param_test.sh this is easy to understand`
+ b. `sh pos_param_test.sh this is easy to understand`
 
-c. `sh pos_param_test.sh 3 x 5 = 15 , 5 x 5 = 25`
+ c. `sh pos_param_test.sh 3 x 5 = 15 , 5 x 5 = 25`
 
 4. Open up vim to create a shell script called run_salmon_single sample.sh. Add a shebang line to the top of your script. Copy and paste the Salmon command we used in class into this script when running it on `Mov10_oe_1.subset.fq`. You should have something like what is shown below:
 
@@ -91,11 +91,11 @@ salmon quant -i /n/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon
  
 Now make the following modifications:
 
-* Remove the argument that writes the mappings to a SAM file
-* Before the Salmon command add a line to create a variable called fq and assign it the value of $1 (the filename that we expect the user to provide)
-* Change your command in the appropriate place(s) to now accept the value from this positional parameter as input to Salmon (which is now stored in the fq variable) **Hint: be sure to reference the variable with a $**
-* Use the fq variable to create a new variable called base that stores a prefix for the output. Change the Salmon command to utilize the base variable for naming out output directory
-* Save and exit vim. Upload this script.
+   - Remove the argument that writes the mappings to a SAM file
+   - Before the Salmon command add a line to create a variable called fq and assign it the value of $1 (the filename that we expect the user to provide)
+   - Change your command in the appropriate place(s) to now accept the value from this positional parameter as input to Salmon (which is now stored in the fq variable) **Hint: be sure to reference the variable with a $**
+   - Use the fq variable to create a new variable called base that stores a prefix for the output. Change the Salmon command to utilize the base variable for naming out output directory
+   - Save and exit vim. Upload this script.
 
 5. From the homework in Session I, you should have the Mov10 knockdown 2 and Mov10 knockdown 3 (`Mov10_kd_2` and `Mov10_kd_3`) sample FASTQ files in your homework directory. Use the shell script you created in #4 to run Salmon on each of these samples.
 
