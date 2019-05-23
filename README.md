@@ -14,22 +14,22 @@ The course is aimed at bench biologists who are interested in learning about NGS
 * high-performance compute clusters, and 
 * R for statistical analysis and data visualization. 
 
-At the end of this course, participants can expect to have the expertise to independently run data analysis for sequencing experiments.
+At the end of this course, participants can expect to have the expertise to independently run data analysis for bulk RNA-seq, ChIP-seq and basic variant calling.
 
 **No prior programming experience or command-line training is required.**
 
-This repo contains the materials for the six sessions of the course. 
-
 ## Contents:
 
-| Description | Time/Duration |
+Click on the topics in the table below to get a detailed description of contents covered in each week of the course.
+
+| Topic | Duration |
 |:-----------:|:----------:|
-|[Introduction to bash, O2 and NGS Data Analysis](sessionI) | 2 Days |
-|[RNA-Seq Part I: Differential Gene Expression Analysis](sessionII) | 2 Days |
-|[RNA-Seq Part II: Differential Gene Expression Analysis](sessionIII)	| 2 Days |
-|[RNA-Seq Part III: Isoform-level differential expression and other applications](sessionIV)| 2 Days |
-|[ChIP-seq](sessionV) | 2 Days |
-|[Variant Calling, Version Control, Intermediate Shell](sessionVI) | 2 Days |
+|[Introduction to bash, O2 and NGS Data Analysis](sessionI) | 2 Days - Week 1 |
+|[RNA-Seq Part I: Differential Gene Expression Analysis](sessionII) | 2 Days  - Week 2|
+|[RNA-Seq Part II: Differential Gene Expression Analysis](sessionIII)	| 2 Days - Week 3 |
+|[RNA-Seq Part III: Isoform-level differential expression and other applications](sessionIV)| 2 Days - Week 4 |
+|[ChIP-seq](sessionV) | 2 Days - Week 5 |
+|[Variant Calling, Version Control, Intermediate Shell](sessionVI) | 2 Days - Week 6|
 
 ---
 
