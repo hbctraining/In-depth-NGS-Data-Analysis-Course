@@ -2,24 +2,28 @@
 
 ### Description
 
-Session II will start with a discussion of common file formats encountered during NGS analyses. We will then tackle RNA-Seq read alignment with STAR, assess the alignment quality, visualize alignments, and count the number of reads associated with genes with featureCounts. We will finish the session by introducing R, which we need to start with differential expression analysis of our count data.
+Session II will start with a discussion of the RNA-seq workflow, highlighting different quantification strategies. We will then tackle additional quality control assessment of STAR-aligned data using the Qualimap tool in order to identify any issues related to contamination or biases in our data. Then, we will use Salmon to perform a more accurate quasi-alignment and quantification. We will finish the session by introducing R, which we need to start with differential expression analysis of our count data.
 
-### Contents
+**Day1:** We will start the first day learning about various types of tools for alignment and quantification. Then we will align the raw sequence data using STAR followed by quality assessment with Qualimap. Students will determine whether the data has any worrisome contamination or biases before moving on to quasi-alignment and quantification with Salmon. MultiQC will be used to assess the quality of the data at all steps in the analysis and is also useful for detecting bias and contamination issues present in the data. We will end the day with an introduction to R and RStudio.
 
-| Lessons            | Estimated Duration |
-|:------------------------|:----------:|
-| [File formats in NGS analysis](lectures/) | 30 min |
-| [Sequence alignment tools and theory](lectures/) | 40 min |
-| [Alignment with STAR](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B1_alignment.md) | 75 min |
-| [Assessing alignment quality](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B2_alignment_quality.md) | 45 min |
-| [Generating a count matrix](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B3_counting_reads.md) | 75 min |
-| [Documenting and MultiQC](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/blob/3dayworkshop/lessons/B4_multiQC.md) | 30 min |
-| [Intro to R and RStudio](https://hbctraining.github.io/Intro-to-R/lessons/01_introR-R-and-RStudio.html) | 40 min |
-| [R syntax and data structure](https://hbctraining.github.io/Intro-to-R/lessons/02_introR-syntax-and-data-structures.html) | 80 min |
-| [Intro to R: Functions and arguments](https://hbctraining.github.io/Intro-to-R/lessons/03_introR-functions-and-arguments.html) | 50 min |
-| [Intro to R: Data wrangling: subsetting vectors and factors](https://hbctraining.github.io/Intro-to-R/lessons/04_introR-data-wrangling.html) | 65 min |
-| [Intro to R: Data wrangling: subsetting matrices, data frames and lists](https://hbctraining.github.io/Intro-to-R/lessons/05_introR-data-wrangling2.html) | 75 min |
-| [Intro to R: Nested functions](https://hbctraining.github.io/Intro-to-R/lessons/introR-nested-functions.html) | 30 min |
+**Day2:** During the second day of this session, we will dive into R, a software environment for statistical computing and graphics. Within R, we will explore basic data structures, data types, data inspection and extraction, reading and writing files, data wrangling, visualization methods using ggplot2 package.
 
-### Practical exercises
-After completion of the session, practice of concepts can be explored with [these exercises]().
+### Lessons
+[Click here for the schedule with links to the lessons.](schedule)
+
+### Learning Objectives
+* Describe and list the steps in a workflow to analyze RNA sequencing data.
+* Describe commonly used data formats utilized within the RNA-seq workflow
+* Examine the quality of mapped data
+* Use a series of command line tools to execute an RNA-seq workflow from raw sequence data to gene experssion counts.
+* Describe considerations for working with datasets of large sizes.
+*  Use the various components of RStudio.
+* Export data tables and plots for use outside of the R environment.
+* Employ variables and functions in R.
+* Modify default behavior of functions using arguments in R.
+* Demonstrate how to install external packages to extend R’s functionality.
+* Identify different R-specific and external sources of help to (1) troubleshoot errors and (2) get more information about functions and packages.
+* Describe the various data types used in R.
+* Construct data structures to store data.
+* Plot graphs using base-R functions and external packages, such as ggplot2.
+* Demonstrate how to subset, merge, and create datasets in R.
