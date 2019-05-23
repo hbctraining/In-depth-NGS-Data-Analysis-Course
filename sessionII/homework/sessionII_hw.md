@@ -2,7 +2,7 @@
 
 ### Exploring the STAR parameters when creating an index using the [STAR manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), investigate the parameters of the STAR command to answer the questions following each STAR command script.
 
-Q1. Below is the script we ran in class to create the **genome index** for alignment with STAR. We have added line numbers to the script to answer the questions that follow (you will need to refer to the online manual for STAR to answer these questions):
+**Q1.** Below is the script we ran in class to create the **genome index** for alignment with STAR. We have added line numbers to the script to answer the questions that follow (you will need to refer to the online manual for STAR to answer these questions):
     
 ```
 (1)  #!/bin/bash
@@ -33,7 +33,7 @@ d. Which line(s) in the script would you change if the length of your reads were
 
 ### Exploring the Salmon quasi-alignment parameters
 
-Q2. Below is the script containing the Salmon command we ran in class to **obtain abundance estimates** for our sequencing reads to the genome. We have added line numbers to the script to answer the questions that follow (you may need to refer to the online manual for [Salmon](https://salmon.readthedocs.io/en/latest/) to answer these questions):
+**Q2.** Below is the script containing the Salmon command we ran in class to **obtain abundance estimates** for our sequencing reads to the genome. We have added line numbers to the script to answer the questions that follow (you may need to refer to the online manual for [Salmon](https://salmon.readthedocs.io/en/latest/) to answer these questions):
 
 ```
 (1)  #!/bin/bash
@@ -65,7 +65,7 @@ d. After performing QC you realized that you have GC bias present in your data. 
 
 ### Positional parameters for scripting
 
-Q3. Use vim to create a script by copying and pasting the contents of [this page](https://steve-parker.org/sh/eg/var3.sh.txt). Call it `pos_param_test.sh`.
+**Q3.** Use vim to create a script by copying and pasting the contents of [this page](https://steve-parker.org/sh/eg/var3.sh.txt). Call it `pos_param_test.sh`.
 
 Run the new script as follows and report back on what the contents of the variable `$0`, `$1`, `$2` and `$@` are in each case.
     
@@ -75,7 +75,7 @@ b. `sh pos_param_test.sh this is easy to understand`
     
 c. `sh pos_param_test.sh 3 x 5 = 15 , 5 x 5 = 25`
     
-Q4. Open up vim to create a shell script called run_salmon_single sample.sh. Add a shebang line to the top of your script. Copy and paste the Salmon command we used in class into this script when running it on `Mov10_oe_1.subset.fq`. You should have something like what is shown below:
+**Q4.** Open up vim to create a shell script called run_salmon_single sample.sh. Add a shebang line to the top of your script. Copy and paste the Salmon command we used in class into this script when running it on `Mov10_oe_1.subset.fq`. You should have something like what is shown below:
 
 ```
 #!/bin/bash
@@ -96,13 +96,13 @@ Now make the following modifications:
    - Use the fq variable to create a new variable called base that stores a prefix for the output. Change the Salmon command to utilize the base variable for naming out output directory
    - Save and exit vim. Upload this script.
     
-Q5. From the homework in Session I, you should have the Mov10 knockdown 2 and Mov10 knockdown 3 (`Mov10_kd_2` and `Mov10_kd_3`) sample FASTQ files in your homework directory. Use the shell script you created in #4 to run Salmon on each of these samples.
+**Q5.** From the homework in Session I, you should have the Mov10 knockdown 2 and Mov10 knockdown 3 (`Mov10_kd_2` and `Mov10_kd_3`) sample FASTQ files in your homework directory. Use the shell script you created in #4 to run Salmon on each of these samples.
 
 ### Introduction to R practice
 
 #### Creating vectors/factors and dataframes
 
-Q6. We are performing RNA-Seq on cancer samples being treated with three different types of treatment (A, B, and P). You have 12 samples total, with 4 replicates per treatment. Write the R code you would use to construct your metadata table as described below.
+**Q6.** We are performing RNA-Seq on cancer samples being treated with three different types of treatment (A, B, and P). You have 12 samples total, with 4 replicates per treatment. Write the R code you would use to construct your metadata table as described below.
 
    - Create the vectors/factors for each column (Hint: you can type out each vector/factor, or if you want the process go faster try exploring the `rep()` function).
    - Put them together into a dataframe called `meta`.
@@ -128,7 +128,7 @@ Your finished metadata table should have information for the variables `sex`, `s
 
 #### Subsetting vectors/factors and dataframes
 
-Q7. Using the `meta` data frame from question #1, write out the R code you would use to perform the following operations (questions **DO NOT** build upon each other):
+**Q7.** Using the `meta` data frame from question #1, write out the R code you would use to perform the following operations (questions **DO NOT** build upon each other):
 
    - return only the `treatment` and `sex` columns using `[]`:
    - return the `treatment` values for samples 5, 7, 9, and 10 using `[]`:
@@ -142,7 +142,7 @@ Q7. Using the `meta` data frame from question #1, write out the R code you would
 
 #### Releveling Factors
 
-Q8. Use the `samplegroup` factor we created in class, and relevel it such that KO is the first level followed by CTL and OE.
+**Q8.** Use the `samplegroup` factor we created in class, and relevel it such that KO is the first level followed by CTL and OE.
 
 #### More practice with R and "Nesting" (optional)
 
@@ -175,7 +175,7 @@ Let's derive some nested functions similar to those we will use in our RNA-Seq a
 |IR.3|	siRNA	|normal|
 
 
-Q9. We would like to count the number of samples which have normal Mov10 expression (`MOVexpr`) in the `meta` dataset. Let's do this in steps:
+**Q9.** We would like to count the number of samples which have normal Mov10 expression (`MOVexpr`) in the `meta` dataset. Let's do this in steps:
  
    - Write the R code you would run to return the row numbers of the samples with `MOVexpr` equal to "normal".
 
@@ -183,7 +183,7 @@ Q9. We would like to count the number of samples which have normal Mov10 express
 
    - Now, try to combine your first two actions into a single line of code using nested functions to determine the number of elements in the MOVexpr column with expression levels of MOV10 being normal. 
 
-Q10. Now we would like to add the `MX1` and `MX3` columns to the `meta` data frame. Let's do this in steps:
+**Q10.** Now we would like to add the `MX1` and `MX3` columns to the `meta` data frame. Let's do this in steps:
 
    - Write the R code you would run to extract columns `MX1` and `MX3` from the `value_table` and to save it to a variable `mx` (hint: you will need to use the `c()` function to specify the columns you want to extract). 
 
