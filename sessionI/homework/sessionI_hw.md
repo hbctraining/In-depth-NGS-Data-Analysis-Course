@@ -1,8 +1,6 @@
 # Session I: UNIX, HPC and FastQC Homework
 
 
- 
-
 ## Logging in and starting an interactive job
 
 1. Log into O2 and start a single core interactive job.
@@ -85,7 +83,7 @@ Mov10_oe_2.fastq
 
 * Make a copy of the mov10_fastqc.run script created during Session I, into your `ngs-course-homework` directory and give it the name hw_fastqc.run. Modify this newly copied script to perform FastQC on the following samples **in parallel**:
 
-Irrel_kd_2.subset.fq, Mov10_kd_2.subset.fq, Mov10_oe_2.subset.fq
+`Irrel_kd_2.subset.fq, Mov10_kd_2.subset.fq, Mov10_oe_2.subset.fq`
 
 * Use Filezilla to download the zipped files to your own computer and examine the FastQC reports.
 * Which samples have quality scores that drop below a score of 25?
