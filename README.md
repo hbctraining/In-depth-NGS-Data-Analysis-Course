@@ -28,7 +28,7 @@ This repo contains the materials for the six sessions of the course.
 |[Introduction to bash, O2 and NGS Data Analysis](sessionI) | 2 Days |
 |[RNA-Seq Part I: Differential Gene Expression Analysis](sessionII) | 2 Days |
 |[RNA-Seq Part II: Differential Gene Expression Analysis](sessionIII)	| 2 Days |
-|[RNA-Seq Part III: Isoform-level differential expression, automation, and other RNA-seq applications](sessionIV)| 2 Days |
+|[RNA-Seq Part III: Isoform-level differential expression and other applications](sessionIV)| 2 Days |
 |ChIP-seq | 2 Days |
 |Variant Calling, Version Control | 2 Days |
 
