@@ -1,6 +1,8 @@
 # Session II: Abundance estimation and R Homework 
 
-### Exploring the STAR parameters when creating an index using the [STAR manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), investigate the parameters of the STAR command to answer the questions following each STAR command script.
+### Exploring the STAR aligner parameters
+
+Exploring the STAR parameters when creating an index using the [STAR manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), investigate the parameters of the STAR command to answer the questions following each STAR command script.
 
 **Q1.** Below is the script we ran in class to create the **genome index** for alignment with STAR. We have added line numbers to the script to answer the questions that follow (you will need to refer to the online manual for STAR to answer these questions):
     
