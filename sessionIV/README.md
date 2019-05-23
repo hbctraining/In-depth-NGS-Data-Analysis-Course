@@ -1,4 +1,4 @@
-## Session IV: Isoform-level differential expression, automation, and other RNA-seq applications
+## Session IV: Isoform-level differential expression and other RNA-seq applications
 
 ### Description
 
