@@ -50,11 +50,11 @@ Now, open a new Terminal window, and try these out! You will still need to add y
 You can now create an alias to run an interactive session on O2!
 
 ```bash
-alias interactive=`srun --pty -p interactive bash`
+alias interactive=`srun --pty -p interactive -t 0-12:00 --mem 1G /bin/bash`
 
 # and/OR
 
-alias interactive6='srun --pty -p interactive -n 6 --mem 8G bash'
+alias interactive6='srun --pty -p interactive -t 0-12:00 -c 6 --mem 6G /bin/bash'
 ```
 
 You can not try one of them out from the login node.
