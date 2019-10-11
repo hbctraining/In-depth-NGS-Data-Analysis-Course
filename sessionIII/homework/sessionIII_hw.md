@@ -50,7 +50,7 @@ Using these new cutoffs, perform the following steps:
 
 a. Subset `res_tableOE` to only return those rows that meet the criteria we specified above (adjusted p-values < 0.01 and log fold changes >1.5). Save the subsetted table to a data frame called `sig_table_hw_oe`. **Write the code below**:
 
-b. There is a DESeq2 function that summarizes how many genes are up- and down-regulated using our criteria for alpha=0.01. Use this on the `sig_table_hw_oe`. **Write the code you would use, and also, list how many genes are up- and down-regulated**.
+b. There is a DESeq2 function that summarizes how many genes are up- and down-regulated using our criteria for alpha=0.01. Use this on the `res_tableOE`. **Write the code you would use, and also, list how many genes are up- and down-regulated**.
 
 c. Get the gene names from `sig_table_hw_o`e and save them to a vector called `sigOE_hw`. **Write the code below**:
 
