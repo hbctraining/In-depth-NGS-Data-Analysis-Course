@@ -72,10 +72,10 @@ Now you can test it out!
 $ o2i
 ```
 
-Similar to what we did above, you can put this (or a similar) command in the `.bashrc` file so it is available when you log on next time.
+Similar to what we did above, you can put this (or a similar) command in the `.bash_profile` file so it is available when you log on next time.
 
 > ### `.bashrc` versus `.bash_profile`
-> `.bash_profile` is executed for login shells, while `.bashrc` is executed for interactive non-login shells. When you login (type username and password) to O2 the `.bash_profile` is executed. So if you want the alias available **only** when you login, you will want to put it in your `.bash_profile`
+> `.bash_profile` is executed for login shells, while `.bashrc` is executed for interactive non-login shells. When you login (type username and password) to O2 the `.bash_profile` is executed. So if you want the alias available **only** when you login, you will want to put it in your `.bash_profile`. 
 
 ## Copying files to and from the cluster <a name="rsync"></a>
 
@@ -111,6 +111,8 @@ Now see that the file has transferred over:
 $ less draft.txt
 ```
 
+> **NOTE:** Windows users may encounter a permissions error when using `scp` to copy over locally. We are not sure how to troubleshoot this, but will update materials as we obtain more information.
+
 ### `rsync` 
 
 `rsync` is used to copy or synchronize data between directories. It has many advantages over `cp`, `scp` etc. It works in a specific direction, i.e. from the first directory **to** the second directory, similar to `cp`.
@@ -139,6 +141,12 @@ When copying over large datasets to or from a remote machine, `rsync` works simi
 #DO NOT RUN
 $ rsync -av -e ssh testfile username@transfer.rc.hms.harvard.edu:~/large_files/
 ```
+
+* `a` is for archive - means it preserves permissions (owners, groups), times, symbolic links, and devices.
+* `v` is for verbosity - means that it prints on the screen what is being copied
+* `-e ssh` is for encryption - means that we want to use the ssh protocol for encryption of the file transfer
+
+*More helpful information and examples using rsync can be found [at this link](https://www.comentum.com/rsync.html)*
 
 > Please do not use O2’s login nodes for transferring large datasets (like fastq files) between your computer and O2 with `rsync` or `scp`. Instead, use the transfer nodes `ssh eCommons@transfer.rc.hms.harvard.edu`.
 
