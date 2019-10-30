@@ -1,7 +1,7 @@
 ---
 title: "Bash_extras"
-author: "Radhika Khetani"
-date: 2017-07-06
+author: "Radhika Khetani", "Meeta Mistry"
+date: 2019-10-29
 duration: 30
 ---
 
@@ -25,7 +25,7 @@ $ ls -l
 $ ll
 ```
 
-`ll` should have output the same thing as `ls -l`. Why does it work this way? This is because the HMSRC folks have internally setup what is called an **alias**. 
+`ll` should have output the same thing as `ls -l`. Why does it work this way? This is because the HMS-RC folks have internally setup what is called an **alias**. 
 
 A **shell alias is a shortcut to reference a command**. It can be used to avoid typing long commands. For common patterns it can reduce keystrokes and improve efficiency. A simple example is setting default options on commands to avoid having to type them each time a command is run.
 
@@ -41,7 +41,6 @@ However, this alias is only going to be available to you while that Terminal win
 You would add it to `~/.bashrc`! Let's open `~/.bashrc` and add a few commands to it. At the bottom of the file you should see a header titled "User specific aliases". Under that header go ahead and add the alias.
 
 ```bash
-
 $ vim ~/.bashrc
 
 # .bashrc
@@ -69,7 +68,7 @@ $ rm  ~/unix_lesson/other/draft.txt
 As we mentioned, aliases are super helpful for long commands that we are repeatedly having to tyoe out. A good example of this is the `srun` command for starting and interactive session. **First exit the interactive session and get on a login node, if you are not there already.**
 
 ```bash
-$ alias o2i='srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC /bin/bash'
+$ alias o2i='srun --pty -p interactive -t 0-12:00 --mem 2G --reservation=HBC /bin/bash'
 ```
 
 Now you can test it out!
@@ -107,7 +106,7 @@ $ scp rc_trainingXX@transfer.rc.hms.harvard.edu:~/unix_lesson/other/draft.txt  ~
 
 ### `rsync` 
 
-`rsync` is used to copy or synchronize data between directories. It has many advantages over `cp`, `scp` etc. It works in a specific direction, i.e. from the first diretory **to** the second directory, similar to `cp`.
+`rsync` is used to copy or synchronize data between directories. It has many advantages over `cp`, `scp` etc. It works in a specific direction, i.e. from the first directory **to** the second directory, similar to `cp`.
 
 **Salient Features of `rsync`**
 
@@ -134,13 +133,12 @@ When copying over large datasets to or from a remote machine, `rsync` works simi
 $ rsync -av -e ssh testfile username@transfer.rc.hms.harvard.edu:~/large_files/
 ```
 
-> Please do not use O2’s login servers for heavy I/O jobs like `rsync` or `scp`. When transfering large files to and from O2, use their transfer server `transfer.rc.hms.harvard.edu.
-
+> Please do not use O2’s login nodes for transferring large datasets (like fastq files) between your computer and O2 with `rsync` or `scp`. Instead, use the transfer nodes `ssh eCommons@transfer.rc.hms.harvard.edu.
 
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
 
-Symbolic links are like shortcuts you may create on mac. Let's check out an example of a folder with lots of symlinks.
+Symbolic links are like shortcuts you may create on your laptop. Let's check out an example of a folder with lots of symlinks.
 
 
 ```bash
