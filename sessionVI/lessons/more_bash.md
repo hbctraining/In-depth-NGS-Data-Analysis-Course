@@ -20,7 +20,7 @@ In your terminal, do the following:
 ```bash
 $ cd
 
-$ ls -lh
+$ ls -l
 
 $ ll
 ```
@@ -69,13 +69,13 @@ $ rm  ~/unix_lesson/other/draft.txt
 As we mentioned, aliases are super helpful for long commands that we are repeatedly having to tyoe out. A good example of this is the `srun` command for starting and interactive session. **First exit the interactive session and get on a login node, if you are not there already.**
 
 ```bash
-alias o2i='srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC /bin/bash'
+$ alias o2i='srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC /bin/bash'
 ```
 
 Now you can test it out!
 
 ```bash
-o2i
+$ o2i
 ```
 
 Similar to what we did above, you can put this (or a similar) command in the `.bashrc` file so it is available when you log on next time.
