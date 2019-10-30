@@ -15,51 +15,73 @@ duration: 30
 
 ## Setting up some `alias`es <a name="alias"></a>
 
-On your local machine do the following:
+In your terminal, do the following:
 
 ```bash
 $ cd
 
-$ ls -l
+$ ls -lh
 
 $ ll
 ```
 
-`ll` should not work for you, but it works on my computer, why? It's because I have set up an alias for my bash environment, using the `alias` command, such that it knows that I want to actually do `ls -l` when I say `ll`. Let's set it up for your environment.
+`ll` should have output the same thing as `ls -l`. Why does it work this way? This is because the HMSRC folks have internally setup what is called an **alias**. 
+
+A **shell alias is a shortcut to reference a command**. It can be used to avoid typing long commands. For common patterns it can reduce keystrokes and improve efficiency. A simple example is setting default options on commands to avoid having to type them each time a command is run.
+
+For example suppose that because you are just starting out on the cluster, and you prefer to confirm deleting a file before using the `rm` command. Remember that the `rm` command supports this with the `-i` option. To avoid forgetting to use the `-i` option each time, an alias can be created so that each time `rm` is run it will use the `-i` option and prompt the user to confirm.
+
 
 ```bash
-$ alias ll='ls -l'
-
-$ ll
+$ alias rm='rm -i'
 ```
 
-This alias is only going to be available to you while that Terminal window is open. If you wanted to use that alias all the time, what would you do? 
+However, this alias is only going to be available to you while that Terminal window is open. If you wanted to **use that alias all the time, what would you do?** 
 
-You would add it to `~/.bashrc` or `~/.bash_profile`!
-
-Let's open either `~/.bash_profile` or `~/.bashrc` files on your laptop (*not on orchestra*), and add a few commands to it.
+You would add it to `~/.bashrc`! Let's open `~/.bashrc` and add a few commands to it. At the bottom of the file you should see a header titled "User specific aliases". Under that header go ahead and add the alias.
 
 ```bash
-alias ll='ls -l'
 
-alias o2='ssh <your_ecommons_ID>@o2.hms.harvard.edu'
+$ vim ~/.bashrc
+
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
 ```
 
-Now, open a new Terminal window, and try these out! You will still need to add your password, if you want to set up some "ssh keys" so that you don't have to enter your password you can find more information [within the O2 documentation](https://wiki.rc.hms.harvard.edu/display/O2/How+to+Generate+SSH+Keys).
-
-You can now create an alias to run an interactive session on O2!
+Now, we can source the `.bashrc` file for the alias to take effect and we can try it out. You should see the question `
+remove draft.txt?` and here you can answer `n` for No.
 
 ```bash
-alias interactive=`srun --pty -p interactive bash`
+$ source ~/.bashrc
 
-# and/OR
-
-alias interactive6='srun --pty -p interactive -n 6 --mem 8G bash'
+$ rm  ~/unix_lesson/other/draft.txt 
 ```
 
-You can not try one of them out from the login node.
+As we mentioned, aliases are super helpful for long commands that we are repeatedly having to tyoe out. A good example of this is the `srun` command for starting and interactive session. **First exit the interactive session and get on a login node, if you are not there already.**
 
-Similar to what we did above, you can put this (or a similar) command in the `.bashrc` or `.bashprofile` files so it is available when you log on next time.
+```bash
+alias o2i='srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC /bin/bash'
+```
+
+Now you can test it out!
+
+```bash
+o2i
+```
+
+Similar to what we did above, you can put this (or a similar) command in the `.bashrc` file so it is available when you log on next time.
+
+> ### `.bashrc` versus `.bash_profile`
+> `.bash_profile` is executed for login shells, while `.bashrc` is executed for interactive non-login shells. When you login (type username and password) to O2 the `.bash_profile` is executed. So if you want the alias available when you login, you will want to put it in your `.bash_profile`
 
 ## Copying files to and from the cluster <a name="rsync"></a>
 
