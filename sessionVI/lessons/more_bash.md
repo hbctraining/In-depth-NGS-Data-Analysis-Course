@@ -42,19 +42,14 @@ You would add it to `~/.bashrc`! Let's open `~/.bashrc` and add a few commands t
 
 ```bash
 $ vim ~/.bashrc
-
-# .bashrc
-
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
-
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
-# User specific aliases and functions
 ```
+
+Add in a line at the end of your `.bashrc` file:
+
+```
+alias rm='rm -i'
+```
+
 
 Now, we can source the `.bashrc` file for the alias to take effect and we can try it out. You should see the question `
 remove draft.txt?` and here you can answer `n` for No.
@@ -98,10 +93,22 @@ In the example below, the first argument is the **location on the remote server*
 $ scp username@transfer.rc.hms.harvard.edu:/path/to/file_on_O2 Path/to/directory/local_machine
 ```
 
-Let's try copying over the README file from your `unix_lesson` folder:
+Let's try copying over the README file from your `unix_lesson` folder. **First open up a new terminal window.**  Look and see where you currently are:
 
 ```bash
-$ scp rc_trainingXX@transfer.rc.hms.harvard.edu:~/unix_lesson/other/draft.txt  ~/Desktop/
+$ pwd
+```
+
+Then type in:
+
+```bash
+$ scp rc_trainingXX@transfer.rc.hms.harvard.edu:~/unix_lesson/other/draft.txt  .
+```
+
+Now see that the file has transferred over:
+
+```bash
+$ less draft.txt
 ```
 
 ### `rsync` 
@@ -133,7 +140,7 @@ When copying over large datasets to or from a remote machine, `rsync` works simi
 $ rsync -av -e ssh testfile username@transfer.rc.hms.harvard.edu:~/large_files/
 ```
 
-> Please do not use O2’s login nodes for transferring large datasets (like fastq files) between your computer and O2 with `rsync` or `scp`. Instead, use the transfer nodes `ssh eCommons@transfer.rc.hms.harvard.edu.
+> Please do not use O2’s login nodes for transferring large datasets (like fastq files) between your computer and O2 with `rsync` or `scp`. Instead, use the transfer nodes `ssh eCommons@transfer.rc.hms.harvard.edu`.
 
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
