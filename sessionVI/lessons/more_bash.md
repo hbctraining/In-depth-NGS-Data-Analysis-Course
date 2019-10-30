@@ -75,7 +75,7 @@ $ o2i
 Similar to what we did above, you can put this (or a similar) command in the `.bashrc` file so it is available when you log on next time.
 
 > ### `.bashrc` versus `.bash_profile`
-> `.bash_profile` is executed for login shells, while `.bashrc` is executed for interactive non-login shells. When you login (type username and password) to O2 the `.bash_profile` is executed. So if you want the alias available when you login, you will want to put it in your `.bash_profile`
+> `.bash_profile` is executed for login shells, while `.bashrc` is executed for interactive non-login shells. When you login (type username and password) to O2 the `.bash_profile` is executed. So if you want the alias available **only** when you login, you will want to put it in your `.bash_profile`
 
 ## Copying files to and from the cluster <a name="rsync"></a>
 
