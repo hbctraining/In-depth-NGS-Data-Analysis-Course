@@ -145,19 +145,21 @@ $ rsync -av -e ssh testfile username@transfer.rc.hms.harvard.edu:~/large_files/
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
 
-Symbolic links are like shortcuts you may create on your laptop. Let's check out an example of a folder with lots of symlinks.
+Symbolic links are like shortcuts you may create on your laptop. A sym link makes it appear as if the linked object is actually there. It can be useful to access a file from multiple locations without creating copies and without using much disk space. (Symlinks are only a few bytes in size.)
+
+Let's check out an example of a folder with lots of symlinks.
 
 
 ```bash
 ls -l /n/app/bcbio/tools/bin/
 ```
 
-Now, let's create a shortcut in our home directory for that folder with the scripts for session IV homework.
+Now, let's create a sym link in our home directory for the same `unix_lesson` folder we had originally copied over.
 
 ```bash
 $ cd
 
-$ ln -s /n/groups/hbctraining/ngs-data-analysis-longcourse/sessionIV_hmwk/ rnaseq_homework_NGScourse
+$ ln -s /n/groups/hbctraining/unix_lesson/ unix_lesson_sym
 
 $ ls -l
 ```
