@@ -85,14 +85,24 @@ Similar to what we did above, you can put this (or a similar) command in the `.b
 
 ## Copying files to and from the cluster <a name="rsync"></a>
 
+So far we have used FileZilla to copy files over from O2, but there are other way to do so using the command line interface. When you obtain your data from the sequencing facility, it will likely be stored on some remote computer and they will give you login credentials which will allow you to access it. There are various commands that can be used to help you copy those files from the remote computer over to 1) your local computer, 2) O2, or 3) whatever cluster environment you plan to work on. We present a few options here.
+
 ### `scp`
 
-So far we have used FileZilla to copy files over form O2, but there are other way to do so using the command line interface. Similar to the `cp` command to copy there is a command that allows you to **securely copy files between computers**. The command is called `scp` and allows files to be copied to, from, or between different hosts. It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
+Similar to the `cp` command to copy there is a command that allows you to **securely copy files between computers**. The command is called `scp` and allows files to be copied to, from, or between different hosts. It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
 
-The first argument in the example below is the location on the remote server and the second argument is the destination on your local machine. *You can also do this in the opposite direction by swapping the arguments.*
+In the example below, the first argument is the **location on the remote server** and the second argument is the **destination on your local machine**. 
+
+> *You can also do this in the opposite direction by swapping the arguments.*
 
 ```bash
 $ scp username@transfer.rc.hms.harvard.edu:/path/to/file_on_O2 Path/to/directory/local_machine
+```
+
+Let's try copying over the README file from your `unix_lesson` folder:
+
+```bash
+$ scp rc_trainingXX@transfer.rc.hms.harvard.edu:~/unix_lesson/other/draft.txt  ~/Desktop/
 ```
 
 ### `rsync` 
