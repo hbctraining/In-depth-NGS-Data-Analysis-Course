@@ -109,6 +109,14 @@ $ scp rc_trainingXX@transfer.rc.hms.harvard.edu:~/unix_lesson/other/draft.txt  ~
 
 `rsync` is used to copy or synchronize data between directories. It has many advantages over `cp`, `scp` etc. It works in a specific direction, i.e. from the first diretory **to** the second directory, similar to `cp`.
 
+**Salient Features of `rsync`**
+
+* If the command (or transfer) is interrupted, you can start it again and *it will restart from where it was interrupted*.
+* Once a folder has been synced between 2 locations, the next time you run `rsync` it will *only update and not copy everything over again*. 
+* It runs a check to ensure that every file it is "syncing" over is the exact same in both locations. This check is run using a version of ["checksum"](https://en.wikipedia.org/wiki/Checksum) which ensures the data integrity during the data transfer process. 
+
+> You can run the checksum function yourself when transferring large datasets without `rsync` using one of the following commands (or similar): `md5`, `md5sum`.
+
 
 ### Between directories on the same machine
 
@@ -123,18 +131,11 @@ When copying over large datasets to or from a remote machine, `rsync` works simi
 
 ```bash
 #DO NOT RUN
-$ rsync -av -e ssh testfile <your_ecommons_ID>@transfer.o2.hms.harvard.edu:~/large_files/
+$ rsync -av -e ssh testfile username@transfer.rc.hms.harvard.edu:~/large_files/
 ```
 
-> Please do not use Orchestra’s login servers for heavy I/O jobs like rsync or sftp. When transfering large files to and from O2, use their transfer server `transfer.o2.hms.harvard.edu`.
+> Please do not use O2’s login servers for heavy I/O jobs like `rsync` or `scp`. When transfering large files to and from O2, use their transfer server `transfer.rc.hms.harvard.edu.
 
-**Salient Features of `rsync`**
-
-* If the command (or transfer) is interrupted, you can start it again and *it will restart from where it was interrupted*.
-* Once a folder has been synced between 2 locations, the next time you run `rsync` it will *only update and not copy everything over again*. 
-* It runs a check to ensure that every file it is "syncing" over is the exact same in both locations. This check is run using a version of ["checksum"](https://en.wikipedia.org/wiki/Checksum). 
-
-> You can run the checksum function yourself when transferring large datasets without `rsync` using one of the following commands (or similar): `md5`, `md5sum`.
 
 
 ## Symbolic Links or "sym links" <a name="symlink"></a>
